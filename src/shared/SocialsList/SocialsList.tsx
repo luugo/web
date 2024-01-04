@@ -9,8 +9,8 @@ export interface SocialsListProps {
 }
 
 const socialsDemo = [
-  { name: "Youtube", icon: youtube, href: "#" },
-  { name: "Instagram", icon: instagram, href: "#" },
+  { name: "Youtube", icon: youtube, href: "https://www.youtube.com/channel/UCtAW7HDg8zt41_Haeqwt2qQ" },
+  { name: "Instagram", icon: instagram, href: "https://www.instagram.com/luugoapp?utm_source=ig_web_button_share_sheet&igsh=OGQ5ZDc2ODk2ZA==" },
 ];
 
 const SocialsList: FC<SocialsListProps> = ({
