@@ -1,8 +1,6 @@
 import React, { FC } from "react";
-import facebook from "@/images/socials/facebook.svg";
-import twitter from "@/images/socials/twitter.svg";
-import telegram from "@/images/socials/telegram.svg";
 import youtube from "@/images/socials/youtube.svg";
+import instagram from "@/images/socials/instagram.svg";
 import Image from "next/image";
 
 export interface SocialsListProps {
@@ -11,10 +9,8 @@ export interface SocialsListProps {
 }
 
 const socialsDemo = [
-  { name: "Facebook", icon: facebook, href: "#" },
-  { name: "Twitter", icon: twitter, href: "#" },
   { name: "Youtube", icon: youtube, href: "#" },
-  { name: "Telegram", icon: telegram, href: "#" },
+  { name: "Instagram", icon: instagram, href: "#" },
 ];
 
 const SocialsList: FC<SocialsListProps> = ({
