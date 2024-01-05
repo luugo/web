@@ -22,19 +22,19 @@ const BlogSingle = () => {
       <div className="col-lg-3">
         <nav className="privacy-nav">
           <ol>
-            <li><a className="nav-link scrollTo" href="#definicoes" className="scrollTo">Definições</a></li>
-            <li><a className="nav-link scrollTo" href="#informacoes_pessoais" className="scrollTo">Informações
+            <li><a className="nav-link scrollTo" href="#definicoes">Definições</a></li>
+            <li><a className="nav-link scrollTo" href="#informacoes_pessoais">Informações
               pessoais</a></li>
-            <li><a className="nav-link scrollTo" href="#como_usamos_as_informacoes" className="scrollTo">Como
+            <li><a className="nav-link scrollTo" href="#como_usamos_as_informacoes">Como
               usamos as informações que coletamos</a></li>
-            <li><a className="nav-link scrollTo" href="#compartilhamento" className="scrollTo">Compartilhamento
+            <li><a className="nav-link scrollTo" href="#compartilhamento">Compartilhamento
               e divulgação</a></li>
-            <li><a className="nav-link scrollTo" href="#outras_informacoes" className="scrollTo">Outras
+            <li><a className="nav-link scrollTo" href="#outras_informacoes">Outras
               Informações Importantes</a></li>
-            <li><a className="nav-link scrollTo" href="#gerenciamento" className="scrollTo">Gerenciamento de
+            <li><a className="nav-link scrollTo" href="#gerenciamento">Gerenciamento de
               suas informações</a></li>
-            <li><a className="nav-link scrollTo" href="#seguranca" className="scrollTo">Segurança</a></li>
-            <li><a className="nav-link scrollTo" href="#alteracoes" className="scrollTo">Alterações a esta
+            <li><a className="nav-link scrollTo" href="#seguranca">Segurança</a></li>
+            <li><a className="nav-link scrollTo" href="#alteracoes">Alterações a esta
               política de privacidade</a></li>
           </ol>
         </nav>
