@@ -1,7 +1,8 @@
 import { SocialType } from "@/shared/SocialsShare/SocialsShare";
 import React, { FC } from "react";
+import facebook from "@/images/socials/facebook.svg";
+import twitter from "@/images/socials/twitter.svg";
 import instagram from "@/images/socials/instagram.svg";
-import youtube from "@/images/socials/youtube.svg";
 import Image from "next/image";
 
 export interface SocialsList1Props {
@@ -9,8 +10,9 @@ export interface SocialsList1Props {
 }
 
 const socials: SocialType[] = [
-  { name: "Youtube", icon: youtube, href: "https://www.youtube.com/channel/UCtAW7HDg8zt41_Haeqwt2qQ" },
-  { name: "Instagram", icon: instagram, href: "https://www.instagram.com/luugoapp?utm_source=ig_web_button_share_sheet&igsh=OGQ5ZDc2ODk2ZA==" },
+  { name: "Facebook", icon: facebook, href: "https://www.facebook.com/profile.php?id=100083365119878" },
+  { name: "Telegram", icon: instagram, href: "https://www.instagram.com/luugoapp/" },
+  { name: "Twitter", icon: twitter, href: "https://twitter.com/Luugoapp" },
 ];
 
 const SocialsList1: FC<SocialsList1Props> = ({ className = "space-y-3" }) => {
