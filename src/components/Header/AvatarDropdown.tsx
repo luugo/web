@@ -5,7 +5,34 @@ import { avatarImgs } from "@/contains/fakeData";
 import { Fragment } from "react";
 import Avatar from "@/shared/Avatar/Avatar";
 import SwitchDarkMode2 from "@/shared/SwitchDarkMode/SwitchDarkMode2";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary"; 
 import Link from "next/link";
+
+const isLoggedIn = ({close}) => {
+  const storedUser = localStorage.getItem('user');
+  const user = storedUser ? JSON.parse(storedUser) : null;
+  if(user) {
+      return (
+        <div className="flex items-center space-x-3">
+          <Avatar imgUrl={avatarImgs[7]} sizeClass="w-12 h-12" />
+
+          <div className="flex-grow">
+            <h4 className="font-semibold">{user.firstName} {user.lastName}</h4>
+            <p className="text-xs mt-0.5">{user.place}</p>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <ButtonPrimary
+          className="w-full"
+          href="/login"
+          onClick={() => close()}>
+          Login
+        </ButtonPrimary>
+      )
+    }
+}
 
 export default function AvatarDropdown() {
   return (
@@ -50,14 +77,8 @@ export default function AvatarDropdown() {
               <Popover.Panel className="absolute z-10 w-screen max-w-[260px] px-4 mt-3.5 -right-10 sm:right-0 sm:px-0">
                 <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid grid-cols-1 gap-6 bg-white dark:bg-neutral-800 py-7 px-6">
-                    <div className="flex items-center space-x-3">
-                      <Avatar imgUrl={avatarImgs[7]} sizeClass="w-12 h-12" />
-
-                      <div className="flex-grow">
-                        <h4 className="font-semibold">Eden Smith</h4>
-                        <p className="text-xs mt-0.5">Los Angeles, CA</p>
-                      </div>
-                    </div>
+                    
+                    {isLoggedIn({close})}
 
                     <div className="w-full border-b border-neutral-200 dark:border-neutral-700" />
 
@@ -285,7 +306,11 @@ export default function AvatarDropdown() {
                     <Link
                       href={"/#"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                      onClick={() => close()}
+                      onClick={() => {
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('token');
+                        close()
+                      }}
                     >
                       <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
                         <svg

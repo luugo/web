@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+"use client"
+import React, { useState } from "react";
 import facebookSvg from "@/images/Facebook.svg";
 import twitterSvg from "@/images/Twitter.svg";
 import googleSvg from "@/images/Google.svg";
@@ -6,26 +7,70 @@ import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Alert } from "@/shared/Alert/Alert";
+import { AuthenticationApi } from "../../../luugoapi";
 
 const loginSocials = [
-  {
-    name: "Continue with Facebook",
-    href: "#",
-    icon: facebookSvg,
-  },
-  {
-    name: "Continue with Twitter",
-    href: "#",
-    icon: twitterSvg,
-  },
-  {
-    name: "Continue with Google",
-    href: "#",
-    icon: googleSvg,
-  },
+  // {
+  //   name: "Continue with Facebook",
+  //   href: "#",
+  //   icon: facebookSvg,
+  // },
+  // {
+  //   name: "Continue with Twitter",
+  //   href: "#",
+  //   icon: twitterSvg,
+  // },
+  // {
+  //   name: "Continue with Google",
+  //   href: "#",
+  //   icon: googleSvg,
+  // },
 ];
 
+const renderOR = () => {
+  if(loginSocials.length > 0) {
+    return (
+      <div className="relative text-center">
+        <span className="relative z-10 inline-block px-4 font-medium text-sm bg-white dark:text-neutral-400 dark:bg-neutral-900">
+          OR
+        </span>
+        <div className="absolute left-0 w-full top-1/2 transform -translate-y-1/2 border border-neutral-100 dark:border-neutral-800"></div>
+      </div>
+    )
+  }
+}
+
 const PageLogin = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const authenticationApi = new AuthenticationApi();
+    const requestParameters = {
+      authenticationPostRequest: {
+        username,
+        password,
+      }
+    }
+    console.log(typeof username)
+    console.log(typeof password)
+
+    const result = await authenticationApi.authenticationPostRaw(requestParameters)
+    const data = await result.value();
+
+    if(data.token) {
+      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('token', JSON.stringify(data.token));
+      router.push("/home");
+    }
+
+  };
+  
   return (
     <div className={`nc-PageLogin`} data-nc-id="PageLogin">
       <div className="container mb-24 lg:mb-32">
@@ -53,14 +98,10 @@ const PageLogin = () => {
             ))}
           </div>
           {/* OR */}
-          <div className="relative text-center">
-            <span className="relative z-10 inline-block px-4 font-medium text-sm bg-white dark:text-neutral-400 dark:bg-neutral-900">
-              OR
-            </span>
-            <div className="absolute left-0 w-full top-1/2 transform -translate-y-1/2 border border-neutral-100 dark:border-neutral-800"></div>
-          </div>
+          {renderOR()}
           {/* FORM */}
-          <form className="grid grid-cols-1 gap-6" action="#" method="post">
+          <form className="grid grid-cols-1 gap-6"
+           onSubmit={(e) => handleSubmit(e)}>
             <label className="block">
               <span className="text-neutral-800 dark:text-neutral-200">
                 Email address
@@ -69,6 +110,8 @@ const PageLogin = () => {
                 type="email"
                 placeholder="example@example.com"
                 className="mt-1"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </label>
             <label className="block">
@@ -78,9 +121,11 @@ const PageLogin = () => {
                   Forgot password?
                 </Link>
               </span>
-              <Input type="password" className="mt-1" />
+              <Input type="password" className="mt-1"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)} />
             </label>
-            <ButtonPrimary type="submit">Continue</ButtonPrimary>
+            <ButtonPrimary type="submit" onClick={handleSubmit}>Continue</ButtonPrimary>
           </form>
 
           {/* ==== */}
