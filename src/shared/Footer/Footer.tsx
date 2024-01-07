@@ -12,42 +12,26 @@ export interface WidgetFooterMenu {
 const widgetMenus: WidgetFooterMenu[] = [
   {
     id: "5",
-    title: "Getting started",
+    title: "Produto",
     menus: [
-      { href: "/", label: "Release Notes" },
-      { href: "/", label: "Upgrade Guide" },
-      { href: "/", label: "Browser Support" },
-      { href: "/", label: "Dark Mode" },
-    ],
-  },
-  {
-    id: "1",
-    title: "Explore",
-    menus: [
-      { href: "/", label: "Prototyping" },
-      { href: "/", label: "Design systems" },
-      { href: "/", label: "Pricing" },
-      { href: "/", label: "Security" },
+      { href: "/about", label: "Sobre" },
+      { href: "/FAQ", label: "FAQs" },
     ],
   },
   {
     id: "2",
-    title: "Resources",
+    title: "Recursos",
     menus: [
-      { href: "/", label: "Best practices" },
-      { href: "/", label: "Support" },
-      { href: "/", label: "Developers" },
-      { href: "/", label: "Learn design" },
+      { href: "/signup", label: "Cadastre-se" },
     ],
   },
   {
-    id: "4",
-    title: "Community",
+    id: "3",
+    title: "Companhia",
     menus: [
-      { href: "/", label: "Discussion Forums" },
-      { href: "/", label: "Code of Conduct" },
-      { href: "/", label: "Contributing" },
-      { href: "/", label: "API Reference" },
+      { href: "/contact", label: "Contato" },
+      { href: "/privacy-policy", label: "Política de privacidade" },
+      { href: "/terms", label: "Termos" },
     ],
   },
 ];
