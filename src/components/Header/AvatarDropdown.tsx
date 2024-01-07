@@ -9,9 +9,16 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Link from "next/link";
 
 const isLoggedIn = ({close}) => {
-  const storedUser = localStorage.getItem('user');
-  const user = storedUser ? JSON.parse(storedUser) : null;
-  if(user) {
+  let storageData: any = null;
+  if (typeof window !== 'undefined') {
+    storageData = localStorage.getItem('luugo');
+  }
+
+  if(storageData) {
+    const jsonData =  JSON.parse(storageData);
+
+    if(jsonData.token) {
+      const user = jsonData.user;
       return (
         <div className="flex items-center space-x-3">
           <Avatar imgUrl={avatarImgs[7]} sizeClass="w-12 h-12" />
@@ -22,16 +29,17 @@ const isLoggedIn = ({close}) => {
           </div>
         </div>
       )
-    } else {
-      return (
-        <ButtonPrimary
-          className="w-full"
-          href="/login"
-          onClick={() => close()}>
-          Login
-        </ButtonPrimary>
-      )
     }
+  }
+
+  return (
+    <ButtonPrimary
+      className="w-full"
+      href="/login"
+      onClick={() => close()}>
+      Login
+    </ButtonPrimary>
+  )
 }
 
 export default function AvatarDropdown() {
@@ -307,9 +315,8 @@ export default function AvatarDropdown() {
                       href={"/#"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => {
-                        localStorage.removeItem('user');
-                        localStorage.removeItem('token');
-                        close()
+                        localStorage.removeItem('luugo');
+                        close();
                       }}
                     >
                       <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">

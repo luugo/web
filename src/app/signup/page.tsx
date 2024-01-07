@@ -8,7 +8,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { AuthenticationApi, UserApi, UserTypeEnum } from "../../../luugoapi";
+import { AuthenticationApi } from "../../../luugoapi";
 
 const loginSocials = [
   // {
@@ -41,56 +41,51 @@ const renderOR = () => {
   }
 }
 
-const PageLogin = () => {
-  const [username, setUsername] = useState('');
+const PageSignUp = () => {
+  const [email, setUsername] = useState('');
   const [password, setPassword] = useState('');
   
   const router = useRouter();
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const authenticationApi = new AuthenticationApi();
       const requestParameters = {
-        authenticationPostRequest: {
-          username,
+        authenticationEmailPostRequest: {
+          email,
           password,
+          confirmPassword: password,
         }
       }
-
-      const result = await authenticationApi.authenticationPost(requestParameters)
-
-      if(result.token) {
-        localStorage.setItem('luugo', JSON.stringify(result));
-        router.push("/home");
-      } else if(result.authenticationId) {
-        localStorage.setItem('luugo', JSON.stringify({user: {authenticationId: result.authenticationId}}));
-        router.push("/register");
-      }
+  
+      const result = await authenticationApi.authenticationEmailPost(requestParameters)
+      router.push("/login");
+      
     } catch (error) {
       console.error('Erro durante a solicitação:', error);
     }
   };
   
   return (
-    <div className={`nc-PageLogin`} data-nc-id="PageLogin">
+    <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
       <div className="container mb-24 lg:mb-32">
         <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
-          Login
+          Signup
         </h2>
-        <div className="max-w-md mx-auto space-y-6">
+        <div className="max-w-md mx-auto space-y-6 ">
           <div className="grid gap-3">
             {loginSocials.map((item, index) => (
               <a
                 key={index}
                 href={item.href}
-                className="flex w-full rounded-lg bg-primary-50 dark:bg-neutral-800 px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]"
+                className=" flex w-full rounded-lg bg-primary-50 dark:bg-neutral-800 px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]"
               >
                 <Image
+                  sizes="40px"
                   className="flex-shrink-0"
                   src={item.icon}
                   alt={item.name}
-                  sizes="40px"
                 />
                 <h3 className="flex-grow text-center text-sm font-medium text-neutral-700 dark:text-neutral-300 sm:text-sm">
                   {item.name}
@@ -102,7 +97,7 @@ const PageLogin = () => {
           {renderOR()}
           {/* FORM */}
           <form className="grid grid-cols-1 gap-6"
-           onSubmit={(e) => handleSubmit(e)}>
+          onSubmit={(e) => handleSubmit(e)}>
             <label className="block">
               <span className="text-neutral-800 dark:text-neutral-200">
                 Email address
@@ -111,29 +106,26 @@ const PageLogin = () => {
                 type="email"
                 placeholder="example@example.com"
                 className="mt-1"
-                value={username}
+                value={email}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </label>
             <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
                 Password
-                <Link href="/forgot-pass" className="text-sm text-green-600">
-                  Forgot password?
-                </Link>
               </span>
               <Input type="password" className="mt-1"
               value={password}
               onChange={(e) => setPassword(e.target.value)} />
             </label>
-            <ButtonPrimary type="submit" onClick={handleSubmit}>Continue</ButtonPrimary>
+            <ButtonPrimary type="submit">Continue</ButtonPrimary>
           </form>
 
           {/* ==== */}
           <span className="block text-center text-neutral-700 dark:text-neutral-300">
-            New user? {` `}
-            <Link className="text-green-600" href="/signup">
-              Create an account
+            Already have an account? {` `}
+            <Link className="text-green-600" href="/login">
+              Sign in
             </Link>
           </span>
         </div>
@@ -142,4 +134,4 @@ const PageLogin = () => {
   );
 };
 
-export default PageLogin;
+export default PageSignUp;
