@@ -8,7 +8,9 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { AuthenticationApi } from "../../../luugoapi";
+import { AuthenticationApi, ResponseError } from "../../../luugoapi";
+import { resourceLimits } from "worker_threads";
+import { Alert } from "@/shared/Alert/Alert";
 
 const loginSocials = [
   // {
@@ -47,7 +49,7 @@ const PageSignUp = () => {
   
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       const authenticationApi = new AuthenticationApi();
@@ -60,10 +62,12 @@ const PageSignUp = () => {
       }
   
       const result = await authenticationApi.authenticationEmailPost(requestParameters)
+      
       router.push("/login");
       
-    } catch (error) {
-      console.error('Erro durante a solicitação:', error);
+    } catch (e: any) {
+      const response = await e.response.json();
+      console.error('Erro durante a solicitação:', response);
     }
   };
   

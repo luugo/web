@@ -19,7 +19,6 @@ const PageRegister = () => {
   const [place, setPlace] = useState('');
   const [options, setOptions] = useState([]);
   
-
   useEffect(() => {
     if(storageData) {
       const jsonData = JSON.parse(storageData);
