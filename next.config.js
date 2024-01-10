@@ -17,8 +17,15 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "luugo-api-media.s3.sa-east-1.amazonaws.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };
 
 module.exports = nextConfig;
+

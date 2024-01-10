@@ -43,6 +43,18 @@ export interface Product {
   numberOfReviews?: number;
 }
 
+export interface Rentable {
+  id: number;
+  title: string;
+  price: number;
+  thumbnail: StaticImageData | string;
+  description: string;
+  category: string;
+  tags: string[];
+  link: "/product-detail/";
+  status?: "New in" | "limited edition" | "Sold Out" | "50% Discount";
+}
+
 const DEMO_VARIANTS: ProductVariant[] = [
   {
     id: 1,
