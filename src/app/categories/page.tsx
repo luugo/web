@@ -24,7 +24,7 @@ const PageLogin: FC = async () => {
                 <ul className="mt-2 md:mt-4 font-normal block text-base sm:text-lg py-2">
                     {categories.map((category) => (
                         <li key={category.id} className="py-2 px-10">
-                            <a href={`/categories/${category.id}`} className="transition-colors duration-300
+                            <a href={`/category/${category.id}`} className="transition-colors duration-300
                             ease-in-out hover:text-blue-500">
                                 {category.title}
                             </a>
@@ -35,7 +35,7 @@ const PageLogin: FC = async () => {
                                     .map((subcategory) => (
                                         <li key={subcategory.id} className="text-neutral-500
                                         dark:text-neutral-400 text-sm">
-                                            <a href={`/categories/${subcategory.id}`} className="text-neutral-500
+                                            <a href={`/category/${subcategory.id}`} className="text-neutral-500
                                             dark:text-neutral-400 text-sm transition-colors duration-300
                                             ease-in-out hover:text-blue-500">
                                                 {subcategory.title}
