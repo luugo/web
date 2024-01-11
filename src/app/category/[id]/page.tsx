@@ -2,8 +2,7 @@
 import React, {FC, useEffect, useState} from "react";
 import RentableCard from "@/components/RentableCard";
 import TabFilters from "@/components/TabFilters";
-import {CATEGORY_DESCRIPTIONS} from "@/data/categories";
-import {CATEGORY_TITLE} from "@/data/categories";
+import {CATEGORY} from "@/data/categories";
 import {Rentable, RentableApi, RentableGetRequest} from "../../../../luugoapi";
 import {useParams} from 'next/navigation';
 
@@ -26,12 +25,10 @@ const PageCollection = () => {
                 <div className="space-y-10 lg:space-y-14">
                     <div className="max-w-screen-sm">
                         <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold">
-                            {CATEGORY_TITLE[categoryId]}
+                            {CATEGORY[categoryId].title}
                         </h2>
                         <span className="block mt-4 text-neutral-500 dark:text-neutral-400 text-sm sm:text-base">
-                            {
-                                CATEGORY_DESCRIPTIONS[categoryId]
-                            }
+                            {CATEGORY[categoryId].description}
             </span>
                     </div>
 

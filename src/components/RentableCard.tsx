@@ -4,7 +4,7 @@ import React, { FC, useState } from "react";
 import LikeButton from "./LikeButton";
 import Prices from "./Prices";
 import { ArrowsPointingOutIcon } from "@heroicons/react/24/outline";
-import {Product, PRODUCTS, Rentable} from "@/data/data";
+import {Product, PRODUCTS, Rentable, RENTABLES} from "@/data/data";
 import { StarIcon } from "@heroicons/react/24/solid";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
@@ -27,7 +27,7 @@ export interface ProductCardProps {
 
 const RentableCard: FC<ProductCardProps> = ({
                                              className = "",
-                                             data = PRODUCTS[0],
+                                             data = RENTABLES[0],
                                              isLiked,
                                            }) => {
   const {
@@ -35,10 +35,10 @@ const RentableCard: FC<ProductCardProps> = ({
     price,
     description,
     status,
+    billingFrequency,
     thumbnail,
     place,
     id,
-    numberOfReviews,
   } = data;
 
   const [showModalQuickView, setShowModalQuickView] = useState(false);
@@ -130,7 +130,7 @@ const RentableCard: FC<ProductCardProps> = ({
             </div>
 
             <div className="flex justify-between items-end ">
-              <Prices price={price} />
+              <Prices price={price} billingFrequency={billingFrequency}/>
               <div className="flex items-center mb-0.5">
                 <MapPinIcon className="w-5 h-5 pb-[1px] text-red-500" />
                 <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
