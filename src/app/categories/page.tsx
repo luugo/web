@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Category, CategoryApi } from "../../../luugoapi";
+import {CATEGORY} from "@/data/categories";
 
 const PageLogin: FC = async () => {
     const categoryApi = new CategoryApi();
@@ -26,7 +27,7 @@ const PageLogin: FC = async () => {
                         <li key={category.id} className="py-2 px-10">
                             <a href={`/category/${category.id}`} className="transition-colors duration-300
                             ease-in-out hover:text-blue-500">
-                                {category.title}
+                                {CATEGORY[category.id].title}
                             </a>
                             <ul>
                                 {subcategories
@@ -38,7 +39,7 @@ const PageLogin: FC = async () => {
                                             <a href={`/category/${subcategory.id}`} className="text-neutral-500
                                             dark:text-neutral-400 text-sm transition-colors duration-300
                                             ease-in-out hover:text-blue-500">
-                                                {subcategory.title}
+                                                {CATEGORY[subcategory.id].title}
                                             </a>
                                         </li>
                                     ))}
