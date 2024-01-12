@@ -42,4 +42,28 @@ export const CATEGORY: Record<string, { title: string; description: string }> = 
   title: 'Eletrônicos',
   description: 'Aqui você encontra os equipamentos como: câmeras, notebooks, gravador de voz, caixa de som e etc.\n',
  },
+ 'c07ee543-ae37-11ec-b706-029ac6e1c60c': {
+  title: 'Esportes',
+  description: 'Tenha à disposição os acessórios para a prática do seu esporte favorito. Aqui você encontra prancha de surf, skate, patins, kit de proteção e etc.\n',
+ },
+ 'c0f26d54-ae37-11ec-b706-029ac6e1c60c': {
+  title: 'Imóveis',
+  description: 'Encontre o imóvel ideal para a sua temporada, do tamanho da sua necessidade.\n',
+ },
+ 'c165768a-ae37-11ec-b706-029ac6e1c60c': {
+  title: 'Ferramentas',
+  description: 'Encontre a ferramenta que você precisa para alugar. Seja ela para pequenas reformas, como uma furadeira ou grandes obras como uma betoneira. Tudo em um só lugar.\n',
+ },
+ 'c1dad8ce-ae37-11ec-b706-029ac6e1c60c': {
+  title: 'Áudio',
+  description: 'Precisando de equipamentos para melhorar a qualidade de seus áudios e vídeos? Encontre o que você precisa para alugar aqui!\n',
+ },
+ 'c24ea241-ae37-11ec-b706-029ac6e1c60c': {
+  title: 'Saúde',
+  description: 'Encontre aqui cadeira de rodas, botas ortopédicas e acessórios que você precisa para melhorar sua saúde.\n',
+ },
+ 'dc6f8356-d6de-11ec-bbb2-06a8ad2bb82c': {
+  title: 'Ao ar livre',
+  description: 'Sua próxima aventura precisa dos equipamentos certos. Aqui você encontra o que precisa para alugar, tudo em um só lugar.\n',
+ },
 };
