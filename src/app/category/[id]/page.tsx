@@ -18,6 +18,12 @@ const PageCollection = () => {
         rentableApi.rentableGet(requestParameters).then(setRentables);
     },[])
 
+    const addLink = (item: any) => {
+        item.link = `/rentable/${item.id}`;
+        return item;
+    };
+
+    const rentablesWithLinks = rentables.map(addLink);
 
     return (
         <div className={`nc-PageCollection`}>
@@ -37,7 +43,7 @@ const PageCollection = () => {
                         <TabFilters/>
                         <div
                             className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
-                            {rentables.map((item, index) => (
+                            {rentablesWithLinks.map((item, index) => (
                                 <RentableCard data={item} key={index}/>
                             ))}
                         </div>
