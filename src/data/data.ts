@@ -59,7 +59,7 @@ export interface Rentable {
   place: string;
   geolocation: object;
   tags: string[];
-  link: "/product-detail/";
+  link: string;
   status?: "New in" | "limited edition" | "Sold Out" | "50% Discount";
 }
 

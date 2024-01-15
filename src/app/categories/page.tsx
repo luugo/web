@@ -17,10 +17,10 @@ const PageLogin: FC = async () => {
             subcategories.push(item);
         }
     });
-    
+
     categories.sort((a, b) => CATEGORY[a.id].title.localeCompare(CATEGORY[b.id].title));
     subcategories.sort((a, b) => CATEGORY[a.id].title.localeCompare(CATEGORY[b.id].title));
-
+    
     return (
         <div className="relative py-10 lg:py-32 px-10">
             <h1 className="text-3xl md:text-2xl font-semibold px-2">Categorias para aluguel</h1>
