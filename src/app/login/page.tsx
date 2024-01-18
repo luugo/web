@@ -62,13 +62,14 @@ const PageLogin = () => {
 
       if(result.token) {
         localStorage.setItem('luugo', JSON.stringify(result));
-        router.push("/home");
+        router.push("/");
       } else if(result.authenticationId) {
         localStorage.setItem('luugo', JSON.stringify({user: {authenticationId: result.authenticationId}}));
-        router.push("/register");
+        router.push("/complete-signup");
       }
     } catch (error) {
-      console.error('Erro durante a solicitação:', error);
+      const response = await e.response.json();
+      console.error('Erro durante a solicitação:', response);
     }
   };
   

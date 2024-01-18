@@ -8,8 +8,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { AuthenticationApi, ResponseError } from "../../../luugoapi";
-import { resourceLimits } from "worker_threads";
+import { AuthenticationApi } from "../../../luugoapi";
 import { Alert } from "@/shared/Alert/Alert";
 
 const loginSocials = [
@@ -30,6 +29,18 @@ const loginSocials = [
   // },
 ];
 
+const fromToError = (message: string) => {
+  let msg = message;
+  switch (message) {
+    case 'weak_password':
+      msg = 'Por favor, escolha uma senha mais forte. Uma senha forte deve conter uma combinação de letras maiúsculas e minúsculas, números e caracteres especiais.';
+      break;
+    default:
+      break;
+  }
+  return msg
+}
+
 const renderOR = () => {
   if(loginSocials.length > 0) {
     return (
@@ -44,14 +55,20 @@ const renderOR = () => {
 }
 
 const PageSignUp = () => {
+  const [alert, setAlert] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
   const [email, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   
   const router = useRouter();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
+      if(password != confirmPassword) {
+        return showError('As senhas não coincidem. Por favor, tente novamente.');
+      }
       const authenticationApi = new AuthenticationApi();
       const requestParameters = {
         authenticationEmailPostRequest: {
@@ -67,12 +84,26 @@ const PageSignUp = () => {
       
     } catch (e: any) {
       const response = await e.response.json();
+      const error = response.map((err: any)=>err.message).join(', ')
+      showError(error, true);
       console.error('Erro durante a solicitação:', response);
     }
   };
+
+  const showError = (msg: string, fromTo: boolean = false) => {
+    if(fromTo) msg = fromToError(msg);
+    setAlert(msg);
+    setShowAlert(true);
+    setTimeout(()=>{
+      setShowAlert(false);
+    },5000);
+  }
   
   return (
     <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
+      <div className="absolute top-0 z-max w-full p-4">
+      {showAlert && (<Alert type="error" onClick={() => setShowAlert(false)}>{alert}</Alert>)}
+      </div>
       <div className="container mb-24 lg:mb-32">
         <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
           Signup
@@ -121,6 +152,14 @@ const PageSignUp = () => {
               <Input type="password" className="mt-1"
               value={password}
               onChange={(e) => setPassword(e.target.value)} />
+            </label>
+            <label className="block">
+              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+                Confirm Password
+              </span>
+              <Input type="password" className="mt-1"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)} />
             </label>
             <ButtonPrimary type="submit">Continue</ButtonPrimary>
           </form>
