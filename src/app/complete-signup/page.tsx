@@ -76,7 +76,7 @@ const PageRegister = () => {
         <div className={`nc-PageRegister`} data-nc-id="PageRegister">
           <div className="container mb-24 lg:mb-32">
             <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
-              Login
+              Cadastro
             </h2>
             <div className="max-w-md mx-auto space-y-6">
               {/* FORM */}
@@ -84,7 +84,7 @@ const PageRegister = () => {
               onSubmit={(e) => handleSubmit(e)}>
                 <label className="block">
                   <span className="text-neutral-800 dark:text-neutral-200">
-                    First Name
+                    Nome
                   </span>
                   <Input
                     type="text"
@@ -95,7 +95,7 @@ const PageRegister = () => {
                 </label>
                 <label className="block">
                   <span className="text-neutral-800 dark:text-neutral-200">
-                    Last Name
+                    Sobrenome
                   </span>
                   <Input
                     type="text"
@@ -106,7 +106,7 @@ const PageRegister = () => {
                 </label>
                 <label className="block">
                   <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
-                    Place
+                    Localização
                   </span>
                   <Select className="mt-1.5"
                   value={place}
@@ -119,7 +119,7 @@ const PageRegister = () => {
                     ))}
                   </Select>
                 </label>
-                <ButtonPrimary type="submit" onClick={() => handleSubmit}>Continue</ButtonPrimary>
+                <ButtonPrimary type="submit" onClick={() => handleSubmit}>Continuar</ButtonPrimary>
               </form>
             </div>
           </div>

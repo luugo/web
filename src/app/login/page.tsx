@@ -77,7 +77,7 @@ const PageLogin = () => {
     <div className={`nc-PageLogin`} data-nc-id="PageLogin">
       <div className="container mb-24 lg:mb-32">
         <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
-          Login
+          Conecte-se
         </h2>
         <div className="max-w-md mx-auto space-y-6">
           <div className="grid gap-3">
@@ -106,7 +106,7 @@ const PageLogin = () => {
            onSubmit={(e) => handleSubmit(e)}>
             <label className="block">
               <span className="text-neutral-800 dark:text-neutral-200">
-                Email address
+                E-mail
               </span>
               <Input
                 type="email"
@@ -118,23 +118,23 @@ const PageLogin = () => {
             </label>
             <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
-                Password
+                Senha
                 <Link href="/forgot-pass" className="text-sm text-green-600">
-                  Forgot password?
+                  Esqueceu sua senha?
                 </Link>
               </span>
               <Input type="password" className="mt-1"
               value={password}
               onChange={(e) => setPassword(e.target.value)} />
             </label>
-            <ButtonPrimary type="submit" onClick={handleSubmit}>Continue</ButtonPrimary>
+            <ButtonPrimary type="submit" onClick={handleSubmit}>Continuar</ButtonPrimary>
           </form>
 
           {/* ==== */}
           <span className="block text-center text-neutral-700 dark:text-neutral-300">
-            New user? {` `}
+            Novo usuãrio: {` `}
             <Link className="text-green-600" href="/signup">
-              Create an account
+              Crie a sua conta aqui
             </Link>
           </span>
         </div>
