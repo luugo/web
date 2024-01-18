@@ -43,6 +43,50 @@ export interface Product {
   numberOfReviews?: number;
 }
 
+export interface Rentable {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  title: string;
+  description: string;
+  thumbnail: StaticImageData | string;
+  type: string;
+  userId: string;
+  categoryId: string;
+  price: number;
+  discount: number;
+  billingFrequency: string;
+  place: string;
+  geolocation: object;
+  tags: string[];
+  link: string;
+  status?: "New in" | "limited edition" | "Sold Out" | "50% Discount";
+}
+
+export const RENTABLES: Rentable[] = [
+  {
+    id: "01064aa2-0bb8-49a7-9a3e-719c9c40c59c",
+    createdAt: "2022-05-24T20:09:39.120Z",
+    updatedAt: "2022-05-24T20:10:38.029Z",
+    title: "Terno azul marinho - adulto",
+    description: "- Terno completo;\n- Fazemos ajustes no corpo.",
+    thumbnail: "https://luugo-api-media.s3.sa-east-1.amazonaws.com/1e19987d-cb45-48c4-ba17-56e56c7f03ce.jpeg",
+    type: "ITEM",
+    userId: "1f3e0a5e-aa27-41a6-9a9a-bcd2b01f3f14",
+    categoryId: "81fc287c-b01f-11ec-b706-029ac6e1c60c",
+    price: 160,
+    discount: 0,
+    billingFrequency: "DAILY",
+    place: "Parnamirim/RN",
+    geolocation: {
+      x: -35.2112946,
+      y: -5.8792985,
+    },
+    tags: [""],
+    link:"/product-detail/",
+    status:"New in"
+  }]
+
 const DEMO_VARIANTS: ProductVariant[] = [
   {
     id: 1,
