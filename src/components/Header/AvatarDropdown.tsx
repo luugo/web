@@ -37,7 +37,7 @@ const isLoggedIn = ({close}) => {
       className="w-full"
       href="/login"
       onClick={() => close()}>
-      Login
+      Conecte-se
     </ButtonPrimary>
   )
 }
@@ -351,7 +351,7 @@ export default function AvatarDropdown() {
                         </svg>
                       </div>
                       <div className="ml-4">
-                        <p className="text-sm font-medium ">{"Log out"}</p>
+                        <p className="text-sm font-medium ">{"Sair"}</p>
                       </div>
                     </Link>
                   </div>
