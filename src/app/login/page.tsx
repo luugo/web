@@ -8,7 +8,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { AuthenticationApi, UserApi, UserTypeEnum } from "../../../luugoapi";
+import { AuthenticationApi, UserApi, UserContactApi, UserTypeEnum } from "../../../luugoapi";
 
 const loginSocials = [
   // {
@@ -46,7 +46,7 @@ const PageLogin = () => {
   const [password, setPassword] = useState('');
   
   const router = useRouter();
-
+  
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
@@ -62,6 +62,14 @@ const PageLogin = () => {
 
       if(result.token) {
         localStorage.setItem('luugo', JSON.stringify(result));
+  
+        const userContactApi = new UserContactApi();
+        const userId = result.user?.id;
+        if(userId) {
+          const resultContact = await userContactApi.userContactGet({userId})
+          const contacts = Object.fromEntries(resultContact.map(contact => [contact.type, contact.value]));
+          localStorage.setItem('luugo', JSON.stringify({...result, contacts}));
+        }
         router.push("/");
       } else if(result.authenticationId) {
         localStorage.setItem('luugo', JSON.stringify({user: {authenticationId: result.authenticationId}}));
