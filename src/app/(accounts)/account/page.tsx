@@ -1,6 +1,6 @@
 'use client'
 import Label from "@/components/Label/Label";
-import React, { FC, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
@@ -8,6 +8,8 @@ import Textarea from "@/shared/Textarea/Textarea";
 import { avatarImgs } from "@/contains/fakeData";
 import Image from "next/image";
 import { Luugo } from "@/interfaces";
+import { UserApi, UserContactApi } from "../../../../luugoapi";
+import { useUserContext } from "@/context";
 
 
 // const [dob, setDob] = useState<string>("");
@@ -17,22 +19,51 @@ import { Luugo } from "@/interfaces";
 // const [aboutYou, setAboutYou] = useState<string>("");
 
 const AccountPage = () => {
+  const userApi = new UserApi();
+  const userContactApi = new UserContactApi();
 
-  const [fullName, setFullName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
-  const [place, setPlace] = useState<string>("");
+  const { name, email, place, phone, handleNameChange, handleEmailChange, handlePlaceChange, handlePhoneChange } = useUserContext();
 
   useEffect(() => {
-    const temp = localStorage.getItem("luugo");
-    if(temp != null) {
-      const luugo: Luugo = JSON.parse(temp);
-      setFullName(`${luugo.user.firstName} ${luugo.user.lastName}`);
-      setPlace(luugo.user.place);
-      if(luugo.contacts && luugo.contacts.EMAIL) setEmail(luugo.contacts.EMAIL);
-      if(luugo.contacts && luugo.contacts.PHONE) setPhone(luugo.contacts.PHONE);
-    }
+    const fetchData = async () => {
+      try {
+        const temp = localStorage.getItem("luugo") || null;
+        if (temp !== null) {
+          const luugo: Luugo = JSON.parse(temp);
+          const userResp = await userApi.userGet({ id: luugo.user.id });
+          if(userResp) {
+            handleNameChange(`${luugo.user.firstName} ${luugo.user.lastName}`);
+            handlePlaceChange(luugo.user.place);
+            const userContactResp = await userContactApi.userContactGet({
+              userId: luugo.user.id
+            });
+            if(userContactResp) {
+              const _email = userContactResp.filter(c => c.type == 'EMAIL')
+              if(_email.length) handleEmailChange(_email[0].value)
+              const _phone = userContactResp.filter(c => c.type == 'PHONE')
+              if(_phone.length) handlePhoneChange(_phone[0].value)
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Erro ao recuperar dados do usuário:", error);
+      }
+    };
+
+    fetchData();
   }, []);
+
+  const changeName = (event: ChangeEvent<HTMLInputElement>) => {
+    handleNameChange(event.target.value);
+  };
+
+  const changeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    handleEmailChange(event.target.value);
+  };
+
+  const changePlace = (event: ChangeEvent<HTMLInputElement>) => {
+    handlePlaceChange(event.target.value);
+  };
 
   return (
     <div className={`nc-AccountPage `}>
@@ -69,7 +100,7 @@ const AccountPage = () => {
                   />
                 </svg>
 
-                <span className="mt-1 text-xs">Change Image</span>
+                <span className="mt-1 text-xs">Trocar Imagem</span>
               </div>
               <input
                 type="file"
@@ -80,7 +111,7 @@ const AccountPage = () => {
           <div className="flex-grow mt-10 md:mt-0 md:pl-16 max-w-3xl space-y-6">
             <div>
               <Label>Nome Completo</Label>
-              <Input className="mt-1.5" defaultValue={fullName} />
+              <Input className="mt-1.5" defaultValue={name} onChange={changeName}/>
             </div>
 
             {/* ---- */}
@@ -96,6 +127,7 @@ const AccountPage = () => {
                   className="!rounded-l-none"
                   placeholder="example@email.com"
                   defaultValue={email}
+                  onChange={changeEmail}
                 />
               </div>
             </div>
@@ -124,6 +156,7 @@ const AccountPage = () => {
                 <Input
                   className="!rounded-l-none"
                   defaultValue={place}
+                  onChange={changePlace}
                 />
               </div>
             </div>

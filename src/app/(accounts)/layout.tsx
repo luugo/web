@@ -1,11 +1,11 @@
-"use client";
-
-import { Luugo } from "@/interfaces";
+'use client'
 import { Route } from "@/routers/types";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { FC } from "react";
+import { usePathname } from "next/navigation";
+import { Providers } from "@/providers";
+import { useUserContext } from "@/context";
 
 export interface CommonLayoutProps {
   children?: React.ReactNode;
@@ -31,20 +31,8 @@ const pages: {
 
 const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   const pathname = usePathname();
-  const [fullName, setFullName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [place, setPlace] = useState<string>("");
 
-  useEffect(() => {
-    const temp = localStorage.getItem("luugo");
-    if(temp != null) {
-      const luugo: Luugo = JSON.parse(temp);
-
-      setFullName(`${luugo.user.firstName} ${luugo.user.lastName}`);
-      setPlace(luugo.user.place);
-      if(luugo.contacts && luugo.contacts.EMAIL) setEmail(luugo.contacts.EMAIL);
-    }
-  }, []);
+  const { name, email, place } = useUserContext();
 
   return (
     <div className="nc-AccountCommonLayout container">
@@ -54,9 +42,9 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
             <h2 className="text-3xl xl:text-4xl font-semibold">Conta</h2>
             <span className="block mt-4 text-neutral-500 dark:text-neutral-400 text-base sm:text-lg">
               <span className="text-slate-900 dark:text-slate-200 font-semibold">
-                {fullName},
+                {name || 'Nome'},
               </span>{" "}
-              {email} · {place}
+              {email || 'E-mail'} · {place || 'Local'}
             </span>
           </div>
           <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
