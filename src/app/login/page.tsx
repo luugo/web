@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AuthenticationApi, UserApi, UserContactApi, UserTypeEnum } from "../../../luugoapi";
+import { useUserContext } from "@/context";
 
 const loginSocials = [
   // {
@@ -44,9 +45,8 @@ const renderOR = () => {
 const PageLogin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  
   const router = useRouter();
-  
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
@@ -64,10 +64,11 @@ const PageLogin = () => {
         localStorage.setItem('luugo', JSON.stringify(result));
   
         const userContactApi = new UserContactApi();
-        const userId = result.user?.id;
+        const user = result.user;
+        const userId = user?.id;
+
         if(userId) {
-          const resultContact = await userContactApi.userContactGet({userId})
-          const contacts = Object.fromEntries(resultContact.map(contact => [contact.type, contact.value]));
+          const contacts = await userContactApi.userContactGet({userId})
           localStorage.setItem('luugo', JSON.stringify({...result, contacts}));
         }
         router.push("/");
@@ -75,9 +76,9 @@ const PageLogin = () => {
         localStorage.setItem('luugo', JSON.stringify({user: {authenticationId: result.authenticationId}}));
         router.push("/complete-signup");
       }
-    } catch (error) {
-      const response = await e.response.json();
-      console.error('Erro durante a solicitação:', response);
+    } catch (error: any) {
+      const response = await error.response;
+      console.info(response);
     }
   };
   
@@ -135,7 +136,7 @@ const PageLogin = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)} />
             </label>
-            <ButtonPrimary type="submit" onClick={handleSubmit}>Continuar</ButtonPrimary>
+            <ButtonPrimary type="submit">Continuar</ButtonPrimary>
           </form>
 
           {/* ==== */}

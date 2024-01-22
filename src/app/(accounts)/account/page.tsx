@@ -1,28 +1,42 @@
 'use client'
 import Label from "@/components/Label/Label";
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import Textarea from "@/shared/Textarea/Textarea";
 import { avatarImgs } from "@/contains/fakeData";
 import Image from "next/image";
-import { Luugo } from "@/interfaces";
+import { AlertOptions, Luugo } from "@/interfaces";
 import { UserApi, UserContactApi } from "../../../../luugoapi";
 import { useUserContext } from "@/context";
+import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import { UserTypeEnum } from "@/interfaces/user";
+import { Alert } from "@/shared/Alert/Alert";
+import { useRouter } from "next/navigation";
 
-
-// const [dob, setDob] = useState<string>("");
-// const [address, setAddress] = useState<string>("");
-// const [gender, setGender] = useState<string>("");
-// const [phoneNumber, setPhoneNumber] = useState<string>("");
-// const [aboutYou, setAboutYou] = useState<string>("");
 
 const AccountPage = () => {
+  const router = useRouter();
+  const [alert, setAlert] = useState('');
+  const [typeAlert, setTypeAlert] = useState<keyof AlertOptions>('success');
+  const [isShowAlert, setShowAlert] = useState<boolean>(false);
+  const [place, setPlace] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
+  
   const userApi = new UserApi();
   const userContactApi = new UserContactApi();
 
-  const { name, email, place, phone, handleNameChange, handleEmailChange, handlePlaceChange, handlePhoneChange } = useUserContext();
+  const {
+    id, handleIdChange,
+    authId, handleAuthIdChange,
+    token, handleTokenChange,
+    handleNameChange,
+    handleEmailChange,
+    handlePlaceChange,
+  } = useUserContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,20 +44,31 @@ const AccountPage = () => {
         const temp = localStorage.getItem("luugo") || null;
         if (temp !== null) {
           const luugo: Luugo = JSON.parse(temp);
+          handleIdChange(luugo.user.id);
+          handleAuthIdChange(luugo.user.authenticationId);
+          handleTokenChange(luugo.token);
           const userResp = await userApi.userGet({ id: luugo.user.id });
           if(userResp) {
-            handleNameChange(`${luugo.user.firstName} ${luugo.user.lastName}`);
-            handlePlaceChange(luugo.user.place);
-            const userContactResp = await userContactApi.userContactGet({
-              userId: luugo.user.id
-            });
-            if(userContactResp) {
-              const _email = userContactResp.filter(c => c.type == 'EMAIL')
-              if(_email.length) handleEmailChange(_email[0].value)
+            handleNameChange(`${userResp[0].firstName} ${userResp[0].lastName}`);
+            setName(`${userResp[0].firstName} ${userResp[0].lastName}`);
+            handlePlaceChange(userResp[0].place);
+            setPlace(userResp[0].place);
+            const userContactResp = await userContactApi.userContactGet({ userId: luugo.user.id });
+            if(userContactResp.length) {
               const _phone = userContactResp.filter(c => c.type == 'PHONE')
-              if(_phone.length) handlePhoneChange(_phone[0].value)
+              const _email = userContactResp.filter(c => c.type == 'EMAIL')
+              if(_phone.length) setPhone(_phone[0].value);
+              if(_email.length) {
+                setEmail(_email[0].value);
+                handleEmailChange(_email[0].value);
+              }
             }
           }
+        } else {
+          handlePlaceChange('');
+          handleNameChange('');
+          handleEmailChange('');
+          router.push('/login');
         }
       } catch (error) {
         console.error("Erro ao recuperar dados do usuário:", error);
@@ -53,20 +78,59 @@ const AccountPage = () => {
     fetchData();
   }, []);
 
+  const showAlert = (msg: string, type: keyof AlertOptions = 'success') => {
+    setAlert(msg);
+    setTypeAlert(type);
+    setShowAlert(true);
+    setTimeout(()=>{
+      setShowAlert(false);
+    },5000);
+  }
+
   const changeName = (event: ChangeEvent<HTMLInputElement>) => {
     handleNameChange(event.target.value);
+    setName(event.target.value);
   };
 
   const changeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     handleEmailChange(event.target.value);
+    setEmail(event.target.value);
   };
 
   const changePlace = (event: ChangeEvent<HTMLInputElement>) => {
     handlePlaceChange(event.target.value);
+    setPlace(event.target.value);
   };
+
+  const onUpdateAccount = async ()  => {
+    if(id && authId) {
+      const user = {
+        id,
+        firstName: name,
+        lastName: "",
+        place,
+        authenticationId: authId,
+        type: UserTypeEnum.Normal
+      }
+      const userPutResponse = await userApi.userPut({user},{
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      if(userPutResponse) {
+        showAlert('Atualizado com sucesso!')
+      } else {
+        showAlert('Error', 'error')
+      }
+    }
+  }
 
   return (
     <div className={`nc-AccountPage `}>
+      <div className="fixed left-0 top-0 z-max w-full p-4">
+      {isShowAlert && (<Alert type={typeAlert} onClick={() => setShowAlert(false)}>{alert}</Alert>)}
+      </div>
       <div className="space-y-10 sm:space-y-12">
         {/* HEADING */}
         <h2 className="text-2xl sm:text-3xl font-semibold">
@@ -186,8 +250,9 @@ const AccountPage = () => {
               <Label>Sobre você</Label>
               <Textarea className="mt-1.5" defaultValue="..." />
             </div>
-            <div className="pt-2">
-              <ButtonPrimary>Update account</ButtonPrimary>
+            <div className="flex pt-2 gap-6">
+              <ButtonPrimary onClick={onUpdateAccount}>Atualizar conta</ButtonPrimary>
+              <ButtonSecondary>Deleter Conta</ButtonSecondary>
             </div>
           </div>
         </div>
