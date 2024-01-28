@@ -16,7 +16,7 @@ const pages: {
   link: Route;
 }[] = [
   {
-    name: "Account info",
+    name: "Conta",
     link: "/account",
   },
   {

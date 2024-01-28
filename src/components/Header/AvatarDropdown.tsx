@@ -7,6 +7,7 @@ import Avatar from "@/shared/Avatar/Avatar";
 import SwitchDarkMode2 from "@/shared/SwitchDarkMode/SwitchDarkMode2";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary"; 
 import Link from "next/link";
+import { useUserContext } from "@/context";
 
 const isLoggedIn = ({close}) => {
   let storageData: any = null;
@@ -18,14 +19,19 @@ const isLoggedIn = ({close}) => {
     const jsonData =  JSON.parse(storageData);
 
     if(jsonData.token) {
+      const { firstName, lastName, place } = useUserContext();
+
       const user = jsonData.user;
       return (
         <div className="flex items-center space-x-3">
           <Avatar imgUrl={avatarImgs[7]} sizeClass="w-12 h-12" />
 
           <div className="flex-grow">
-            <h4 className="font-semibold">{user.firstName} {user.lastName}</h4>
-            <p className="text-xs mt-0.5">{user.place}</p>
+            <h4 className="font-semibold">
+              {firstName || user.firstName || 'Nome'}
+              {lastName.length > 0 || user.firstName.length > 0 ?
+              ` ${lastName || user.firstName}` : null},</h4>
+            <p className="text-xs mt-0.5">{place || user.place || 'Local'}</p>
           </div>
         </div>
       )
