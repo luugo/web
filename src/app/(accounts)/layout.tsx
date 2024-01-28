@@ -1,11 +1,12 @@
 'use client'
 import { Route } from "@/routers/types";
 import Link from "next/link";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FC } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Providers } from "@/providers";
 import { useUserContext } from "@/context";
+import { AuthenticationPostDefaultResponse } from "../../../luugoapi";
 
 export interface CommonLayoutProps {
   children?: React.ReactNode;
@@ -20,8 +21,8 @@ const pages: {
     link: "/account",
   },
   {
-    name: " My order",
-    link: "/account-order",
+    name: " Meus itens",
+    link: "/account-rentable",
   },
   {
     name: "Change password",
@@ -31,8 +32,31 @@ const pages: {
 
 const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   const pathname = usePathname();
+  const router = useRouter();
+  const { firstName, lastName, place } = useUserContext();
+  const [_place, setPlace] = useState<string>('');
+  const [_firstName, setFirstName] = useState<string>('');
+  const [_lastName, setLastName] = useState<string>('');
 
-  const { firstName, lastName, email, place } = useUserContext();
+  useEffect(() => {
+    let storageData: any = null;
+    if (typeof window !== 'undefined') {
+      storageData = localStorage.getItem('luugo');
+    }
+    if(storageData) {
+      const luugo =  JSON.parse(storageData);
+      if(luugo.token) {
+        const user = luugo.user;
+        if(user) {
+          setFirstName(user.firstName);
+          setLastName(user.lastName);
+          setPlace(user.place);
+        }
+      } else {
+        router.push("/login");
+      }
+    }
+  }, [firstName, lastName, place]);
 
   return (
     <div className="nc-AccountCommonLayout container">
@@ -42,10 +66,10 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
             <h2 className="text-3xl xl:text-4xl font-semibold">Conta</h2>
             <span className="block mt-4 text-neutral-500 dark:text-neutral-400 text-base sm:text-lg">
               <span className="text-slate-900 dark:text-slate-200 font-semibold">
-                {firstName || 'Nome'}
-                {lastName.length > 0 ? ` ${lastName}` : null},
+                {_firstName || 'Nome'}
+                {_lastName.length > 0 ? ` ${_lastName}` : null}
               </span>{" "}
-              {email || 'E-mail'} · {place || 'Local'}
+              · {_place || 'Local'}
             </span>
           </div>
           <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>

@@ -7,11 +7,10 @@ import Select from "@/shared/Select/Select";
 import Textarea from "@/shared/Textarea/Textarea";
 import { avatarImgs } from "@/contains/fakeData";
 import Image from "next/image";
-import { AlertOptions, Luugo } from "@/interfaces";
-import { UserApi, UserContactApi } from "../../../../luugoapi";
+import { AlertOptions } from "@/interfaces";
+import { AuthenticationPostDefaultResponse, User, UserApi, UserContactApi, UserPutRequest, UserTypeEnum } from "../../../../luugoapi";
 import { useUserContext } from "@/context";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import { UserTypeEnum } from "@/interfaces/user";
 import { Alert } from "@/shared/Alert/Alert";
 import { useRouter } from "next/navigation";
 
@@ -26,45 +25,47 @@ const AccountPage = () => {
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
+  const [id, setId] = useState<string | undefined>('');
+  const [authId, setAuthId] = useState<string | null | undefined>('');
+  const [token, setToken] = useState<string | null | undefined>('');
   
   const userApi = new UserApi();
   const userContactApi = new UserContactApi();
 
   const {
-    id, handleIdChange,
-    authId, handleAuthIdChange,
-    token, handleTokenChange,
     handleFirstNameChange,
     handleLastNameChange,
-    handleEmailChange,
     handlePlaceChange,
   } = useUserContext();
 
+  let storageData: any = null;
+  if (typeof window !== 'undefined') {
+    storageData = localStorage.getItem('luugo');
+  }
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const temp = localStorage.getItem("luugo") || null;
-        if (temp !== null) {
-          const luugo: Luugo = JSON.parse(temp);
-          handleIdChange(luugo.user.id);
-          handleAuthIdChange(luugo.user.authenticationId);
-          handleTokenChange(luugo.token);
-          const userResp = await userApi.userGet({ id: luugo.user.id });
+        if (storageData !== null) {
+          const luugo: AuthenticationPostDefaultResponse = JSON.parse(storageData);
+          const userResp: User[] = await userApi.userGet({ id: luugo.user?.id });
           if(userResp) {
-            handleFirstNameChange(userResp[0].firstName);
-            handleLastNameChange(userResp[0].lastName);
-            setFirstName(userResp[0].firstName);
-            setLastName(userResp[0].lastName);
-            handlePlaceChange(userResp[0].place);
-            setPlace(userResp[0].place);
-            const userContactResp = await userContactApi.userContactGet({ userId: luugo.user.id });
-            if(userContactResp.length) {
-              const _phone = userContactResp.filter(c => c.type == 'PHONE')
-              const _email = userContactResp.filter(c => c.type == 'EMAIL')
-              if(_phone.length) setPhone(_phone[0].value);
-              if(_email.length) {
-                setEmail(_email[0].value);
-                handleEmailChange(_email[0].value);
+            const user = userResp[0];
+            setId(user.id);
+            setAuthId(user.authenticationId);
+            setToken(luugo.token);
+            setFirstName(user.firstName);
+            setLastName(user.lastName);
+            setPlace(user.place);
+            if(user.id) {
+              const userContactResp = await userContactApi.userContactGet({ userId: user.id });
+              if(userContactResp.length) {
+                const _phone = userContactResp.filter(c => c.type == 'PHONE')
+                const _email = userContactResp.filter(c => c.type == 'EMAIL')
+                if(_phone.length) setPhone(_phone[0].value);
+                if(_email.length) {
+                  setEmail(_email[0].value);
+                }
               }
             }
           }
@@ -72,7 +73,6 @@ const AccountPage = () => {
           handlePlaceChange('');
           handleFirstNameChange('');
           handleLastNameChange('');
-          handleEmailChange('');
           router.push('/login');
         }
       } catch (error) {
@@ -93,28 +93,25 @@ const AccountPage = () => {
   }
 
   const changeFisrtName = (event: ChangeEvent<HTMLInputElement>) => {
-    handleFirstNameChange(event.target.value);
     setFirstName(event.target.value);
   };
 
   const changeLastName = (event: ChangeEvent<HTMLInputElement>) => {
-    handleLastNameChange(event.target.value);
     setLastName(event.target.value);
   };
 
   const changeEmail = (event: ChangeEvent<HTMLInputElement>) => {
-    handleEmailChange(event.target.value);
     setEmail(event.target.value);
   };
 
   const changePlace = (event: ChangeEvent<HTMLInputElement>) => {
-    handlePlaceChange(event.target.value);
     setPlace(event.target.value);
   };
 
   const onUpdateAccount = async ()  => {
-    if(id && authId) {
-      const user = {
+    try {
+      const user: User =
+      {
         id,
         firstName: firstName,
         lastName: lastName,
@@ -122,6 +119,15 @@ const AccountPage = () => {
         authenticationId: authId,
         type: UserTypeEnum.Normal
       }
+
+      if (storageData !== null) {
+        let luugo = JSON.parse(storageData);
+        luugo['user'].firstName = firstName;
+        luugo['user'].lastName = lastName;
+        luugo['user'].place = place;
+        localStorage.setItem('luugo', JSON.stringify(luugo));
+      }
+
       const userPutResponse = await userApi.userPut({user},{
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -129,10 +135,30 @@ const AccountPage = () => {
         },
       })
       if(userPutResponse) {
-        showAlert('Atualizado com sucesso!')
+        showAlert('Atualizado com sucesso!');
+        handleFirstNameChange(firstName);
+        handleLastNameChange(lastName);
+        handlePlaceChange(place);
       } else {
         showAlert('Error', 'error')
       }
+    } catch (error) {
+      console.error("Erro ao salvar dados do usuário:", error);
+    }
+  }
+
+  const onDeleteAccount = async () => {
+    if (storageData !== null) {
+      let luugo = JSON.parse(storageData);
+      console.log(luugo)
+      userApi.userDelete({ id: luugo.user?.id }).then(
+        (res: any) => {
+          if(res.status == 204) {
+            localStorage.removeItem('luugo');
+            router.push("/");
+          }
+        }
+      );
     }
   }
 
@@ -266,7 +292,11 @@ const AccountPage = () => {
             </div>
             <div className="flex pt-2 gap-6">
               <ButtonPrimary onClick={onUpdateAccount}>Atualizar conta</ButtonPrimary>
-              <ButtonSecondary>Deleter Conta</ButtonSecondary>
+              <ButtonSecondary
+              onClick={onDeleteAccount}
+              className="text-red-500 border border-red-400 dark:border-slate-700">
+                Deletar Conta
+              </ButtonSecondary>
             </div>
           </div>
         </div>

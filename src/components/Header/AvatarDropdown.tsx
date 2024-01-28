@@ -29,8 +29,8 @@ const isLoggedIn = ({ close } : { close : () => void }) => {
           <div className="flex-grow">
             <h4 className="font-semibold">
               {firstName || user.firstName || 'Nome'}
-              {lastName.length > 0 || user.firstName.length > 0 ?
-              ` ${lastName || user.firstName}` : null},</h4>
+              {lastName.length > 0 || user.lastName.length > 0 ?
+              ` ${lastName || user.lastName}` : null},</h4>
             <p className="text-xs mt-0.5">{place || user.place || 'Local'}</p>
           </div>
         </div>
@@ -133,7 +133,7 @@ export default function AvatarDropdown() {
 
                     {/* ------------------ 2 --------------------- */}
                     <Link
-                      href={{ pathname: '/checkout' }}
+                      href={{ pathname: '/account-rentable' }}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
                     >
