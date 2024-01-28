@@ -32,7 +32,7 @@ const pages: {
 const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   const pathname = usePathname();
 
-  const { name, email, place } = useUserContext();
+  const { firstName, lastName, email, place } = useUserContext();
 
   return (
     <div className="nc-AccountCommonLayout container">
@@ -42,7 +42,8 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
             <h2 className="text-3xl xl:text-4xl font-semibold">Conta</h2>
             <span className="block mt-4 text-neutral-500 dark:text-neutral-400 text-base sm:text-lg">
               <span className="text-slate-900 dark:text-slate-200 font-semibold">
-                {name || 'Nome'},
+                {firstName || 'Nome'}
+                {lastName.length > 0 ? ` ${lastName}` : null},
               </span>{" "}
               {email || 'E-mail'} · {place || 'Local'}
             </span>

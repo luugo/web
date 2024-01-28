@@ -22,7 +22,8 @@ const AccountPage = () => {
   const [typeAlert, setTypeAlert] = useState<keyof AlertOptions>('success');
   const [isShowAlert, setShowAlert] = useState<boolean>(false);
   const [place, setPlace] = useState<string>('');
-  const [name, setName] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   
@@ -33,7 +34,8 @@ const AccountPage = () => {
     id, handleIdChange,
     authId, handleAuthIdChange,
     token, handleTokenChange,
-    handleNameChange,
+    handleFirstNameChange,
+    handleLastNameChange,
     handleEmailChange,
     handlePlaceChange,
   } = useUserContext();
@@ -49,8 +51,10 @@ const AccountPage = () => {
           handleTokenChange(luugo.token);
           const userResp = await userApi.userGet({ id: luugo.user.id });
           if(userResp) {
-            handleNameChange(`${userResp[0].firstName} ${userResp[0].lastName}`);
-            setName(`${userResp[0].firstName} ${userResp[0].lastName}`);
+            handleFirstNameChange(userResp[0].firstName);
+            handleLastNameChange(userResp[0].lastName);
+            setFirstName(userResp[0].firstName);
+            setLastName(userResp[0].lastName);
             handlePlaceChange(userResp[0].place);
             setPlace(userResp[0].place);
             const userContactResp = await userContactApi.userContactGet({ userId: luugo.user.id });
@@ -66,7 +70,8 @@ const AccountPage = () => {
           }
         } else {
           handlePlaceChange('');
-          handleNameChange('');
+          handleFirstNameChange('');
+          handleLastNameChange('');
           handleEmailChange('');
           router.push('/login');
         }
@@ -87,9 +92,14 @@ const AccountPage = () => {
     },5000);
   }
 
-  const changeName = (event: ChangeEvent<HTMLInputElement>) => {
-    handleNameChange(event.target.value);
-    setName(event.target.value);
+  const changeFisrtName = (event: ChangeEvent<HTMLInputElement>) => {
+    handleFirstNameChange(event.target.value);
+    setFirstName(event.target.value);
+  };
+
+  const changeLastName = (event: ChangeEvent<HTMLInputElement>) => {
+    handleLastNameChange(event.target.value);
+    setLastName(event.target.value);
   };
 
   const changeEmail = (event: ChangeEvent<HTMLInputElement>) => {
@@ -106,8 +116,8 @@ const AccountPage = () => {
     if(id && authId) {
       const user = {
         id,
-        firstName: name,
-        lastName: "",
+        firstName: firstName,
+        lastName: lastName,
         place,
         authenticationId: authId,
         type: UserTypeEnum.Normal
@@ -174,8 +184,12 @@ const AccountPage = () => {
           </div>
           <div className="flex-grow mt-10 md:mt-0 md:pl-16 max-w-3xl space-y-6">
             <div>
-              <Label>Nome Completo</Label>
-              <Input className="mt-1.5" defaultValue={name} onChange={changeName}/>
+              <Label>Nome</Label>
+              <Input className="mt-1.5" defaultValue={firstName} onChange={changeFisrtName}/>
+            </div>
+            <div>
+              <Label>Sobrenome</Label>
+              <Input className="mt-1.5" defaultValue={lastName} onChange={changeLastName}/>
             </div>
 
             {/* ---- */}
