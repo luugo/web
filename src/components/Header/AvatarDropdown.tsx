@@ -7,8 +7,9 @@ import Avatar from "@/shared/Avatar/Avatar";
 import SwitchDarkMode2 from "@/shared/SwitchDarkMode/SwitchDarkMode2";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary"; 
 import Link from "next/link";
+import { useUserContext } from "@/context";
 
-const isLoggedIn = ({close}) => {
+const isLoggedIn = ({ close } : { close : () => void }) => {
   let storageData: any = null;
   if (typeof window !== 'undefined') {
     storageData = localStorage.getItem('luugo');
@@ -18,14 +19,19 @@ const isLoggedIn = ({close}) => {
     const jsonData =  JSON.parse(storageData);
 
     if(jsonData.token) {
+      const { firstName, lastName, place } = useUserContext();
+
       const user = jsonData.user;
       return (
         <div className="flex items-center space-x-3">
           <Avatar imgUrl={avatarImgs[7]} sizeClass="w-12 h-12" />
 
           <div className="flex-grow">
-            <h4 className="font-semibold">{user.firstName} {user.lastName}</h4>
-            <p className="text-xs mt-0.5">{user.place}</p>
+            <h4 className="font-semibold">
+              {firstName || user.firstName || 'Nome'}
+              {lastName.length > 0 || user.lastName.length > 0 ?
+              ` ${lastName || user.lastName}` : null},</h4>
+            <p className="text-xs mt-0.5">{place || user.place || 'Local'}</p>
           </div>
         </div>
       )
@@ -92,7 +98,7 @@ export default function AvatarDropdown() {
 
                     {/* ------------------ 1 --------------------- */}
                     <Link
-                      href={"/account"}
+                      href={{ pathname: '/account' }}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
                     >
@@ -121,13 +127,13 @@ export default function AvatarDropdown() {
                         </svg>
                       </div>
                       <div className="ml-4">
-                        <p className="text-sm font-medium ">{"My Account"}</p>
+                        <p className="text-sm font-medium ">{"Minha conta"}</p>
                       </div>
                     </Link>
 
                     {/* ------------------ 2 --------------------- */}
                     <Link
-                      href={"/checkout"}
+                      href={{ pathname: '/account-rentable' }}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
                     >
@@ -179,7 +185,7 @@ export default function AvatarDropdown() {
 
                     {/* ------------------ 2 --------------------- */}
                     <Link
-                      href={"/account-savelists"}
+                      href={{ pathname: '/account-savelists' }}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
                     >
