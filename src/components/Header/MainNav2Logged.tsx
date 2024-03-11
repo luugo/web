@@ -5,7 +5,6 @@ import Logo from "@/shared/Logo/Logo";
 import MenuBar from "@/shared/MenuBar/MenuBar";
 import AvatarDropdown from "./AvatarDropdown";
 import Navigation from "@/shared/Navigation/Navigation";
-import CartDropdown from "./CartDropdown";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 
@@ -82,21 +81,12 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
           <Logo className="flex-shrink-0" />
         </div>
 
-        <div className="flex-[2] hidden lg:flex justify-center mx-4">
-          {showSearchForm ? renderSearchForm() : <Navigation />}
-        </div>
+        {/* <div className="flex-[2] hidden lg:flex justify-center mx-4">
+          <Navigation />
+        </div> */}
 
         <div className="flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
-          {!showSearchForm && (
-            <button
-              className="hidden lg:flex w-10 h-10 sm:w-12 sm:h-12 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none items-center justify-center"
-              onClick={() => setShowSearchForm(!showSearchForm)}
-            >
-              {renderMagnifyingGlassIcon()}
-            </button>
-          )}
           <AvatarDropdown />
-          <CartDropdown />
         </div>
       </div>
     );
