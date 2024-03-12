@@ -1,4 +1,5 @@
 import Logo from "@/shared/Logo/Logo";
+import Link from "next/link";
 import SocialsList1 from "@/shared/SocialsList1/SocialsList1";
 import { CustomLink } from "@/data/types";
 import React from "react";
@@ -46,15 +47,14 @@ const Footer: React.FC = () => {
         <ul className="mt-5 space-y-4">
           {menu.menus.map((item, index) => (
             <li key={index}>
-              <a
+              <Link
                 key={index}
                 className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
                 href={item.href}
-                target="_blank"
                 rel="noopener noreferrer"
               >
                 {item.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

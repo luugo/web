@@ -16,62 +16,20 @@ import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import { PRODUCTS, SPORT_PRODUCTS } from "@/data/data";
 import SectionGridFeatureItems from "@/components/SectionGridFeatureItems";
 import SectionMagazine5 from "@/app/templates/blog/SectionMagazine5";
+import About from "@/components/About/About";
+import HowItWorks from "@/components/HowItWorks/HowItWorks";
 
 function PageHome() {
   return (
     <div className="nc-PageHome relative overflow-hidden">
       <SectionHero2 />
 
-      <div className="mt-24 lg:mt-32">
-        <DiscoverMoreSlider />
+      <div className="container h-screen flex items-center relative space-y-24 my-24 lg:space-y-32 lg:my-32">
+        <About />
       </div>
 
-      <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
-        <SectionSliderProductCard
-          data={[
-            PRODUCTS[4],
-            SPORT_PRODUCTS[5],
-            PRODUCTS[7],
-            SPORT_PRODUCTS[1],
-            PRODUCTS[6],
-          ]}
-        />
-
-        <SectionPromo1 />
-
-        <div className="relative py-24 lg:py-32">
-          <BackgroundSection />
-          <SectionGridMoreExplore />
-        </div>
-
-        <SectionSliderProductCard
-          heading="Best Sellers"
-          subHeading="Best selling of the month"
-        />
-
-        <SectionPromo2 />
-
-        <SectionSliderLargeProduct cardStyle="style2" />
-
-        <SectionSliderCategories />
-
-        <SectionPromo3 />
-
-        <SectionGridFeatureItems />
-
-        <div className="relative py-24 lg:py-32">
-          <BackgroundSection />
-          <div>
-            <Heading rightDescText="From the Ciseco blog">
-              The latest news
-            </Heading>
-            <SectionMagazine5 />
-            <div className="flex mt-16 justify-center">
-              <ButtonSecondary>Show all blog articles</ButtonSecondary>
-            </div>
-          </div>
-        </div>
-        <SectionClientSay />
+      <div className="container h-screen flex items-center relative space-y-44 my-24 lg:space-y-32 lg:my-32">
+        <HowItWorks />
       </div>
     </div>
   );
