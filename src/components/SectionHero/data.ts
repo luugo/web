@@ -1,4 +1,5 @@
 import Image, { StaticImageData } from "next/image";
+import Logo from "@/shared/Logo/Logo";
 import { Route } from "@/routers/types";
 import imageRightPng from "@/images/hero-right.png";
 import imageRightPng2 from "@/images/hero-right-2.png";
@@ -15,23 +16,23 @@ interface Hero2DataType {
 export const HERO2_DEMO_DATA: Hero2DataType[] = [
   {
     image: imageRightPng2,
-    heading: "Exclusive collection for everyone",
-    subHeading: "In this season, find the best 🔥",
-    btnText: "Explore now",
-    btnLink: "/",
+    heading: "Precisou? Alugou!",
+    subHeading: "",
+    btnText: "Cadastre-se!",
+    btnLink: "/signup",
   },
   {
     image: imageRightPng3,
-    heading: "Exclusive collection for everyone",
-    subHeading: "In this season, find the best 🔥",
-    btnText: "Explore now",
-    btnLink: "/",
+    heading: "Por quê comprar se você pode Alugar?",
+    subHeading: "",
+    btnText: "Cadastre-se!",
+    btnLink: "/signup",
   },
   {
     image: imageRightPng,
-    heading: "Exclusive collection for everyone",
-    subHeading: "In this season, find the best 🔥",
-    btnText: "Explore now",
-    btnLink: "/",
+    heading: "Quer economizar? Alugue!",
+    subHeading: "",
+    btnText: "Cadastre-se!",
+    btnLink: "/signup",
   },
 ];
