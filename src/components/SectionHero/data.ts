@@ -2,8 +2,9 @@ import Image, { StaticImageData } from "next/image";
 import Logo from "@/shared/Logo/Logo";
 import { Route } from "@/routers/types";
 import imageRightPng from "@/images/hero-right.png";
-import imageRightPng2 from "@/images/hero-right-2.png";
+// import imageRightPng2 from "@/images/hero-right-2.png";
 import imageRightPng3 from "@/images/hero-right-3.png";
+import imageRightPng2 from "@/images/hero-2-right-1.png";
 
 interface Hero2DataType {
   image: StaticImageData | string;
