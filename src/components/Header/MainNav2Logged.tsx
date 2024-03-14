@@ -81,9 +81,9 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
           <Logo className="flex-shrink-0" />
         </div>
 
-        {/* <div className="flex-[2] hidden lg:flex justify-center mx-4">
+        <div className="flex-[2] hidden lg:flex mx-4">
           <Navigation />
-        </div> */}
+        </div>
 
         <div className="flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
           <AvatarDropdown />

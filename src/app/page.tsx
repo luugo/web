@@ -24,12 +24,12 @@ function PageHome() {
     <div className="nc-PageHome relative overflow-hidden">
       <SectionHero2 />
 
-      <div className="container h-screen flex items-center relative space-y-24 my-24 lg:space-y-32 lg:my-32">
-        <About />
+      <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-72">
+        <HowItWorks />
       </div>
 
-      <div className="container h-screen flex items-center relative space-y-44 my-24 lg:space-y-32 lg:my-32">
-        <HowItWorks />
+      <div className="container flex items-center relative space-y-24 my-24 lg:space-y-32 lg:my-72">
+        <About />
       </div>
     </div>
   );
