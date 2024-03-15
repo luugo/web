@@ -13,6 +13,7 @@ import { useUserContext } from "@/context";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import { Alert } from "@/shared/Alert/Alert";
 import { useRouter } from "next/navigation";
+import ModalDelete from "@/components/ModalDelete";
 
 
 const AccountPage = () => {
@@ -28,7 +29,8 @@ const AccountPage = () => {
   const [id, setId] = useState<string | undefined>('');
   const [authId, setAuthId] = useState<string | null | undefined>('');
   const [token, setToken] = useState<string | null | undefined>('');
-  
+  const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
+
   const userApi = new UserApi();
   const userContactApi = new UserContactApi();
 
@@ -42,14 +44,14 @@ const AccountPage = () => {
   if (typeof window !== 'undefined') {
     storageData = localStorage.getItem('luugo');
   }
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (storageData !== null) {
           const luugo: AuthenticationPostDefaultResponse = JSON.parse(storageData);
           const userResp: User[] = await userApi.userGet({ id: luugo.user?.id });
-          if(userResp) {
+          if (userResp) {
             const user = userResp[0];
             setId(user.id);
             setAuthId(user.authenticationId);
@@ -57,13 +59,13 @@ const AccountPage = () => {
             setFirstName(user.firstName);
             setLastName(user.lastName);
             setPlace(user.place);
-            if(user.id) {
+            if (user.id) {
               const userContactResp = await userContactApi.userContactGet({ userId: user.id });
-              if(userContactResp.length) {
+              if (userContactResp.length) {
                 const _phone = userContactResp.filter(c => c.type == 'PHONE')
                 const _email = userContactResp.filter(c => c.type == 'EMAIL')
-                if(_phone.length) setPhone(_phone[0].value);
-                if(_email.length) {
+                if (_phone.length) setPhone(_phone[0].value);
+                if (_email.length) {
                   setEmail(_email[0].value);
                 }
               }
@@ -87,9 +89,9 @@ const AccountPage = () => {
     setAlert(msg);
     setTypeAlert(type);
     setShowAlert(true);
-    setTimeout(()=>{
+    setTimeout(() => {
       setShowAlert(false);
-    },5000);
+    }, 5000);
   }
 
   const changeFisrtName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -108,7 +110,7 @@ const AccountPage = () => {
     setPlace(event.target.value);
   };
 
-  const onUpdateAccount = async ()  => {
+  const onUpdateAccount = async () => {
     try {
       const user: User =
       {
@@ -128,13 +130,13 @@ const AccountPage = () => {
         localStorage.setItem('luugo', JSON.stringify(luugo));
       }
 
-      const userPutResponse = await userApi.userPut({user},{
+      const userPutResponse = await userApi.userPut({ user }, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       })
-      if(userPutResponse) {
+      if (userPutResponse) {
         showAlert('Atualizado com sucesso!');
         handleFirstNameChange(firstName);
         handleLastNameChange(lastName);
@@ -153,7 +155,7 @@ const AccountPage = () => {
       console.log(luugo)
       userApi.userDelete({ id: luugo.user?.id }).then(
         (res: any) => {
-          if(res.status == 204) {
+          if (res.status == 204) {
             localStorage.removeItem('luugo');
             router.push("/");
           }
@@ -165,7 +167,7 @@ const AccountPage = () => {
   return (
     <div className={`nc-AccountPage `}>
       <div className="fixed left-0 top-0 z-max w-full p-4">
-      {isShowAlert && (<Alert type={typeAlert} onClick={() => setShowAlert(false)}>{alert}</Alert>)}
+        {isShowAlert && (<Alert type={typeAlert} onClick={() => setShowAlert(false)}>{alert}</Alert>)}
       </div>
       <div className="space-y-10 sm:space-y-12">
         {/* HEADING */}
@@ -211,11 +213,11 @@ const AccountPage = () => {
           <div className="flex-grow mt-10 md:mt-0 md:pl-16 max-w-3xl space-y-6">
             <div>
               <Label>Nome</Label>
-              <Input className="mt-1.5" defaultValue={firstName} onChange={changeFisrtName}/>
+              <Input className="mt-1.5" defaultValue={firstName} onChange={changeFisrtName} />
             </div>
             <div>
               <Label>Sobrenome</Label>
-              <Input className="mt-1.5" defaultValue={lastName} onChange={changeLastName}/>
+              <Input className="mt-1.5" defaultValue={lastName} onChange={changeLastName} />
             </div>
 
             {/* ---- */}
@@ -293,14 +295,21 @@ const AccountPage = () => {
             <div className="flex pt-2 gap-6">
               <ButtonPrimary onClick={onUpdateAccount}>Atualizar conta</ButtonPrimary>
               <ButtonSecondary
-              onClick={onDeleteAccount}
-              className="text-red-500 border border-red-400 dark:border-slate-700">
+                onClick={() => setDeleteModalVisible(true)}
+                className="text-red-500 border border-red-400 dark:border-slate-700">
                 Deletar Conta
               </ButtonSecondary>
             </div>
           </div>
         </div>
       </div>
+      <ModalDelete
+        modalTitle={'Deletar Conta'}
+        modalDescription={'Tem certeza que deseja deletar sua conta? Esta ação é irrevessível'}
+        show={deleteModalVisible}
+        onCloseModalDelete={() => setDeleteModalVisible(false)}
+        handleConfirm={onDeleteAccount}
+      />
     </div>
   );
 };
