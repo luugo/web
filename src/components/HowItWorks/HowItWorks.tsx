@@ -59,7 +59,7 @@ const HowItWorks = () => {
                     alt="vector"
                 />
                 {data?.map((item, index) => (
-                    <div className="text-center">
+                    <div className="text-center transition-transform transform hover:scale-110">
                         <div className="flex flex-col items-center">
                             <NcImage
                                 containerClassName="mb-4 sm:mb-10 max-w-[140px] mx-auto"
