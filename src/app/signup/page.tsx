@@ -12,21 +12,21 @@ import { AuthenticationApi } from "../../../luugoapi";
 import { Alert } from "@/shared/Alert/Alert";
 
 const loginSocials = [
-  // {
-  //   name: "Continue with Facebook",
-  //   href: "#",
-  //   icon: facebookSvg,
-  // },
-  // {
-  //   name: "Continue with Twitter",
-  //   href: "#",
-  //   icon: twitterSvg,
-  // },
-  // {
-  //   name: "Continue with Google",
-  //   href: "#",
-  //   icon: googleSvg,
-  // },
+  {
+    name: "Continue with Facebook",
+    href: "#",
+    icon: facebookSvg,
+  },
+  {
+    name: "Continue with Twitter",
+    href: "#",
+    icon: twitterSvg,
+  },
+  {
+    name: "Continue with Google",
+    href: "#",
+    icon: googleSvg,
+  },
 ];
 
 const fromToError = (message: string) => {
@@ -42,7 +42,7 @@ const fromToError = (message: string) => {
 }
 
 const renderOR = () => {
-  if(loginSocials.length > 0) {
+  if(!loginSocials.length) {
     return (
       <div className="relative text-center">
         <span className="relative z-10 inline-block px-4 font-medium text-sm bg-white dark:text-neutral-400 dark:bg-neutral-900">
@@ -110,7 +110,7 @@ const PageSignUp = () => {
         </h2>
         <div className="max-w-md mx-auto space-y-6 ">
           <div className="grid gap-3">
-            {loginSocials.map((item, index) => (
+            {!loginSocials.length && loginSocials.map((item, index) => (
               <a
                 key={index}
                 href={item.href}

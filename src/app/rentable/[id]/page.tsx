@@ -48,7 +48,7 @@ const ProductDetailPage = () => {
     const rentableparams = useParams();
     const rentableId: string = String(rentableparams.id);
 
-    const [rentable, setRentables] = useState<Rentable[]>([]);
+    const [rentable, setRentable] = useState<Rentable[]>([]);
     const [userContact, setUserContacts] = useState<UserContact[]>([]); // Mova a declaração aqui
 
     useEffect(() => {
@@ -57,7 +57,7 @@ const ProductDetailPage = () => {
             id: rentableId,
         };
         rentableApi.rentableGet(requestApiParameters).then(async (rentables) => {
-            setRentables(rentables);
+            setRentable(rentables);
             const processedContent = await remark()
                 .use(html)
                 .process(rentables[0].description);
@@ -185,19 +185,19 @@ const ProductDetailPage = () => {
                         {/* CONTENT */}
                         <div className="w-full lg:w-[55%] ">
                             {/* HEADING */}
-                            <div className="relative">
+                            {/* <div className="relative">
                                 <div className="aspect-w-16 aspect-h-16 relative">
                                     <Image
                                         fill
                                         sizes="(max-width: 640px) 100vw, 33vw"
-                                        src={rentable?.[0]?.thumbnail}
+                                        src={rentable[0].thumbnail}
                                         className="w-full rounded-2xl object-cover"
                                         alt="product detail 1"
                                     />
                                 </div>
                                 <LikeButton className="absolute right-3 top-3 "/>
-                            </div>
-                            <div className="grid grid-cols-2 gap-3 mt-3 sm:gap-6 sm:mt-6 xl:gap-8 xl:mt-8">
+                            </div> */}
+                            {/* <div className="grid grid-cols-2 gap-3 mt-3 sm:gap-6 sm:mt-6 xl:gap-8 xl:mt-8">
                                 {[media?.[0]?.url, media?.[1]?.url ?? notFoundJPG].map((item, index) => {
                                     return (
                                         <div
@@ -214,7 +214,7 @@ const ProductDetailPage = () => {
                                         </div>
                                     );
                                 })}
-                            </div>
+                            </div> */}
                         </div>
 
                         {/* SIDEBAR */}

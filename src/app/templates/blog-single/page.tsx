@@ -255,7 +255,7 @@ const BlogSingle = () => {
         key={index}
         className="relative aspect-w-3 aspect-h-4 rounded-3xl overflow-hidden group"
       >
-        <Link href={"/blog-single"} />
+        <a href="/blog-single" />
         <Image
           alt="Related"
           fill
@@ -280,7 +280,7 @@ const BlogSingle = () => {
             <span className="font-normal truncate">May 20, 2021</span>
           </div>
         </div>
-        <Link href={"/blog-single"} />
+        <a href="/blog-single" />
       </div>
     );
   };

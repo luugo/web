@@ -114,7 +114,7 @@ const ProductCard: FC<ProductCardProps> = ({
                 className="font-medium text-primary-6000 dark:text-primary-500 "
                 onClick={(e) => {
                   e.preventDefault();
-                  router.push("/cart");
+                  router.push("/templates/cart");
                 }}
               >
                 View cart
@@ -264,10 +264,10 @@ const ProductCard: FC<ProductCardProps> = ({
       <div
         className={`nc-ProductCard relative flex flex-col bg-transparent ${className}`}
       >
-        <Link href={"/product-detail"} className="absolute inset-0"></Link>
+        <Link href={"/templates/product-detail"} className="absolute inset-0"></Link>
 
         <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group">
-          <Link href={"/product-detail"} className="block">
+          <Link href={"/templates/product-detail"} className="block">
             <NcImage
               containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
               src={image}

@@ -5,8 +5,10 @@ import { Product, PRODUCTS } from "@/data/data";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
+// import { useRouter } from "next/navigation";
 
 const CartPage = () => {
+  // const router = useRouter()
   const renderStatusSoldout = () => {
     return (
       <div className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
@@ -41,7 +43,7 @@ const CartPage = () => {
             sizes="300px"
             className="h-full w-full object-contain object-center"
           />
-          <Link href="/product-detail" className="absolute inset-0"></Link>
+          <a href="/product-detail" className="absolute inset-0"></a>
         </div>
 
         <div className="ml-3 sm:ml-6 flex flex-1 flex-col">
@@ -49,7 +51,7 @@ const CartPage = () => {
             <div className="flex justify-between ">
               <div className="flex-[1.5] ">
                 <h3 className="text-base font-semibold">
-                  <Link href="/product-detail">{name}</Link>
+                  <a href="/product-detail">{name}</a>
                 </h3>
                 <div className="mt-1.5 sm:mt-2.5 flex text-sm text-slate-600 dark:text-slate-300">
                   <div className="flex items-center space-x-1.5">
@@ -194,9 +196,9 @@ const CartPage = () => {
               Homepage
             </Link>
             <span className="text-xs mx-1 sm:mx-1.5">/</span>
-            <Link href={"/collection"} className="">
+            <a href={"/collection"} className="">
               Clothing Categories
-            </Link>
+            </a>
             <span className="text-xs mx-1 sm:mx-1.5">/</span>
             <span className="underline">Shopping Cart</span>
           </div>
@@ -242,7 +244,7 @@ const CartPage = () => {
                   <span>$276.00</span>
                 </div>
               </div>
-              <ButtonPrimary href="/checkout" className="mt-8 w-full">
+              <ButtonPrimary href='/templates/checkout' className="mt-8 w-full">
                 Checkout
               </ButtonPrimary>
               <div className="mt-5 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-center">

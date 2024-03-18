@@ -6,19 +6,19 @@ import { FC } from "react";
 
 interface Props {
   panelClassName?: string;
-  data?: object;
+  data?: any;
   name?: string;
 }
 
 const RentableInfo: FC<Props> = ({
                                    panelClassName = "p-4 pt-3 last:pb-0 text-slate-600 text-sm dark:text-slate-300 leading-6",
-                                   data = '',
+                                   data,
                                    name = 'Contato locatário',
                                  }) => {
   return (
       <div className="w-full rounded-2xl space-y-2.5">
         <h3 className="text-2xl sm:text-3xl font-semibold">{name}</h3>
-        {data.map((item, index) => (
+        {data.map((item: any, index: number) => (
             <Disclosure key={index} defaultOpen={index < 2}>
               {({ open }) => (
                   <>

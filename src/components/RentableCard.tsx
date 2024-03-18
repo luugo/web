@@ -102,10 +102,10 @@ const RentableCard: FC<ProductCardProps> = ({
         <div
             className={`nc-ProductCard relative flex flex-col bg-transparent ${className}`}
         >
-          <Link href={link} className="absolute inset-0"></Link>
+          <a href={link} className="absolute inset-0"></a>
 
           <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group">
-            <Link href={link} className="block">
+            <a href={link} className="block">
               <NcImage
                   containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
                   src={thumbnail}
@@ -114,7 +114,7 @@ const RentableCard: FC<ProductCardProps> = ({
                   sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
                   alt="product"
               />
-            </Link>
+            </a>
             <ProductStatus status={status} />
             <LikeButton liked={isLiked} className="absolute top-3 end-3 z-10" />
             {renderGroupButtons()}
