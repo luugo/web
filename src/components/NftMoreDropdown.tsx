@@ -89,7 +89,9 @@ const NftMoreDropdown: FC<NftMoreDropdownProps> = ({
       />
       <ModalEdit show={isEditting} onCloseModalEdit={closeModalEdit} />
 
-      <ModalDelete show={isDeleting} onCloseModalDelete={closeModalDelete} />
+      <ModalDelete show={isDeleting} onCloseModalDelete={closeModalDelete} modalTitle={""} modalDescription={""} handleConfirm={function (): void {
+        throw new Error("Function not implemented.");
+      } } />
       <ModalTransferToken
         show={isTransfering}
         onCloseModalTransferToken={closeModalTransferToken}

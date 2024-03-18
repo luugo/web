@@ -14,25 +14,25 @@ const Card3Small: FC<Card3SmallProps> = ({ className = "h-full" }) => {
       className={`nc-Card3Small relative flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center ${className}`}
       data-nc-id="Card3Small"
     >
-      <Link
+      <a
         href={"/blog-single"}
         className=" absolute inset-0"
         title={"title"}
-      ></Link>
+      ></a>
       <div className="relative space-y-2">
         <PostCardMeta />
         <h2 className="nc-card-title block text-base font-semibold text-neutral-900 dark:text-neutral-100">
-          <Link
+          <a
             href={"/blog-single"}
             className=" line-clamp-2 capitalize"
             title={"title"}
           >
             {_getTitleRd()}
-          </Link>
+          </a>
         </h2>
       </div>
 
-      <Link
+      <a
         href={`/blog-single`}
         title={"title"}
         className={`block sm:w-20 flex-shrink-0 relative rounded-lg overflow-hidden mb-5 sm:ml-4 sm:mb-0 group`}
@@ -47,7 +47,7 @@ const Card3Small: FC<Card3SmallProps> = ({ className = "h-full" }) => {
             src={_getImgRd()}
           />
         </div>
-      </Link>
+      </a>
     </div>
   );
 };

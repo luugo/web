@@ -24,7 +24,7 @@ export default function CartDropdown() {
           <Link
             onClick={close}
             className="absolute inset-0"
-            href={"/product-detail"}
+            href={"/templates/product-detail"}
           />
         </div>
 
@@ -33,7 +33,7 @@ export default function CartDropdown() {
             <div className="flex justify-between ">
               <div>
                 <h3 className="text-base font-medium ">
-                  <Link onClick={close} href={"/product-detail"}>
+                  <Link onClick={close} href={"/templates/product-detail"}>
                     {name}
                   </Link>
                 </h3>
@@ -115,7 +115,7 @@ export default function CartDropdown() {
               />
             </svg>
 
-            <Link className="block md:hidden absolute inset-0" href={"/cart"} />
+            <Link className="block md:hidden absolute inset-0" href={"/templates/cart"} />
           </Popover.Button>
           <Transition
             as={Fragment}
@@ -149,14 +149,14 @@ export default function CartDropdown() {
                     </p>
                     <div className="flex space-x-2 mt-5">
                       <ButtonSecondary
-                        href="/cart"
+                        href="/templates/cart"
                         className="flex-1 border border-slate-200 dark:border-slate-700"
                         onClick={close}
                       >
                         View cart
                       </ButtonSecondary>
                       <ButtonPrimary
-                        href="/checkout"
+                        href="/templates/checkout"
                         onClick={close}
                         className="flex-1"
                       >

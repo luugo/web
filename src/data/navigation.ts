@@ -180,7 +180,7 @@ const OTHER_PAGE_CHILD: NavItemType[] = [
 export const NAVIGATION_DEMO_2: NavItemType[] = [
   {
     id: ncNanoId(),
-    href: "/categorias",
+    href: "/categories",
     name: "Categorias",
   },
   // {

@@ -22,13 +22,13 @@ const Card3: FC<Card3Props> = ({ className = "h-full" }) => {
             <h2
               className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 text-xl`}
             >
-              <Link
+              <a
                 href={"/blog-single"}
                 className="line-clamp-2 capitalize"
                 title={"title"}
               >
                 {_getTitleRd()}
-              </Link>
+              </a>
             </h2>
             <div className="hidden sm:block sm:mt-2">
               <span className="text-neutral-500 dark:text-neutral-400 text-base line-clamp-1">
@@ -44,7 +44,7 @@ const Card3: FC<Card3Props> = ({ className = "h-full" }) => {
       <div
         className={`block flex-shrink-0 sm:w-56 sm:ml-6 rounded-3xl overflow-hidden mb-5 sm:mb-0`}
       >
-        <Link
+        <a
           href={"/blog-single"}
           className={`block w-full h-0 aspect-h-9 sm:aspect-h-16 aspect-w-16 `}
         >
@@ -55,7 +55,7 @@ const Card3: FC<Card3Props> = ({ className = "h-full" }) => {
             containerClassName="absolute inset-0"
             sizes="(max-width: 768px) 100vw, 30vw"
           />
-        </Link>
+        </a>
       </div>
     </div>
   );

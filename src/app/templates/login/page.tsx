@@ -74,7 +74,7 @@ const PageLogin = () => {
             <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
                 Password
-                <Link href="/forgot-pass" className="text-sm text-green-600">
+                <Link href="/templates/forgot-pass" className="text-sm text-green-600">
                   Forgot password?
                 </Link>
               </span>

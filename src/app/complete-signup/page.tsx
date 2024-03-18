@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import { useRouter } from "next/navigation";
-import { PlaceApi, UserApi, UserTypeEnum } from "../../../luugoapi";
+import { Place, PlaceApi, UserApi, UserTypeEnum } from "../../../luugoapi";
 import Select from "@/shared/Select/Select";
 
 const PageRegister = () => {
@@ -17,7 +17,7 @@ const PageRegister = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [place, setPlace] = useState('');
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState<Place[]>([]);
   
   useEffect(() => {
     if(storageData) {

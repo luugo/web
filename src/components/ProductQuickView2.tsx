@@ -197,7 +197,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
         {/* ---------- 1 HEADING ----------  */}
         <div>
           <h2 className="text-2xl 2xl:text-3xl font-semibold">
-            <Link href="/product-detail">Heavy Weight Shoes</Link>
+            <Link href="/templates/product-detail">Heavy Weight Shoes</Link>
           </h2>
 
           <div className="flex items-center mt-5 space-x-4 sm:space-x-5">
@@ -260,7 +260,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
         <div className="text-center">
           <Link
             className="text-primary-6000 hover:text-primary-500 font-medium"
-            href="/product-detail"
+            href="/templates/product-detail"
           >
             View full details
           </Link>

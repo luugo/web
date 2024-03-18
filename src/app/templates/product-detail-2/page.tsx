@@ -51,8 +51,8 @@ const ProductDetailPage2 = ({}) => {
   //
   const router = useRouter();
   const thisPathname = usePathname();
-  const searchParams = useSearchParams();
-  const modal = searchParams?.get("modal");
+  // const searchParams = useSearchParams();
+  // const modal = searchParams?.get("modal");
   //
   const [variantActive, setVariantActive] = useState(0);
   const [sizeSelected, setSizeSelected] = useState(sizes ? sizes[0] : "");
@@ -566,7 +566,7 @@ const ProductDetailPage2 = ({}) => {
         onCloseModalViewAllReviews={() => setIsOpenModalViewAllReviews(false)}
       />
 
-      <ListingImageGallery
+      {/* <ListingImageGallery
         isShowModal={modal === "PHOTO_TOUR_SCROLLABLE"}
         onClose={handleCloseModalImageGallery}
         images={LIST_IMAGES_GALLERY_DEMO.map((item, index) => {
@@ -575,7 +575,7 @@ const ProductDetailPage2 = ({}) => {
             url: item,
           };
         })}
-      />
+      /> */}
     </div>
   );
 };

@@ -12,7 +12,7 @@ export interface CommonLayoutProps {
 
 const pages: {
   name: string;
-  link: Route;
+  link: string;
 }[] = [
   {
     name: "Account info",
@@ -55,7 +55,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
           <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
 
           <div className="flex space-x-8 md:space-x-14 overflow-x-auto hiddenScrollbar">
-            {pages.map((item, index) => {
+            {pages.map((item: any, index) => {
               return (
                 <Link
                   key={index}

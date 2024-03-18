@@ -12,25 +12,25 @@ import { AuthenticationApi, UserApi, UserContactApi, UserTypeEnum } from "../../
 import { useUserContext } from "@/context";
 
 const loginSocials = [
-  // {
-  //   name: "Continue with Facebook",
-  //   href: "#",
-  //   icon: facebookSvg,
-  // },
-  // {
-  //   name: "Continue with Twitter",
-  //   href: "#",
-  //   icon: twitterSvg,
-  // },
-  // {
-  //   name: "Continue with Google",
-  //   href: "#",
-  //   icon: googleSvg,
-  // },
+  {
+    name: "Continue with Facebook",
+    href: "#",
+    icon: facebookSvg,
+  },
+  {
+    name: "Continue with Twitter",
+    href: "#",
+    icon: twitterSvg,
+  },
+  {
+    name: "Continue with Google",
+    href: "#",
+    icon: googleSvg,
+  },
 ];
 
 const renderOR = () => {
-  if(loginSocials.length > 0) {
+  if(!loginSocials.length) {
     return (
       <div className="relative text-center">
         <span className="relative z-10 inline-block px-4 font-medium text-sm bg-white dark:text-neutral-400 dark:bg-neutral-900">
@@ -90,20 +90,20 @@ const PageLogin = () => {
         </h2>
         <div className="max-w-md mx-auto space-y-6">
           <div className="grid gap-3">
-            {loginSocials.map((item, index) => (
+            {!loginSocials?.length && loginSocials?.map((item, index) => (
               <a
                 key={index}
-                href={item.href}
+                href={item?.href}
                 className="flex w-full rounded-lg bg-primary-50 dark:bg-neutral-800 px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]"
               >
                 <Image
                   className="flex-shrink-0"
-                  src={item.icon}
-                  alt={item.name}
+                  src={item?.icon}
+                  alt={item?.name}
                   sizes="40px"
                 />
                 <h3 className="flex-grow text-center text-sm font-medium text-neutral-700 dark:text-neutral-300 sm:text-sm">
-                  {item.name}
+                  {item?.name}
                 </h3>
               </a>
             ))}
@@ -128,7 +128,7 @@ const PageLogin = () => {
             <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
                 Senha
-                <Link href="/forgot-pass" className="text-sm text-green-600">
+                <Link href="/" className="text-sm text-green-600">
                   Esqueceu sua senha?
                 </Link>
               </span>

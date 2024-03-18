@@ -15,8 +15,8 @@ const widgetMenus: WidgetFooterMenu[] = [
     id: "5",
     title: "Produto",
     menus: [
-      { href: "/about", label: "Sobre" },
-      { href: "/FAQ", label: "FAQs" },
+      { href: "/templates/about", label: "Sobre" },
+      { href: "#", label: "FAQs" },
     ],
   },
   {
@@ -32,7 +32,7 @@ const widgetMenus: WidgetFooterMenu[] = [
     menus: [
       { href: "/contact", label: "Contato" },
       { href: "/privacy-policy", label: "Política de privacidade" },
-      { href: "/terms", label: "Termos" },
+      { href: "#", label: "Termos" },
     ],
   },
 ];
