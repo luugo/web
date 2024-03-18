@@ -5,22 +5,12 @@ import Input from "@/shared/Input/Input";
 import { CategoryApi } from '../../../luugoapi';
 import DoesNotExist from '@/components/DoesNotExist/DoesNotExist';
 
-interface Categories {
-    id: number;
-    name: string;
-}
-
 const Categorias: React.FC = () => {
-    const [categoriesItems, setCategoriesItems] = useState<Categories[]>([
-        { id: 1, name: 'Automóveis' },
-        { id: 2, name: 'Imóveis' },
-        { id: 3, name: 'Instrumentos' },
-        { id: 4, name: 'Ferramentas' },
-    ]);
+    const [categoriesItems, setCategoriesItems] = useState<any[]>([]);
     const [search, setSearch] = useState<string>('')
 
 
-    const filteredCategorias = categoriesItems?.filter(categoria => categoria?.name?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()));
+    const filteredCategorias = categoriesItems?.filter(categoria => categoria?.title?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()));
 
     const handleSearchCategoriesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
@@ -31,7 +21,8 @@ const Categorias: React.FC = () => {
         const fetchCategories = async () => {
             const categoryApi = new CategoryApi();
             const result = await categoryApi?.categoryGet();
-            console.log('sssssss', result)
+            const resultFiltered = result?.filter(r => r?.isActive === true)
+            setCategoriesItems(resultFiltered)
         }
 
         fetchCategories()
@@ -94,13 +85,13 @@ const Categorias: React.FC = () => {
                 {filteredCategorias?.length ? (
                     <div className="grid md:grid-cols-2 gap-6 lg:grid-cols-3 xl:gap-8">
                         {filteredCategorias?.map((item) => (
-                            <Link href={`/category/${item?.name}`}>
+                            <Link href={`/category/${item?.title}`}>
                                 <div
                                     key={item?.id}
                                     className="p-6 text-center bg-neutral-50 dark:bg-neutral-800 rounded-2xl dark:border-neutral-800"
                                 >
                                     <h3 className="text-2xl font-semibold leading-none text-neutral-900 md:text-3xl dark:text-neutral-200">
-                                        {item?.name}
+                                        {item?.title}
                                     </h3>
                                     {/* <span className="block text-sm text-neutral-500 mt-3 sm:text-base dark:text-neutral-400">
                                 {item.subHeading}
