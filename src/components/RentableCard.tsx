@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { Transition } from "@/app/headlessui";
 import ModalQuickView from "./ModalQuickView";
 import ProductStatus from "./ProductStatus";
+import placeholderSmall from "@/images/placeholder-small.png";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -108,7 +109,7 @@ const RentableCard: FC<ProductCardProps> = ({
             <a href={link} className="block">
               <NcImage
                   containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
-                  src={thumbnail}
+                  src={thumbnail || placeholderSmall}
                   className="object-cover w-full h-full drop-shadow-xl"
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"

@@ -1,33 +1,43 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import Input from "@/shared/Input/Input";
-import ProductCard from "@/components/ProductCard";
 import DoesNotExist from '@/components/DoesNotExist/DoesNotExist';
+import { RentableApi, RentableGetRequest } from '../../../../luugoapi';
 import { PRODUCTS } from "@/data/data";
+import { useParams } from 'next/navigation';
+import RentableCard from '@/components/RentableCard';
+import { CATEGORY } from '@/data/categories';
 
-const Categoria: React.FC = () => {
-    const [pageTitle, setPageTitle] = useState<string>('')
+const Category: React.FC = () => {
+    const params = useParams()
+    const categoryId:string = String(params?.id)
     const [items, setItems] = useState<any[]>([])
     const [search, setSearch] = useState<string>('')
 
-    const filteredCategorias = items?.filter(item => item?.name?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()));
+    const filteredCategorias = items?.filter(item => item?.title?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()));
 
     const handleSearchItemChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
     };
 
-
-
     useEffect(() => {
-        setItems(PRODUCTS)
-    }, [PRODUCTS])
+        const fetchRentables = async () => {
+            const rentableApi = new RentableApi()
+            const requestParameters: RentableGetRequest = {
+                categoryId: categoryId
+            }
+            const response = await rentableApi?.rentableGet(requestParameters)
+            setItems(response)
+        }
+        fetchRentables()
+    }, [])
 
-    useEffect(() => {
-        const pathUrl = window?.location?.pathname;
-        const categoryName = pathUrl?.split('/category/');
-        setPageTitle(decodeURIComponent(categoryName[1]))
-            , []
-    })
+    const addLink = (item: any) => {
+        item.link = `/rentable/${item.id}`;
+        return item;
+    };
+
+    const rentablesWithLinks = filteredCategorias.map(addLink);
 
     return (
         <div className={`nc-PageCategories`}>
@@ -35,7 +45,7 @@ const Categoria: React.FC = () => {
                 <div className="space-y-10 lg:space-y-34">
                     <div className="max-w-screen-sm">
                         <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold">
-                            {pageTitle}
+                            {CATEGORY[categoryId].title}
                         </h2>
                     </div>
                 </div>
@@ -84,8 +94,8 @@ const Categoria: React.FC = () => {
                 <hr className="border-slate-200 dark:border-slate-700" />
                 {filteredCategorias?.length ? (
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
-                        {filteredCategorias?.map((item, index) => (
-                            <ProductCard data={item} key={index} />
+                        {rentablesWithLinks?.map((item, index) => (
+                            <RentableCard data={item} key={index} />
                         ))}
                     </div>
                 ) : (
@@ -97,4 +107,4 @@ const Categoria: React.FC = () => {
     )
 };
 
-export default Categoria;
+export default Category;

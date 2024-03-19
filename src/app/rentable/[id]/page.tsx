@@ -21,6 +21,7 @@ import SectionSliderProductCard from "@/components/SectionSliderProductCard";
 import detail1JPG from "@/images/products/detail1.jpg";
 import detail2JPG from "@/images/products/detail2.jpg";
 import detail3JPG from "@/images/products/detail3.jpg";
+import placeholderSmall from "@/images/placeholder-small.png";
 import notFoundJPG from "@/images/404.png";
 import Policy from "./Policy";
 import ReviewItem from "@/components/ReviewItem";
@@ -185,18 +186,18 @@ const ProductDetailPage = () => {
                         {/* CONTENT */}
                         <div className="w-full lg:w-[55%] ">
                             {/* HEADING */}
-                            {/* <div className="relative">
+                            <div className="relative">
                                 <div className="aspect-w-16 aspect-h-16 relative">
                                     <Image
                                         fill
                                         sizes="(max-width: 640px) 100vw, 33vw"
-                                        src={rentable[0].thumbnail}
+                                        src={rentable[0]?.thumbnail || placeholderSmall}
                                         className="w-full rounded-2xl object-cover"
                                         alt="product detail 1"
                                     />
                                 </div>
                                 <LikeButton className="absolute right-3 top-3 "/>
-                            </div> */}
+                            </div>
                             {/* <div className="grid grid-cols-2 gap-3 mt-3 sm:gap-6 sm:mt-6 xl:gap-8 xl:mt-8">
                                 {[media?.[0]?.url, media?.[1]?.url ?? notFoundJPG].map((item, index) => {
                                     return (
