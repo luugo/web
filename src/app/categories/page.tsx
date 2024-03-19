@@ -4,13 +4,15 @@ import Link from "next/link";
 import Input from "@/shared/Input/Input";
 import { CategoryApi } from '../../../luugoapi';
 import DoesNotExist from '@/components/DoesNotExist/DoesNotExist';
+import { CATEGORY } from '@/data/categories';
 
-const Categorias: React.FC = () => {
+const Categories: React.FC = () => {
     const [categoriesItems, setCategoriesItems] = useState<any[]>([]);
     const [search, setSearch] = useState<string>('')
 
 
-    const filteredCategorias = categoriesItems?.filter(categoria => categoria?.title?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()));
+    let filteredCategories = categoriesItems?.filter(category => CATEGORY[category?.id]?.title?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()));
+    filteredCategories?.sort((a: any, b: any) => CATEGORY[a?.id]?.title?.localeCompare(CATEGORY[b?.id]?.title)); 
 
     const handleSearchCategoriesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
@@ -82,16 +84,16 @@ const Categorias: React.FC = () => {
                     </form>
                 </header>
                 <hr className="border-slate-200 dark:border-slate-700" />
-                {filteredCategorias?.length ? (
+                {filteredCategories?.length ? (
                     <div className="grid md:grid-cols-2 gap-6 lg:grid-cols-3 xl:gap-8">
-                        {filteredCategorias?.map((item) => (
-                            <Link href={`/category/${item?.title}`}>
+                        {filteredCategories?.map((item) => (
+                            <Link href={`/category/${item?.id}`}>
                                 <div
                                     key={item?.id}
                                     className="p-6 text-center bg-neutral-50 dark:bg-neutral-800 rounded-2xl dark:border-neutral-800"
                                 >
                                     <h3 className="text-2xl font-semibold leading-none text-neutral-900 md:text-3xl dark:text-neutral-200">
-                                        {item?.title}
+                                        {CATEGORY[item?.id]?.title}
                                     </h3>
                                     {/* <span className="block text-sm text-neutral-500 mt-3 sm:text-base dark:text-neutral-400">
                                 {item.subHeading}
@@ -109,4 +111,4 @@ const Categorias: React.FC = () => {
     )
 };
 
-export default Categorias;
+export default Categories;
