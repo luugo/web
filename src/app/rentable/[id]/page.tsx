@@ -197,7 +197,7 @@ const ProductDetailPage = () => {
         return (
             <>
                 <h2 className="text-2xl font-semibold">Localização</h2>
-                <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
+                <LoadScript googleMapsApiKey={''}>
                     <GoogleMap
                         mapContainerStyle={containerStyle}
                         center={center}
