@@ -1,14 +1,14 @@
 "use client";
 
-import {remark} from 'remark';
+import { remark } from 'remark';
 import html from 'remark-html';
-import React, {FC, useEffect, useState} from "react";
+import React, { FC, useEffect, useState } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import LikeButton from "@/components/LikeButton";
-import {StarIcon} from "@heroicons/react/24/solid";
+import { StarIcon } from "@heroicons/react/24/solid";
 import BagIcon from "@/components/BagIcon";
 import NcInputNumber from "@/components/NcInputNumber";
-import {PRODUCTS} from "@/data/data";
+import { PRODUCTS } from "@/data/data";
 import {
     NoSymbolIcon,
     ClockIcon,
@@ -31,7 +31,7 @@ import ModalViewAllReviews from "./ModalViewAllReviews";
 import NotifyAddTocart from "@/components/NotifyAddTocart";
 import Image from "next/image";
 import RentableInfo from "@/components/RentableInfo";
-import {useParams} from "next/navigation";
+import { useParams } from "next/navigation";
 import {
     Media,
     MediaApi,
@@ -42,8 +42,14 @@ import {
     UserContact, UserContactApi, UserContactGetRequest
 } from "../../../../luugoapi";
 import SectionSliderRentableCard from "@/components/SectionSliderRentableCard";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 const LIST_IMAGES_DEMO = [detail1JPG, detail2JPG, detail3JPG];
+
+const containerStyle = {
+    width: '100%',
+    height: '600px',
+};
 
 const ProductDetailPage = () => {
     const rentableparams = useParams();
@@ -51,6 +57,16 @@ const ProductDetailPage = () => {
 
     const [rentable, setRentable] = useState<Rentable[]>([]);
     const [userContact, setUserContacts] = useState<UserContact[]>([]); // Mova a declaração aqui
+
+    const position = {
+        lat: rentable[0]?.geolocation?.y,
+        lng: rentable[0]?.geolocation?.x
+    };
+
+    const center = {
+        lat: rentable[0]?.geolocation?.y,
+        lng: rentable[0]?.geolocation?.x
+    };
 
     useEffect(() => {
         const rentableApi = new RentableApi();
@@ -84,7 +100,7 @@ const ProductDetailPage = () => {
         mediaApi.mediaGet(requestMediaParameters).then(setMedias);
     }, []);
 
-    const {sizes, variants, status, allOfSizes, image} = PRODUCTS[0];
+    const { sizes, variants, status, allOfSizes, image } = PRODUCTS[0];
 
     const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] =
         useState(false);
@@ -107,7 +123,7 @@ const ProductDetailPage = () => {
                 </div>
 
                 <hr className=" 2xl:!my-10 border-slate-200 dark:border-slate-700"></hr>
-                <RentableInfo data={userContact}/>
+                <RentableInfo data={userContact} />
             </div>
         );
     };
@@ -117,7 +133,7 @@ const ProductDetailPage = () => {
             <div className="">
                 <h2 className="text-2xl font-semibold">Descrição</h2>
                 <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl mt-7">
-                    <p dangerouslySetInnerHTML={{__html: rentable?.[0]?.description}}>
+                    <p dangerouslySetInnerHTML={{ __html: rentable?.[0]?.description }}>
                     </p>
                 </div>
             </div>
@@ -129,14 +145,14 @@ const ProductDetailPage = () => {
             <div className="">
                 {/* HEADING */}
                 <h2 className="text-2xl font-semibold flex items-center">
-                    <StarIcon className="w-7 h-7 mb-0.5"/>
+                    <StarIcon className="w-7 h-7 mb-0.5" />
                     <span className="ml-1.5"> 4,87 · 142 Reviews</span>
                 </h2>
 
                 {/* comment */}
                 <div className="mt-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-y-11 gap-x-28">
-                        <ReviewItem/>
+                        <ReviewItem />
                         <ReviewItem
                             data={{
                                 comment: `I love the charcoal heavyweight hoodie. Still looks new after plenty of washes. 
@@ -177,6 +193,23 @@ const ProductDetailPage = () => {
         );
     };
 
+    const handleRenderMap = () => {
+        return (
+            <>
+                <h2 className="text-2xl font-semibold">Localização</h2>
+                <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
+                    <GoogleMap
+                        mapContainerStyle={containerStyle}
+                        center={center}
+                        zoom={10}
+                    >
+                        <Marker position={position} />
+                    </GoogleMap>
+                </LoadScript>
+            </>
+        )
+    }
+
     return (
         <div className="pb-20 xl:pb-28 lg:pt-14">
             <div className={`nc-ProductDetailPage `}>
@@ -196,7 +229,7 @@ const ProductDetailPage = () => {
                                         alt="product detail 1"
                                     />
                                 </div>
-                                <LikeButton className="absolute right-3 top-3 "/>
+                                <LikeButton className="absolute right-3 top-3 " />
                             </div>
                             {/* <div className="grid grid-cols-2 gap-3 mt-3 sm:gap-6 sm:mt-6 xl:gap-8 xl:mt-8">
                                 {[media?.[0]?.url, media?.[1]?.url ?? notFoundJPG].map((item, index) => {
@@ -227,11 +260,14 @@ const ProductDetailPage = () => {
                     {/* DETAIL AND REVIEW */}
                     <div className="mt-12 sm:mt-16 space-y-10 sm:space-y-16">
                         <div className="block xl:hidden">
-                            <Policy/>
+                            <Policy />
                         </div>
 
                         {renderDetailSection()}
-                        <hr className="border-slate-200 dark:border-slate-700"/>
+                        <hr className="border-slate-200 dark:border-slate-700" />
+                        
+                        {handleRenderMap()}
+                        <hr className="border-slate-200 dark:border-slate-700" />
 
                         {/* OTHER SECTION */}
                         <SectionSliderRentableCard
