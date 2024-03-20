@@ -12,7 +12,7 @@ interface Item {
 export interface ArchiveFilterListBoxProps {
   dropDownItems: Item[];
   className?: string;
-  selected: Item;
+  selected: Item | undefined;
   setSelected: (item: Item) => void; 
 }
 

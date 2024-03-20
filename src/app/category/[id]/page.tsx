@@ -8,21 +8,26 @@ import RentableCard from '@/components/RentableCard';
 import { CATEGORY } from '@/data/categories';
 import ArchiveFilterListBox from '@/components/ArchiveFilterListBox';
 
+interface PlacesProps {
+    id: number;
+    name: string;
+}
+
 const Category: React.FC = () => {
-    const places = [
-        { id: 0, name: 'Selecione um Local' },
-        { id: 1, name: "Natal/RN" },
-        { id: 2, name: "Parnamirim/RN" },
-        { id: 3, name: "Macaíba/RN" }
-    ];
-
-
     const params = useParams()
     const categoryId: string = String(params?.id)
     const [items, setItems] = useState<any[]>([])
     const [search, setSearch] = useState<string>('')
-    const [selectedPlace, setSelectedPlace] = useState(places[0])
     const [filteredRentables, setFilteredRentables] = useState<any[]>([])
+    const [places, setPlaces] = useState<any[]>([])
+    const [selectedPlace, setSelectedPlace] = useState<PlacesProps>()
+
+    useEffect(() => {
+        const cities = Array.from(new Set(items?.map(i => i?.place)))
+        const citiesWithAllOption = [{ id: 0, name: 'Todas Localidades' }, ...cities.map((city, index) => ({ id: index + 1, name: city }))];
+        setPlaces(citiesWithAllOption)
+        setSelectedPlace(citiesWithAllOption[0])
+    }, [items])
 
     const handleSearchItemChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
