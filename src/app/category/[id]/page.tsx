@@ -1,24 +1,41 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import Input from "@/shared/Input/Input";
 import DoesNotExist from '@/components/DoesNotExist/DoesNotExist';
 import { RentableApi, RentableGetRequest } from '../../../../luugoapi';
-import { PRODUCTS } from "@/data/data";
 import { useParams } from 'next/navigation';
 import RentableCard from '@/components/RentableCard';
 import { CATEGORY } from '@/data/categories';
+import ArchiveFilterListBox from '@/components/ArchiveFilterListBox';
 
 const Category: React.FC = () => {
+    const places = [
+        { id: 0, name: 'Selecione um Local' },
+        { id: 1, name: "Natal/RN" },
+        { id: 2, name: "Parnamirim/RN" },
+        { id: 3, name: "Macaíba/RN" }
+    ];
+
+
     const params = useParams()
-    const categoryId:string = String(params?.id)
+    const categoryId: string = String(params?.id)
     const [items, setItems] = useState<any[]>([])
     const [search, setSearch] = useState<string>('')
-
-    const filteredCategorias = items?.filter(item => item?.title?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()));
+    const [selectedPlace, setSelectedPlace] = useState(places[0])
+    const [filteredRentables, setFilteredRentables] = useState<any[]>([])
 
     const handleSearchItemChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
     };
+
+    useEffect(() => {
+        const filter = selectedPlace?.id !== 0 ? 
+            items?.filter(item => item?.title?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()) && item?.place === selectedPlace?.name) 
+            :
+            items?.filter(item => item?.title?.toLocaleLowerCase().includes(search?.toLocaleLowerCase()))
+
+        setFilteredRentables(filter)
+    }, [items, selectedPlace?.name, selectedPlace?.id, search])
 
     useEffect(() => {
         const fetchRentables = async () => {
@@ -37,7 +54,7 @@ const Category: React.FC = () => {
         return item;
     };
 
-    const rentablesWithLinks = filteredCategorias.map(addLink);
+    const rentablesWithLinks = filteredRentables.map(addLink);
 
     return (
         <div className={`nc-PageCategories`}>
@@ -92,7 +109,18 @@ const Category: React.FC = () => {
                     </form>
                 </header>
                 <hr className="border-slate-200 dark:border-slate-700" />
-                {filteredCategorias?.length ? (
+                <div className="flex lg:space-x-4">
+                    <div className="lg:flex flex-1 space-x-4">
+                        <div className="relative md:min-w-[200px]">
+                            <ArchiveFilterListBox
+                                dropDownItems={places}
+                                selected={selectedPlace}
+                                setSelected={setSelectedPlace}
+                            />
+                        </div>
+                    </div>
+                </div>
+                {filteredRentables?.length ? (
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                         {rentablesWithLinks?.map((item, index) => (
                             <RentableCard data={item} key={index} />

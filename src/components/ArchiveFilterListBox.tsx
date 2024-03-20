@@ -5,22 +5,25 @@ import { Listbox, Transition } from "@/app/headlessui";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import ButtonDropdown from "./ButtonDropdown";
 
+interface Item {
+  id: number;
+  name: string;
+}
 export interface ArchiveFilterListBoxProps {
+  dropDownItems: Item[];
   className?: string;
+  selected: Item;
+  setSelected: (item: Item) => void; 
 }
 
-const lists = [
-  { name: "Most Recent" },
-  { name: "Curated by Admin" },
-  { name: "Most Appreciated" },
-  { name: "Most Discussed" },
-  { name: "Most Viewed" },
-];
 
 const ArchiveFilterListBox: FC<ArchiveFilterListBoxProps> = ({
   className = "",
+  dropDownItems,
+  selected,
+  setSelected
 }) => {
-  const [selected, setSelected] = useState(lists[0]);
+
   return (
     <div
       className={`nc-ArchiveFilterListBox ${className}`}
@@ -29,7 +32,7 @@ const ArchiveFilterListBox: FC<ArchiveFilterListBoxProps> = ({
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative md:min-w-[200px]">
           <Listbox.Button as={"div"}>
-            <ButtonDropdown>{selected.name}</ButtonDropdown>
+            <ButtonDropdown>{selected?.name}</ButtonDropdown>
           </Listbox.Button>
           <Transition
             as={Fragment}
@@ -38,7 +41,7 @@ const ArchiveFilterListBox: FC<ArchiveFilterListBoxProps> = ({
             leaveTo="opacity-0"
           >
             <Listbox.Options className="absolute right-0 z-20 w-52 py-1 mt-2 overflow-auto text-sm text-neutral-900 dark:text-neutral-200 bg-white rounded-2xl shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-900 dark:ring-neutral-700">
-              {lists.map((item, index: number) => (
+              {dropDownItems?.map((item, index: number) => (
                 <Listbox.Option
                   key={index}
                   className={({ active }) =>
@@ -57,7 +60,7 @@ const ArchiveFilterListBox: FC<ArchiveFilterListBoxProps> = ({
                           selected ? "font-medium" : "font-normal"
                         } block truncate`}
                       >
-                        {item.name}
+                        {item?.name}
                       </span>
                       {selected ? (
                         <span className="text-primary-700 absolute inset-y-0 left-0 flex items-center pl-3 dark:text-neutral-200">
