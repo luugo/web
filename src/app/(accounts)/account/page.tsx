@@ -8,7 +8,7 @@ import Textarea from "@/shared/Textarea/Textarea";
 import { avatarImgs } from "@/contains/fakeData";
 import Image from "next/image";
 import { AlertOptions } from "@/interfaces";
-import { AuthenticationPostDefaultResponse, User, UserApi, UserContactApi, UserPutRequest, UserTypeEnum } from "../../../../luugoapi";
+import { AuthenticationPostDefaultResponse, Configuration, User, UserApi, UserContactApi, UserPutRequest, UserTypeEnum } from "../../../../luugoapi";
 import { useUserContext } from "@/context";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import { Alert } from "@/shared/Alert/Alert";
@@ -45,12 +45,16 @@ const AccountPage = () => {
     storageData = localStorage.getItem('luugo');
   }
 
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (storageData !== null) {
           const luugo: AuthenticationPostDefaultResponse = JSON.parse(storageData);
-          const userResp: User[] = await userApi.userGet({ id: luugo.user?.id });
+          const userResp: User[] = await userApi.userGet({ id: luugo.user?.id }, { headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          }},);
           if (userResp) {
             const user = userResp[0];
             setId(user.id);
