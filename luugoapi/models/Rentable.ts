@@ -49,7 +49,7 @@ export interface Rentable {
      * @type {string}
      * @memberof Rentable
      */
-    thumbnail?: string |  null;
+    thumbnail?: string | null;
     /**
      * 
      * @type {string}

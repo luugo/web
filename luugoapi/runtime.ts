@@ -13,7 +13,7 @@
  */
 
 
-export const BASE_PATH = "http://api.luugo.com.br/v1".replace(/\/+$/, "");
+export const BASE_PATH = "https://api.luugo.com.br/v1".replace(/\/+$/, "");
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path

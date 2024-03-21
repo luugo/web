@@ -5,6 +5,8 @@ export * from './AuthenticationEmailPutRequest';
 export * from './AuthenticationPostDefaultResponse';
 export * from './AuthenticationPostRequest';
 export * from './Category';
+export * from './Favorite';
+export * from './FavoritePostRequest';
 export * from './Media';
 export * from './ModelError';
 export * from './Place';

@@ -31,6 +31,10 @@ import {
     AuthenticationPostRequestToJSON,
 } from '../models/index';
 
+export interface AuthenticationEmailDeleteRequest {
+    authenticationEmailPostRequest: AuthenticationEmailPostRequest;
+}
+
 export interface AuthenticationEmailPostOperationRequest {
     authenticationEmailPostRequest: AuthenticationEmailPostRequest;
 }
@@ -47,6 +51,40 @@ export interface AuthenticationPostOperationRequest {
  * 
  */
 export class AuthenticationApi extends runtime.BaseAPI {
+
+    /**
+     * Deletes an user by using the user authentication
+     * Deletes an user by using the user authentication
+     */
+    async authenticationEmailDeleteRaw(requestParameters: AuthenticationEmailDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.authenticationEmailPostRequest === null || requestParameters.authenticationEmailPostRequest === undefined) {
+            throw new runtime.RequiredError('authenticationEmailPostRequest','Required parameter requestParameters.authenticationEmailPostRequest was null or undefined when calling authenticationEmailDelete.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/authentication/email`,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+            body: AuthenticationEmailPostRequestToJSON(requestParameters.authenticationEmailPostRequest),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Deletes an user by using the user authentication
+     * Deletes an user by using the user authentication
+     */
+    async authenticationEmailDelete(requestParameters: AuthenticationEmailDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.authenticationEmailDeleteRaw(requestParameters, initOverrides);
+    }
 
     /**
      * This is the first step to register an user by email.
