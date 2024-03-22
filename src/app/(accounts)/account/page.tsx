@@ -156,12 +156,12 @@ const AccountPage = () => {
   const onDeleteAccount = async () => {
     if (storageData !== null) {
       let luugo = JSON.parse(storageData);
-      console.log(luugo)
-      userApi.userDelete({ id: luugo.user?.id }).then(
+      await userApi.userDelete({ id: luugo.user?.id }).then(
         (res: any) => {
-          if (res.status == 204) {
+          if (res.status == 200) {
             localStorage.removeItem('luugo');
             router.push("/");
+            setDeleteModalVisible(false);
           }
         }
       );
