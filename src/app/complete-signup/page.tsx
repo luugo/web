@@ -62,7 +62,7 @@ const PageRegister = () => {
 
         if(result.token) {
           localStorage.setItem('luugo', JSON.stringify(result));
-          router.push("/home");
+          router.push("/");
         }
       } catch (error) {
         console.error('Erro durante a solicitação:', error);

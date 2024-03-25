@@ -1,6 +1,6 @@
 'use client'
 import Label from "@/components/Label/Label";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
@@ -45,16 +45,16 @@ const AccountPage = () => {
     storageData = localStorage.getItem('luugo');
   }
 
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (storageData !== null) {
           const luugo: AuthenticationPostDefaultResponse = JSON.parse(storageData);
           const userResp: User[] = await userApi.userGet({ id: luugo.user?.id }, { headers: {
-            "Authorization": `Bearer ${token}`,
+            "Authorization": `Bearer ${luugo?.token}`,
             "Content-Type": "application/json",
-          }},);
+          }});
           if (userResp) {
             const user = userResp[0];
             setId(user.id);
@@ -64,7 +64,10 @@ const AccountPage = () => {
             setLastName(user.lastName);
             setPlace(user.place);
             if (user.id) {
-              const userContactResp = await userContactApi.userContactGet({ userId: user.id });
+              const userContactResp = await userContactApi.userContactGet({ userId: user.id }, { headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
+              }});
               if (userContactResp.length) {
                 const _phone = userContactResp.filter(c => c.type == 'PHONE')
                 const _email = userContactResp.filter(c => c.type == 'EMAIL')
@@ -152,13 +155,18 @@ const AccountPage = () => {
       console.error("Erro ao salvar dados do usuário:", error);
     }
   }
-
-  const onDeleteAccount = async () => {
+  
+  const onDeleteAccount = useCallback(async () => {
     if (storageData !== null) {
       let luugo = JSON.parse(storageData);
-      await userApi.userDelete({ id: luugo.user?.id }).then(
+      await userApi.userDelete({ id: luugo.user?.id }, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        }
+      }).then(
         (res: any) => {
-          if (res.status == 200) {
+          if (res?.status == 204) {
             localStorage.removeItem('luugo');
             router.push("/");
             setDeleteModalVisible(false);
@@ -166,7 +174,7 @@ const AccountPage = () => {
         }
       );
     }
-  }
+  }, [])
 
   return (
     <div className={`nc-AccountPage `}>
