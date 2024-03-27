@@ -267,16 +267,6 @@ const ProductDetailPage = () => {
                         <hr className="border-slate-200 dark:border-slate-700" />
                         
                         {handleRenderMap()}
-                        <hr className="border-slate-200 dark:border-slate-700" />
-
-                        {/* OTHER SECTION */}
-                        <SectionSliderRentableCard
-                            heading="Relacionados"
-                            subHeading=""
-                            headingFontClassName="text-2xl font-semibold"
-                            headingClassName="mb-10 text-neutral-900 dark:text-neutral-50"
-                        />
-
                     </div>
                 </main>
 
