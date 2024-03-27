@@ -19,6 +19,7 @@ import Image from "next/image";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
 import {ArrowDownIcon, MapPinIcon} from "@heroicons/react/20/solid";
+import { shortStringText } from "@/utils/shortStringText";
 
 export interface ProductCardProps {
   className?: string;
@@ -127,7 +128,7 @@ const RentableCard: FC<ProductCardProps> = ({
                 {title}
               </h2>
               <p className={`text-sm text-slate-500 dark:text-slate-400 mt-1 `}>
-                {description}
+                {shortStringText(description, 40)}
               </p>
             </div>
 
