@@ -15,7 +15,6 @@ import { Alert } from "@/shared/Alert/Alert";
 import { useRouter } from "next/navigation";
 import ModalDelete from "@/components/ModalDelete";
 
-
 const AccountPage = () => {
   const router = useRouter();
   const [alert, setAlert] = useState('');
@@ -51,10 +50,12 @@ const AccountPage = () => {
       try {
         if (storageData !== null) {
           const luugo: AuthenticationPostDefaultResponse = JSON.parse(storageData);
-          const userResp: User[] = await userApi.userGet({ id: luugo.user?.id }, { headers: {
-            "Authorization": `Bearer ${luugo?.token}`,
-            "Content-Type": "application/json",
-          }});
+          const userResp: User[] = await userApi.userGet({ id: luugo.user?.id }, {
+            headers: {
+              "Authorization": `Bearer ${luugo?.token}`,
+              "Content-Type": "application/json",
+            }
+          });
           if (userResp) {
             const user = userResp[0];
             setId(user.id);
@@ -64,10 +65,12 @@ const AccountPage = () => {
             setLastName(user.lastName);
             setPlace(user.place);
             if (user.id) {
-              const userContactResp = await userContactApi.userContactGet({ userId: user.id }, { headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json",
-              }});
+              const userContactResp = await userContactApi.userContactGet({ userId: user.id }, {
+                headers: {
+                  "Authorization": `Bearer ${token}`,
+                  "Content-Type": "application/json",
+                }
+              });
               if (userContactResp.length) {
                 const _phone = userContactResp.filter(c => c.type == 'PHONE')
                 const _email = userContactResp.filter(c => c.type == 'EMAIL')
@@ -155,26 +158,29 @@ const AccountPage = () => {
       console.error("Erro ao salvar dados do usuário:", error);
     }
   }
-  
+
   const onDeleteAccount = useCallback(async () => {
     if (storageData !== null) {
       let luugo = JSON.parse(storageData);
-      await userApi.userDelete({ id: luugo.user?.id }, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
-        }
-      }).then(
-        (res: any) => {
-          if (res?.status == 204) {
-            localStorage.removeItem('luugo');
-            router.push("/");
-            setDeleteModalVisible(false);
+      try {
+        await userApi.userDelete({ id: luugo.user?.id }, {
+          headers: {
+            "Authorization": `Bearer ${luugo?.token}`,
+            "Content-Type": "application/json",
           }
-        }
-      );
+        })
+        setDeleteModalVisible(false);
+        localStorage.removeItem('luugo');
+        showAlert('Conta de usuário Deletada com Sucesso!')
+        setTimeout(() => {
+          router.push("/");
+        }, 5000)
+      } catch(error) {
+        setDeleteModalVisible(false);
+        showAlert('Conta de usuário não deletada. Por favor tente outra vez!', 'error');
+      }
     }
-  }, [])
+  }, [storageData, userApi])
 
   return (
     <div className={`nc-AccountPage `}>
