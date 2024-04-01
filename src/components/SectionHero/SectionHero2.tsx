@@ -1,6 +1,7 @@
 "use client";
 
 import React, { FC, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import backgroundLineSvg from "@/images/Moon.svg";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Next from "@/shared/NextPrev/Next";
@@ -18,6 +19,7 @@ let TIME_OUT: NodeJS.Timeout | null = null;
 
 const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
   // =================
+  const isMobile = useMediaQuery({ query: '(max-width: 1024px)' })
   const [indexActive, setIndexActive] = useState(0);
   const [isRunning, toggleIsRunning] = useBoolean(true);
 
@@ -97,9 +99,8 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
                 >
                   {isActive && (
                     <div
-                      className={`nc-SectionHero2Item__dot absolute inset-0 bg-slate-900 rounded-md ${
-                        isActive ? " " : " "
-                      }`}
+                      className={`nc-SectionHero2Item__dot absolute inset-0 bg-slate-900 rounded-md ${isActive ? " " : " "
+                        }`}
                     ></div>
                   )}
                 </div>
@@ -108,18 +109,22 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
           })}
         </div>
 
-        <Prev
-          className="absolute start-1 sm:start-5 top-3/4 sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
-          btnClassName="w-12 h-12 hover:border-slate-400 dark:hover:border-slate-400"
-          svgSize="w-6 h-6"
-          onClickPrev={handleClickPrev}
-        />
-        <Next
-          className="absolute end-1 sm:end-5 top-3/4 sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
-          btnClassName="w-12 h-12 hover:border-slate-400 dark:hover:border-slate-400"
-          svgSize="w-6 h-6"
-          onClickNext={handleClickNext}
-        />
+        {!isMobile &&
+          <>
+            <Prev
+              className="absolute start-1 sm:start-5 top-3/4 sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
+              btnClassName="w-12 h-12 hover:border-slate-400 dark:hover:border-slate-400"
+              svgSize="w-6 h-6"
+              onClickPrev={handleClickPrev}
+            />
+            <Next
+              className="absolute end-1 sm:end-5 top-3/4 sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
+              btnClassName="w-12 h-12 hover:border-slate-400 dark:hover:border-slate-400"
+              svgSize="w-6 h-6"
+              onClickNext={handleClickNext}
+            />
+          </>
+        }
 
         {/* BG */}
         <div className="absolute inset-0 bg-[#E3FFE6]">
@@ -137,10 +142,10 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
             className={`relative z-[1] w-full max-w-3xl space-y-8 sm:space-y-14 nc-SectionHero2Item__left`}
           >
             <div className="space-y-5 sm:space-y-6">
-              <span className="nc-SectionHero2Item__subheading block text-base md:text-xl text-slate-700 font-medium">
+              {/* <span className="nc-SectionHero2Item__subheading block text-base md:text-xl text-slate-700 font-medium">
                 {item.subHeading}
-              </span>
-              <h2 className="nc-SectionHero2Item__heading font-semibold text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl !leading-[114%] text-slate-900">
+              </span> */}
+              <h2 className="nc-SectionHero2Item__heading text-sm/[17px] font-semibold text-3xl sm:text-4xl whitespace-pre-line md:text-5xl xl:text-6xl 2xl:text-7xl !leading-[114%] text-slate-900">
                 {item.heading}
               </h2>
             </div>

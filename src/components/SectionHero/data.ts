@@ -24,7 +24,7 @@ export const HERO2_DEMO_DATA: Hero2DataType[] = [
   },
   {
     image: imageRightPng3,
-    heading: "Por quê comprar se você pode Alugar?",
+    heading: `Por quê comprar \n se você pode Alugar?`,
     subHeading: "",
     btnText: "Cadastre-se!",
     btnLink: "/signup",
