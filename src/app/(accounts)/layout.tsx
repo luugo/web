@@ -25,7 +25,7 @@ const pages: {
     link: "/account-rentable",
   },
   {
-    name: "Change password",
+    name: "Trocar Senha",
     link: "/account-password",
   },
 ];
