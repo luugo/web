@@ -84,9 +84,9 @@ const RentableCard: FC<ProductCardProps> = ({
               onClick={() => notifyAddTocart({ size: "XL" })}
           >
             <BagIcon className="w-3.5 h-3.5 mb-0.5" />
-            <span className="ms-1">Add to bag</span>
+            <span className="ms-1">Adicionar ao carrinho</span>
           </ButtonPrimary>
-          <ButtonSecondary
+          {/* <ButtonSecondary
               className="ms-1.5 bg-white hover:!bg-gray-100 hover:text-slate-900 transition-colors shadow-lg"
               fontSize="text-xs"
               sizeClass="py-2 px-4"
@@ -94,7 +94,7 @@ const RentableCard: FC<ProductCardProps> = ({
           >
             <ArrowsPointingOutIcon className="w-3.5 h-3.5" />
             <span className="ms-1">Quick view</span>
-          </ButtonSecondary>
+          </ButtonSecondary> */}
         </div>
     );
   };
