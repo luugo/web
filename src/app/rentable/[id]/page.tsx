@@ -23,7 +23,6 @@ import detail2JPG from "@/images/products/detail2.jpg";
 import detail3JPG from "@/images/products/detail3.jpg";
 import placeholderSmall from "@/images/placeholder-small.png";
 import notFoundJPG from "@/images/404.png";
-import Policy from "./Policy";
 import ReviewItem from "@/components/ReviewItem";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import SectionPromo2 from "@/components/SectionPromo2";
@@ -259,10 +258,6 @@ const ProductDetailPage = () => {
 
                     {/* DETAIL AND REVIEW */}
                     <div className="mt-12 sm:mt-16 space-y-10 sm:space-y-16">
-                        <div className="block xl:hidden">
-                            <Policy />
-                        </div>
-
                         {renderDetailSection()}
                         <hr className="border-slate-200 dark:border-slate-700" />
                         
