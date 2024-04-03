@@ -187,7 +187,7 @@ export default function AvatarDropdown() {
                     </Link>
 
                     {/* ------------------ 2 --------------------- */}
-                    <Link
+                    {/* <Link
                       href={{ pathname: '/account-savelists' }}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
@@ -211,7 +211,7 @@ export default function AvatarDropdown() {
                       <div className="ml-4">
                         <p className="text-sm font-medium ">{"Favoritos"}</p>
                       </div>
-                    </Link>
+                    </Link> */}
 
                     <div className="w-full border-b border-neutral-200 dark:border-neutral-700" />
 
@@ -258,7 +258,7 @@ export default function AvatarDropdown() {
 
                     {/* ------------------ 2 --------------------- */}
                     <Link
-                      href={"/"}
+                      href={"/contact"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
                     >
