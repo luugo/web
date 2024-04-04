@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AuthenticationApi, UserApi, UserContactApi, UserTypeEnum } from "../../../luugoapi";
 import { useUserContext } from "@/context";
+import Label from "@/components/Label/Label";
 
 const loginSocials = [
   {
@@ -45,6 +46,7 @@ const renderOR = () => {
 const PageLogin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e: any) => {
@@ -78,6 +80,7 @@ const PageLogin = () => {
       }
     } catch (error: any) {
       const response = await error.response;
+      setLoginError("Usuário ou Senha Inválidos!");
       console.info(response);
     }
   };
@@ -136,6 +139,7 @@ const PageLogin = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)} />
             </label>
+            {loginError && <Label className="block text-red-500 text-sm font-bold mb-2">{loginError}</Label>}
             <ButtonPrimary type="submit">Continuar</ButtonPrimary>
           </form>
 
