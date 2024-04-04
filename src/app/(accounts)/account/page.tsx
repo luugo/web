@@ -3,7 +3,6 @@ import Label from "@/components/Label/Label";
 import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
-import Select from "@/shared/Select/Select";
 import Textarea from "@/shared/Textarea/Textarea";
 import { avatarImgs } from "@/contains/fakeData";
 import Image from "next/image";
@@ -37,7 +36,7 @@ const AccountPage = () => {
     handleFirstNameChange,
     handleLastNameChange,
     handlePlaceChange,
-    handleEmailChange,
+    // handleEmailChange,
     handlePhoneChange
   } = useUserContext();
 
@@ -118,13 +117,13 @@ const AccountPage = () => {
     setEmail(event.target.value);
   };
 
+  const changePhone = (event: ChangeEvent<HTMLInputElement>) => {
+    setPhone(event.target.value);
+  };
+
   const changePlace = (event: ChangeEvent<HTMLInputElement>) => {
     setPlace(event.target.value);
   };
-
-  // const handleUpdateContacts = async () => {
-
-  // }
 
   const onUpdateAccount = async () => {
     try {
@@ -133,7 +132,7 @@ const AccountPage = () => {
         id,
         firstName: firstName,
         lastName: lastName,
-        place,
+        place: place,
         authenticationId: authId,
         type: UserTypeEnum.Normal,
       }
@@ -141,8 +140,8 @@ const AccountPage = () => {
       const userContact: UserContact = {
         id,
         userId: id,
-        type: email ? "EMAIL" : "PHONE",
-        value: email ? email : phone,
+        type: "PHONE",
+        value: phone,
         isVisible: true
       }
 
@@ -151,8 +150,7 @@ const AccountPage = () => {
         luugo['user'].firstName = firstName;
         luugo['user'].lastName = lastName;
         luugo['user'].place = place;
-        luugo['contacts'].email = [email];
-        luugo['contacts'].phone = [phone];
+        luugo['contacts'] = [userContact];
         localStorage.setItem('luugo', JSON.stringify(luugo));
       }
 
@@ -188,7 +186,6 @@ const AccountPage = () => {
         handleFirstNameChange(firstName);
         handleLastNameChange(lastName);
         handlePlaceChange(place);
-        handleEmailChange(email);
         handlePhoneChange(phone);
       } else {
         showAlert('Error', 'error')
@@ -229,7 +226,7 @@ const AccountPage = () => {
       <div className="space-y-10 sm:space-y-12">
         {/* HEADING */}
         <h2 className="text-2xl sm:text-3xl font-semibold">
-          Account infomation
+          Informações de Usuário
         </h2>
         <div className="flex flex-col md:flex-row">
           <div className="flex-shrink-0 flex items-start">
@@ -280,7 +277,7 @@ const AccountPage = () => {
             {/* ---- */}
 
             {/* ---- */}
-            <div>
+            {/* <div>
               <Label>E-mail</Label>
               <div className="mt-1.5 flex">
                 <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
@@ -293,10 +290,10 @@ const AccountPage = () => {
                   onChange={changeEmail}
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* ---- */}
-            <div className="max-w-lg">
+            {/* <div className="max-w-lg">
               <Label>Data de nascimento</Label>
               <div className="mt-1.5 flex">
                 <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
@@ -308,7 +305,7 @@ const AccountPage = () => {
                   defaultValue="1990-07-22"
                 />
               </div>
-            </div>
+            </div> */}
             {/* ---- */}
             <div>
               <Label>Endereço</Label>
@@ -325,14 +322,14 @@ const AccountPage = () => {
             </div>
 
             {/* ---- */}
-            <div>
+            {/* <div>
               <Label>Gênero</Label>
               <Select className="mt-1.5">
                 <option value="Male">Masculino</option>
                 <option value="Female">Feminino</option>
                 <option value="Other">Outro</option>
               </Select>
-            </div>
+            </div> */}
 
             {/* ---- */}
             <div>
@@ -341,14 +338,16 @@ const AccountPage = () => {
                 <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-phone-volume"></i>
                 </span>
-                <Input className="!rounded-l-none" defaultValue={phone} />
+                <Input className="!rounded-l-none" 
+                  defaultValue={phone}
+                  onChange={changePhone} />
               </div>
             </div>
             {/* ---- */}
-            <div>
+            {/* <div>
               <Label>Sobre você</Label>
               <Textarea className="mt-1.5" defaultValue="..." />
-            </div>
+            </div> */}
             <div className="flex pt-2 gap-6">
               <ButtonPrimary onClick={onUpdateAccount}>Atualizar conta</ButtonPrimary>
               <ButtonSecondary
