@@ -2,6 +2,7 @@
 
 import { Popover, Transition } from "@/app/headlessui";
 import { avatarImgs } from "@/contains/fakeData";
+import avatarLuugo from "@/images/hero-2-right-1.png"
 import { Fragment } from "react";
 import Avatar from "@/shared/Avatar/Avatar";
 import SwitchDarkMode2 from "@/shared/SwitchDarkMode/SwitchDarkMode2";
@@ -25,7 +26,7 @@ const isLoggedIn = ({ close }: { close: () => void }) => {
       const user = jsonData.user;
       return (
         <div className="flex items-center space-x-3">
-          <Avatar imgUrl={avatarImgs[0]} sizeClass="w-12 h-12" />
+          <Avatar imgUrl={avatarLuugo} sizeClass="w-12 h-12" />
 
           <div className="flex-grow">
             <h4 className="font-semibold">

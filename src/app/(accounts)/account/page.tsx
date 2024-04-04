@@ -5,6 +5,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import Textarea from "@/shared/Textarea/Textarea";
 import { avatarImgs } from "@/contains/fakeData";
+import avatarLuugo from "@/images/hero-2-right-1.png"
 import Image from "next/image";
 import { AlertOptions } from "@/interfaces";
 import { AuthenticationPostDefaultResponse, Configuration, User, UserApi, UserContact, UserContactApi, UserPutRequest, UserTypeEnum } from "../../../../luugoapi";
@@ -233,7 +234,7 @@ const AccountPage = () => {
             {/* AVATAR */}
             <div className="relative rounded-full overflow-hidden flex">
               <Image
-                src={avatarImgs[0]}
+                src={avatarLuugo}
                 alt="avatar"
                 width={128}
                 height={128}

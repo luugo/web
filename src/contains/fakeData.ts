@@ -8,7 +8,6 @@ import avatar7 from "@/images/avatars/Image-7.png";
 import avatar8 from "@/images/avatars/Image-8.png";
 import avatar9 from "@/images/avatars/Image-9.png";
 import avatar10 from "@/images/avatars/Image-10.png";
-import genericAvatar from "@/images/avatars/genericavatar.png"
 //
 import product1 from "@/images/products/1.png";
 import product2 from "@/images/products/2.png";
@@ -95,7 +94,6 @@ export const nftsAbstracts = [
 ];
 
 export const avatarImgs = [
-  genericAvatar,
   avatar1,
   avatar2,
   avatar3,
