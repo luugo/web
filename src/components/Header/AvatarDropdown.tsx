@@ -183,7 +183,7 @@ export default function AvatarDropdown() {
                         </svg>
                       </div>
                       <div className="ml-4">
-                        <p className="text-sm font-medium ">{"Meus Pedidos"}</p>
+                        <p className="text-sm font-medium ">{"Meus Anúncios"}</p>
                       </div>
                     </Link>
 

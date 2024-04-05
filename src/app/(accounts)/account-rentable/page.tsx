@@ -94,10 +94,10 @@ const AccountOrder = () => {
   return (
     <div className="space-y-10 sm:space-y-12">
       {/* HEADING */}
-      <h2 className="text-2xl sm:text-3xl font-semibold">Itens</h2>
-      {rentables.length> 0 ?
+      <h2 className="text-2xl sm:text-3xl font-semibold">Meus Anúncios</h2>
+      {rentables.length > 0 ?
       renderOrder({myRentables: rentables}) :
-      <h1>Nenhum item foi encontrado, <Link className="text-blue-600 hover:text-blue-400" href={"/"}>clique aqui</Link> e cadastre um.</h1>}
+      <h1>Nenhum item foi encontrado.</h1>}
     </div>
   );
 };
