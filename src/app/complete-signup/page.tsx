@@ -30,8 +30,9 @@ const PageRegister = () => {
 
     const fetchOptions = async () => {
       try {
+        const isActive: any = { isActive: 1}
         const placeApi = new PlaceApi();
-        const result = await placeApi.placeGet();
+        const result = await placeApi.placeGet(isActive);
         setOptions(result);
       } catch (error) {
         console.error('Erro ao buscar opções da API', error);
@@ -69,6 +70,8 @@ const PageRegister = () => {
       }
     }
   };
+
+  console.log('options', options.filter(o => o.city === 'Natal'))
   
   return (
     <div>
