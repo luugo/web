@@ -17,7 +17,7 @@ const HowItWorks = () => {
             img: HIW1img,
             imgDark: HIW1img,
             title: "Pesquise",
-            desc: "Basta pesquisar o ítem que você nescessita.",
+            desc: "Basta pesquisar o ítem que você necessita.",
         },
         {
             id: 2,

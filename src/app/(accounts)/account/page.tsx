@@ -29,6 +29,8 @@ const AccountPage = () => {
   const [authId, setAuthId] = useState<string | null | undefined>('');
   const [token, setToken] = useState<string | null | undefined>('');
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
+  const [emailContactId, setEmailContactId] = useState<string | undefined>('');
+  const [phoneContactId, setPhoneContactId] = useState<string | undefined>('');
 
   const userApi = new UserApi();
   const userContactApi = new UserContactApi();
@@ -37,13 +39,23 @@ const AccountPage = () => {
     handleFirstNameChange,
     handleLastNameChange,
     handlePlaceChange,
-    // handleEmailChange,
+    handleEmailChange,
     handlePhoneChange
   } = useUserContext();
 
   let storageData: any = null;
   if (typeof window !== 'undefined') {
     storageData = localStorage.getItem('luugo');
+  }
+
+  const handleUserContacts = async (userId: string, token: string) => {
+    const response = await userContactApi.userContactGet({ userId: userId }, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      }
+    })
+    return response
   }
 
 
@@ -66,18 +78,17 @@ const AccountPage = () => {
             setFirstName(user.firstName);
             setLastName(user.lastName);
             setPlace(user.place);
-            if (user.id) {
-              const userContactResp = await userContactApi.userContactGet({ userId: user.id }, {
-                headers: {
-                  "Authorization": `Bearer ${luugo.token}`,
-                  "Content-Type": "application/json",
+            if (user.id && luugo.token) {
+              const data = await handleUserContacts(user.id, luugo.token)
+              if (data.length) {
+                const _phone = data.filter(c => c.type == 'PHONE')
+                const _email = data.filter(c => c.type == 'EMAIL')
+                if (_phone.length) {
+                  setPhoneContactId(_phone[0].id)
+                  setPhone(_phone[0].value);
                 }
-              });
-              if (userContactResp.length) {
-                const _phone = userContactResp.filter(c => c.type == 'PHONE')
-                const _email = userContactResp.filter(c => c.type == 'EMAIL')
-                if (_phone.length) setPhone(_phone[0].value);
                 if (_email.length) {
+                  setEmailContactId(_email[0].id)
                   setEmail(_email[0].value);
                 }
               }
@@ -138,20 +149,31 @@ const AccountPage = () => {
         type: UserTypeEnum.Normal,
       }
 
-      const userContact: UserContact = {
-        id,
-        userId: id,
-        type: "PHONE",
-        value: phone,
-        isVisible: true
-      }
+      const userContact: any = [
+        {
+          userId: id,
+          type: "EMAIL",
+          value: email,
+          isVisible: true
+        },
+        {
+          userId: id,
+          type: "PHONE",
+          value: phone,
+          isVisible: true
+        }
+      ]
 
       if (storageData !== null) {
         let luugo = JSON.parse(storageData);
         luugo['user'].firstName = firstName;
         luugo['user'].lastName = lastName;
         luugo['user'].place = place;
-        luugo['contacts'] = [userContact];
+        let contactsObject: any = []
+        userContact?.forEach((obj: any) => {
+          contactsObject.push(obj)
+        })
+        luugo['contacts'] = contactsObject;
         localStorage.setItem('luugo', JSON.stringify(luugo));
       }
 
@@ -162,23 +184,44 @@ const AccountPage = () => {
         },
       })
 
+      const putUserContact: any = [
+        {
+          id: emailContactId,
+          userId: id,
+          type: "EMAIL",
+          value: email,
+          isVisible: true
+        },
+        {
+          id: phoneContactId,
+          userId: id,
+          type: "PHONE",
+          value: phone,
+          isVisible: true
+        }
+      ]
+
       let contactPutResponse;
       let storage = JSON.parse(storageData)
 
       if (storage['contacts'] === undefined) {
-        contactPutResponse = await userContactApi.userContactPost({ userContact }, {
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        })
+        for (let contact of userContact) {
+          contactPutResponse = await userContactApi.userContactPost({ userContact: contact }, {
+            headers: {
+              "Authorization": `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          })
+        }
       } else {
-        contactPutResponse = await userContactApi.userContactPut({ userContact }, {
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        })
+        for (let contact of putUserContact) {
+          contactPutResponse = await userContactApi.userContactPut({ userContact: contact }, {
+            headers: {
+              "Authorization": `Bearer ${token}`,
+              "Content-Type": "application/json",
+            }
+          })
+        }
       }
 
 
@@ -188,6 +231,7 @@ const AccountPage = () => {
         handleLastNameChange(lastName);
         handlePlaceChange(place);
         handlePhoneChange(phone);
+        handleEmailChange(email);
       } else {
         showAlert('Error', 'error')
       }
@@ -277,23 +321,6 @@ const AccountPage = () => {
 
             {/* ---- */}
 
-            {/* ---- */}
-            {/* <div>
-              <Label>E-mail</Label>
-              <div className="mt-1.5 flex">
-                <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
-                  <i className="text-2xl las la-envelope"></i>
-                </span>
-                <Input
-                  className="!rounded-l-none"
-                  placeholder="example@email.com"
-                  defaultValue={email}
-                  onChange={changeEmail}
-                />
-              </div>
-            </div> */}
-
-            {/* ---- */}
             {/* <div className="max-w-lg">
               <Label>Data de nascimento</Label>
               <div className="mt-1.5 flex">
@@ -333,13 +360,32 @@ const AccountPage = () => {
             </div> */}
 
             {/* ---- */}
+
+            {/* ---- */}
+            <div>
+              <Label>E-mail</Label>
+              <div className="mt-1.5 flex">
+                <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+                  <i className="text-2xl las la-envelope"></i>
+                </span>
+                <Input
+                  className="!rounded-l-none"
+                  placeholder="example@email.com"
+                  defaultValue={email}
+                  onChange={changeEmail}
+                />
+              </div>
+            </div>
+
+            {/* ---- */}
+
             <div>
               <Label>Telefone</Label>
               <div className="mt-1.5 flex">
                 <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-phone-volume"></i>
                 </span>
-                <Input className="!rounded-l-none" 
+                <Input className="!rounded-l-none"
                   defaultValue={phone}
                   onChange={changePhone} />
               </div>
