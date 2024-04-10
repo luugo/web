@@ -29,7 +29,7 @@ const PageContact = ({}) => {
         <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
           Contato
         </h2>
-        <div className="container max-w-7xl mx-auto">
+        <div className="container max-w-7xl mx-auto my-10">
           <div className="flex-shrink-0 grid grid-cols-1 md:grid-cols-2 gap-12 ">
             <div className="max-w-sm space-y-8">
               {info.map((item, index) => (
@@ -48,36 +48,6 @@ const PageContact = ({}) => {
                 </h3>
                 <SocialsList className="mt-2" />
               </div>
-            </div>
-            <div>
-              <form className="grid grid-cols-1 gap-6" action="#" method="post">
-                <label className="block">
-                  <Label>Nome completo</Label>
-
-                  <Input
-                    placeholder="Exemplo"
-                    type="text"
-                    className="mt-1"
-                  />
-                </label>
-                <label className="block">
-                  <Label>Endereço de Email</Label>
-
-                  <Input
-                    type="email"
-                    placeholder="exemplo@exemplo.com"
-                    className="mt-1"
-                  />
-                </label>
-                <label className="block">
-                  <Label>Mensagem</Label>
-
-                  <Textarea className="mt-1" rows={6} />
-                </label>
-                <div>
-                  <ButtonPrimary type="submit">Enviar Mensagem</ButtonPrimary>
-                </div>
-              </form>
             </div>
           </div>
         </div>
