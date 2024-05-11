@@ -30,7 +30,7 @@ const PageRegister = () => {
 
     const fetchOptions = async () => {
       try {
-        const isActive: any = { isActive: 1}
+        const isActive: any = { isActive: true}
         const placeApi = new PlaceApi();
         const result = await placeApi.placeGet(isActive);
         setOptions(result);
