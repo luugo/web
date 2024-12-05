@@ -9,7 +9,7 @@ import {
 
 const SignUpVerifyInputPage: FC = () => {
     const [code, setCode] = useState("");
-    const [errorMessage, setErrorMessage] = useState<string | null>(null); // Estado para armazenar a mensagem de erro
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -49,7 +49,7 @@ const SignUpVerifyInputPage: FC = () => {
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+        const value = e.target.value.replace(/\D/g, "");
         if (value.length <= 6) {
             setCode(value);
             setErrorMessage(null);
