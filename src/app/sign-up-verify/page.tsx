@@ -1,41 +1,39 @@
 "use client";
 
-import { remark } from 'remark';
-import html from 'remark-html';
 import React, { FC, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
-    AuthenticationApi, AuthenticationEmailPutRequest,
-    UserContact, UserContactApi, UserContactGetRequest
+    AuthenticationApi, AuthenticationEmailPutRequest
 } from "../../../luugoapi";
 
 const SignUpVerifyPage: FC = () => {
     const searchParams = useSearchParams();
-    const authenticationKey = searchParams.get("key");
+    const verificationCode = searchParams.get("code");
 
     const [verificationSuccess, setVerificationSuccess] = useState<boolean | null>(null);
 
     useEffect(() => {
-        if (!authenticationKey) {
-            console.error("Chave de verificação ausente.");
+        if (!verificationCode) {
+            console.error("Código de verificação ausente.");
             setVerificationSuccess(false);
             return;
         }
 
         const authenticationApi = new AuthenticationApi();
         const requestApiParameters: AuthenticationEmailPutRequest = {
-            emailVerificationKey: authenticationKey,
+            emailVerificationKey: verificationCode,
         };
 
         authenticationApi.authenticationEmailPut({ authenticationEmailPutRequest: requestApiParameters })
             .then(() => {
-                console.log("Verificação de email bem-sucedida.");
+                console.log("Verificação de código bem-sucedida.");
                 setVerificationSuccess(true);
             })
             .catch((error) => {
+                console.error("Erro ao verificar o código:", error);
                 setVerificationSuccess(false);
             });
-    }, [authenticationKey]);
+    }, [verificationCode]);
 
     const renderSectionContent = () => {
         return (
@@ -45,15 +43,15 @@ const SignUpVerifyPage: FC = () => {
                         Confirmação de Cadastro
                     </h2>
                     <div className="flex items-center mt-5 space-x-4 sm:space-x-5">
-            <span>
-                Sua conta foi confirmada com sucesso! Obrigado por confirmar seu e-mail. Agora você pode acessar todas as funcionalidades da nossa plataforma. Estamos felizes em tê-lo(a) conosco!
-            </span>
+                        <span>
+                            Sua conta foi confirmada com sucesso! Obrigado por confirmar seu e-mail. Agora você pode acessar todas as funcionalidades da nossa plataforma. Estamos felizes em tê-lo(a) conosco!
+                        </span>
                     </div>
                 </div>
                 <div className="mt-5">
-        <span>
-            <strong>Comece agora:</strong> <a href="/login" className="text-blue-500 hover:underline">Faça login na sua conta</a>
-        </span>
+                    <span>
+                        <strong>Comece agora:</strong> <a href="/login" className="text-blue-500 hover:underline">Faça login na sua conta</a>
+                    </span>
                 </div>
                 <hr className="2xl:!my-10 border-slate-200 dark:border-slate-700"></hr>
             </div>
