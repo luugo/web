@@ -12,6 +12,7 @@ import { useUserContext } from "@/context";
 import useAuthenticated from "@/hooks/useAuthenticated";
 
 const isLoggedIn = ({ close }: { close: () => void }) => {
+  const { firstName, lastName, place } = useUserContext();
   let storageData: any = null;
   if (typeof window !== 'undefined') {
     storageData = localStorage.getItem('luugo');
@@ -21,8 +22,6 @@ const isLoggedIn = ({ close }: { close: () => void }) => {
     const jsonData = JSON.parse(storageData);
 
     if (jsonData.token) {
-      const { firstName, lastName, place } = useUserContext();
-
       const user = jsonData.user;
       return (
         <div className="flex items-center space-x-3">
