@@ -24,9 +24,11 @@ import {
 
 export interface PlaceDeleteRequest {
     id: string;
+    acceptLanguage?: string;
 }
 
 export interface PlaceGetRequest {
+    acceptLanguage?: string;
     id?: string;
     city?: string;
     state?: string;
@@ -35,10 +37,12 @@ export interface PlaceGetRequest {
 
 export interface PlacePostRequest {
     place: Place;
+    acceptLanguage?: string;
 }
 
 export interface PlacePutRequest {
     place: Place;
+    acceptLanguage?: string;
 }
 
 /**
@@ -62,6 +66,10 @@ export class PlaceApi extends runtime.BaseAPI {
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -114,6 +122,10 @@ export class PlaceApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
         const response = await this.request({
             path: `/place`,
             method: 'GET',
@@ -147,6 +159,10 @@ export class PlaceApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -194,6 +210,10 @@ export class PlaceApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;

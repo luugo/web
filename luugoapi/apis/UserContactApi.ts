@@ -23,20 +23,24 @@ import {
 } from '../models/index';
 
 export interface UserContactDeleteRequest {
+    acceptLanguage?: string;
     id?: string;
 }
 
 export interface UserContactGetRequest {
     userId: string;
+    acceptLanguage?: string;
     id?: string;
 }
 
 export interface UserContactPostRequest {
     userContact: UserContact;
+    acceptLanguage?: string;
 }
 
 export interface UserContactPutRequest {
     userContact: UserContact;
+    acceptLanguage?: string;
 }
 
 /**
@@ -56,6 +60,10 @@ export class UserContactApi extends runtime.BaseAPI {
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -104,6 +112,10 @@ export class UserContactApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
         const response = await this.request({
             path: `/userContact`,
             method: 'GET',
@@ -137,6 +149,10 @@ export class UserContactApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -184,6 +200,10 @@ export class UserContactApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;

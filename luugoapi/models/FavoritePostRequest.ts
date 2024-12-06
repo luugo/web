@@ -25,6 +25,12 @@ export interface FavoritePostRequest {
      * @memberof FavoritePostRequest
      */
     rentableId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FavoritePostRequest
+     */
+    userId: string;
 }
 
 /**
@@ -33,6 +39,7 @@ export interface FavoritePostRequest {
 export function instanceOfFavoritePostRequest(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "rentableId" in value;
+    isInstance = isInstance && "userId" in value;
 
     return isInstance;
 }
@@ -48,6 +55,7 @@ export function FavoritePostRequestFromJSONTyped(json: any, ignoreDiscriminator:
     return {
         
         'rentableId': json['rentableId'],
+        'userId': json['userId'],
     };
 }
 
@@ -61,6 +69,7 @@ export function FavoritePostRequestToJSON(value?: FavoritePostRequest | null): a
     return {
         
         'rentableId': value.rentableId,
+        'userId': value.userId,
     };
 }
 

@@ -24,9 +24,11 @@ import {
 
 export interface RentableDeleteRequest {
     id: string;
+    acceptLanguage?: string;
 }
 
 export interface RentableGetRequest {
+    acceptLanguage?: string;
     id?: string;
     place?: string;
     categoryId?: string;
@@ -36,18 +38,22 @@ export interface RentableGetRequest {
 export interface RentableNearbyLatitudeLongitudeGetRequest {
     latitude: number;
     longitude: number;
+    acceptLanguage?: string;
 }
 
 export interface RentablePostRequest {
     rentable: Rentable;
+    acceptLanguage?: string;
 }
 
 export interface RentablePutRequest {
     rentable: Rentable;
+    acceptLanguage?: string;
 }
 
 export interface RentableSearchInputGetRequest {
     input: string;
+    acceptLanguage?: string;
 }
 
 /**
@@ -71,6 +77,10 @@ export class RentableApi extends runtime.BaseAPI {
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -123,6 +133,10 @@ export class RentableApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
         const response = await this.request({
             path: `/rentable`,
             method: 'GET',
@@ -159,6 +173,10 @@ export class RentableApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
         const response = await this.request({
             path: `/rentable/nearby/{latitude}/{longitude}`.replace(`{${"latitude"}}`, encodeURIComponent(String(requestParameters.latitude))).replace(`{${"longitude"}}`, encodeURIComponent(String(requestParameters.longitude))),
             method: 'GET',
@@ -192,6 +210,10 @@ export class RentableApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -240,6 +262,10 @@ export class RentableApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
         const response = await this.request({
             path: `/rentable`,
             method: 'PUT',
@@ -276,6 +302,10 @@ export class RentableApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         const response = await this.request({
             path: `/rentable/search/{input}`.replace(`{${"input"}}`, encodeURIComponent(String(requestParameters.input))),

@@ -19,6 +19,8 @@ import type {
   AuthenticationEmailPutRequest,
   AuthenticationPostDefaultResponse,
   AuthenticationPostRequest,
+  AuthenticationResetPasswordPostRequest,
+  AuthenticationResetPasswordPutRequest,
 } from '../models/index';
 import {
     AuthenticationEmailPostRequestFromJSON,
@@ -29,22 +31,40 @@ import {
     AuthenticationPostDefaultResponseToJSON,
     AuthenticationPostRequestFromJSON,
     AuthenticationPostRequestToJSON,
+    AuthenticationResetPasswordPostRequestFromJSON,
+    AuthenticationResetPasswordPostRequestToJSON,
+    AuthenticationResetPasswordPutRequestFromJSON,
+    AuthenticationResetPasswordPutRequestToJSON,
 } from '../models/index';
 
 export interface AuthenticationEmailDeleteRequest {
     authenticationEmailPostRequest: AuthenticationEmailPostRequest;
+    acceptLanguage?: string;
 }
 
 export interface AuthenticationEmailPostOperationRequest {
     authenticationEmailPostRequest: AuthenticationEmailPostRequest;
+    acceptLanguage?: string;
 }
 
 export interface AuthenticationEmailPutOperationRequest {
     authenticationEmailPutRequest: AuthenticationEmailPutRequest;
+    acceptLanguage?: string;
 }
 
 export interface AuthenticationPostOperationRequest {
     authenticationPostRequest: AuthenticationPostRequest;
+    acceptLanguage?: string;
+}
+
+export interface AuthenticationResetPasswordPostOperationRequest {
+    authenticationResetPasswordPostRequest: AuthenticationResetPasswordPostRequest;
+    acceptLanguage?: string;
+}
+
+export interface AuthenticationResetPasswordPutOperationRequest {
+    authenticationResetPasswordPutRequest: AuthenticationResetPasswordPutRequest;
+    acceptLanguage?: string;
 }
 
 /**
@@ -66,6 +86,10 @@ export class AuthenticationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         const response = await this.request({
             path: `/authentication/email`,
@@ -101,6 +125,10 @@ export class AuthenticationApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
         const response = await this.request({
             path: `/authentication/email`,
             method: 'POST',
@@ -134,6 +162,10 @@ export class AuthenticationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         const response = await this.request({
             path: `/authentication/email`,
@@ -174,6 +206,10 @@ export class AuthenticationApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
         const response = await this.request({
             path: `/authentication`,
             method: 'POST',
@@ -191,6 +227,87 @@ export class AuthenticationApi extends runtime.BaseAPI {
      */
     async authenticationPost(requestParameters: AuthenticationPostOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AuthenticationPostDefaultResponse> {
         const response = await this.authenticationPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This is the first step to reset the user password.
+     * Create the reset password token and send it by email to the user
+     */
+    async authenticationResetPasswordPostRaw(requestParameters: AuthenticationResetPasswordPostOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.authenticationResetPasswordPostRequest === null || requestParameters.authenticationResetPasswordPostRequest === undefined) {
+            throw new runtime.RequiredError('authenticationResetPasswordPostRequest','Required parameter requestParameters.authenticationResetPasswordPostRequest was null or undefined when calling authenticationResetPasswordPost.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
+        const response = await this.request({
+            path: `/authentication/resetPassword`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: AuthenticationResetPasswordPostRequestToJSON(requestParameters.authenticationResetPasswordPostRequest),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This is the first step to reset the user password.
+     * Create the reset password token and send it by email to the user
+     */
+    async authenticationResetPasswordPost(requestParameters: AuthenticationResetPasswordPostOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.authenticationResetPasswordPostRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This is the second and final step to recovery the user password.
+     * Reset the user password
+     */
+    async authenticationResetPasswordPutRaw(requestParameters: AuthenticationResetPasswordPutOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters.authenticationResetPasswordPutRequest === null || requestParameters.authenticationResetPasswordPutRequest === undefined) {
+            throw new runtime.RequiredError('authenticationResetPasswordPutRequest','Required parameter requestParameters.authenticationResetPasswordPutRequest was null or undefined when calling authenticationResetPasswordPut.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
+        const response = await this.request({
+            path: `/authentication/resetPassword`,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: AuthenticationResetPasswordPutRequestToJSON(requestParameters.authenticationResetPasswordPutRequest),
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     * This is the second and final step to recovery the user password.
+     * Reset the user password
+     */
+    async authenticationResetPasswordPut(requestParameters: AuthenticationResetPasswordPutOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.authenticationResetPasswordPutRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

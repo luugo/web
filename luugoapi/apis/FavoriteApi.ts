@@ -27,14 +27,19 @@ import {
 
 export interface FavoriteDeleteRequest {
     rentableId: string;
+    userId: string;
+    acceptLanguage?: string;
 }
 
 export interface FavoriteGetRequest {
+    userId: string;
+    acceptLanguage?: string;
     rentableId?: string;
 }
 
 export interface FavoritePostOperationRequest {
     favoritePostRequest: FavoritePostRequest;
+    acceptLanguage?: string;
 }
 
 /**
@@ -50,13 +55,25 @@ export class FavoriteApi extends runtime.BaseAPI {
             throw new runtime.RequiredError('rentableId','Required parameter requestParameters.rentableId was null or undefined when calling favoriteDelete.');
         }
 
+        if (requestParameters.userId === null || requestParameters.userId === undefined) {
+            throw new runtime.RequiredError('userId','Required parameter requestParameters.userId was null or undefined when calling favoriteDelete.');
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters.rentableId !== undefined) {
             queryParameters['rentableId'] = requestParameters.rentableId;
         }
 
+        if (requestParameters.userId !== undefined) {
+            queryParameters['userId'] = requestParameters.userId;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -88,13 +105,25 @@ export class FavoriteApi extends runtime.BaseAPI {
      * C[R]UD
      */
     async favoriteGetRaw(requestParameters: FavoriteGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Favorite>>> {
+        if (requestParameters.userId === null || requestParameters.userId === undefined) {
+            throw new runtime.RequiredError('userId','Required parameter requestParameters.userId was null or undefined when calling favoriteGet.');
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters.rentableId !== undefined) {
             queryParameters['rentableId'] = requestParameters.rentableId;
         }
 
+        if (requestParameters.userId !== undefined) {
+            queryParameters['userId'] = requestParameters.userId;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -118,7 +147,7 @@ export class FavoriteApi extends runtime.BaseAPI {
      * Get favorite
      * C[R]UD
      */
-    async favoriteGet(requestParameters: FavoriteGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Favorite>> {
+    async favoriteGet(requestParameters: FavoriteGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Favorite>> {
         const response = await this.favoriteGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -137,6 +166,10 @@ export class FavoriteApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
