@@ -104,6 +104,10 @@ const ProductDetailPage = () => {
     const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] =
         useState(false);
 
+    const isValidCoordinate = (coord: { lat: any; lng: any }) => {
+        return typeof coord.lat === 'number' && typeof coord.lng === 'number' && isFinite(coord.lat) && isFinite(coord.lng);
+    };
+
     const renderSectionContent = () => {
         let contato;
         return (
@@ -193,21 +197,21 @@ const ProductDetailPage = () => {
     };
 
     const handleRenderMap = () => {
+        if (!isValidCoordinate(center)) {
+            return <p>Mapa não disponível no momento.</p>;
+        }
+
         return (
             <>
                 <h2 className="text-2xl font-semibold">Localização</h2>
-                <LoadScript googleMapsApiKey={''}>
-                    <GoogleMap
-                        mapContainerStyle={containerStyle}
-                        center={center}
-                        zoom={10}
-                    >
+                <LoadScript googleMapsApiKey="">
+                    <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
                         <Marker position={position} />
                     </GoogleMap>
                 </LoadScript>
             </>
-        )
-    }
+        );
+    };
 
     return (
         <div className="pb-20 xl:pb-28 lg:pt-14">
@@ -260,7 +264,7 @@ const ProductDetailPage = () => {
                     <div className="mt-12 sm:mt-16 space-y-10 sm:space-y-16">
                         {renderDetailSection()}
                         <hr className="border-slate-200 dark:border-slate-700" />
-                        
+
                         {handleRenderMap()}
                     </div>
                 </main>

@@ -80,7 +80,7 @@ const PageSignUp = () => {
   
       const result = await authenticationApi.authenticationEmailPost(requestParameters)
       
-      router.push("/login");
+      router.push("/sign-up-confirm-code");
       
     } catch (e: any) {
       const response = await e.response.json();

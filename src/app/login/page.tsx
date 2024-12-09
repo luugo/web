@@ -79,9 +79,13 @@ const PageLogin = () => {
         router.push("/complete-signup");
       }
     } catch (error: any) {
-      const response = await error.response;
-      setLoginError("Usuário ou Senha Inválidos!");
-      console.info(response);
+      const errorData = await error.response.json();
+      const errorMessage = errorData[0]?.message
+
+      if( errorMessage === "O usuário ainda não foi verificado"){
+        router.push("/sign-up-confirm-code");
+      }
+      setLoginError(errorMessage);
     }
   };
   

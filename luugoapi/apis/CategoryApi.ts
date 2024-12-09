@@ -23,10 +23,12 @@ import {
 } from '../models/index';
 
 export interface CategoryDeleteRequest {
+    acceptLanguage?: string;
     id?: string;
 }
 
 export interface CategoryGetRequest {
+    acceptLanguage?: string;
     id?: string;
     isActive?: boolean;
     isVisibleInHome?: boolean;
@@ -34,10 +36,12 @@ export interface CategoryGetRequest {
 
 export interface CategoryPostRequest {
     category: Category;
+    acceptLanguage?: string;
 }
 
 export interface CategoryPutRequest {
     category: Category;
+    acceptLanguage?: string;
 }
 
 /**
@@ -57,6 +61,10 @@ export class CategoryApi extends runtime.BaseAPI {
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         const response = await this.request({
             path: `/category`,
@@ -97,6 +105,10 @@ export class CategoryApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
         const response = await this.request({
             path: `/category`,
             method: 'GET',
@@ -130,6 +142,10 @@ export class CategoryApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -177,6 +193,10 @@ export class CategoryApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         const response = await this.request({
             path: `/category`,

@@ -2,24 +2,57 @@
 
 import React, { FC, useState } from "react";
 import { useRouter } from "next/navigation";
+import {
+    AuthenticationApi,
+    AuthenticationEmailPutRequest,
+} from "../../../luugoapi";
 
 const SignUpVerifyInputPage: FC = () => {
     const [code, setCode] = useState("");
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const router = useRouter();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (code.length === 6) {
-            router.push(`/sign-up-verify?code=${code}`);
-        } else {
-            alert("Por favor, insira um código de 6 dígitos.");
+
+        if (code.length !== 6) {
+            setErrorMessage("Por favor, insira um código de 6 dígitos.");
+            return;
+        }
+
+        const authenticationApi = new AuthenticationApi();
+        const requestApiParameters: AuthenticationEmailPutRequest = {
+            emailVerificationKey: code,
+        };
+
+        try {
+            const result = await authenticationApi.authenticationEmailPut({
+                authenticationEmailPutRequest: requestApiParameters,
+            });
+
+            if (result) {
+                localStorage.setItem(
+                    "luugo",
+                    JSON.stringify({ user: { authenticationId: result } })
+                );
+                router.push("/complete-signup");
+            }
+        } catch (error: any) {
+            const errorData = await error.response.json();
+            const message = errorData[0]?.message
+            if (message == null) {
+                setErrorMessage("Erro inesperado. Por favor, tente novamente.");
+            } else {
+                setErrorMessage(message);
+            }
         }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+        const value = e.target.value.replace(/\D/g, "");
         if (value.length <= 6) {
             setCode(value);
+            setErrorMessage(null);
         }
     };
 
@@ -28,7 +61,7 @@ const SignUpVerifyInputPage: FC = () => {
             <h2 className="text-2xl sm:text-3xl font-semibold mb-6">Verificação de Cadastro</h2>
             <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
                 <label htmlFor="code" className="block text-lg font-medium text-gray-700">
-                    Insira o código de 6 dígitos
+                    Insira o código de 6 dígitos que Enviamos para o seu Email.
                 </label>
                 <input
                     type="text"
@@ -45,6 +78,9 @@ const SignUpVerifyInputPage: FC = () => {
                 >
                     Confirmar
                 </button>
+                {errorMessage && (
+                    <p className="block text-red-500 text-sm font-bold mb-2">{errorMessage}</p>
+                )}
             </form>
         </div>
     );

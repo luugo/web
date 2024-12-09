@@ -19,15 +19,20 @@ const Category: React.FC = () => {
     const [items, setItems] = useState<any[]>([])
     const [search, setSearch] = useState<string>('')
     const [filteredRentables, setFilteredRentables] = useState<any[]>([])
-    const [places, setPlaces] = useState<any[]>([])
-    const [selectedPlace, setSelectedPlace] = useState<PlacesProps>()
+    const [places, setPlaces] = useState<PlacesProps[]>([{ id: 0, name: 'Todas Localidades' }]);
+    const [selectedPlace, setSelectedPlace] = useState<PlacesProps>({ id: 0, name: 'Todas Localidades' });
 
     useEffect(() => {
-        const cities = Array.from(new Set(items?.map(i => i?.place)))
+        if (!items.length) return;
+
+        const cities = Array.from(new Set(items?.map(i => i?.place)));
         const citiesWithAllOption = [{ id: 0, name: 'Todas Localidades' }, ...cities.map((city, index) => ({ id: index + 1, name: city }))];
-        setPlaces(citiesWithAllOption)
-        setSelectedPlace(citiesWithAllOption[0])
-    }, [items])
+
+        setPlaces(citiesWithAllOption);
+        if (!selectedPlace || !citiesWithAllOption.some(place => place.id === selectedPlace.id)) {
+            setSelectedPlace(citiesWithAllOption[0]);
+        }
+    }, [items]);
 
     const handleSearchItemChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
@@ -117,12 +122,15 @@ const Category: React.FC = () => {
                 <div className="flex lg:space-x-4">
                     <div className="lg:flex flex-1 space-x-4">
                         <div className="relative md:min-w-[200px]">
-                            <ArchiveFilterListBox
-                                dropDownItems={places}
-                                selected={selectedPlace}
-                                setSelected={setSelectedPlace}
-                            />
+                            {places.length > 0 && selectedPlace && (
+                                <ArchiveFilterListBox
+                                    dropDownItems={places}
+                                    selected={selectedPlace}
+                                    setSelected={setSelectedPlace}
+                                />
+                            )}
                         </div>
+
                     </div>
                 </div>
                 {filteredRentables?.length ? (

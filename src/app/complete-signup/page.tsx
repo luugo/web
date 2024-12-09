@@ -71,8 +71,6 @@ const PageRegister = () => {
     }
   };
 
-  console.log('options', options.filter(o => o.city === 'Natal'))
-  
   return (
     <div>
       {hasPermission && (

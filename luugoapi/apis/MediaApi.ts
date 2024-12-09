@@ -23,11 +23,13 @@ import {
 } from '../models/index';
 
 export interface MediaGetRequest {
+    acceptLanguage?: string;
     id?: string;
     rentableId?: string | null;
 }
 
 export interface MediaPostRequest {
+    acceptLanguage?: string;
     id?: string;
     createdAt?: Date;
     updatedAt?: Date | null;
@@ -60,6 +62,10 @@ export class MediaApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
         const response = await this.request({
             path: `/media`,
             method: 'GET',
@@ -87,6 +93,10 @@ export class MediaApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;

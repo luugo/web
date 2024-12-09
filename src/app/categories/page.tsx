@@ -87,17 +87,13 @@ const Categories: React.FC = () => {
                 {filteredCategories?.length ? (
                     <div className="grid md:grid-cols-2 gap-6 lg:grid-cols-3 xl:gap-8">
                         {filteredCategories?.map((item) => (
-                            <Link href={`/category/${item?.id}`}>
+                            <Link href={`/category/${item?.id}`} key={item?.id}>
                                 <div
-                                    key={item?.id}
                                     className="p-6 text-center bg-neutral-50 dark:bg-neutral-800 rounded-2xl dark:border-neutral-800"
                                 >
                                     <h3 className="text-2xl font-semibold leading-none text-neutral-900 md:text-3xl dark:text-neutral-200">
                                         {CATEGORY[item?.id]?.title}
                                     </h3>
-                                    {/* <span className="block text-sm text-neutral-500 mt-3 sm:text-base dark:text-neutral-400">
-                                {item.subHeading}
-                            </span> */}
                                 </div>
                             </Link>
                         ))}

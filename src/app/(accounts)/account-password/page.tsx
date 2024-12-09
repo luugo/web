@@ -1,15 +1,15 @@
 "use client"
 import Label from "@/components/Label/Label";
-import React, { useCallback, useEffect, useState } from "react";
+import React, {useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
-import { AuthenticationApi } from "../../../../luugoapi";
-import { error } from "console";
+import {AuthenticationApi} from "../../../../luugoapi";
 
 const AccountPass = () => {
   const [currentPassword, setCurrentPassword] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const authApi = new AuthenticationApi();
 
@@ -28,15 +28,19 @@ const AccountPass = () => {
         confirmNewPassword: confirmNewPassword,
       }
       try {
-        const response = await authApi?.authenticationEmailPut(requestParameters, {
-          headers: {
-            "Authorization": `Bearer ${storage?.token}`,
-            "Content-Type": "application/json",
-          },
-        })
-        return response
-      } catch (error) {
-        console.log('error', error)
+        return await authApi?.authenticationEmailPost({
+          authenticationEmailPostRequest: requestParameters,
+        });
+      } catch (error: any) {
+        const errorData = await error.response?.json();
+        if(errorData) {
+          const message = errorData[0]?.message
+          if (message == null) {
+            setErrorMessage("Erro inesperado. Por favor, tente novamente.");
+          } else {
+            setErrorMessage(message);
+          }
+        }
       }
     }
   }
@@ -74,6 +78,9 @@ const AccountPass = () => {
             value={confirmNewPassword}
             onChange={(e) => setConfirmNewPassword(e?.target?.value)}
           />
+          {errorMessage && (
+              <p className="block text-red-500 text-sm font-bold mb-2">{errorMessage}</p>
+          )}
         </div>
         <div className="pt-2">
           <ButtonPrimary onClick={handleUpdatePassword}>Atualizar Senha</ButtonPrimary>

@@ -30,7 +30,7 @@ export interface UserContact {
      * @type {string}
      * @memberof UserContact
      */
-    userId?: string;
+    userId: string;
     /**
      * 
      * @type {Date}
