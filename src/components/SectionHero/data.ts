@@ -17,7 +17,7 @@ interface Hero2DataType {
 export const HERO2_DEMO_DATA: Hero2DataType[] = [
   {
     image: imageRightPng2,
-    heading: "Precisou? \n Alugou!",
+    heading: "Precisou? Alugou!",
     subHeading: "",
     btnText: "Cadastre-se!",
     btnLink: "/signup",
