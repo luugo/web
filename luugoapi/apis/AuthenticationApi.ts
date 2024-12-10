@@ -19,6 +19,7 @@ import type {
   AuthenticationEmailPutRequest,
   AuthenticationPostDefaultResponse,
   AuthenticationPostRequest,
+  AuthenticationPutRequest,
   AuthenticationResetPasswordPostRequest,
   AuthenticationResetPasswordPutRequest,
 } from '../models/index';
@@ -31,6 +32,8 @@ import {
     AuthenticationPostDefaultResponseToJSON,
     AuthenticationPostRequestFromJSON,
     AuthenticationPostRequestToJSON,
+    AuthenticationPutRequestFromJSON,
+    AuthenticationPutRequestToJSON,
     AuthenticationResetPasswordPostRequestFromJSON,
     AuthenticationResetPasswordPostRequestToJSON,
     AuthenticationResetPasswordPutRequestFromJSON,
@@ -54,6 +57,11 @@ export interface AuthenticationEmailPutOperationRequest {
 
 export interface AuthenticationPostOperationRequest {
     authenticationPostRequest: AuthenticationPostRequest;
+    acceptLanguage?: string;
+}
+
+export interface AuthenticationPutOperationRequest {
+    authenticationPutRequest: AuthenticationPutRequest;
     acceptLanguage?: string;
 }
 
@@ -228,6 +236,52 @@ export class AuthenticationApi extends runtime.BaseAPI {
     async authenticationPost(requestParameters: AuthenticationPostOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AuthenticationPostDefaultResponse> {
         const response = await this.authenticationPostRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * Given the old password and a new password, change it
+     * Change the password
+     */
+    async authenticationPutRaw(requestParameters: AuthenticationPutOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.authenticationPutRequest === null || requestParameters.authenticationPutRequest === undefined) {
+            throw new runtime.RequiredError('authenticationPutRequest','Required parameter requestParameters.authenticationPutRequest was null or undefined when calling authenticationPut.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/authentication`,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: AuthenticationPutRequestToJSON(requestParameters.authenticationPutRequest),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Given the old password and a new password, change it
+     * Change the password
+     */
+    async authenticationPut(requestParameters: AuthenticationPutOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.authenticationPutRaw(requestParameters, initOverrides);
     }
 
     /**

@@ -4,6 +4,7 @@ export * from './AuthenticationEmailPostRequest';
 export * from './AuthenticationEmailPutRequest';
 export * from './AuthenticationPostDefaultResponse';
 export * from './AuthenticationPostRequest';
+export * from './AuthenticationPutRequest';
 export * from './AuthenticationResetPasswordPostRequest';
 export * from './AuthenticationResetPasswordPutRequest';
 export * from './Category';
