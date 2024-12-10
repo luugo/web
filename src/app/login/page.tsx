@@ -135,7 +135,7 @@ const PageLogin = () => {
             <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
                 Senha
-                <Link href="/" className="text-sm text-green-600">
+                <Link href="/forgot-pass" className="text-sm text-green-600">
                   Esqueceu sua senha?
                 </Link>
               </span>

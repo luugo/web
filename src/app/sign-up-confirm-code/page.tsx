@@ -1,6 +1,9 @@
 "use client";
 
 import React, { FC, useState } from "react";
+import Input from "@/shared/Input/Input";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
     AuthenticationApi,
@@ -57,33 +60,50 @@ const SignUpVerifyInputPage: FC = () => {
     };
 
     return (
-        <div className="flex flex-col items-center min-h-screen p-4 bg-gray-50">
-            <h2 className="text-2xl sm:text-3xl font-semibold mb-6">Verificação de Cadastro</h2>
-            <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
-                <label htmlFor="code" className="block text-lg font-medium text-gray-700">
-                    Insira o código de 6 dígitos que Enviamos para o seu Email.
-                </label>
-                <input
-                    type="text"
-                    id="code"
-                    value={code}
-                    onChange={handleChange}
-                    maxLength={6}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md text-center text-xl tracking-widest"
-                    placeholder="000000"
-                />
-                <button
-                    type="submit"
-                    className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                >
-                    Confirmar
-                </button>
-                {errorMessage && (
-                    <p className="block text-red-500 text-sm font-bold mb-2">{errorMessage}</p>
-                )}
-            </form>
-        </div>
+      <div className="container mb-24 lg:mb-32">
+          <header className="text-center max-w-2xl mx-auto - mb-14 sm:mb-16 lg:mb-20">
+              <h2 className="mt-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
+                  Verificação de Cadastro
+              </h2>
+              <span className="block text-sm mt-4 text-neutral-700 sm:text-base dark:text-neutral-200">
+        Bem-vindo à nossa Comunidade
+      </span>
+          </header>
+
+          <div className="max-w-md mx-auto space-y-6">
+              <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
+                  <label htmlFor="code" className="block">
+          <span className="text-neutral-800 dark:text-neutral-200">
+            Insira o código de 6 dígitos que enviamos para o seu email.
+          </span>
+                      <Input
+                        type="text"
+                        id="code"
+                        value={code}
+                        onChange={handleChange}
+                        maxLength={6}
+                        placeholder="000000"
+                        className="mt-1 text-center text-xl tracking-widest"
+                      />
+                  </label>
+                  <ButtonPrimary type="submit">Confirmar</ButtonPrimary>
+                  {errorMessage && (
+                    <p className="block text-red-500 text-sm font-bold mt-2">
+                        {errorMessage}
+                    </p>
+                  )}
+              </form>
+
+              <span className="block text-center text-neutral-700 dark:text-neutral-300">
+        Não recebeu o código?{` `}
+                  <Link href="/signup" className="text-green-600">
+          Reenviar código
+        </Link>
+      </span>
+          </div>
+      </div>
     );
+
 };
 
 export default SignUpVerifyInputPage;
