@@ -13,6 +13,7 @@ models/AuthenticationEmailPostRequest.ts
 models/AuthenticationEmailPutRequest.ts
 models/AuthenticationPostDefaultResponse.ts
 models/AuthenticationPostRequest.ts
+models/AuthenticationPutRequest.ts
 models/AuthenticationResetPasswordPostRequest.ts
 models/AuthenticationResetPasswordPutRequest.ts
 models/Category.ts
