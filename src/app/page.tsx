@@ -31,11 +31,18 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
         textAlign: "center",
         zIndex: 1000,
       }}
-      aria-live="polite" // Para acessibilidade
+      // aria-live="polite" // Para acessibilidade
     >
-      {/* Logo no topo */}
-      <div style={{ marginBottom: "20px" }}>
-        <Image src={logoImg} alt="Logo" width={60} height={60} />
+      {/* Logo centralizado no topo */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        <Image src={logoImg} alt="Logo" width={80} height={80} />
       </div>
 
       {/* Texto do popup */}
@@ -75,7 +82,7 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
         onClick={onClose}
         style={{
           display: "block",
-          margin: "10px auto 0",
+          margin: "10px auto 10px",
           padding: "10px 20px",
           borderRadius: "8px",
           backgroundColor: "#f8f9fa",
@@ -83,6 +90,7 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
           border: "1px solid #ddd",
           cursor: "pointer",
           maxWidth: "300px",
+          width: "100%",
           textAlign: "center",
         }}
       >
