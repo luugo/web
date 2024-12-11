@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import SectionHero2 from "@/components/SectionHero/SectionHero2";
 import About from "@/components/About/About";
 import HowItWorks from "@/components/HowItWorks/HowItWorks";
+import logoImg from "@/images/logo.svg";
+import Image from "next/image";
 
-// Componente do Popup
 interface MobilePopupProps {
-  os?: "android" | "ios"; // Especificando que 'os' pode ser 'android', 'ios', ou undefined
+  os?: "android" | "ios";
   onClose: () => void;
 }
 
-// Componente do Popup
 const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
   const appLinks = {
     android: "https://play.google.com/store/apps/details?id=br.com.luugo.app",
@@ -21,60 +21,73 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
     <div
       style={{
         position: "fixed",
-        top: 0,
+        bottom: 0,
         left: 0,
         width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        backgroundColor: "#fff",
+        boxShadow: "0 -4px 6px rgba(0, 0, 0, 0.1)",
+        borderRadius: "16px 16px 0 0",
+        padding: "20px",
+        textAlign: "center",
         zIndex: 1000,
       }}
+      aria-live="polite" // Para acessibilidade
     >
-      <div
+      {/* Logo no topo */}
+      <div style={{ marginBottom: "20px" }}>
+        <Image src={logoImg} alt="Logo" width={60} height={60} />
+      </div>
+
+      {/* Texto do popup */}
+      <h2
         style={{
-          background: "#fff",
-          padding: "20px",
-          borderRadius: "8px",
-          textAlign: "center",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          fontSize: "16px",
+          marginBottom: "10px",
+          color: "#333",
+          lineHeight: "1.4",
         }}
       >
-        <h2>Baixe nosso App!</h2>
-        <p>Para uma experiência melhor, baixe nosso aplicativo na loja.</p>
-        {os && (
-          <a
-            href={appLinks[os]}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-block",
-              margin: "10px 0",
-              padding: "10px 20px",
-              background: "#007BFF",
-              color: "#fff",
-              borderRadius: "5px",
-              textDecoration: "none",
-            }}
-          >
-            Ir para a Loja
-          </a>
-        )}
-        <button
-          onClick={onClose}
+        Abra o app para alugar com mais facilidade e rapidez
+      </h2>
+
+      {/* Botão principal */}
+      {os && (
+        <a
+          href={appLinks[os]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`ttnc-ButtonPrimary disabled:bg-opacity-90 bg-slate-900 dark:bg-slate-100 hover:bg-slate-800 text-slate-50 dark:text-slate-800 shadow-xl`}
           style={{
             display: "block",
-            marginTop: "10px",
-            background: "transparent",
-            border: "none",
-            color: "#007BFF",
-            cursor: "pointer",
+            margin: "10px auto 10px",
+            padding: "10px 20px",
+            borderRadius: "8px",
+            textDecoration: "none",
+            maxWidth: "300px",
           }}
         >
-          Agora não
-        </button>
-      </div>
+          Ir para a Loja
+        </a>
+      )}
+
+      {/* Botão de "Agora não" */}
+      <button
+        onClick={onClose}
+        style={{
+          display: "block",
+          margin: "10px auto 0",
+          padding: "10px 20px",
+          borderRadius: "8px",
+          backgroundColor: "#f8f9fa",
+          color: "#333",
+          border: "1px solid #ddd",
+          cursor: "pointer",
+          maxWidth: "300px",
+          textAlign: "center",
+        }}
+      >
+        Agora não
+      </button>
     </div>
   );
 };
