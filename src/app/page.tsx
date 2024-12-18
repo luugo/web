@@ -13,7 +13,7 @@ interface MobilePopupProps {
 
 const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
   const appLinks = {
-    android: "intent://details?id=br.com.luugo.app#Intent;scheme=market;package=com.luugo;end",
+    android: "intent://details?id=br.com.luugo.app#Intent;scheme=market;package=br.com.luugo.app;end",
     ios: "#",
   };
 
