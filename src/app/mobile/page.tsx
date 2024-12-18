@@ -1,23 +1,18 @@
-"use client";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+
+export const dynamic = "force-dynamic";
 
 export default function MobileRedirect() {
-  const router = useRouter();
+  const requestHeaders = headers();
+  const userAgent = requestHeaders.get("user-agent") || "";
 
-  useEffect(() => {
-    const userAgent = navigator.userAgent;
-
-    if (/android/i.test(userAgent)) {
-      window.location.href = "intent://details?id=br.com.luugo.app#Intent;scheme=market;package=br.com.luugo.app;end";
-    } else if (/iPad|iPhone|iPod/.test(userAgent)) {
-      window.location.href = "https://apps.apple.com/";
-    } else {
-      router.push("/"); // Redireciona para a página inicial
-    }
-  }, [router]);
-
-  return null; // Este componente não renderiza nada
+  if (/android/i.test(userAgent)) {
+    redirect("https://play.google.com/store/apps/details?id=br.com.luugo.app");
+  } else if (/iPad|iPhone|iPod/.test(userAgent)) {
+    redirect("https://apps.apple.com/");
+  } else {
+    redirect("/");
+  }
 }
-
 
