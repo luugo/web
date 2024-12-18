@@ -8,7 +8,7 @@ export default function MobileRedirect() {
   const userAgent = requestHeaders.get("user-agent") || "";
 
   if (/android/i.test(userAgent)) {
-    redirect("https://play.google.com/store/apps/details?id=br.com.luugo.app");
+    redirect("intent://details?id=br.com.luugo.app#Intent;scheme=market;package=com.luugo;end");
   } else if (/iPad|iPhone|iPod/.test(userAgent)) {
     redirect("https://apps.apple.com/");
   } else {
