@@ -1,14 +1,11 @@
-// src/app/mobile/page.tsx
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
 export default function MobileRedirect() {
-  return null;
-}
-
-export async function generateMetadata({ headers }: { headers: Headers }) {
-  const userAgent = headers.get("user-agent") || "";
+  const requestHeaders = headers();
+  const userAgent = requestHeaders.get("user-agent") || "";
 
   if (/android/i.test(userAgent)) {
     redirect("https://play.google.com/store/apps/details?id=com.seuapp");
@@ -18,5 +15,6 @@ export async function generateMetadata({ headers }: { headers: Headers }) {
     redirect("/");
   }
 
-  return {};
+  return null;
 }
+
