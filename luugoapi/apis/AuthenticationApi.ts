@@ -17,6 +17,7 @@ import * as runtime from '../runtime';
 import type {
   AuthenticationEmailPostRequest,
   AuthenticationEmailPutRequest,
+  AuthenticationGooglePostRequest,
   AuthenticationPostDefaultResponse,
   AuthenticationPostRequest,
   AuthenticationPutRequest,
@@ -28,6 +29,8 @@ import {
     AuthenticationEmailPostRequestToJSON,
     AuthenticationEmailPutRequestFromJSON,
     AuthenticationEmailPutRequestToJSON,
+    AuthenticationGooglePostRequestFromJSON,
+    AuthenticationGooglePostRequestToJSON,
     AuthenticationPostDefaultResponseFromJSON,
     AuthenticationPostDefaultResponseToJSON,
     AuthenticationPostRequestFromJSON,
@@ -39,6 +42,10 @@ import {
     AuthenticationResetPasswordPutRequestFromJSON,
     AuthenticationResetPasswordPutRequestToJSON,
 } from '../models/index';
+
+export interface AuthenticationApplePostRequest {
+    authenticationGooglePostRequest: AuthenticationGooglePostRequest;
+}
 
 export interface AuthenticationEmailDeleteRequest {
     authenticationEmailPostRequest: AuthenticationEmailPostRequest;
@@ -53,6 +60,10 @@ export interface AuthenticationEmailPostOperationRequest {
 export interface AuthenticationEmailPutOperationRequest {
     authenticationEmailPutRequest: AuthenticationEmailPutRequest;
     acceptLanguage?: string;
+}
+
+export interface AuthenticationGooglePostOperationRequest {
+    authenticationGooglePostRequest: AuthenticationGooglePostRequest;
 }
 
 export interface AuthenticationPostOperationRequest {
@@ -79,6 +90,41 @@ export interface AuthenticationResetPasswordPutOperationRequest {
  * 
  */
 export class AuthenticationApi extends runtime.BaseAPI {
+
+    /**
+     * Authenticate by Apple.
+     * Authenticate by Apple
+     */
+    async authenticationApplePostRaw(requestParameters: AuthenticationApplePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AuthenticationPostDefaultResponse>> {
+        if (requestParameters.authenticationGooglePostRequest === null || requestParameters.authenticationGooglePostRequest === undefined) {
+            throw new runtime.RequiredError('authenticationGooglePostRequest','Required parameter requestParameters.authenticationGooglePostRequest was null or undefined when calling authenticationApplePost.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/authentication/apple`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: AuthenticationGooglePostRequestToJSON(requestParameters.authenticationGooglePostRequest),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AuthenticationPostDefaultResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Authenticate by Apple.
+     * Authenticate by Apple
+     */
+    async authenticationApplePost(requestParameters: AuthenticationApplePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AuthenticationPostDefaultResponse> {
+        const response = await this.authenticationApplePostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Deletes an user by using the user authentication
@@ -196,6 +242,41 @@ export class AuthenticationApi extends runtime.BaseAPI {
      */
     async authenticationEmailPut(requestParameters: AuthenticationEmailPutOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
         const response = await this.authenticationEmailPutRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Authenticate by Google.
+     * Authenticate by Google
+     */
+    async authenticationGooglePostRaw(requestParameters: AuthenticationGooglePostOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AuthenticationPostDefaultResponse>> {
+        if (requestParameters.authenticationGooglePostRequest === null || requestParameters.authenticationGooglePostRequest === undefined) {
+            throw new runtime.RequiredError('authenticationGooglePostRequest','Required parameter requestParameters.authenticationGooglePostRequest was null or undefined when calling authenticationGooglePost.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/authentication/google`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: AuthenticationGooglePostRequestToJSON(requestParameters.authenticationGooglePostRequest),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AuthenticationPostDefaultResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Authenticate by Google.
+     * Authenticate by Google
+     */
+    async authenticationGooglePost(requestParameters: AuthenticationGooglePostOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AuthenticationPostDefaultResponse> {
+        const response = await this.authenticationGooglePostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

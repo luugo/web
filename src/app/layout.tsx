@@ -7,6 +7,7 @@ import Footer from "@/shared/Footer/Footer";
 import SiteHeader from "@/app/SiteHeader";
 import CommonClient from "./CommonClient";
 import { Providers } from "@/providers";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,12 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en" dir="" className={poppins.className}>
       <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
-        <Providers>
-          <SiteHeader />
-          {children}
-          <CommonClient />
-          <Footer />
-        </Providers>
+        <GoogleOAuthProvider clientId="637549763916-sa80ph8s7nsbpdhtnv3bf6a1q29s3fae.apps.googleusercontent.com">
+          <Providers>
+            <SiteHeader />
+            {children}
+            <CommonClient />
+            <Footer />
+          </Providers>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );

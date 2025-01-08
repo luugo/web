@@ -8,9 +8,14 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { AuthenticationApi, UserApi, UserContactApi, UserTypeEnum } from "../../../luugoapi";
-import { useUserContext } from "@/context";
+import { AuthenticationApi, AuthenticationPostDefaultResponse,
+  UserApi,
+  UserContactApi,
+  UserTypeEnum
+} from "../../../luugoapi";
+import {useUserContext} from "@/context";
 import Label from "@/components/Label/Label";
+import {GoogleLogin} from '@react-oauth/google';
 
 const loginSocials = [
   {
@@ -31,13 +36,15 @@ const loginSocials = [
 ];
 
 const renderOR = () => {
-  if(!loginSocials.length) {
+  if (!loginSocials.length) {
     return (
       <div className="relative text-center">
-        <span className="relative z-10 inline-block px-4 font-medium text-sm bg-white dark:text-neutral-400 dark:bg-neutral-900">
+        <span
+          className="relative z-10 inline-block px-4 font-medium text-sm bg-white dark:text-neutral-400 dark:bg-neutral-900">
           OR
         </span>
-        <div className="absolute left-0 w-full top-1/2 transform -translate-y-1/2 border border-neutral-100 dark:border-neutral-800"></div>
+        <div
+          className="absolute left-0 w-full top-1/2 transform -translate-y-1/2 border border-neutral-100 dark:border-neutral-800"></div>
       </div>
     )
   }
@@ -61,32 +68,59 @@ const PageLogin = () => {
       }
 
       const result = await authenticationApi.authenticationPost(requestParameters)
+      await handleLoginResult(result, router);
 
-      if(result.token) {
-        localStorage.setItem('luugo', JSON.stringify(result));
-  
-        const userContactApi = new UserContactApi();
-        const user = result.user;
-        const userId = user?.id;
-
-        if(userId) {
-          const contacts = await userContactApi.userContactGet({userId})
-          localStorage.setItem('luugo', JSON.stringify({...result, contacts}));
-        }
-        router.push("/");
-      } else if(result.authenticationId) {
-        localStorage.setItem('luugo', JSON.stringify({user: {authenticationId: result.authenticationId}}));
-        router.push("/complete-signup");
-      }
     } catch (error: any) {
       const errorData = await error.response.json();
       const errorMessage = errorData[0]?.message
 
-      if( errorMessage === "O usuário ainda não foi verificado"){
+      if (errorMessage === "O usuário ainda não foi verificado") {
         router.push("/sign-up-confirm-code");
       }
       setLoginError(errorMessage);
     }
+  };
+
+  const handleLoginResult = async (result: any, router: any) => {
+    if (result.token) {
+      localStorage.setItem('luugo', JSON.stringify(result));
+
+      const userContactApi = new UserContactApi();
+      const user = result.user;
+      const userId = user?.id;
+
+      if (userId) {
+        try {
+          const contacts = await userContactApi.userContactGet({ userId });
+
+          localStorage.setItem('luugo', JSON.stringify({ ...result, contacts }));
+        } catch (error) {
+          console.error('Erro ao buscar contatos:', error);
+        }
+      }
+      router.push('/');
+    } else if (result.authenticationId) {
+
+      localStorage.setItem('luugo', JSON.stringify({ user: { authenticationId: result.authenticationId } }));
+      router.push('/complete-signup');
+    }
+  };
+
+  const handleSuccess = async (response: any) => {
+    const authenticationApi = new AuthenticationApi();
+    const requestParameters = {
+      authenticationGooglePostRequest: {
+        token: response.credential
+      }
+    }
+
+    const result = await authenticationApi.authenticationGooglePost(requestParameters);
+
+    await handleLoginResult(result, router);
+  };
+
+  const handleError = () => {
+    console.log('Login Failed');
   };
   
   return (
@@ -153,6 +187,9 @@ const PageLogin = () => {
             <Link className="text-green-600" href="/signup">
               Crie a sua conta aqui
             </Link>
+             <div>
+               <GoogleLogin onSuccess={handleSuccess} onError={handleError}/>
+             </div>
           </span>
         </div>
       </div>

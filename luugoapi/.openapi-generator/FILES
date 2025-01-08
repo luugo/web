@@ -11,6 +11,7 @@ apis/index.ts
 index.ts
 models/AuthenticationEmailPostRequest.ts
 models/AuthenticationEmailPutRequest.ts
+models/AuthenticationGooglePostRequest.ts
 models/AuthenticationPostDefaultResponse.ts
 models/AuthenticationPostRequest.ts
 models/AuthenticationPutRequest.ts

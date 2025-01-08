@@ -118,7 +118,9 @@ export interface Rentable {
  */
 export const RentableTypeEnum = {
     Place: 'PLACE',
-    Item: 'ITEM'
+    Item: 'ITEM',
+    Service: 'SERVICE',
+    Auto: 'AUTO'
 } as const;
 export type RentableTypeEnum = typeof RentableTypeEnum[keyof typeof RentableTypeEnum];
 
