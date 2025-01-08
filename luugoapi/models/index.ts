@@ -2,6 +2,7 @@
 /* eslint-disable */
 export * from './AuthenticationEmailPostRequest';
 export * from './AuthenticationEmailPutRequest';
+export * from './AuthenticationGooglePostRequest';
 export * from './AuthenticationPostDefaultResponse';
 export * from './AuthenticationPostRequest';
 export * from './AuthenticationPutRequest';
