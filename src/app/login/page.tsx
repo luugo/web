@@ -183,7 +183,7 @@ const PageLogin = () => {
 
           {/* ==== */}
           <span className="block text-center text-neutral-700 dark:text-neutral-300">
-            Novo usuãrio: {` `}
+            Novo usuário: {` `}
             <Link className="text-green-600" href="/signup">
               Crie a sua conta aqui
             </Link>
