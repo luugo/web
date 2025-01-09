@@ -1,18 +1,16 @@
 'use client'
 import Label from "@/components/Label/Label";
-import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
+import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
-import Textarea from "@/shared/Textarea/Textarea";
-import { avatarImgs } from "@/contains/fakeData";
 import avatarLuugo from "@/images/hero-2-right-1.png"
 import Image from "next/image";
-import { AlertOptions } from "@/interfaces";
-import { AuthenticationPostDefaultResponse, Configuration, User, UserApi, UserContact, UserContactApi, UserPutRequest, UserTypeEnum } from "../../../../luugoapi";
-import { useUserContext } from "@/context";
+import {AlertOptions} from "@/interfaces";
+import {AuthenticationPostDefaultResponse, User, UserApi, UserContactApi, UserTypeEnum, MediaApi} from "../../../../luugoapi";
+import {useUserContext} from "@/context";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import { Alert } from "@/shared/Alert/Alert";
-import { useRouter } from "next/navigation";
+import {Alert} from "@/shared/Alert/Alert";
+import {useRouter} from "next/navigation";
 import ModalDelete from "@/components/ModalDelete";
 
 const AccountPage = () => {
@@ -31,8 +29,12 @@ const AccountPage = () => {
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
   const [emailContactId, setEmailContactId] = useState<string | undefined>('');
   const [phoneContactId, setPhoneContactId] = useState<string | undefined>('');
-
+  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
+  const [thumbnail, setThumbnail] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const userApi = new UserApi();
+  const mediaApi = new MediaApi();
   const userContactApi = new UserContactApi();
 
   const {
@@ -55,6 +57,7 @@ const AccountPage = () => {
         "Content-Type": "application/json",
       }
     })
+
     return response
   }
 
@@ -64,6 +67,9 @@ const AccountPage = () => {
       try {
         if (storageData !== null) {
           const luugo: AuthenticationPostDefaultResponse = JSON.parse(storageData);
+
+          if (id) return;
+
           const userResp: User[] = await userApi.userGet({ id: luugo.user?.id }, {
             headers: {
               "Authorization": `Bearer ${luugo?.token}`,
@@ -72,6 +78,7 @@ const AccountPage = () => {
           });
           if (userResp) {
             const user = userResp[0];
+            setUser(userResp[0]);
             setId(user.id);
             setAuthId(user.authenticationId);
             setToken(luugo.token);
@@ -81,8 +88,8 @@ const AccountPage = () => {
             if (user.id && luugo.token) {
               const data = await handleUserContacts(user.id, luugo.token)
               if (data.length) {
-                const _phone = data.filter(c => c.type == 'PHONE')
-                const _email = data.filter(c => c.type == 'EMAIL')
+                const _phone = data.filter((c: { type: string; }) => c.type == 'PHONE')
+                const _email = data.filter((c: { type: string; }) => c.type == 'EMAIL')
                 if (_phone.length) {
                   setPhoneContactId(_phone[0].id)
                   setPhone(_phone[0].value);
@@ -106,7 +113,7 @@ const AccountPage = () => {
     };
 
     fetchData();
-  }, []);
+  },  [id, router]);
 
   const showAlert = (msg: string, type: keyof AlertOptions = 'success') => {
     setAlert(msg);
@@ -140,14 +147,14 @@ const AccountPage = () => {
   const onUpdateAccount = async () => {
     try {
       const user: User =
-      {
-        id,
-        firstName: firstName,
-        lastName: lastName,
-        place: place,
-        authenticationId: authId,
-        type: UserTypeEnum.Normal,
-      }
+        {
+          id,
+          firstName: firstName,
+          lastName: lastName,
+          place: place,
+          authenticationId: authId,
+          type: UserTypeEnum.Normal,
+        }
 
       const userContact: any = [
         {
@@ -204,34 +211,33 @@ const AccountPage = () => {
       let contactPutResponse;
       let storage = JSON.parse(storageData)
 
-      if (storage['contacts'] === undefined) {
-        for (let contact of userContact) {
-          contactPutResponse = await userContactApi.userContactPost({ userContact: contact }, {
-            headers: {
-              "Authorization": `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          })
-        }
-      } else {
-        for (let contact of putUserContact) {
-          contactPutResponse = await userContactApi.userContactPut({ userContact: contact }, {
-            headers: {
-              "Authorization": `Bearer ${token}`,
-              "Content-Type": "application/json",
-            }
-          })
-        }
-      }
+      // if (storage['contacts'] === undefined) {
+      //   for (let contact of userContact) {
+      //     contactPutResponse = await userContactApi.userContactPost({ userContact: contact }, {
+      //       headers: {
+      //         "Authorization": `Bearer ${token}`,
+      //         "Content-Type": "application/json",
+      //       },
+      //     })
+      //   }
+      // } else {
+      //   for (let contact of putUserContact) {
+      //     contactPutResponse = await userContactApi.userContactPut({ userContact: contact }, {
+      //       headers: {
+      //         "Authorization": `Bearer ${token}`,
+      //         "Content-Type": "application/json",
+      //       }
+      //     })
+      //   }
+      // }
 
-
-      if (userPutResponse && contactPutResponse) {
+      if (userPutResponse) {
         showAlert('Atualizado com sucesso!');
         handleFirstNameChange(firstName);
         handleLastNameChange(lastName);
         handlePlaceChange(place);
-        handlePhoneChange(phone);
-        handleEmailChange(email);
+        // handlePhoneChange(phone);
+        // handleEmailChange(email);
       } else {
         showAlert('Error', 'error')
       }
@@ -263,145 +269,149 @@ const AccountPage = () => {
     }
   }, [storageData, userApi])
 
+  const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const imageUrl = URL.createObjectURL(file);
+    setThumbnailPreview(imageUrl);
+
+    setSelectedImage(file);
+
+    try {
+      const uploadedMediaId = await mediaApi.mediaPost({
+        file: file,
+        type: 'PHOTO',
+      }, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        }
+      });
+
+      const mediaDetails = await mediaApi.mediaGet({ id: uploadedMediaId }, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        }
+      });
+
+      const user: User =
+        {
+          id,
+          firstName: firstName,
+          lastName: lastName,
+          place: place,
+          authenticationId: authId,
+          type: UserTypeEnum.Normal,
+          thumbnail: mediaDetails[0].url,
+        }
+
+      const userPutResponse = await userApi.userPut({ user }, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (userPutResponse) {
+        setThumbnail(mediaDetails[0].url!);
+        showAlert("Imagem atualizada com sucesso!");
+      } else {
+        showAlert("Erro ao atualizar a imagem.", "error");
+      }
+    } catch (error) {
+      console.error("Erro ao fazer upload da imagem:", error);
+      showAlert("Erro ao atualizar a imagem.", "error");
+    }
+  };
+
   return (
-    <div className={`nc-AccountPage `}>
-      <div className="fixed left-0 top-0 z-max w-full p-4">
-        {isShowAlert && (<Alert type={typeAlert} onClick={() => setShowAlert(false)}>{alert}</Alert>)}
-      </div>
-      <div className="space-y-10 sm:space-y-12">
-        {/* HEADING */}
-        <h2 className="text-2xl sm:text-3xl font-semibold">
-          Informações de Usuário
-        </h2>
-        <div className="flex flex-col md:flex-row">
-          <div className="flex-shrink-0 flex items-start">
-            {/* AVATAR */}
-            <div className="relative rounded-full overflow-hidden flex">
-              <Image
-                src={avatarLuugo}
-                alt="avatar"
-                width={128}
-                height={128}
-                className="w-32 h-32 rounded-full object-cover z-0"
-              />
-              {/* <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-neutral-50 cursor-pointer">
-                <svg
-                  width="30"
-                  height="30"
-                  viewBox="0 0 30 30"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M17.5 5H7.5C6.83696 5 6.20107 5.26339 5.73223 5.73223C5.26339 6.20107 5 6.83696 5 7.5V20M5 20V22.5C5 23.163 5.26339 23.7989 5.73223 24.2678C6.20107 24.7366 6.83696 25 7.5 25H22.5C23.163 25 23.7989 24.7366 24.2678 24.2678C24.7366 23.7989 25 23.163 25 22.5V17.5M5 20L10.7325 14.2675C11.2013 13.7988 11.8371 13.5355 12.5 13.5355C13.1629 13.5355 13.7987 13.7988 14.2675 14.2675L17.5 17.5M25 12.5V17.5M25 17.5L23.0175 15.5175C22.5487 15.0488 21.9129 14.7855 21.25 14.7855C20.5871 14.7855 19.9513 15.0488 19.4825 15.5175L17.5 17.5M17.5 17.5L20 20M22.5 5H27.5M25 2.5V7.5M17.5 10H17.5125"
-                    stroke="currentColor"
-                    strokeWidth={1.5}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+    <>
+      <div className={`nc-AccountPage`}>
+        <div className="fixed left-0 top-0 z-max w-full p-4">
+          {isShowAlert && (
+            <Alert type={typeAlert} onClick={() => setShowAlert(false)}>
+              {alert}
+            </Alert>
+          )}
+        </div>
+        <div className="space-y-10 sm:space-y-12">
+          {/* HEADING */}
+          <h2 className="text-2xl sm:text-3xl font-semibold">Informações de Usuário</h2>
+          <div className="flex flex-col md:flex-row items-start md:space-x-6">
+            {/* Avatar no topo, com o nome e outras informações abaixo */}
+            <div className="flex-shrink-0 flex items-center justify-center w-full md:w-32 h-32 mb-6 md:mb-0">
+              {/* AVATAR */}
+              <div className="relative rounded-full overflow-hidden flex">
+                <img
+                  src={thumbnailPreview || user?.thumbnail}
+                  width={128}
+                  height={128}
+                  className="w-32 h-32 rounded-full object-cover z-0"
+                  alt={""}/>
+                {/* Botão de editar */}
+                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white cursor-pointer group">
+                  <i className="text-2xl las la-camera"></i>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="absolute inset-0 opacity-0 cursor-pointer"
+                    onChange={handleImageChange} // Chama a função para tratar o upload
                   />
-                </svg>
-
-                <span className="mt-1 text-xs">Trocar Imagem</span>
-              </div> */}
-              {/* <input
-                type="file"
-                className="absolute inset-0 opacity-0 cursor-pointer"
-              /> */}
-            </div>
-          </div>
-          <div className="flex-grow mt-10 md:mt-0 md:pl-16 max-w-3xl space-y-6">
-            <div>
-              <Label>Nome</Label>
-              <Input className="mt-1.5" defaultValue={firstName} onChange={changeFisrtName} />
-            </div>
-            <div>
-              <Label>Sobrenome</Label>
-              <Input className="mt-1.5" defaultValue={lastName} onChange={changeLastName} />
-            </div>
-
-            {/* ---- */}
-
-            {/* <div className="max-w-lg">
-              <Label>Data de nascimento</Label>
-              <div className="mt-1.5 flex">
-                <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
-                  <i className="text-2xl las la-calendar"></i>
-                </span>
-                <Input
-                  className="!rounded-l-none"
-                  type="date"
-                  defaultValue="1990-07-22"
-                />
+                </div>
               </div>
-            </div> */}
-            {/* ---- */}
-            <div>
-              <Label>Endereço</Label>
-              <div className="mt-1.5 flex">
+            </div>
+
+            {/* Informações do usuário */}
+            <div className="flex-grow mt-10 md:mt-0 md:pl-16 max-w-3xl space-y-6">
+              <div>
+                <Label>Nome</Label>
+                <Input className="mt-1.5" defaultValue={firstName} onChange={changeFisrtName} />
+              </div>
+              <div>
+                <Label>Sobrenome</Label>
+                <Input className="mt-1.5" defaultValue={lastName} onChange={changeLastName} />
+              </div>
+              <div>
+                <Label>Endereço</Label>
+                <div className="mt-1.5 flex">
                 <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-map-signs"></i>
                 </span>
-                <Input
-                  className="!rounded-l-none"
-                  defaultValue={place}
-                  onChange={changePlace}
-                />
+                  <Input className="!rounded-l-none" defaultValue={place} onChange={changePlace} />
+                </div>
               </div>
-            </div>
-
-            {/* ---- */}
-            {/* <div>
-              <Label>Gênero</Label>
-              <Select className="mt-1.5">
-                <option value="Male">Masculino</option>
-                <option value="Female">Feminino</option>
-                <option value="Other">Outro</option>
-              </Select>
-            </div> */}
-
-            {/* ---- */}
-
-            {/* ---- */}
-            <div>
-              <Label>E-mail</Label>
-              <div className="mt-1.5 flex">
-                <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
-                  <i className="text-2xl las la-envelope"></i>
-                </span>
-                <Input
-                  className="!rounded-l-none"
-                  placeholder="example@email.com"
-                  defaultValue={email}
-                  onChange={changeEmail}
-                />
+              {/*<div>*/}
+              {/*  <Label>E-mail</Label>*/}
+              {/*  <div className="mt-1.5 flex">*/}
+              {/*  <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">*/}
+              {/*    <i className="text-2xl las la-envelope"></i>*/}
+              {/*  </span>*/}
+              {/*    <Input*/}
+              {/*      className="!rounded-l-none"*/}
+              {/*      placeholder="example@email.com"*/}
+              {/*      defaultValue={email}*/}
+              {/*      onChange={changeEmail}*/}
+              {/*    />*/}
+              {/*  </div>*/}
+              {/*</div>*/}
+              {/*<div>*/}
+              {/*  <Label>Telefone</Label>*/}
+              {/*  <div className="mt-1.5 flex">*/}
+              {/*  <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">*/}
+              {/*    <i className="text-2xl las la-phone-volume"></i>*/}
+              {/*  </span>*/}
+              {/*    <Input className="!rounded-l-none" defaultValue={phone} onChange={changePhone} />*/}
+              {/*  </div>*/}
+              {/*</div>*/}
+              <div className="flex pt-2 gap-6">
+                <ButtonPrimary onClick={onUpdateAccount}>Atualizar conta</ButtonPrimary>
+                <ButtonSecondary
+                  onClick={() => setDeleteModalVisible(true)}
+                  className="text-red-500 border border-red-400 dark:border-slate-700"
+                >
+                  Deletar Conta
+                </ButtonSecondary>
               </div>
-            </div>
-
-            {/* ---- */}
-
-            <div>
-              <Label>Telefone</Label>
-              <div className="mt-1.5 flex">
-                <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
-                  <i className="text-2xl las la-phone-volume"></i>
-                </span>
-                <Input className="!rounded-l-none"
-                  defaultValue={phone}
-                  onChange={changePhone} />
-              </div>
-            </div>
-            {/* ---- */}
-            {/* <div>
-              <Label>Sobre você</Label>
-              <Textarea className="mt-1.5" defaultValue="..." />
-            </div> */}
-            <div className="flex pt-2 gap-6">
-              <ButtonPrimary onClick={onUpdateAccount}>Atualizar conta</ButtonPrimary>
-              <ButtonSecondary
-                onClick={() => setDeleteModalVisible(true)}
-                className="text-red-500 border border-red-400 dark:border-slate-700">
-                Deletar Conta
-              </ButtonSecondary>
             </div>
           </div>
         </div>
@@ -413,7 +423,7 @@ const AccountPage = () => {
         onCloseModalDelete={() => setDeleteModalVisible(false)}
         handleConfirm={onDeleteAccount}
       />
-    </div>
+    </>
   );
 };
 

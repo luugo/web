@@ -73,6 +73,12 @@ export interface User {
      * @type {string}
      * @memberof User
      */
+    thumbnail?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
     type: UserTypeEnum;
     /**
      * 
@@ -123,6 +129,7 @@ export function UserFromJSONTyped(json: any, ignoreDiscriminator: boolean): User
         'firstName': json['firstName'],
         'lastName': json['lastName'],
         'place': json['place'],
+        'thumbnail': !exists(json, 'thumbnail') ? undefined : json['thumbnail'],
         'type': json['type'],
         'contacts': !exists(json, 'contacts') ? undefined : ((json['contacts'] as Array<any>).map(UserContactFromJSON)),
     };
@@ -142,6 +149,7 @@ export function UserToJSON(value?: User | null): any {
         'firstName': value.firstName,
         'lastName': value.lastName,
         'place': value.place,
+        'thumbnail': value.thumbnail,
         'type': value.type,
         'contacts': value.contacts === undefined ? undefined : ((value.contacts as Array<any>).map(UserContactToJSON)),
     };
