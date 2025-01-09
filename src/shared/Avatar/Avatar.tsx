@@ -8,7 +8,7 @@ export interface AvatarProps {
   containerClassName?: string;
   sizeClass?: string;
   radius?: string;
-  imgUrl?: string | StaticImageData;
+  imgUrl?: string;
   userName?: string;
   hasChecked?: boolean;
   hasCheckedClass?: string;
@@ -18,7 +18,7 @@ const Avatar: FC<AvatarProps> = ({
   containerClassName = "ring-1 ring-white dark:ring-neutral-900",
   sizeClass = "h-6 w-6 text-sm",
   radius = "rounded-full",
-  imgUrl = avatarImgs[0],
+  imgUrl = "",
   userName,
   hasChecked,
   hasCheckedClass = "w-4 h-4 bottom-1 -right-0.5",
@@ -38,8 +38,7 @@ const Avatar: FC<AvatarProps> = ({
       style={{ backgroundColor: url ? undefined : _setBgColor(name) }}
     >
       {url && (
-        <Image
-          fill
+        <img
           sizes="100px"
           className={`absolute inset-0 w-full h-full object-cover ${radius}`}
           src={url}
