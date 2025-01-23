@@ -4,22 +4,22 @@ import React from 'react'
 const ChildSafety = () => {
     return (
         <div>
-            <h1>Our Commitment to Child Safety</h1>
+            <h1>Nosso Compromisso com a Segurança Infantil</h1>
             <p>
-                We are committed to ensuring the safety and well-being of all children who interact with our platform.
-                We have a zero-tolerance policy for child sexual abuse and exploitation.
+                Estamos comprometidos em garantir a segurança e o bem-estar de todas as crianças que interagem com nossa plataforma.
+                Temos uma política de tolerância zero para abuso e exploração sexual infantil.
             </p>
             <p>
-                Our app complies with all applicable child protection laws, including the Children’s Online Privacy
-                Protection Act (COPPA) and General Data Protection Regulation (GDPR-K) for children under 16 in the EU.
+                Nosso aplicativo cumpre todas as leis de proteção infantil aplicáveis, incluindo a Lei de Proteção à Privacidade Online das Crianças (COPPA)
+                e o Regulamento Geral de Proteção de Dados (GDPR-K) para crianças menores de 16 anos na UE.
             </p>
             <p>
-                We actively monitor our platform to detect and remove any content that violates our policies. If you
-                encounter any suspicious or inappropriate activity, please report it immediately via
-                [suporte@luugo.com.br] or use the in-app reporting tool.
+                Monitoramos ativamente nossa plataforma para detectar e remover qualquer conteúdo que viole nossas políticas. Se você encontrar alguma
+                atividade suspeita ou inadequada, por favor, denuncie imediatamente pelo e-mail [suporte@luugo.com.br] ou utilize a ferramenta de denúncia
+                dentro do aplicativo.
             </p>
             <p>
-                Together, we can create a safer digital environment for children.
+                Juntos, podemos criar um ambiente digital mais seguro para as crianças.
             </p>
         </div>
     )
