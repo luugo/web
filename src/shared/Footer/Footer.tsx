@@ -33,7 +33,7 @@ const widgetMenus: WidgetFooterMenu[] = [
       { href: "/contact", label: "Contato" },
       { href: "/privacy-policy", label: "Política de privacidade" },
       { href: "/terms", label: "Termos de Uso" },
-      { href: "/child-safety", label: "Child Safety" },
+      { href: "/child-safety", label: "Segurança Infantil" },
     ],
   },
 ];
