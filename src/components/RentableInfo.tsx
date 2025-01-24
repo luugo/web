@@ -1,48 +1,94 @@
 "use client";
 
-import { Disclosure } from "@/app/headlessui";
-import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { FC } from "react";
+import {Disclosure} from "@/app/headlessui";
+import {MinusIcon, PlusIcon} from "@heroicons/react/24/outline";
+import React, {FC} from "react";
+import {StarIcon} from "@heroicons/react/24/solid";
+import {SocialIcon} from "react-social-icons";
 
 interface Props {
-  panelClassName?: string;
-  data?: any;
-  name?: string;
+    panelClassName?: string;
+    data?: any;
+    name?: string;
 }
 
 const RentableInfo: FC<Props> = ({
-                                   panelClassName = "p-4 pt-3 last:pb-0 text-slate-600 text-sm dark:text-slate-300 leading-6",
-                                   data,
-                                   name = 'Contato locatário',
+                                     panelClassName = "p-4 pt-3 last:pb-0 text-slate-600 text-sm dark:text-slate-300 leading-6",
+                                     data,
+                                     name = 'Entre em contato',
                                  }) => {
-  return (
-      <div className="w-full rounded-2xl space-y-2.5">
-        <h3 className="text-2xl sm:text-3xl font-semibold">{name}</h3>
-        {data.map((item: any, index: number) => (
-            <Disclosure key={index} defaultOpen={index < 2}>
-              {({ open }) => (
-                  <>
-                    <Disclosure.Button className="flex items-center justify-between w-full px-4 py-2 font-medium text-left bg-slate-100/80 hover:bg-slate-200/60 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-slate-500 focus-visible:ring-opacity-75 ">
-                      <span>{item.type}</span>
-                      {!open ? (
-                          <PlusIcon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
-                      ) : (
-                          <MinusIcon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
-                      )}
-                    </Disclosure.Button>
-                    <Disclosure.Panel
-                        className={panelClassName}
-                        as="div"
-                    >
-                      <p>{item.value}</p>
-                      <div dangerouslySetInnerHTML={{ __html: item.content }} />
-                    </Disclosure.Panel>
-                  </>
-              )}
-            </Disclosure>
-        ))}
-      </div>
-  );
+    return (
+        <div className="w-full rounded-2xl space-y-2.5">
+            <h3 className="text-2xl sm:text-3xl font-semibold">{name}</h3>
+            <ul>
+                {data.map((item: any, index: number) => {
+                    switch (item.type) {
+                        case "INSTAGRAM":
+                            return (
+                                <li className={panelClassName}>
+                                    <a target={"_blank"}
+                                       href={`https://instagram.com/${item.value}`}
+                                       style={{fontSize: 20}}>
+                                        <SocialIcon url="https://instagram.com" style={{marginRight: 10}}/>
+                                        @{item.value}
+                                    </a>
+                                </li>
+                            )
+                        case "FACEBOOK":
+                            return (
+                                <div className={panelClassName}>
+                                    <a target={"_blank"}
+                                       href={`https://fb.me/${item.value}`}
+                                       style={{fontSize: 20}}>
+                                        <SocialIcon url="https://facebook.com" style={{marginRight: 10}}/>
+                                        {item.value}
+                                    </a>
+                                </div>
+                            )
+                        case "EMAIL":
+                            return (
+                                <div className={panelClassName}>
+                                    <a target={"_blank"}
+                                       href={`mailto:${item.value}`}
+                                       style={{fontSize: 20}}>
+                                        <SocialIcon network="email" style={{marginRight: 10}}/>
+                                        {item.value}
+                                    </a>
+                                </div>
+                            )
+                        case "PHONE":
+                            return (
+                                <div className={panelClassName}>
+                                    <a target={"_blank"}
+                                       href={`tel:${item.value}`}
+                                       style={{fontSize: 20}}>
+                                        <SocialIcon url="https://whatsapp.com" bgColor="#888" style={{marginRight: 10}}/>
+                                        {item.value}
+                                    </a>
+                                </div>
+                            )
+                        case "WHATSAPP":
+                            return (
+                                <div className={panelClassName}>
+                                    <a target={"_blank"}
+                                       href={`https://wa.me/${item.value.replace(/\D/g, "")}`}
+                                       style={{fontSize: 20}}>
+                                        <SocialIcon url="https://whatsapp.com" style={{marginRight: 10}}/>
+                                        {item.value}
+                                    </a>
+                                </div>
+                            )
+                        default:
+                            return (
+                                <div className={panelClassName}>
+                                    <p>{item.value}</p>
+                                </div>
+                            )
+                    }
+                })}
+            </ul>
+        </div>
+    );
 };
 
 
