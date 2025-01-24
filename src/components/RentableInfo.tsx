@@ -29,7 +29,7 @@ const RentableInfo: FC<Props> = ({
                                     <a target={"_blank"}
                                        href={`https://instagram.com/${item.value}`}
                                        style={{fontSize: 20}}>
-                                        <SocialIcon url="https://instagram.com" style={{marginRight: 10}}/>
+                                        <SocialIcon network="instagram" style={{marginRight: 10}}/>
                                         @{item.value}
                                     </a>
                                 </li>
@@ -40,7 +40,7 @@ const RentableInfo: FC<Props> = ({
                                     <a target={"_blank"}
                                        href={`https://fb.me/${item.value}`}
                                        style={{fontSize: 20}}>
-                                        <SocialIcon url="https://facebook.com" style={{marginRight: 10}}/>
+                                        <SocialIcon network="facebook" style={{marginRight: 10}}/>
                                         {item.value}
                                     </a>
                                 </div>
@@ -62,7 +62,7 @@ const RentableInfo: FC<Props> = ({
                                     <a target={"_blank"}
                                        href={`tel:${item.value}`}
                                        style={{fontSize: 20}}>
-                                        <SocialIcon url="https://whatsapp.com" bgColor="#888" style={{marginRight: 10}}/>
+                                        <SocialIcon network="whatsapp" bgColor="#888" style={{marginRight: 10}}/>
                                         {item.value}
                                     </a>
                                 </div>
@@ -73,7 +73,7 @@ const RentableInfo: FC<Props> = ({
                                     <a target={"_blank"}
                                        href={`https://wa.me/${item.value.replace(/\D/g, "")}`}
                                        style={{fontSize: 20}}>
-                                        <SocialIcon url="https://whatsapp.com" style={{marginRight: 10}}/>
+                                        <SocialIcon network="whatsapp" style={{marginRight: 10}}/>
                                         {item.value}
                                     </a>
                                 </div>
