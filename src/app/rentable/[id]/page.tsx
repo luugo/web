@@ -204,7 +204,7 @@ const ProductDetailPage = () => {
         return (
             <>
                 <h2 className="text-2xl font-semibold">Localização</h2>
-                <LoadScript googleMapsApiKey="">
+                <LoadScript googleMapsApiKey="AIzaSyAMYZyR35_t_qG75PyL9JKDGHx_D05wAgc">
                     <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
                         <Marker position={position} />
                     </GoogleMap>
