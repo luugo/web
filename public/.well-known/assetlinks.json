@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "br.com.luugo.app",
+      "sha256_cert_fingerprints": [
+        "FF:AB:08:4A:CC:B3:62:4D:48:7B:7A:A0:AE:6D:DD:1A:E1:6A:C8:6B:CB:11:5C:F6:30:03:07:FE:02:F5:93:A3"
+      ]
+    }
+  }
+]
