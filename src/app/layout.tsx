@@ -7,8 +7,50 @@ import Footer from "@/shared/Footer/Footer";
 import SiteHeader from "@/app/SiteHeader";
 import CommonClient from "./CommonClient";
 import { Providers } from "@/providers";
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import Script from "next/script";
+
+export const metadata = {
+  metadataBase: new URL("https://www.luugo.com.br/"),
+  title: "Luugo | Precisou? Alugou!",
+  description: "Alugue qualquer coisa de forma fácil e rápida!",
+  keywords: [
+    "marketplace de aluguel",
+    "aluguel de itens",
+    "plataforma de locação",
+    "aluguel de equipamentos",
+    "aluguel de móveis",
+    "aluguel de ferramentas",
+    "locação de produtos",
+    "aluguel de acessórios",
+    "serviços de aluguel online",
+    "aluguel de objetos",
+    "marketplace de locação",
+    "alugar itens",
+    "aluguel de bens",
+    "aluguel colaborativo",
+    "aluguel compartilhado",
+  ],
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  type: "website",
+  openGraph: {
+    title: "Luugo | Precisou? Alugou!",
+    description: "Alugue qualquer coisa de forma fácil e rápida!",
+    images: "metadata/thumbnail_default.png",
+  },
+};
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,8 +69,8 @@ export default function RootLayout({
     <html lang="en" dir="" className={poppins.className}>
       <head>
         <Script
-            src="https://www.googletagmanager.com/gtag/js?id=G-23XR5GPX7N"
-            strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-23XR5GPX7N"
+          strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
