@@ -8,7 +8,9 @@
       "namespace": "android_app",
       "package_name": "br.com.luugo.app",
       "sha256_cert_fingerprints": [
-        "FF:AB:08:4A:CC:B3:62:4D:48:7B:7A:A0:AE:6D:DD:1A:E1:6A:C8:6B:CB:11:5C:F6:30:03:07:FE:02:F5:93:A3"
+        "FF:AB:08:4A:CC:B3:62:4D:48:7B:7A:A0:AE:6D:DD:1A:E1:6A:C8:6B:CB:11:5C:F6:30:03:07:FE:02:F5:93:A3",
+        "F2:E1:02:98:D4:6E:BF:BE:FE:E5:AD:A5:19:EA:F1:CB:77:62:0B:AB:F2:DA:5B:CB:A9:3E:72:AB:A8:27:82:7F",
+        "16:64:28:8F:A9:5F:61:CE:3E:EE:5A:95:3A:0E:5E:84:44:92:4F:DF:F6:1F:38:29:5B:C1:6C:D9:78:E9:43:8F"
       ]
     }
   }
