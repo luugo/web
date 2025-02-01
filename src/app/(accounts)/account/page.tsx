@@ -343,7 +343,7 @@ const AccountPage = () => {
               {/* AVATAR */}
               <div className="relative rounded-full overflow-hidden flex">
                 <img
-                  src={thumbnailPreview || user?.thumbnail}
+                  src={thumbnailPreview || user?.thumbnail || ""}
                   width={128}
                   height={128}
                   className="w-32 h-32 rounded-full object-cover z-0"
