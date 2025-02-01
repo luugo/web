@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { RentableTypeEnum } from './RentableTypeEnum';
+import {
+    RentableTypeEnumFromJSON,
+    RentableTypeEnumFromJSONTyped,
+    RentableTypeEnumToJSON,
+} from './RentableTypeEnum';
+
 /**
  * 
  * @export
@@ -69,24 +76,11 @@ export interface Category {
     isVisibleInHome?: boolean;
     /**
      * 
-     * @type {string}
+     * @type {RentableTypeEnum}
      * @memberof Category
      */
-    type?: CategoryTypeEnum;
+    type?: RentableTypeEnum;
 }
-
-
-/**
- * @export
- */
-export const CategoryTypeEnum = {
-    Place: 'PLACE',
-    Item: 'ITEM',
-    Service: 'SERVICE',
-    Auto: 'AUTO'
-} as const;
-export type CategoryTypeEnum = typeof CategoryTypeEnum[keyof typeof CategoryTypeEnum];
-
 
 /**
  * Check if a given object implements the Category interface.
@@ -116,7 +110,7 @@ export function CategoryFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'parentCategoryId': !exists(json, 'parentCategoryId') ? undefined : json['parentCategoryId'],
         'isActive': !exists(json, 'isActive') ? undefined : json['isActive'],
         'isVisibleInHome': !exists(json, 'isVisibleInHome') ? undefined : json['isVisibleInHome'],
-        'type': !exists(json, 'type') ? undefined : json['type'],
+        'type': !exists(json, 'type') ? undefined : RentableTypeEnumFromJSON(json['type']),
     };
 }
 
@@ -135,7 +129,7 @@ export function CategoryToJSON(value?: Category | null): any {
         'parentCategoryId': value.parentCategoryId,
         'isActive': value.isActive,
         'isVisibleInHome': value.isVisibleInHome,
-        'type': value.type,
+        'type': RentableTypeEnumToJSON(value.type),
     };
 }
 

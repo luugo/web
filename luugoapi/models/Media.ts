@@ -67,6 +67,12 @@ export interface Media {
      * @memberof Media
      */
     type?: MediaTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof Media
+     */
+    userId?: string | null;
 }
 
 
@@ -107,6 +113,7 @@ export function MediaFromJSONTyped(json: any, ignoreDiscriminator: boolean): Med
         'filename': !exists(json, 'filename') ? undefined : json['filename'],
         'file': !exists(json, 'file') ? undefined : json['file'],
         'type': !exists(json, 'type') ? undefined : json['type'],
+        'userId': !exists(json, 'userId') ? undefined : json['userId'],
     };
 }
 
@@ -125,6 +132,7 @@ export function MediaToJSON(value?: Media | null): any {
         'filename': value.filename,
         'file': value.file,
         'type': value.type,
+        'userId': value.userId,
     };
 }
 

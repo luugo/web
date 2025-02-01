@@ -16,6 +16,7 @@ export * from './ModelError';
 export * from './Place';
 export * from './Rentable';
 export * from './RentableGeolocation';
+export * from './RentableTypeEnum';
 export * from './User';
 export * from './UserContact';
 export * from './UserPostDefaultResponse';

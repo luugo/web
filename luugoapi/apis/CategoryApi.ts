@@ -32,6 +32,12 @@ export interface CategoryGetRequest {
     id?: string;
     isActive?: boolean;
     isVisibleInHome?: boolean;
+    type?: CategoryGetTypeEnum;
+}
+
+export interface CategoryHotGetRequest {
+    place: string;
+    acceptLanguage?: string;
 }
 
 export interface CategoryPostRequest {
@@ -103,6 +109,10 @@ export class CategoryApi extends runtime.BaseAPI {
             queryParameters['isVisibleInHome'] = requestParameters.isVisibleInHome;
         }
 
+        if (requestParameters.type !== undefined) {
+            queryParameters['type'] = requestParameters.type;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
@@ -125,6 +135,46 @@ export class CategoryApi extends runtime.BaseAPI {
      */
     async categoryGet(requestParameters: CategoryGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Category>> {
         const response = await this.categoryGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Read Operation
+     * C[R]UD
+     */
+    async categoryHotGetRaw(requestParameters: CategoryHotGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Category>>> {
+        if (requestParameters.place === null || requestParameters.place === undefined) {
+            throw new runtime.RequiredError('place','Required parameter requestParameters.place was null or undefined when calling categoryHotGet.');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.place !== undefined) {
+            queryParameters['place'] = requestParameters.place;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
+        const response = await this.request({
+            path: `/category/hot`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(CategoryFromJSON));
+    }
+
+    /**
+     * Read Operation
+     * C[R]UD
+     */
+    async categoryHotGet(requestParameters: CategoryHotGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Category>> {
+        const response = await this.categoryHotGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -223,3 +273,14 @@ export class CategoryApi extends runtime.BaseAPI {
     }
 
 }
+
+/**
+ * @export
+ */
+export const CategoryGetTypeEnum = {
+    Place: 'PLACE',
+    Item: 'ITEM',
+    Service: 'SERVICE',
+    Auto: 'AUTO'
+} as const;
+export type CategoryGetTypeEnum = typeof CategoryGetTypeEnum[keyof typeof CategoryGetTypeEnum];

@@ -25,6 +25,7 @@ models/ModelError.ts
 models/Place.ts
 models/Rentable.ts
 models/RentableGeolocation.ts
+models/RentableTypeEnum.ts
 models/User.ts
 models/UserContact.ts
 models/UserPostDefaultResponse.ts

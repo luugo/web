@@ -31,6 +31,12 @@ export interface ModelError {
      * @memberof ModelError
      */
     message: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelError
+     */
+    errorCode?: string;
 }
 
 /**
@@ -55,6 +61,7 @@ export function ModelErrorFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         
         'path': !exists(json, 'path') ? undefined : json['path'],
         'message': json['message'],
+        'errorCode': !exists(json, 'error_code') ? undefined : json['error_code'],
     };
 }
 
@@ -69,6 +76,7 @@ export function ModelErrorToJSON(value?: ModelError | null): any {
         
         'path': value.path,
         'message': value.message,
+        'error_code': value.errorCode,
     };
 }
 

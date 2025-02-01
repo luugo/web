@@ -41,6 +41,11 @@ export interface RentableNearbyLatitudeLongitudeGetRequest {
     acceptLanguage?: string;
 }
 
+export interface RentableNewInTownGetRequest {
+    place: string;
+    acceptLanguage?: string;
+}
+
 export interface RentablePostRequest {
     rentable: Rentable;
     acceptLanguage?: string;
@@ -193,6 +198,46 @@ export class RentableApi extends runtime.BaseAPI {
      */
     async rentableNearbyLatitudeLongitudeGet(requestParameters: RentableNearbyLatitudeLongitudeGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Rentable>> {
         const response = await this.rentableNearbyLatitudeLongitudeGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Read Operation
+     * C[R]UD
+     */
+    async rentableNewInTownGetRaw(requestParameters: RentableNewInTownGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Rentable>>> {
+        if (requestParameters.place === null || requestParameters.place === undefined) {
+            throw new runtime.RequiredError('place','Required parameter requestParameters.place was null or undefined when calling rentableNewInTownGet.');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.place !== undefined) {
+            queryParameters['place'] = requestParameters.place;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
+        const response = await this.request({
+            path: `/rentable/new-in-town`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(RentableFromJSON));
+    }
+
+    /**
+     * Read Operation
+     * C[R]UD
+     */
+    async rentableNewInTownGet(requestParameters: RentableNewInTownGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Rentable>> {
+        const response = await this.rentableNewInTownGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
