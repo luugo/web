@@ -1,19 +1,52 @@
 "use client";
 
-import React, { createRef, FC, useState } from "react";
+import React, { createRef, FC, useState, useEffect } from "react";
+import { PlaceApi, PlaceGetRequest } from "../../../luugoapi";
 import Logo from "@/shared/Logo/Logo";
 import MenuBar from "@/shared/MenuBar/MenuBar";
 import AvatarDropdown from "./AvatarDropdown";
 import Navigation from "@/shared/Navigation/Navigation";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import Select from "@/shared/Select/Select";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
-export interface MainNav2LoggedProps {}
+export interface MainNav2LoggedProps { }
 
 const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
   const inputRef = createRef<HTMLInputElement>();
   const [showSearchForm, setShowSearchForm] = useState(false);
+  const [placeItems, setPlaceItems] = useState<any[]>([]);
+  const [selectedPlace, setSelectedPlace] = useLocalStorage<any>('selectedPlace', null);
+
   const router = useRouter();
+  
+  useEffect(() => {
+    const selectedLocalPlace = localStorage?.getItem('selectedPlace');
+    if (selectedLocalPlace) {
+      setSelectedPlace(JSON.parse(selectedLocalPlace));
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchPlaces = async () => {
+      const placesApi = new PlaceApi();
+      const requestParameters: PlaceGetRequest = {
+        isActive: true
+      };
+
+      const response = await placesApi?.placeGet(requestParameters);
+      setPlaceItems(response);
+    }
+
+    fetchPlaces();
+  }, []);
+
+  const handleSelectPlace = (event) => { 
+    const selected = placeItems.find(item => item.city === event.target.value) || '';
+    setSelectedPlace(selected);
+    localStorage.setItem('selectedPlace', JSON.stringify(selected));
+  }
 
   const renderMagnifyingGlassIcon = () => {
     return (
@@ -44,29 +77,47 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
 
   const renderSearchForm = () => {
     return (
-      <form
-        className="flex-1 py-2 text-slate-900 dark:text-slate-100"
-        onSubmit={(e) => {
-          e.preventDefault();
-          router.push("/templates/search");
-          inputRef.current?.blur();
-        }}
-      >
-        <div className="bg-slate-50 dark:bg-slate-800 flex items-center space-x-1.5 px-5 h-full rounded">
-          {renderMagnifyingGlassIcon()}
-          <input
-            ref={inputRef}
-            type="text"
-            placeholder="Type and press enter"
-            className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-base"
-            autoFocus
-          />
-          <button type="button" onClick={() => setShowSearchForm(false)}>
-            <XMarkIcon className="w-5 h-5" />
-          </button>
+      <>
+        <form
+          className="flex-1 py-2 text-slate-900 dark:text-slate-100"
+          onSubmit={(e) => {
+            e.preventDefault();
+            router.push("/templates/search");
+            inputRef.current?.blur();
+          }}
+        >
+          <div className="bg-slate-50 dark:bg-slate-800 flex items-center space-x-1.5 px-5 h-full rounded">
+            {renderMagnifyingGlassIcon()}
+            <input
+              ref={inputRef}
+              type="text"
+              placeholder="Buscar"
+              className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-base"
+              autoFocus
+            />
+            <button type="button" onClick={() => setShowSearchForm(false)}>
+              <XMarkIcon className="w-5 h-5" />
+            </button>
+          </div>
+          <input type="submit" hidden value="" />
+        </form>
+        <div className="ml-4 mt-4 width-10">
+          <Select
+            onChange={handleSelectPlace}
+            className="w-full"
+            value={selectedPlace ? selectedPlace?.city : 'Selecionar Local'}
+          >
+            <option value="Selecionar Local">Selecionar Local</option>
+            {placeItems.length &&
+              placeItems?.map(item => (
+                <option key={item.id} value={item.city}>
+                  {item.city} - {item.state}
+                </option>
+              )
+              )}
+          </Select>
         </div>
-        <input type="submit" hidden value="" />
-      </form>
+      </>
     );
   };
 
@@ -79,6 +130,10 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
 
         <div className="lg:flex-1 flex items-center">
           <Logo className="flex-shrink-0" />
+        </div>
+
+        <div className="flex-[4] flex !mx-auto px-10 md:px-0">
+          {renderSearchForm()}
         </div>
 
         <div className="flex-[2] hidden lg:flex mx-4">

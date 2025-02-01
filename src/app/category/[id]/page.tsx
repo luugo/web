@@ -6,7 +6,7 @@ import { RentableApi, RentableGetRequest } from '../../../../luugoapi';
 import { useParams } from 'next/navigation';
 import RentableCard from '@/components/RentableCard';
 import { CATEGORY } from '@/data/categories';
-import ArchiveFilterListBox from '@/components/ArchiveFilterListBox';
+import useLocalStorage from '@/hooks/useLocalStorage';
 
 interface PlacesProps {
     id: number;
@@ -21,6 +21,14 @@ const Category: React.FC = () => {
     const [filteredRentables, setFilteredRentables] = useState<any[]>([])
     const [places, setPlaces] = useState<PlacesProps[]>([{ id: 0, name: 'Todas Localidades' }]);
     const [selectedPlace, setSelectedPlace] = useState<PlacesProps>({ id: 0, name: 'Todas Localidades' });
+    const [selectedLocalPlace, setSelectedLocalPlace] = useState<any>(null);
+    const [selectCity] = useLocalStorage<any | null>('selectedPlace', null);
+    
+    useEffect(() => {
+        if (selectCity) {
+            setSelectedLocalPlace(selectCity);
+        }
+      }, [selectCity]);
 
     useEffect(() => {
         if (!items.length) return;
@@ -51,13 +59,13 @@ const Category: React.FC = () => {
         const fetchRentables = async () => {
             const rentableApi = new RentableApi()
             const requestParameters: RentableGetRequest = {
-                categoryId: categoryId
+                categoryId: categoryId,
             }
             const response = await rentableApi?.rentableGet(requestParameters)
-            setItems(response)
+            setItems(response.filter(item => item?.place === selectedLocalPlace?.id))
         }
         fetchRentables()
-    }, [])
+    }, [selectedLocalPlace])
 
     const addLink = (item: any) => {
         item.link = `/rentable/${item.id}`;
@@ -119,20 +127,7 @@ const Category: React.FC = () => {
                     </form>
                 </header>
                 <hr className="border-slate-200 dark:border-slate-700" />
-                <div className="flex lg:space-x-4">
-                    <div className="lg:flex flex-1 space-x-4">
-                        <div className="relative md:min-w-[200px]">
-                            {places.length > 0 && selectedPlace && (
-                                <ArchiveFilterListBox
-                                    dropDownItems={places}
-                                    selected={selectedPlace}
-                                    setSelected={setSelectedPlace}
-                                />
-                            )}
-                        </div>
-
-                    </div>
-                </div>
+               
                 {filteredRentables?.length ? (
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
                         {rentablesWithLinks?.map((item, index) => (
