@@ -1,39 +1,90 @@
 import ProductDetail from "./RentablePage";
-import { Metadata } from "next";
 import { remark } from "remark";
 import remarkHtml from "remark-html";
-import { RentableApi } from "@api";
+import html from "remark-html";
+import {
+  MediaApi,
+  RentableApi,
+  RentableGeolocation,
+  UserContact,
+  UserContactApi,
+  UserContactGetRequest,
+} from "@api";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
-  const id = params.id;
+interface productParams {
+  params: {
+    id: string;
+  };
+}
+
+export interface dataProduct {
+  id: string;
+  title: string;
+  description: string;
+  metadescription: string;
+  thumbnail: string | null | undefined;
+  images: Array<object>;
+  price: number;
+  billingFrequency: string;
+  geolocation: RentableGeolocation;
+  user: {
+    id: string;
+    social: UserContact[];
+  };
+}
+
+async function getProduct(product: productParams) {
+  const id = product.params.id;
   const rentableApi = new RentableApi();
+  const mediaApi = new MediaApi();
 
-  const productData = await rentableApi
-    .rentableGet({ id })
-    .then(async (rentables) => {
-      return rentables;
-    });
+  const productData = await rentableApi.rentableGet({ id });
+  const productImages = await mediaApi.mediaGet({ rentableId: id });
+  const productUserInfo = await getProductUserInfo(productData[0].userId);
 
   const productDescription = await remark()
+    .use(html)
+    .process(productData[0].description)
+    .then((content) => content.toString());
+
+  const productMetaDescription = await remark()
     .use(remarkHtml)
     .process(productData[0].description)
     .then((content) => content.toString());
 
-  const MetaDescription = productDescription
+  const MetaDescription = productMetaDescription
     .replace(/<[^>]*>/g, "")
     .replace(/\n+/g, " ")
     .trim();
 
-  const Product = {
+  return {
+    id: id,
     title: productData[0].title,
-    thumbnail: productData[0].thumbnail,
     description: productDescription,
     metadescription: MetaDescription,
+    thumbnail: productData[0].thumbnail,
+    images: productImages,
+    price: productData[0].price,
+    billingFrequency: productData[0].billingFrequency,
+    geolocation: productData[0].geolocation,
+    user: {
+      id: productData[0].userId,
+      social: productUserInfo,
+    },
   };
+}
+
+async function getProductUserInfo(userId: string) {
+  const userContactApi = new UserContactApi();
+  const requestUserContactParameters: UserContactGetRequest = {
+    userId: userId,
+  };
+
+  return userContactApi.userContactGet(requestUserContactParameters);
+}
+
+export async function generateMetadata(product: productParams) {
+  const Product = await getProduct(product);
 
   return {
     openGraph: {
@@ -46,10 +97,12 @@ export async function generateMetadata({
   };
 }
 
-function ProductDetailPage() {
+async function ProductDetailPage(product: productParams) {
+  const data = await getProduct(product);
+
   return (
     <>
-      <ProductDetail />
+      <ProductDetail {...data} />
     </>
   );
 }
