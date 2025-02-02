@@ -29,11 +29,6 @@ const GoogleAnalytics = () => {
         });
       `;
             document.head.appendChild(scriptInit);
-        } else {
-            // Update GA page tracking on route change
-            window.gtag("config", GA_TRACKING_ID, {
-                page_path: pathname,
-            });
         }
     }, [pathname]);
 
