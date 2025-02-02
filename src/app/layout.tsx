@@ -9,6 +9,7 @@ import CommonClient from "./CommonClient";
 import { Providers } from "@/providers";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Script from "next/script";
+import Head from "next/head";
 
 export const metadata = {
   metadataBase: new URL("https://www.luugo.com.br/"),
@@ -67,7 +68,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" dir="" className={poppins.className}>
-      <head>
+      <Head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-23XR5GPX7N"
           strategy="afterInteractive"
@@ -81,7 +82,7 @@ export default function RootLayout({
           gtag('config', 'G-23XR5GPX7N');
         `}
         </Script>
-      </head>
+      </Head>
       <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
         <GoogleOAuthProvider clientId="637549763916-sa80ph8s7nsbpdhtnv3bf6a1q29s3fae.apps.googleusercontent.com">
           <Providers>
