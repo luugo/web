@@ -18,9 +18,10 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
   const [showSearchForm, setShowSearchForm] = useState(false);
   const [placeItems, setPlaceItems] = useState<any[]>([]);
   const [selectedPlace, setSelectedPlace] = useLocalStorage<any>('selectedPlace', null);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const router = useRouter();
-  
+
   useEffect(() => {
     const selectedLocalPlace = localStorage?.getItem('selectedPlace');
     if (selectedLocalPlace) {
@@ -42,10 +43,17 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     fetchPlaces();
   }, []);
 
-  const handleSelectPlace = (event) => { 
+  const handleSelectPlace = (event) => {
     const selected = placeItems.find(item => item.city === event.target.value) || '';
     setSelectedPlace(selected);
     localStorage.setItem('selectedPlace', JSON.stringify(selected));
+  }
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      router.push(`/items?search=${searchTerm}`);
+    }
   }
 
   const renderMagnifyingGlassIcon = () => {
@@ -80,22 +88,21 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
       <>
         <form
           className="flex-1 py-2 text-slate-900 dark:text-slate-100"
-          onSubmit={(e) => {
-            e.preventDefault();
-            router.push("/templates/search");
-            inputRef.current?.blur();
-          }}
+          onSubmit={handleSearchSubmit}
         >
           <div className="bg-slate-50 dark:bg-slate-800 flex items-center space-x-1.5 px-5 h-full rounded">
             {renderMagnifyingGlassIcon()}
             <input
-              ref={inputRef}
               type="text"
-              placeholder="Buscar"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Buscar..."
               className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-base"
               autoFocus
             />
-            <button type="button" onClick={() => setShowSearchForm(false)}>
+            <button type="button" onClick={() => {
+              setSearchTerm("")
+            }}>
               <XMarkIcon className="w-5 h-5" />
             </button>
           </div>
