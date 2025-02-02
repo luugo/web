@@ -1,95 +1,109 @@
-"use client";
+import Link from "next/link";
+import React, { useState, useEffect } from "react";
 
-import {Disclosure} from "@/app/headlessui";
-import {MinusIcon, PlusIcon} from "@heroicons/react/24/outline";
-import React, {FC} from "react";
-import {StarIcon} from "@heroicons/react/24/solid";
-import {SocialIcon} from "react-social-icons";
-
-interface Props {
-    panelClassName?: string;
-    data?: any;
-    name?: string;
-}
-
-const RentableInfo: FC<Props> = ({
-                                     panelClassName = "p-4 pt-3 last:pb-0 text-slate-600 text-sm dark:text-slate-300 leading-6",
-                                     data,
-                                     name = 'Entre em contato',
-                                 }) => {
-    return (
-        <div className="w-full rounded-2xl space-y-2.5">
-            <h3 className="text-2xl sm:text-3xl font-semibold">{name}</h3>
-            <ul>
-                {data.map((item: any, index: number) => {
-                    switch (item.type) {
-                        case "INSTAGRAM":
-                            return (
-                                <li className={panelClassName}>
-                                    <a target={"_blank"}
-                                       href={`https://instagram.com/${item.value}`}
-                                       style={{fontSize: 20}}>
-                                        <SocialIcon network="instagram" style={{marginRight: 10}}/>
-                                        @{item.value}
-                                    </a>
-                                </li>
-                            )
-                        case "FACEBOOK":
-                            return (
-                                <div className={panelClassName}>
-                                    <a target={"_blank"}
-                                       href={`https://fb.me/${item.value}`}
-                                       style={{fontSize: 20}}>
-                                        <SocialIcon network="facebook" style={{marginRight: 10}}/>
-                                        {item.value}
-                                    </a>
-                                </div>
-                            )
-                        case "EMAIL":
-                            return (
-                                <div className={panelClassName}>
-                                    <a target={"_blank"}
-                                       href={`mailto:${item.value}`}
-                                       style={{fontSize: 20}}>
-                                        <SocialIcon network="email" style={{marginRight: 10}}/>
-                                        {item.value}
-                                    </a>
-                                </div>
-                            )
-                        case "PHONE":
-                            return (
-                                <div className={panelClassName}>
-                                    <a target={"_blank"}
-                                       href={`tel:${item.value}`}
-                                       style={{fontSize: 20}}>
-                                        <SocialIcon network="whatsapp" bgColor="#888" style={{marginRight: 10}}/>
-                                        {item.value}
-                                    </a>
-                                </div>
-                            )
-                        case "WHATSAPP":
-                            return (
-                                <div className={panelClassName}>
-                                    <a target={"_blank"}
-                                       href={`https://wa.me/${item.value.replace(/\D/g, "")}`}
-                                       style={{fontSize: 20}}>
-                                        <SocialIcon network="whatsapp" style={{marginRight: 10}}/>
-                                        {item.value}
-                                    </a>
-                                </div>
-                            )
-                        default:
-                            return (
-                                <div className={panelClassName}>
-                                    <p>{item.value}</p>
-                                </div>
-                            )
-                    }
-                })}
-            </ul>
-        </div>
-    );
+type UserContact = {
+  id: string;
+  type: "INSTAGRAM" | "FACEBOOK" | "EMAIL" | "PHONE" | "WHATSAPP";
+  value: string;
 };
+import { SocialIcon } from "react-social-icons";
 
+const RentableInfo = (data: { [key: string]: UserContact }) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
+
+  if (!data || typeof data !== "object") {
+    console.error("Data is not an object:", data);
+    return <p>Erro: Dados inválidos.</p>;
+  }
+
+  const dataArray = Object.values(data);
+
+  const renderSocialIcon = (network: string, value: string, url: any) => (
+    <div key={`${network}-${url}`} style={{ fontSize: 20 }}>
+      <SocialIcon network={network} url={url} style={{ marginRight: 10 }} />
+      <Link href={url} key={url}>
+        {value}
+      </Link>
+    </div>
+  );
+
+  return (
+    <div className="w-full rounded-2xl space-y-2.5">
+      <ul>
+        {dataArray.map((item) => {
+          switch (item.type) {
+            case "INSTAGRAM":
+              return (
+                <li key={item.id}>
+                  {isClient &&
+                    renderSocialIcon(
+                      "instagram",
+                      `@${item.value}`,
+                      `https://instagram.com/${item.value}`
+                    )}
+                </li>
+              );
+            case "FACEBOOK":
+              return (
+                <li key={item.id}>
+                  {isClient &&
+                    renderSocialIcon(
+                      "facebook",
+                      item.value,
+                      `https://fb.me/${item.value}`
+                    )}
+                </li>
+              );
+            case "EMAIL":
+              return (
+                <li key={item.id}>
+                  {isClient &&
+                    renderSocialIcon(
+                      "email",
+                      item.value,
+                      `mailto:${item.value}`
+                    )}
+                </li>
+              );
+            case "PHONE":
+              return (
+                <li key={item.id}>
+                  {isClient &&
+                    renderSocialIcon(
+                      "whatsapp",
+                      item.value,
+                      `tel:${item.value}`
+                    )}
+                </li>
+              );
+            case "WHATSAPP":
+              return (
+                <li key={item.id}>
+                  {isClient &&
+                    renderSocialIcon(
+                      "whatsapp",
+                      item.value,
+                      `https://wa.me/${item.value.replace(/\D/g, "")}`
+                    )}
+                </li>
+              );
+            default:
+              return (
+                <li key={item.id}>
+                  <p>{item.value}</p>
+                </li>
+              );
+          }
+        })}
+      </ul>
+    </div>
+  );
+};
 
 export default RentableInfo;
