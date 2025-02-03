@@ -1,17 +1,40 @@
 "use client";
 
 import { MediaPostRequest } from "@api";
+import {
+  faAngleLeft,
+  faAngleRight,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 
-interface modalGallery {
-  images: Array<MediaPostRequest>;
+interface ModalGalleryProps {
+  images: MediaPostRequest[];
   onClose: () => void;
+  selectedImageUrl?: string;
 }
 
-const modalGallery = ({ images, onClose }: modalGallery) => {
+const ModalGallery = ({
+  images,
+  onClose,
+  selectedImageUrl,
+}: ModalGalleryProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (selectedImageUrl) {
+      const initialIndex = images.findIndex(
+        (img) => img.url === selectedImageUrl
+      );
+      if (initialIndex !== -1) {
+        setCurrentIndex(initialIndex);
+      } else {
+        setCurrentIndex(0);
+      }
+    }
+  }, [selectedImageUrl, images]);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -23,87 +46,49 @@ const modalGallery = ({ images, onClose }: modalGallery) => {
     );
   };
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50">
-      <div className="relative flex items-center justify-center w-full h-full p-4">
+    <div className="fixed inset-0 flex items-center justify-center bg-black z-50">
+      <div className="relative flex justify-center items-center w-full h-full p-4 rounded-lg">
         <button
-          className="absolute top-4 right-4 text-white text-2xl"
+          className="absolute flex gap-2 top-4 right-4 text-white text-2xl"
           onClick={onClose}
         >
-          ✕
+          <FontAwesomeIcon icon={faXmark} />
+          <span className="text-base font-medium">Fechar</span>
         </button>
-        <button
-          className="absolute left-6 text-white text-3xl p-2 bg-black bg-opacity-50 rounded-full z-20"
-          onClick={handlePrev}
-        >
-          ◀
-        </button>
-        <div className="relative w-[80vw] h-[80vh] flex items-center justify-center overflow-hidden">
-          <AnimatePresence>
-            {images.map((image, index) => {
-              const position =
-                index === currentIndex
-                  ? "center"
-                  : index === (currentIndex - 1 + images.length) % images.length
-                  ? "left"
-                  : index === (currentIndex + 1) % images.length
-                  ? "right"
-                  : "hidden";
-
-              return (
-                <motion.div
-                  key={index}
-                  initial={{
-                    opacity: position === "center" ? 1 : 0.5,
-                    scale: position === "center" ? 1 : 0.8,
-                    x:
-                      position === "left"
-                        ? -220
-                        : position === "right"
-                        ? 220
-                        : 0,
-                  }}
-                  animate={{
-                    opacity: position === "center" ? 1 : 0.5,
-                    scale: position === "center" ? 1 : 0.8,
-                    x:
-                      position === "left"
-                        ? -220
-                        : position === "right"
-                        ? 220
-                        : 0,
-                  }}
-                  exit={{ opacity: 0, scale: 0.7 }}
-                  transition={{ duration: 0.3 }}
-                  className={`absolute ${
-                    position === "center"
-                      ? "z-20 w-[60%] h-[60%]"
-                      : "z-10 w-[30%] h-[30%]"
-                  } flex items-center justify-center`}
-                >
-                  <Image
-                    src={image.url || ""}
-                    alt="Modal Image"
-                    layout="intrinsic"
-                    width={position === "center" ? 600 : 300}
-                    height={position === "center" ? 400 : 200}
-                    objectFit="contain"
-                    className="rounded-lg shadow-lg"
-                  />
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+        <div className="flex absolute justify-center items-center">
+          <Image
+            src={images[currentIndex].url || ""}
+            alt="Selected"
+            width={800}
+            height={600}
+            objectFit="contain"
+            className="rounded-lg shadow-lg max-w-full max-h-[85vh] object-contain"
+          />
         </div>
-        <button
-          className="absolute right-6 text-white text-3xl p-2 bg-black bg-opacity-50 rounded-full z-20"
-          onClick={handleNext}
-        >
-          ▶
-        </button>
+        <div className="flex w-full justify-between items-center mb-4">
+          <button
+            className="flex items-center justify-center text-white text-3xl border-solid border-4 rounded-full p-4 w-12 h-12 aspect-square border-white hover:bg-white hover:bg-opacity-30"
+            onClick={handlePrev}
+          >
+            <FontAwesomeIcon icon={faAngleLeft} />
+          </button>
+          <button
+            className="flex items-center justify-center text-white text-3xl border-solid border-4 rounded-full p-4 w-12 h-12 aspect-square border-white hover:bg-white hover:bg-opacity-30"
+            onClick={handleNext}
+          >
+            <FontAwesomeIcon icon={faAngleRight} />
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default modalGallery;
+export default ModalGallery;
