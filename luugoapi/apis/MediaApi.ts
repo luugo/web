@@ -22,10 +22,15 @@ import {
     MediaToJSON,
 } from '../models/index';
 
+export interface MediaDeleteRequest {
+    id: string;
+    acceptLanguage?: string;
+}
+
 export interface MediaGetRequest {
     acceptLanguage?: string;
     id?: string;
-    rentableId?: string | null;
+    rentableId?: string;
 }
 
 export interface MediaPostRequest {
@@ -38,12 +43,60 @@ export interface MediaPostRequest {
     filename?: string;
     file?: Blob;
     type?: MediaPostTypeEnum;
+    userId?: string | null;
 }
 
 /**
  * 
  */
 export class MediaApi extends runtime.BaseAPI {
+
+    /**
+     * Delete Operation
+     * CRU[D]
+     */
+    async mediaDeleteRaw(requestParameters: MediaDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling mediaDelete.');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.id !== undefined) {
+            queryParameters['id'] = requestParameters.id;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/media`,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete Operation
+     * CRU[D]
+     */
+    async mediaDelete(requestParameters: MediaDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.mediaDeleteRaw(requestParameters, initOverrides);
+    }
 
     /**
      * Read Operation
@@ -152,6 +205,10 @@ export class MediaApi extends runtime.BaseAPI {
 
         if (requestParameters.type !== undefined) {
             formParams.append('type', requestParameters.type as any);
+        }
+
+        if (requestParameters.userId !== undefined) {
+            formParams.append('userId', requestParameters.userId as any);
         }
 
         const response = await this.request({

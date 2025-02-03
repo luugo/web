@@ -19,6 +19,12 @@ import {
     RentableGeolocationFromJSONTyped,
     RentableGeolocationToJSON,
 } from './RentableGeolocation';
+import type { RentableTypeEnum } from './RentableTypeEnum';
+import {
+    RentableTypeEnumFromJSON,
+    RentableTypeEnumFromJSONTyped,
+    RentableTypeEnumToJSON,
+} from './RentableTypeEnum';
 
 /**
  * 
@@ -64,7 +70,7 @@ export interface Rentable {
     description: string;
     /**
      * 
-     * @type {string}
+     * @type {RentableTypeEnum}
      * @memberof Rentable
      */
     type: RentableTypeEnum;
@@ -116,17 +122,6 @@ export interface Rentable {
 /**
  * @export
  */
-export const RentableTypeEnum = {
-    Place: 'PLACE',
-    Item: 'ITEM',
-    Service: 'SERVICE',
-    Auto: 'AUTO'
-} as const;
-export type RentableTypeEnum = typeof RentableTypeEnum[keyof typeof RentableTypeEnum];
-
-/**
- * @export
- */
 export const RentableBillingFrequencyEnum = {
     Hourly: 'HOURLY',
     Daily: 'DAILY',
@@ -171,7 +166,7 @@ export function RentableFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'thumbnail': !exists(json, 'thumbnail') ? undefined : json['thumbnail'],
         'title': json['title'],
         'description': json['description'],
-        'type': json['type'],
+        'type': RentableTypeEnumFromJSON(json['type']),
         'place': json['place'],
         'price': json['price'],
         'discount': !exists(json, 'discount') ? undefined : json['discount'],
@@ -195,7 +190,7 @@ export function RentableToJSON(value?: Rentable | null): any {
         'thumbnail': value.thumbnail,
         'title': value.title,
         'description': value.description,
-        'type': value.type,
+        'type': RentableTypeEnumToJSON(value.type),
         'place': value.place,
         'price': value.price,
         'discount': value.discount,

@@ -73,7 +73,7 @@ export interface User {
      * @type {string}
      * @memberof User
      */
-    thumbnail?: string;
+    thumbnail?: string | null;
     /**
      * 
      * @type {string}
