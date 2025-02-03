@@ -1,12 +1,16 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import {faInstagram, faWhatsapp, faFacebook, IconDefinition} from '@fortawesome/free-brands-svg-icons'
+import { faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 type UserContact = {
   id: string;
   type: "INSTAGRAM" | "FACEBOOK" | "EMAIL" | "PHONE" | "WHATSAPP";
   value: string;
 };
-import { SocialIcon } from "react-social-icons";
 
 const RentableInfo = (data: { [key: string]: UserContact }) => {
   const [isClient, setIsClient] = useState(false);
@@ -24,9 +28,10 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
 
   const dataArray = Object.values(data);
 
-  const renderSocialIcon = (network: string, value: string, url: any) => (
-    <div key={`${network}-${url}`} style={{ fontSize: 20 }}>
-      <SocialIcon network={network} url={url} style={{ marginRight: 10 }} />
+  const renderSocialIcon = (network: IconDefinition, value: string, url: any) => (
+    <div key={`${network}-${url}`}>
+      <FontAwesomeIcon icon={network} size={"lg"}/>
+      <span className="ml-2"></span>
       <Link href={url} key={url}>
         {value}
       </Link>
@@ -43,7 +48,7 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
                 <li key={item.id}>
                   {isClient &&
                     renderSocialIcon(
-                      "instagram",
+                      faInstagram,
                       `@${item.value}`,
                       `https://instagram.com/${item.value}`
                     )}
@@ -54,7 +59,7 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
                 <li key={item.id}>
                   {isClient &&
                     renderSocialIcon(
-                      "facebook",
+                      faFacebook,
                       item.value,
                       `https://fb.me/${item.value}`
                     )}
@@ -65,7 +70,7 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
                 <li key={item.id}>
                   {isClient &&
                     renderSocialIcon(
-                      "email",
+                      faEnvelope,
                       item.value,
                       `mailto:${item.value}`
                     )}
@@ -76,7 +81,7 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
                 <li key={item.id}>
                   {isClient &&
                     renderSocialIcon(
-                      "whatsapp",
+                      faPhone,
                       item.value,
                       `tel:${item.value}`
                     )}
@@ -87,7 +92,7 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
                 <li key={item.id}>
                   {isClient &&
                     renderSocialIcon(
-                      "whatsapp",
+                      faWhatsapp,
                       item.value,
                       `https://wa.me/${item.value.replace(/\D/g, "")}`
                     )}
