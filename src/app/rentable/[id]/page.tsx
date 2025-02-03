@@ -4,11 +4,6 @@ import remarkHtml from "remark-html";
 import html from "remark-html";
 import {MediaApi, RentableApi, RentableGeolocation, UserContact, UserContactApi, UserContactGetRequest,} from "@api";
 
-interface productParams {
-  params: {
-    id: string;
-  };
-}
 
 export interface dataProduct {
   id: string;
@@ -26,8 +21,7 @@ export interface dataProduct {
   };
 }
 
-async function getProduct(product: productParams) {
-  const id = product.params.id;
+async function getProduct(id: string) {
   const rentableApi = new RentableApi();
   const mediaApi = new MediaApi();
 
@@ -76,8 +70,11 @@ async function getProductUserInfo(userId: string) {
   return userContactApi.userContactGet(requestUserContactParameters);
 }
 
-export async function generateMetadata(product: productParams) {
-  const Product = await getProduct(product);
+export async function generateMetadata(props: {
+  params: Promise<{ id: string }>;
+}) {
+  const resolvedParams = await props.params;
+  const Product = await getProduct(resolvedParams.id);
 
   return {
     openGraph: {
@@ -90,8 +87,11 @@ export async function generateMetadata(product: productParams) {
   };
 }
 
-async function ProductDetailPage(product: productParams) {
-  const data = await getProduct(product);
+async function ProductDetailPage(props: {
+  params: Promise<{ id: string }>;
+}) {
+  const resolvedParams = await props.params;
+  const data = await getProduct(resolvedParams.id);
 
   return (
     <>

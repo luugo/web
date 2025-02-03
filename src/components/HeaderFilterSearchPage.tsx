@@ -88,6 +88,7 @@ const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
       </div>
 
       <Transition
+        as="div"
         show={isOpen}
         enter="transition-opacity duration-150"
         enterFrom="opacity-0"

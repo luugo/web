@@ -6,6 +6,7 @@ import ButtonClose from "@/shared/ButtonClose/ButtonClose";
 import ProductQuickView from "./ProductQuickView";
 import ProductQuickView2 from "./ProductQuickView2";
 import { usePathname } from "next/navigation";
+import {TransitionChild} from "@headlessui/react";
 
 export interface ModalQuickViewProps {
   show: boolean;
@@ -19,15 +20,15 @@ const ModalQuickView: FC<ModalQuickViewProps> = ({
   const pathname = usePathname();
 
   return (
-    <Transition appear show={show} as={Fragment}>
+    <Transition appear show={show} as="div">
       <Dialog
         as="div"
         className="fixed inset-0 z-50"
         onClose={onCloseModalQuickView}
       >
         <div className="flex items-stretch md:items-center justify-center h-full text-center md:px-4">
-          <Transition.Child
-            as={Fragment}
+          <TransitionChild
+            as="div"
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -35,15 +36,15 @@ const ModalQuickView: FC<ModalQuickViewProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-black/40 dark:bg-black/70" />
-          </Transition.Child>
+            <div className="fixed inset-0 bg-black/40 dark:bg-black/70" />
+          </TransitionChild>
 
           {/* This element is to trick the browser into centering the modal contents. */}
           <span className="inline-block align-middle" aria-hidden="true">
             &#8203;
           </span>
-          <Transition.Child
-            as={Fragment}
+          <TransitionChild
+            as="div"
             enter="ease-out duration-300"
             enterFrom="opacity-0 scale-95"
             enterTo="opacity-100 scale-100"
@@ -69,7 +70,7 @@ const ModalQuickView: FC<ModalQuickViewProps> = ({
                 </div>
               </div>
             </div>
-          </Transition.Child>
+          </TransitionChild>
         </div>
       </Dialog>
     </Transition>

@@ -38,7 +38,7 @@ const ArchiveFilterListBox: FC<ArchiveFilterListBoxProps> = ({
               <ButtonDropdown>{selected?.name}</ButtonDropdown>
             </Listbox.Button>
             <Transition
-                as={Fragment}
+                as="div"
                 leave="transition ease-in duration-100"
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"

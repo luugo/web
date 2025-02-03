@@ -3,6 +3,7 @@
 import React, { useState, Fragment } from "react";
 import { Transition, Dialog } from "@/app/headlessui";
 import NavMobile from "@/shared/Navigation/NavMobile";
+import {TransitionChild} from "@headlessui/react";
 
 export interface MenuBarProps {}
 const MenuBar: React.FC<MenuBarProps> = () => {
@@ -13,7 +14,7 @@ const MenuBar: React.FC<MenuBarProps> = () => {
 
   const renderContent = () => {
     return (
-      <Transition appear show={isVisable} as={Fragment}>
+      <Transition appear show={isVisable} as="div">
         <Dialog
           as="div"
           className="fixed inset-0 z-50 overflow-y-auto"
@@ -21,8 +22,8 @@ const MenuBar: React.FC<MenuBarProps> = () => {
         >
           <div className="fixed left-0 top-0 bottom-0 w-full max-w-md md:w-auto z-max outline-none focus:outline-none">
             <React.Fragment>
-              <Transition.Child
-                as={Fragment}
+              <TransitionChild
+                as="div"
                 enter="transition duration-100 transform"
                 enterFrom="opacity-0 -translate-x-14"
                 enterTo="opacity-100 translate-x-0"
@@ -33,10 +34,10 @@ const MenuBar: React.FC<MenuBarProps> = () => {
                 <div className="z-20 relative">
                   <NavMobile onClickClose={handleCloseMenu} />
                 </div>
-              </Transition.Child>
+              </TransitionChild>
 
-              <Transition.Child
-                as={Fragment}
+              <TransitionChild
+                as="div"
                 enter=" duration-300"
                 enterFrom="opacity-0"
                 enterTo="opacity-100"
@@ -44,8 +45,8 @@ const MenuBar: React.FC<MenuBarProps> = () => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Dialog.Overlay className="fixed inset-0 bg-neutral-900/60" />
-              </Transition.Child>
+                <div className="fixed inset-0 bg-neutral-900/60" />
+              </TransitionChild>
             </React.Fragment>
           </div>
         </Dialog>

@@ -22,7 +22,7 @@ const SortOrderFilter: FC<Props> = ({ data = DEMO_DATA, className = "" }) => {
     <div className={className}>
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
-          <Listbox.Button as={Fragment}>
+          <Listbox.Button as="div">
             <button className="font-medium border bg-white dark:bg-neutral-900 border-neutral-200 text-neutral-500 dark:text-neutral-400 dark:border-neutral-700 inline-flex items-center justify-center rounded-full px-5 py-2">
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
                 <path
@@ -73,7 +73,7 @@ const SortOrderFilter: FC<Props> = ({ data = DEMO_DATA, className = "" }) => {
             </button>
           </Listbox.Button>
           <Transition
-            as={Fragment}
+            as="div"
             enter="transition ease-out duration-100 "
             enterFrom="transform opacity-0 scale-95"
             enterTo="transform opacity-100 scale-100"

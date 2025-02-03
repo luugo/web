@@ -10,6 +10,7 @@ import Slider from "rc-slider";
 import Radio from "@/shared/Radio/Radio";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import MySwitch from "@/components/MySwitch";
+import {TransitionChild} from "@headlessui/react";
 
 // DEMO DATA
 const DATA_categories = [
@@ -199,7 +200,7 @@ const TabFilters = () => {
               )}
             </Popover.Button>
             <Transition
-              as={Fragment}
+              as="div"
               enter="transition ease-out duration-200"
               enterFrom="opacity-0 translate-y-1"
               enterTo="opacity-100 translate-y-0"
@@ -334,7 +335,7 @@ const TabFilters = () => {
               )}
             </Popover.Button>
             <Transition
-              as={Fragment}
+              as="div"
               enter="transition ease-out duration-200"
               enterFrom="opacity-0 translate-y-1"
               enterTo="opacity-100 translate-y-0"
@@ -453,7 +454,7 @@ const TabFilters = () => {
               )}
             </Popover.Button>
             <Transition
-              as={Fragment}
+              as="div"
               enter="transition ease-out duration-200"
               enterFrom="opacity-0 translate-y-1"
               enterTo="opacity-100 translate-y-0"
@@ -563,7 +564,7 @@ const TabFilters = () => {
               )}
             </Popover.Button>
             <Transition
-              as={Fragment}
+              as="div"
               enter="transition ease-out duration-200"
               enterFrom="opacity-0 translate-y-1"
               enterTo="opacity-100 translate-y-0"
@@ -660,7 +661,7 @@ const TabFilters = () => {
               )}
             </Popover.Button>
             <Transition
-              as={Fragment}
+              as="div"
               enter="transition ease-out duration-200"
               enterFrom="opacity-0 translate-y-1"
               enterTo="opacity-100 translate-y-0"
@@ -916,15 +917,15 @@ const TabFilters = () => {
           {renderXClear()}
         </div>
 
-        <Transition appear show={isOpenMoreFilter} as={Fragment}>
+        <Transition appear show={isOpenMoreFilter} as="div">
           <Dialog
             as="div"
             className="fixed inset-0 z-50 overflow-y-auto"
             onClose={closeModalMoreFilter}
           >
             <div className="min-h-screen text-center">
-              <Transition.Child
-                as={Fragment}
+              <TransitionChild
+                as="div"
                 enter="ease-out duration-300"
                 enterFrom="opacity-0"
                 enterTo="opacity-100"
@@ -932,8 +933,8 @@ const TabFilters = () => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-40 dark:bg-opacity-60" />
-              </Transition.Child>
+                <div className="fixed inset-0 bg-black bg-opacity-40 dark:bg-opacity-60" />
+              </TransitionChild>
 
               {/* This element is to trick the browser into centering the modal contents. */}
               <span
@@ -942,7 +943,8 @@ const TabFilters = () => {
               >
                 &#8203;
               </span>
-              <Transition.Child
+              <TransitionChild
+                as="div"
                 className="inline-block h-screen w-full max-w-4xl"
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 scale-95"
@@ -1120,7 +1122,7 @@ const TabFilters = () => {
                     </ButtonPrimary>
                   </div>
                 </div>
-              </Transition.Child>
+              </TransitionChild>
             </div>
           </Dialog>
         </Transition>

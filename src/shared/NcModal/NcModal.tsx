@@ -3,6 +3,7 @@ import React, { FC, Fragment, ReactNode, useEffect, useState } from "react";
 import { Dialog, Transition } from "@/app/headlessui";
 import ButtonClose from "@/shared/ButtonClose/ButtonClose";
 import Button from "@/shared/Button/Button";
+import {TransitionChild} from "@headlessui/react";
 
 export interface NcModalProps {
   renderContent: () => ReactNode;
@@ -52,15 +53,15 @@ const NcModal: FC<NcModalProps> = ({
         <Button onClick={openModal}> {triggerText} </Button>
       )}
 
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={isOpen} as="div">
         <Dialog
           as="div"
           className="fixed inset-0 z-50 overflow-y-auto"
           onClose={closeModal}
         >
           <div className="min-h-screen px-1 text-center md:px-4">
-            <Transition.Child
-              as={Fragment}
+            <TransitionChild
+              as="div"
               enter="ease-out duration-75"
               enterFrom="opacity-0"
               enterTo="opacity-100"
@@ -68,8 +69,8 @@ const NcModal: FC<NcModalProps> = ({
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0 bg-neutral-900 bg-opacity-50 dark:bg-opacity-80" />
-            </Transition.Child>
+              <div className="fixed inset-0 bg-neutral-900 bg-opacity-50 dark:bg-opacity-80" />
+            </TransitionChild>
 
             {/* This element is to trick the browser into centering the modal contents. */}
             <span
@@ -78,8 +79,8 @@ const NcModal: FC<NcModalProps> = ({
             >
               &#8203;
             </span>
-            <Transition.Child
-              as={Fragment}
+            <TransitionChild
+              as="div"
               enter="ease-out duration-75"
               enterFrom="opacity-0 scale-95"
               enterTo="opacity-100 scale-100"
@@ -106,7 +107,7 @@ const NcModal: FC<NcModalProps> = ({
                 </div>
                 <div className={contentPaddingClass}>{renderContent()}</div>
               </div>
-            </Transition.Child>
+            </TransitionChild>
           </div>
         </Dialog>
       </Transition>

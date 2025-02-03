@@ -62,13 +62,10 @@ export default function Modal({
         initialFocus={overlayRef}
         className="fixed inset-0 z-50 flex items-center justify-center "
       >
-        <Dialog.Overlay
+        <div
           ref={overlayRef}
-          as={motion.div}
           key="backdrop"
           className="fixed inset-0 z-30 bg-black"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
         />
         <SharedModal
           index={curIndex}

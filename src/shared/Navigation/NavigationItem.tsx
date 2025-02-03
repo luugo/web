@@ -101,11 +101,11 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
       >
         {() => (
           <>
-            <Popover.Button as={Fragment}>
+            <Popover.Button as="div">
               {renderMainItem(menuDropdown)}
             </Popover.Button>
             <Transition
-              as={Fragment}
+              as="div"
               show={isHover}
               enter="transition ease-out duration-150"
               enterFrom="opacity-0 translate-y-1"
@@ -151,11 +151,11 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
       >
         {() => (
           <>
-            <Popover.Button as={Fragment}>
+            <Popover.Button as="div">
               {renderDropdownMenuNavlink(item)}
             </Popover.Button>
             <Transition
-              as={Fragment}
+              as="div"
               show={isHover}
               enter="transition ease-out duration-150"
               enterFrom="opacity-0 translate-y-1"

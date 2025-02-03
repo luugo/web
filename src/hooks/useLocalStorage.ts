@@ -15,8 +15,11 @@ function useLocalStorage<T>(
 ): [T, (value: SetValue<T>) => void] {
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
-      const item = localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
+      let storageData: any = null;
+      if (typeof window !== 'undefined') {
+        storageData = localStorage.getItem('luugo');
+      }
+      return storageData ? JSON.parse(storageData) : initialValue;
     } catch (error) {
       console.error('Error reading localStorage key "${key}":', error);
       return initialValue;

@@ -8,7 +8,7 @@ import Modal from "./components/Modal";
 import type { ListingGalleryImage } from "./utils/types";
 import { useLastViewedPhoto } from "./utils/useLastViewedPhoto";
 import { ArrowSmallLeftIcon } from "@heroicons/react/24/outline";
-import { Dialog, Transition } from "@headlessui/react";
+import {Dialog, Transition, TransitionChild} from "@headlessui/react";
 import LikeSaveBtns from "@/components/LikeSaveBtns";
 import { Route } from "next";
 
@@ -97,10 +97,10 @@ const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
 
   return (
     <>
-      <Transition appear show={isShowModal} as={Fragment}>
+      <Transition appear show={isShowModal} as="div">
         <Dialog as="div" className="relative z-40" onClose={handleClose}>
-          <Transition.Child
-            as={Fragment}
+          <TransitionChild
+            as="div"
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -109,7 +109,7 @@ const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
             leaveTo="opacity-0"
           >
             <div className="fixed inset-0 bg-white" />
-          </Transition.Child>
+          </TransitionChild>
 
           <div className="fixed inset-0 overflow-y-auto">
             <div className="sticky z-10 top-0 p-4 xl:px-10 flex items-center justify-between bg-white">
@@ -123,8 +123,8 @@ const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
             </div>
 
             <div className="flex min-h-full items-center justify-center sm:p-4 pt-0 text-center">
-              <Transition.Child
-                as={Fragment}
+              <TransitionChild
+                as="div"
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 translate-y-5"
                 enterTo="opacity-100 translate-y-0"
@@ -135,7 +135,7 @@ const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
                 <Dialog.Panel className="w-full max-w-screen-lg mx-auto transform p-4 pt-0 text-left transition-all ">
                   {renderContent()}
                 </Dialog.Panel>
-              </Transition.Child>
+              </TransitionChild>
             </div>
           </div>
         </Dialog>

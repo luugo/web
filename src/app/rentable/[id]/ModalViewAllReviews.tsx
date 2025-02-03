@@ -2,8 +2,9 @@ import {Dialog, Transition} from "@/app/headlessui";
 import {StarIcon} from "@heroicons/react/24/solid";
 import ReviewItem from "@/components/ReviewItem";
 import SortOrderFilter from "@/components/SectionGridMoreExplore/SortOrderFilter";
-import React, {FC, Fragment} from "react";
+import React, {FC} from "react";
 import ButtonClose from "@/shared/ButtonClose/ButtonClose";
+import {TransitionChild} from "@headlessui/react";
 
 export interface ModalViewAllReviewsProps {
   show: boolean;
@@ -15,15 +16,15 @@ const ModalViewAllReviews: FC<ModalViewAllReviewsProps> = ({
                                                              onCloseModalViewAllReviews,
                                                            }) => {
   return (
-    <Transition appear show={show} as={Fragment}>
+    <Transition appear show={show} as="div">
       <Dialog
         as="div"
         className="fixed inset-0 z-50 overflow-y-auto"
         onClose={onCloseModalViewAllReviews}
       >
         <div className="min-h-screen px-4 text-center">
-          <Transition.Child
-            as={Fragment}
+          <TransitionChild
+            as="div"
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -31,8 +32,8 @@ const ModalViewAllReviews: FC<ModalViewAllReviewsProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-40"/>
-          </Transition.Child>
+            <div className="fixed inset-0 bg-black bg-opacity-40"/>
+          </TransitionChild>
 
           {/* This element is to trick the browser into centering the modal contents. */}
           <span
@@ -41,8 +42,8 @@ const ModalViewAllReviews: FC<ModalViewAllReviewsProps> = ({
           >
             &#8203;
           </span>
-          <Transition.Child
-            as={Fragment}
+          <TransitionChild
+            as="div"
             enter="ease-out duration-300"
             enterFrom="opacity-0 scale-95"
             enterTo="opacity-100 scale-100"
@@ -95,7 +96,7 @@ const ModalViewAllReviews: FC<ModalViewAllReviewsProps> = ({
                 </div>
               </div>
             </div>
-          </Transition.Child>
+          </TransitionChild>
         </div>
       </Dialog>
     </Transition>
