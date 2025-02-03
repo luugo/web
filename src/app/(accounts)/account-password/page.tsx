@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import { Alert } from "@/shared/Alert/Alert";
-import {AuthenticationApi, AuthenticationPostDefaultResponse} from "../../../../luugoapi";
+import {AuthenticationApi, AuthenticationPostDefaultResponse} from "@api";
 import {AlertOptions} from "@/interfaces";
 import {useRouter} from "next/navigation";
 

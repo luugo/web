@@ -6,7 +6,6 @@ import { FC } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Providers } from "@/providers";
 import { useUserContext } from "@/context";
-import { AuthenticationPostDefaultResponse } from "../../../luugoapi";
 
 export interface CommonLayoutProps {
   children?: React.ReactNode;

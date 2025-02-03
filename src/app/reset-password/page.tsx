@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Link from "next/link";
-import { AuthenticationApi, AuthenticationResetPasswordPutRequest } from "../../../luugoapi";
+import { AuthenticationApi, AuthenticationResetPasswordPutRequest } from "@api";
 import { AlertOptions } from "@/interfaces";
 import { Alert } from "@/shared/Alert/Alert";
 import { useRouter } from "next/navigation";

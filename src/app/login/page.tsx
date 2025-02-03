@@ -12,7 +12,7 @@ import { AuthenticationApi, AuthenticationPostDefaultResponse,
   UserApi,
   UserContactApi,
   UserTypeEnum
-} from "../../../luugoapi";
+} from "@api";
 import {useUserContext} from "@/context";
 import Label from "@/components/Label/Label";
 import {GoogleLogin} from '@react-oauth/google';

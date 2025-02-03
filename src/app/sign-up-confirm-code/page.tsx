@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import {
     AuthenticationApi,
     AuthenticationEmailPutRequest,
-} from "../../../luugoapi";
+} from "@api";
 
 const SignUpVerifyInputPage: FC = () => {
     const [code, setCode] = useState("");

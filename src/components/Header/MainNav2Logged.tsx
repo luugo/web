@@ -43,13 +43,13 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
     fetchPlaces();
   }, []);
 
-  const handleSelectPlace = (event) => {
+  const handleSelectPlace = (event:any) => {
     const selected = placeItems.find(item => item.city === event.target.value) || '';
     setSelectedPlace(selected);
     localStorage.setItem('selectedPlace', JSON.stringify(selected));
   }
 
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = (e: any) => {
     e.preventDefault();
     if (searchTerm.trim()) {
       router.push(`/items?search=${searchTerm}`);

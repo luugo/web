@@ -6,7 +6,7 @@ import Link from "next/link";
 import {
   AuthenticationApi,
   AuthenticationResetPasswordPostRequest
-} from "../../../luugoapi";
+} from "@api";
 import {AlertOptions} from "@/interfaces";
 import {Alert} from "@/shared/Alert/Alert";
 import { useRouter } from "next/navigation";

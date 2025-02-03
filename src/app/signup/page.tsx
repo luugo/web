@@ -8,7 +8,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { AuthenticationApi } from "../../../luugoapi";
+import { AuthenticationApi } from "@api";
 import { Alert } from "@/shared/Alert/Alert";
 
 const loginSocials = [
