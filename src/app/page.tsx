@@ -11,7 +11,7 @@ interface MobilePopupProps {
   onClose: () => void;
 }
 
-const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
+const MobilePopup: React.FC<MobilePopupProps> = ({os, onClose}) => {
   const appLinks = {
     android: "intent://details?id=br.com.luugo.app#Intent;scheme=market;package=br.com.luugo.app;end",
     ios: "#",
@@ -42,7 +42,7 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
           marginBottom: "20px",
         }}
       >
-        <Image src={logoImg} alt="Logo" width={80} height={80} />
+        <Image src={logoImg} alt="Logo" width={80} height={80}/>
       </div>
 
       {/* Texto do popup */}
@@ -124,16 +124,16 @@ function PageHome() {
 
   return (
     <div className="nc-PageHome relative overflow-hidden">
-      {isMobile && showPopup && <MobilePopup os={os} onClose={closePopup} />}
+      {isMobile && showPopup && <MobilePopup os={os} onClose={closePopup}/>}
 
-      <SectionHero2 />
+      <SectionHero2/>
 
       <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-72">
-        <HowItWorks />
+        <HowItWorks/>
       </div>
 
       <div className="container flex items-center relative space-y-24 my-24 lg:space-y-32 lg:my-72">
-        <About />
+        <About/>
       </div>
     </div>
   );

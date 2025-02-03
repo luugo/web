@@ -8,7 +8,7 @@ export interface Card12Props {
   className?: string;
 }
 
-const Card12: FC<Card12Props> = ({ className = "h-full" }) => {
+const Card12: FC<Card12Props> = ({className = "h-full"}) => {
   return (
     <div className={`nc-Card12 group relative flex flex-col ${className}`}>
       <a
@@ -24,7 +24,8 @@ const Card12: FC<Card12Props> = ({ className = "h-full" }) => {
         />
       </a>
 
-      <SocialsShare className="absolute hidden md:grid gap-[5px] right-4 top-4 opacity-0 z-[-1] group-hover:z-10 group-hover:opacity-100 transition-all duration-300" />
+      <SocialsShare
+        className="absolute hidden md:grid gap-[5px] right-4 top-4 opacity-0 z-[-1] group-hover:z-10 group-hover:opacity-100 transition-all duration-300"/>
 
       <div className=" mt-8 pr-10 flex flex-col">
         <h2
@@ -45,7 +46,7 @@ const Card12: FC<Card12Props> = ({ className = "h-full" }) => {
             tempore mollitia? Aperiam.
           </span>
         </span>
-        <PostCardMeta className="mt-5" />
+        <PostCardMeta className="mt-5"/>
       </div>
     </div>
   );

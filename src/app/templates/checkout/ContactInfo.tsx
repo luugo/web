@@ -11,7 +11,7 @@ interface Props {
   onCloseActive: () => void;
 }
 
-const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
+const ContactInfo: FC<Props> = ({isActive, onCloseActive, onOpenActive}) => {
   const renderAccount = () => {
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden z-0">
@@ -91,11 +91,11 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
           </div>
           <div className="max-w-lg">
             <Label className="text-sm">Your phone number</Label>
-            <Input className="mt-1.5" defaultValue={"+808 xxx"} type={"tel"} />
+            <Input className="mt-1.5" defaultValue={"+808 xxx"} type={"tel"}/>
           </div>
           <div className="max-w-lg">
             <Label className="text-sm">Email address</Label>
-            <Input className="mt-1.5" type={"email"} />
+            <Input className="mt-1.5" type={"email"}/>
           </div>
           <div>
             <Checkbox

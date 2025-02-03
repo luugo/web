@@ -13,15 +13,15 @@ const AccountPass = () => {
       <div className=" max-w-xl space-y-6">
         <div>
           <Label>Current password</Label>
-          <Input type="password" className="mt-1.5" />
+          <Input type="password" className="mt-1.5"/>
         </div>
         <div>
           <Label>New password</Label>
-          <Input type="password" className="mt-1.5" />
+          <Input type="password" className="mt-1.5"/>
         </div>
         <div>
           <Label>Confirm password</Label>
-          <Input type="password" className="mt-1.5" />
+          <Input type="password" className="mt-1.5"/>
         </div>
         <div className="pt-2">
           <ButtonPrimary>Update password</ButtonPrimary>

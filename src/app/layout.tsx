@@ -59,25 +59,25 @@ const poppins = Poppins({
 });
 
 export default function RootLayout({
-  children,
-  params,
-}: {
+                                     children,
+                                     params,
+                                   }: {
   children: React.ReactNode;
   params: any;
 }) {
   return (
     <html lang="en" dir="" className={poppins.className}>
-      <GoogleAnalytics />
-      <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
-        <GoogleOAuthProvider clientId="637549763916-sa80ph8s7nsbpdhtnv3bf6a1q29s3fae.apps.googleusercontent.com">
-          <Providers>
-            <SiteHeader />
-            {children}
-            <CommonClient />
-            <Footer />
-          </Providers>
-        </GoogleOAuthProvider>
-      </body>
+    <GoogleAnalytics/>
+    <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
+    <GoogleOAuthProvider clientId="637549763916-sa80ph8s7nsbpdhtnv3bf6a1q29s3fae.apps.googleusercontent.com">
+      <Providers>
+        <SiteHeader/>
+        {children}
+        <CommonClient/>
+        <Footer/>
+      </Providers>
+    </GoogleOAuthProvider>
+    </body>
     </html>
   );
 }

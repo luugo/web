@@ -34,7 +34,7 @@ const pages: {
   },
 ];
 
-const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
+const CommonLayout: FC<CommonLayoutProps> = ({children}) => {
   const pathname = usePathname();
 
   return (

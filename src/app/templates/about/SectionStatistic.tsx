@@ -31,7 +31,7 @@ export interface SectionStatisticProps {
   className?: string;
 }
 
-const SectionStatistic: FC<SectionStatisticProps> = ({ className = "" }) => {
+const SectionStatistic: FC<SectionStatisticProps> = ({className = ""}) => {
   return (
     <div className={`nc-SectionStatistic relative ${className}`}>
       <Heading

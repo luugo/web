@@ -70,7 +70,7 @@ const Policy = () => {
             key={index}
             className={`flex flex-col p-5 rounded-2xl ${item.color} dark:bg-opacity-90`}
           >
-            <div dangerouslySetInnerHTML={{ __html: item.svg }}></div>
+            <div dangerouslySetInnerHTML={{__html: item.svg}}></div>
             <div className="mt-2.5">
               <p className="font-semibold text-slate-900">{item.name}</p>
               <p className="text-slate-500 mt-0.5 text-sm">{item.desc}</p>

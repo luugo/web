@@ -7,7 +7,7 @@ export interface Card13Props {
   className?: string;
 }
 
-const Card13: FC<Card13Props> = ({ className = "" }) => {
+const Card13: FC<Card13Props> = ({className = ""}) => {
   return (
     <div className={`nc-Card13 relative flex ${className}`} data-nc-id="Card13">
       <div className="flex flex-col h-full py-2">
@@ -30,7 +30,7 @@ const Card13: FC<Card13Props> = ({ className = "" }) => {
           May 20, 2021 · 2 min read
         </span>
         <div className="mt-auto hidden sm:block">
-          <PostCardMeta />
+          <PostCardMeta/>
         </div>
       </div>
 

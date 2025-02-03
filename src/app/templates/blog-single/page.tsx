@@ -16,7 +16,7 @@ const BlogSingle = () => {
     return (
       <header className="container rounded-xl">
         <div className="max-w-screen-md mx-auto space-y-5">
-          <Badge href="/" color="purple" name="Traveler" />
+          <Badge href="/" color="purple" name="Traveler"/>
           <h1
             className=" text-neutral-900 font-semibold text-3xl md:text-4xl md:!leading-[120%] lg:text-4xl dark:text-neutral-100 max-w-4xl "
             title="Quiet ingenuity: 120,000 lunches and counting"
@@ -31,7 +31,8 @@ const BlogSingle = () => {
 
           <div className="w-full border-b border-neutral-100 dark:border-neutral-800"></div>
           <div className="flex flex-col items-center sm:flex-row sm:justify-between">
-            <div className="nc-PostMeta2 flex items-center flex-wrap text-neutral-700 text-left dark:text-neutral-200 text-sm leading-none flex-shrink-0">
+            <div
+              className="nc-PostMeta2 flex items-center flex-wrap text-neutral-700 text-left dark:text-neutral-200 text-sm leading-none flex-shrink-0">
               <Avatar
                 containerClassName="flex-shrink-0"
                 sizeClass="w-8 h-8 sm:h-11 sm:w-11 "
@@ -54,7 +55,7 @@ const BlogSingle = () => {
               </div>
             </div>
             <div className="mt-3 sm:mt-1.5 sm:ml-3">
-              <SocialsList />
+              <SocialsList/>
             </div>
           </div>
         </div>
@@ -173,10 +174,10 @@ const BlogSingle = () => {
   const renderTags = () => {
     return (
       <div className="max-w-screen-md mx-auto flex flex-wrap space-x-2">
-        <Tag />
-        <Tag />
-        <Tag />
-        <Tag />
+        <Tag/>
+        <Tag/>
+        <Tag/>
+        <Tag/>
       </div>
     );
   };
@@ -185,7 +186,7 @@ const BlogSingle = () => {
     return (
       <div className="max-w-screen-md mx-auto ">
         <div className="nc-SingleAuthor flex">
-          <Avatar sizeClass="w-11 h-11 md:w-24 md:h-24" />
+          <Avatar sizeClass="w-11 h-11 md:w-24 md:h-24"/>
           <div className="flex flex-col ml-3 max-w-lg sm:ml-5 space-y-1">
             <span className="text-xs text-neutral-400 uppercase tracking-wider">
               WRITEN BY
@@ -213,7 +214,7 @@ const BlogSingle = () => {
           Responses (14)
         </h3>
         <form className="nc-SingleCommentForm mt-5">
-          <Textarea />
+          <Textarea/>
           <div className="mt-2 space-x-3">
             <ButtonPrimary>Submit</ButtonPrimary>
             <ButtonSecondary>Cancel</ButtonSecondary>
@@ -228,18 +229,18 @@ const BlogSingle = () => {
       <div className="max-w-screen-md mx-auto">
         <ul className="nc-SingleCommentLists space-y-5">
           <li>
-            <Comment />
+            <Comment/>
             <ul className="pl-4 mt-5 space-y-5 md:pl-11">
               <li>
-                <Comment isSmall />
+                <Comment isSmall/>
               </li>
             </ul>
           </li>
           <li>
-            <Comment />
+            <Comment/>
             <ul className="pl-4 mt-5 space-y-5 md:pl-11">
               <li>
-                <Comment isSmall />
+                <Comment isSmall/>
               </li>
             </ul>
           </li>
@@ -254,7 +255,7 @@ const BlogSingle = () => {
         key={index}
         className="relative aspect-w-3 aspect-h-4 rounded-3xl overflow-hidden group"
       >
-        <a href="/blog-single" />
+        <a href="/blog-single"/>
         <Image
           alt="Related"
           fill
@@ -266,7 +267,7 @@ const BlogSingle = () => {
           <div className="absolute bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black"></div>
         </div>
         <div className="flex flex-col justify-end items-start text-xs text-neutral-300 space-y-2.5 p-4">
-          <Badge name="Categories" />
+          <Badge name="Categories"/>
           <h2 className="block text-lg font-semibold text-white ">
             <span className="line-clamp-2">{_getTitleRd()}</span>
           </h2>
@@ -279,7 +280,7 @@ const BlogSingle = () => {
             <span className="font-normal truncate">May 20, 2021</span>
           </div>
         </div>
-        <a href="/blog-single" />
+        <a href="/blog-single"/>
       </div>
     );
   };
@@ -299,7 +300,8 @@ const BlogSingle = () => {
       <div className="nc-SingleContent container space-y-10">
         {renderContent()}
         {renderTags()}
-        <div className="max-w-screen-md mx-auto border-b border-t border-neutral-100 dark:border-neutral-700"></div>
+        <div
+          className="max-w-screen-md mx-auto border-b border-t border-neutral-100 dark:border-neutral-700"></div>
         {renderAuthor()}
         {renderCommentForm()}
         {renderCommentLists()}

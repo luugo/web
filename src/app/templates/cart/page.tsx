@@ -11,8 +11,9 @@ const CartPage = () => {
   // const router = useRouter()
   const renderStatusSoldout = () => {
     return (
-      <div className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-        <NoSymbolIcon className="w-3.5 h-3.5" />
+      <div
+        className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+        <NoSymbolIcon className="w-3.5 h-3.5"/>
         <span className="ml-1 leading-none">Sold Out</span>
       </div>
     );
@@ -20,15 +21,16 @@ const CartPage = () => {
 
   const renderStatusInstock = () => {
     return (
-      <div className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-        <CheckIcon className="w-3.5 h-3.5" />
+      <div
+        className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+        <CheckIcon className="w-3.5 h-3.5"/>
         <span className="ml-1 leading-none">In Stock</span>
       </div>
     );
   };
 
   const renderProduct = (item: Product, index: number) => {
-    const { image, price, name } = item;
+    const {image, price, name} = item;
 
     return (
       <div
@@ -158,11 +160,11 @@ const CartPage = () => {
               </div>
 
               <div className="hidden sm:block text-center relative">
-                <NcInputNumber className="relative z-10" />
+                <NcInputNumber className="relative z-10"/>
               </div>
 
               <div className="hidden flex-1 sm:flex justify-end">
-                <Prices price={price} className="mt-0.5" />
+                <Prices price={price} className="mt-0.5"/>
               </div>
             </div>
           </div>
@@ -191,7 +193,8 @@ const CartPage = () => {
           <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold ">
             Shopping Cart
           </h2>
-          <div className="block mt-3 sm:mt-5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-400">
+          <div
+            className="block mt-3 sm:mt-5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-400">
             <Link href={"/"} className="">
               Homepage
             </Link>
@@ -204,7 +207,7 @@ const CartPage = () => {
           </div>
         </div>
 
-        <hr className="border-slate-200 dark:border-slate-700 my-10 xl:my-12" />
+        <hr className="border-slate-200 dark:border-slate-700 my-10 xl:my-12"/>
 
         <div className="flex flex-col lg:flex-row">
           <div className="w-full lg:w-[60%] xl:w-[55%] divide-y divide-slate-200 dark:divide-slate-700 ">
@@ -216,11 +219,13 @@ const CartPage = () => {
               PRODUCTS[4],
             ].map(renderProduct)}
           </div>
-          <div className="border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-700 my-10 lg:my-0 lg:mx-10 xl:mx-16 2xl:mx-20 flex-shrink-0"></div>
+          <div
+            className="border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-700 my-10 lg:my-0 lg:mx-10 xl:mx-16 2xl:mx-20 flex-shrink-0"></div>
           <div className="flex-1">
             <div className="sticky top-28">
               <h3 className="text-lg font-semibold ">Order Summary</h3>
-              <div className="mt-7 text-sm text-slate-500 dark:text-slate-400 divide-y divide-slate-200/70 dark:divide-slate-700/80">
+              <div
+                className="mt-7 text-sm text-slate-500 dark:text-slate-400 divide-y divide-slate-200/70 dark:divide-slate-700/80">
                 <div className="flex justify-between pb-4">
                   <span>Subtotal</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
@@ -239,7 +244,8 @@ const CartPage = () => {
                     $24.90
                   </span>
                 </div>
-                <div className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
+                <div
+                  className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                   <span>Order total</span>
                   <span>$276.00</span>
                 </div>
@@ -247,7 +253,8 @@ const CartPage = () => {
               <ButtonPrimary href='/templates/checkout' className="mt-8 w-full">
                 Checkout
               </ButtonPrimary>
-              <div className="mt-5 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-center">
+              <div
+                className="mt-5 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-center">
                 <p className="block relative pl-5">
                   <svg
                     className="w-4 h-4 absolute -left-1 top-0.5"

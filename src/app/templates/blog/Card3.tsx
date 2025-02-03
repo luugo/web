@@ -8,7 +8,7 @@ export interface Card3Props {
   className?: string;
 }
 
-const Card3: FC<Card3Props> = ({ className = "h-full" }) => {
+const Card3: FC<Card3Props> = ({className = "h-full"}) => {
   return (
     <div
       className={`nc-Card3 relative flex flex-col-reverse sm:flex-row sm:items-center rounded-[40px] group ${className}`}
@@ -16,7 +16,7 @@ const Card3: FC<Card3Props> = ({ className = "h-full" }) => {
     >
       <div className="flex flex-col flex-grow">
         <div className="space-y-5 mb-4">
-          <Badge name={_getTagNameRd()} />
+          <Badge name={_getTagNameRd()}/>
           <div>
             <h2
               className={`nc-card-title block font-semibold text-neutral-900 dark:text-neutral-100 text-xl`}
@@ -36,7 +36,7 @@ const Card3: FC<Card3Props> = ({ className = "h-full" }) => {
               </span>
             </div>
           </div>
-          <PostCardMeta />
+          <PostCardMeta/>
         </div>
       </div>
 

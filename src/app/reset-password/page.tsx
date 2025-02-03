@@ -32,7 +32,7 @@ const PageResetPassword = ({}) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const { username, passwordRecoveryKey, password, confirmPassword } = formData;
+    const {username, passwordRecoveryKey, password, confirmPassword} = formData;
 
     if (password !== confirmPassword) {
       showAlert("As senhas não coincidem.", "error");
@@ -71,8 +71,8 @@ const PageResetPassword = ({}) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
+    const {id, value} = e.target;
+    setFormData((prev) => ({...prev, [id]: value}));
   };
 
   return (
@@ -85,7 +85,8 @@ const PageResetPassword = ({}) => {
         )}
       </div>
       <header className="text-center max-w-2xl mx-auto mb-14 sm:mb-16 lg:mb-20">
-        <h2 className="mt-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
+        <h2
+          className="mt-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
           Redefinir senha
         </h2>
         <span className="block text-sm mt-4 text-neutral-700 sm:text-base dark:text-neutral-200">

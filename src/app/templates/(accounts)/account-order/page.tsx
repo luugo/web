@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const AccountOrder = () => {
   const renderProductItem = (product: any, index: number) => {
-    const { image, name } = product;
+    const {image, name} = product;
     return (
       <div key={index} className="flex py-4 sm:py-7 last:pb-0 first:pt-0">
         <div className="relative h-24 w-16 sm:w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -29,7 +29,7 @@ const AccountOrder = () => {
                   <span>{"XL"}</span>
                 </p>
               </div>
-              <Prices className="mt-0.5 ml-2" />
+              <Prices className="mt-0.5 ml-2"/>
             </div>
           </div>
           <div className="flex flex-1 items-end justify-between text-sm">
@@ -56,7 +56,8 @@ const AccountOrder = () => {
   const renderOrder = () => {
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden z-0">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-4 sm:p-8 bg-slate-50 dark:bg-slate-500/5">
+        <div
+          className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-4 sm:p-8 bg-slate-50 dark:bg-slate-500/5">
           <div>
             <p className="text-lg font-semibold">#WU3746HGG12</p>
             <p className="text-slate-500 dark:text-slate-400 text-sm mt-1.5 sm:mt-2">
@@ -74,7 +75,8 @@ const AccountOrder = () => {
             </ButtonSecondary>
           </div>
         </div>
-        <div className="border-t border-slate-200 dark:border-slate-700 p-2 sm:p-8 divide-y divide-y-slate-200 dark:divide-slate-700">
+        <div
+          className="border-t border-slate-200 dark:border-slate-700 p-2 sm:p-8 divide-y divide-y-slate-200 dark:divide-slate-700">
           {[PRODUCTS[0], PRODUCTS[1], PRODUCTS[2]].map(renderProductItem)}
         </div>
       </div>

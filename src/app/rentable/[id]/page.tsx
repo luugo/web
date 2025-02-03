@@ -31,8 +31,8 @@ async function getProduct(product: productParams) {
   const rentableApi = new RentableApi();
   const mediaApi = new MediaApi();
 
-  const productData = await rentableApi.rentableGet({ id });
-  const productImages = await mediaApi.mediaGet({ rentableId: id });
+  const productData = await rentableApi.rentableGet({id});
+  const productImages = await mediaApi.mediaGet({rentableId: id});
   const productUserInfo = await getProductUserInfo(productData[0].userId);
 
   const productDescription = await remark()

@@ -15,10 +15,10 @@ interface Props {
 }
 
 const ShippingAddress: FC<Props> = ({
-  isActive,
-  onCloseActive,
-  onOpenActive,
-}) => {
+                                      isActive,
+                                      onCloseActive,
+                                      onOpenActive,
+                                    }) => {
   const renderShippingAddress = () => {
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-xl ">
@@ -107,11 +107,11 @@ const ShippingAddress: FC<Props> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">
             <div>
               <Label className="text-sm">First name</Label>
-              <Input className="mt-1.5" defaultValue="Cole" />
+              <Input className="mt-1.5" defaultValue="Cole"/>
             </div>
             <div>
               <Label className="text-sm">Last name</Label>
-              <Input className="mt-1.5" defaultValue="Enrico " />
+              <Input className="mt-1.5" defaultValue="Enrico "/>
             </div>
           </div>
 
@@ -128,7 +128,7 @@ const ShippingAddress: FC<Props> = ({
             </div>
             <div className="sm:w-1/3">
               <Label className="text-sm">Apt, Suite *</Label>
-              <Input className="mt-1.5" defaultValue="55U - DD5 " />
+              <Input className="mt-1.5" defaultValue="55U - DD5 "/>
             </div>
           </div>
 
@@ -136,7 +136,7 @@ const ShippingAddress: FC<Props> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">
             <div>
               <Label className="text-sm">City</Label>
-              <Input className="mt-1.5" defaultValue="Norris" />
+              <Input className="mt-1.5" defaultValue="Norris"/>
             </div>
             <div>
               <Label className="text-sm">Country</Label>
@@ -157,11 +157,11 @@ const ShippingAddress: FC<Props> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">
             <div>
               <Label className="text-sm">State/Province</Label>
-              <Input className="mt-1.5" defaultValue="Texas" />
+              <Input className="mt-1.5" defaultValue="Texas"/>
             </div>
             <div>
               <Label className="text-sm">Postal code</Label>
-              <Input className="mt-1.5" defaultValue="2500 " />
+              <Input className="mt-1.5" defaultValue="2500 "/>
             </div>
           </div>
 

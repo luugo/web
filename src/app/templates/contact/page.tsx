@@ -26,7 +26,8 @@ const PageContact = ({}) => {
   return (
     <div className={`nc-PageContact overflow-hidden`}>
       <div className="">
-        <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
+        <h2
+          className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
           Contact
         </h2>
         <div className="container max-w-7xl mx-auto">
@@ -46,7 +47,7 @@ const PageContact = ({}) => {
                 <h3 className="uppercase font-semibold text-sm dark:text-neutral-200 tracking-wider">
                   🌏 SOCIALS
                 </h3>
-                <SocialsList className="mt-2" />
+                <SocialsList className="mt-2"/>
               </div>
             </div>
             <div>
@@ -72,7 +73,7 @@ const PageContact = ({}) => {
                 <label className="block">
                   <Label>Message</Label>
 
-                  <Textarea className="mt-1" rows={6} />
+                  <Textarea className="mt-1" rows={6}/>
                 </label>
                 <div>
                   <ButtonPrimary type="submit">Send Message</ButtonPrimary>
@@ -86,8 +87,8 @@ const PageContact = ({}) => {
       {/* OTHER SECTIONS */}
       <div className="container">
         <div className="relative my-24 lg:my-32 py-24 lg:py-32">
-          <BackgroundSection />
-          <SectionPromo1 />
+          <BackgroundSection/>
+          <SectionPromo1/>
         </div>
       </div>
     </div>

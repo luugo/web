@@ -14,10 +14,10 @@ interface Props {
 }
 
 const PaymentMethod: FC<Props> = ({
-  isActive,
-  onCloseActive,
-  onOpenActive,
-}) => {
+                                    isActive,
+                                    onCloseActive,
+                                    onOpenActive,
+                                  }) => {
   const [mothodActive, setMethodActive] = useState<
     "Credit-Card" | "Internet-banking" | "Wallet"
   >("Credit-Card");
@@ -100,11 +100,11 @@ const PaymentMethod: FC<Props> = ({
           >
             <div className="max-w-lg">
               <Label className="text-sm">Card number</Label>
-              <Input autoComplete="off" className="mt-1.5" type={"text"} />
+              <Input autoComplete="off" className="mt-1.5" type={"text"}/>
             </div>
             <div className="max-w-lg">
               <Label className="text-sm">Name on Card</Label>
-              <Input autoComplete="off" className="mt-1.5" />
+              <Input autoComplete="off" className="mt-1.5"/>
             </div>
             <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
               <div className="sm:w-2/3">

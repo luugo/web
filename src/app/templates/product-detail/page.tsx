@@ -27,7 +27,7 @@ import AccordionInfo from "@/components/AccordionInfo";
 const LIST_IMAGES_DEMO = [detail1JPG, detail2JPG, detail3JPG];
 
 const ProductDetailPage = () => {
-  const { sizes, variants, status, allOfSizes, image } = PRODUCTS[0];
+  const {sizes, variants, status, allOfSizes, image} = PRODUCTS[0];
   //
   const [variantActive, setVariantActive] = useState(0);
   const [sizeSelected, setSizeSelected] = useState(sizes ? sizes[0] : "");
@@ -47,7 +47,7 @@ const ProductDetailPage = () => {
           variantActive={variantActive}
         />
       ),
-      { position: "top-right", id: "nc-product-notify", duration: 3000 }
+      {position: "top-right", id: "nc-product-notify", duration: 3000}
     );
   };
 
@@ -84,10 +84,10 @@ const ProductDetailPage = () => {
                     // @ts-ignore
                     typeof variant.thumbnail?.src === "string"
                       ? // @ts-ignore
-                        variant.thumbnail?.src
+                      variant.thumbnail?.src
                       : typeof variant.thumbnail === "string"
-                      ? variant.thumbnail
-                      : ""
+                        ? variant.thumbnail
+                        : ""
                   })`,
                 }}
               ></div>
@@ -162,7 +162,7 @@ const ProductDetailPage = () => {
     if (status === "New in") {
       return (
         <div className={CLASSES}>
-          <SparklesIcon className="w-3.5 h-3.5" />
+          <SparklesIcon className="w-3.5 h-3.5"/>
           <span className="ml-1 leading-none">{status}</span>
         </div>
       );
@@ -170,7 +170,7 @@ const ProductDetailPage = () => {
     if (status === "50% Discount") {
       return (
         <div className={CLASSES}>
-          <IconDiscount className="w-3.5 h-3.5" />
+          <IconDiscount className="w-3.5 h-3.5"/>
           <span className="ml-1 leading-none">{status}</span>
         </div>
       );
@@ -178,7 +178,7 @@ const ProductDetailPage = () => {
     if (status === "Sold Out") {
       return (
         <div className={CLASSES}>
-          <NoSymbolIcon className="w-3.5 h-3.5" />
+          <NoSymbolIcon className="w-3.5 h-3.5"/>
           <span className="ml-1 leading-none">{status}</span>
         </div>
       );
@@ -186,7 +186,7 @@ const ProductDetailPage = () => {
     if (status === "limited edition") {
       return (
         <div className={CLASSES}>
-          <ClockIcon className="w-3.5 h-3.5" />
+          <ClockIcon className="w-3.5 h-3.5"/>
           <span className="ml-1 leading-none">{status}</span>
         </div>
       );
@@ -217,7 +217,7 @@ const ProductDetailPage = () => {
                 href="#reviews"
                 className="flex items-center text-sm font-medium"
               >
-                <StarIcon className="w-5 h-5 pb-[1px] text-yellow-400" />
+                <StarIcon className="w-5 h-5 pb-[1px] text-yellow-400"/>
                 <div className="ml-1.5 flex">
                   <span>4.9</span>
                   <span className="block mx-2">·</span>
@@ -228,7 +228,7 @@ const ProductDetailPage = () => {
               </a>
               <span className="hidden sm:block mx-2.5">·</span>
               <div className="hidden sm:flex items-center text-sm">
-                <SparklesIcon className="w-3.5 h-3.5" />
+                <SparklesIcon className="w-3.5 h-3.5"/>
                 <span className="ml-1 leading-none">{status}</span>
               </div>
             </div>
@@ -241,7 +241,8 @@ const ProductDetailPage = () => {
 
         {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
         <div className="flex space-x-3.5">
-          <div className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
+          <div
+            className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
             <NcInputNumber
               defaultValue={qualitySelected}
               onChange={setQualitySelected}
@@ -251,7 +252,7 @@ const ProductDetailPage = () => {
             className="flex-1 flex-shrink-0"
             onClick={notifyAddTocart}
           >
-            <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
+            <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
             <span className="ml-3">Add to cart</span>
           </ButtonPrimary>
         </div>
@@ -261,11 +262,11 @@ const ProductDetailPage = () => {
         {/*  */}
 
         {/* ---------- 5 ----------  */}
-        <AccordionInfo />
+        <AccordionInfo/>
 
         {/* ---------- 6 ----------  */}
         <div className="hidden xl:block">
-          <Policy />
+          <Policy/>
         </div>
       </div>
     );
@@ -306,14 +307,14 @@ const ProductDetailPage = () => {
       <div className="">
         {/* HEADING */}
         <h2 className="text-2xl font-semibold flex items-center">
-          <StarIcon className="w-7 h-7 mb-0.5" />
+          <StarIcon className="w-7 h-7 mb-0.5"/>
           <span className="ml-1.5"> 4,87 · 142 Reviews</span>
         </h2>
 
         {/* comment */}
         <div className="mt-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-11 gap-x-28">
-            <ReviewItem />
+            <ReviewItem/>
             <ReviewItem
               data={{
                 comment: `I love the charcoal heavyweight hoodie. Still looks new after plenty of washes. 
@@ -374,7 +375,7 @@ const ProductDetailPage = () => {
               </div>
               {renderStatus()}
               {/* META FAVORITES */}
-              <LikeButton className="absolute right-3 top-3 " />
+              <LikeButton className="absolute right-3 top-3 "/>
             </div>
             <div className="grid grid-cols-2 gap-3 mt-3 sm:gap-6 sm:mt-6 xl:gap-8 xl:mt-8">
               {[LIST_IMAGES_DEMO[1], LIST_IMAGES_DEMO[2]].map((item, index) => {
@@ -405,16 +406,16 @@ const ProductDetailPage = () => {
         {/* DETAIL AND REVIEW */}
         <div className="mt-12 sm:mt-16 space-y-10 sm:space-y-16">
           <div className="block xl:hidden">
-            <Policy />
+            <Policy/>
           </div>
 
           {renderDetailSection()}
 
-          <hr className="border-slate-200 dark:border-slate-700" />
+          <hr className="border-slate-200 dark:border-slate-700"/>
 
           {renderReviews()}
 
-          <hr className="border-slate-200 dark:border-slate-700" />
+          <hr className="border-slate-200 dark:border-slate-700"/>
 
           {/* OTHER SECTION */}
           <SectionSliderProductCard
@@ -426,7 +427,7 @@ const ProductDetailPage = () => {
 
           {/* SECTION */}
           <div className="pb-20 xl:pb-28 lg:pt-14">
-            <SectionPromo2 />
+            <SectionPromo2/>
           </div>
         </div>
       </main>

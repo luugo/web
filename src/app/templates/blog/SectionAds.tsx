@@ -6,10 +6,10 @@ export interface SectionAdsProps {
   className?: string;
 }
 
-const SectionAds: FC<SectionAdsProps> = ({ className = "" }) => {
+const SectionAds: FC<SectionAdsProps> = ({className = ""}) => {
   return (
     <a href="/#" className={`nc-SectionAds block w-full ${className}`}>
-      <Image alt="ads" className="w-full" src={imgAds} />
+      <Image alt="ads" className="w-full" src={imgAds}/>
     </a>
   );
 };

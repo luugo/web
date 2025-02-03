@@ -9,10 +9,10 @@ export interface WidgetHeading1Props {
 }
 
 const WidgetHeading1: FC<WidgetHeading1Props> = ({
-  className = "",
-  title,
-  viewAll,
-}) => {
+                                                   className = "",
+                                                   title,
+                                                   viewAll,
+                                                 }) => {
   return (
     <div
       className={`nc-WidgetHeading1 flex items-center justify-between p-4 xl:p-5 border-b border-neutral-200 dark:border-neutral-700 ${className}`}

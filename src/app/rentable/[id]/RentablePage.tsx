@@ -80,7 +80,7 @@ const ProductDetail = (dataProduct: dataProduct) => {
         <h2 className="text-2xl font-semibold">Localização</h2>
         <LoadScript googleMapsApiKey="AIzaSyAMYZyR35_t_qG75PyL9JKDGHx_D05wAgc">
           <GoogleMap
-            mapContainerStyle={{ width: "100%", height: "600px" }}
+            mapContainerStyle={{width: "100%", height: "600px"}}
             center={{
               lat: dataProduct.geolocation.y,
               lng: dataProduct.geolocation.x,
@@ -110,7 +110,7 @@ const ProductDetail = (dataProduct: dataProduct) => {
         <main className="container mt-5 lg:mt-11">
           <div className="grid gap-8 grid-cols-12">
             <div className="lg:col-span-8 md:col-span-8 col-span-12">
-              <ImageGallery images={dataProduct.images} />
+              <ImageGallery images={dataProduct.images}/>
             </div>
             <div className="lg:col-span-4 md:col-span-4 col-span-12">
               {renderSectionContent()}
@@ -121,7 +121,7 @@ const ProductDetail = (dataProduct: dataProduct) => {
           </div>
 
           <div className="mt-12 sm:mt-16 space-y-10 sm:space-y-16">
-            <hr className="border-slate-200 dark:border-slate-700" />
+            <hr className="border-slate-200 dark:border-slate-700"/>
             {handleRenderMap()}
           </div>
         </main>

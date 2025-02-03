@@ -86,9 +86,9 @@ const PageLogin = () => {
 
       if (userId) {
         try {
-          const contacts = await userContactApi.userContactGet({ userId });
+          const contacts = await userContactApi.userContactGet({userId});
 
-          localStorage.setItem('luugo', JSON.stringify({ ...result, contacts }));
+          localStorage.setItem('luugo', JSON.stringify({...result, contacts}));
         } catch (error) {
           console.error('Erro ao buscar contatos:', error);
         }
@@ -96,7 +96,7 @@ const PageLogin = () => {
       router.push('/');
     } else if (result.authenticationId) {
 
-      localStorage.setItem('luugo', JSON.stringify({ user: { authenticationId: result.authenticationId } }));
+      localStorage.setItem('luugo', JSON.stringify({user: {authenticationId: result.authenticationId}}));
       router.push('/complete-signup');
     }
   };
@@ -117,11 +117,12 @@ const PageLogin = () => {
   const handleError = () => {
     console.log('Login Failed');
   };
-  
+
   return (
     <div className={`nc-PageLogin`} data-nc-id="PageLogin">
       <div className="container mb-24 lg:mb-32">
-        <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
+        <h2
+          className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
           Conecte-se
         </h2>
         <div className="max-w-md mx-auto space-y-6">
@@ -138,7 +139,8 @@ const PageLogin = () => {
                   alt={item?.name}
                   sizes="40px"
                 />
-                <h3 className="flex-grow text-center text-sm font-medium text-neutral-700 dark:text-neutral-300 sm:text-sm">
+                <h3
+                  className="flex-grow text-center text-sm font-medium text-neutral-700 dark:text-neutral-300 sm:text-sm">
                   {item?.name}
                 </h3>
               </a>
@@ -148,7 +150,7 @@ const PageLogin = () => {
           {renderOR()}
           {/* FORM */}
           <form className="grid grid-cols-1 gap-6"
-           onSubmit={(e) => handleSubmit(e)}>
+                onSubmit={(e) => handleSubmit(e)}>
             <label className="block">
               <span className="text-neutral-800 dark:text-neutral-200">
                 E-mail
@@ -169,10 +171,11 @@ const PageLogin = () => {
                 </Link>
               </span>
               <Input type="password" className="mt-1"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)} />
+                     value={password}
+                     onChange={(e) => setPassword(e.target.value)}/>
             </label>
-            {loginError && <Label className="block text-red-500 text-sm font-bold mb-2">{loginError}</Label>}
+            {loginError &&
+                <Label className="block text-red-500 text-sm font-bold mb-2">{loginError}</Label>}
             <ButtonPrimary type="submit">Continuar</ButtonPrimary>
           </form>
 

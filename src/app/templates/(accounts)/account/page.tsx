@@ -26,7 +26,8 @@ const AccountPage = () => {
                 height={128}
                 className="w-32 h-32 rounded-full object-cover z-0"
               />
-              <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-neutral-50 cursor-pointer">
+              <div
+                className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-neutral-50 cursor-pointer">
                 <svg
                   width="30"
                   height="30"
@@ -54,7 +55,7 @@ const AccountPage = () => {
           <div className="flex-grow mt-10 md:mt-0 md:pl-16 max-w-3xl space-y-6">
             <div>
               <Label>Full name</Label>
-              <Input className="mt-1.5" defaultValue="Enrico Cole" />
+              <Input className="mt-1.5" defaultValue="Enrico Cole"/>
             </div>
 
             {/* ---- */}
@@ -63,7 +64,8 @@ const AccountPage = () => {
             <div>
               <Label>Email</Label>
               <div className="mt-1.5 flex">
-                <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+                <span
+                  className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-envelope"></i>
                 </span>
                 <Input
@@ -77,7 +79,8 @@ const AccountPage = () => {
             <div className="max-w-lg">
               <Label>Date of birth</Label>
               <div className="mt-1.5 flex">
-                <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+                <span
+                  className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-calendar"></i>
                 </span>
                 <Input
@@ -91,7 +94,8 @@ const AccountPage = () => {
             <div>
               <Label>Addess</Label>
               <div className="mt-1.5 flex">
-                <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+                <span
+                  className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-map-signs"></i>
                 </span>
                 <Input
@@ -115,16 +119,17 @@ const AccountPage = () => {
             <div>
               <Label>Phone number</Label>
               <div className="mt-1.5 flex">
-                <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+                <span
+                  className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-phone-volume"></i>
                 </span>
-                <Input className="!rounded-l-none" defaultValue="003 888 232" />
+                <Input className="!rounded-l-none" defaultValue="003 888 232"/>
               </div>
             </div>
             {/* ---- */}
             <div>
               <Label>About you</Label>
-              <Textarea className="mt-1.5" defaultValue="..." />
+              <Textarea className="mt-1.5" defaultValue="..."/>
             </div>
             <div className="pt-2">
               <ButtonPrimary>Update account</ButtonPrimary>

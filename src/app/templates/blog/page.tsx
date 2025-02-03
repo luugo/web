@@ -11,22 +11,22 @@ const BlogPage: React.FC = () => {
   return (
     <div className="nc-BlogPage overflow-hidden relative">
       {/* ======== BG GLASS ======== */}
-      <BgGlassmorphism />
+      <BgGlassmorphism/>
       {/* ======== ALL SECTIONS ======== */}
       <div className="container relative">
         {/* === SECTION 1 === */}
         <div className="pt-12 pb-16 lg:pb-28">
-          <SectionMagazine5 />
+          <SectionMagazine5/>
         </div>
 
         {/* === SECTION 1 === */}
-        <SectionAds />
+        <SectionAds/>
 
         {/* === SECTION 8 === */}
-        <SectionLatestPosts className="py-16 lg:py-28" />
+        <SectionLatestPosts className="py-16 lg:py-28"/>
 
         {/* === SECTION 1 === */}
-        <SectionPromo3 className="pb-16 lg:pb-28" />
+        <SectionPromo3 className="pb-16 lg:pb-28"/>
       </div>
     </div>
   );

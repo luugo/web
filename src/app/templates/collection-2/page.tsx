@@ -21,18 +21,18 @@ const PageCollection2 = ({}) => {
             </span>
           </div>
 
-          <hr className="border-slate-200 dark:border-slate-700" />
+          <hr className="border-slate-200 dark:border-slate-700"/>
           <main>
             {/* LOOP ITEMS */}
             <div className="flex flex-col lg:flex-row">
               <div className="lg:w-1/3 xl:w-1/4 pr-4">
-                <SidebarFilters />
+                <SidebarFilters/>
               </div>
               <div className="flex-shrink-0 mb-10 lg:mb-0 lg:mx-4 border-t lg:border-t-0"></div>
               <div className="flex-1 ">
                 <div className="flex-1 grid sm:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-10 ">
                   {PRODUCTS.map((item, index) => (
-                    <ProductCard data={item} key={index} />
+                    <ProductCard data={item} key={index}/>
                   ))}
                 </div>
               </div>
@@ -41,13 +41,13 @@ const PageCollection2 = ({}) => {
         </div>
 
         {/* === SECTION 5 === */}
-        <hr className="border-slate-200 dark:border-slate-700" />
+        <hr className="border-slate-200 dark:border-slate-700"/>
 
-        <SectionSliderCollections />
-        <hr className="border-slate-200 dark:border-slate-700" />
+        <SectionSliderCollections/>
+        <hr className="border-slate-200 dark:border-slate-700"/>
 
         {/* SUBCRIBES */}
-        <SectionPromo1 />
+        <SectionPromo1/>
       </div>
     </div>
   );

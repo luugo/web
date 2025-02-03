@@ -7,7 +7,7 @@ export interface Card3SmallProps {
   className?: string;
 }
 
-const Card3Small: FC<Card3SmallProps> = ({ className = "h-full" }) => {
+const Card3Small: FC<Card3SmallProps> = ({className = "h-full"}) => {
   return (
     <div
       className={`nc-Card3Small relative flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center ${className}`}
@@ -19,7 +19,7 @@ const Card3Small: FC<Card3SmallProps> = ({ className = "h-full" }) => {
         title={"title"}
       ></a>
       <div className="relative space-y-2">
-        <PostCardMeta />
+        <PostCardMeta/>
         <h2 className="nc-card-title block text-base font-semibold text-neutral-900 dark:text-neutral-100">
           <a
             href={"/blog-single"}

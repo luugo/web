@@ -7,8 +7,8 @@ export interface WidgetPostsProps {
 }
 
 const WidgetPosts: FC<WidgetPostsProps> = ({
-  className = "bg-neutral-100 dark:bg-neutral-800",
-}) => {
+                                             className = "bg-neutral-100 dark:bg-neutral-800",
+                                           }) => {
   return (
     <div
       className={`nc-WidgetPosts rounded-3xl overflow-hidden ${className}`}
@@ -16,7 +16,7 @@ const WidgetPosts: FC<WidgetPostsProps> = ({
     >
       <WidgetHeading1
         title="🎯 Popular Posts"
-        viewAll={{ label: "View all", href: "/#" }}
+        viewAll={{label: "View all", href: "/#"}}
       />
       <div className="flex flex-col divide-y divide-neutral-200 dark:divide-neutral-700">
         {[1, 1, 1, 1, 1, 1].map((_, index) => (

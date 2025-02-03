@@ -49,7 +49,7 @@ const AccountPage = () => {
   }
 
   const handleUserContacts = async (userId: string, token: string) => {
-    const response = await userContactApi.userContactGet({ userId: userId }, {
+    const response = await userContactApi.userContactGet({userId: userId}, {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -68,7 +68,7 @@ const AccountPage = () => {
 
           if (id) return;
 
-          const userResp: User[] = await userApi.userGet({ id: luugo.user?.id }, {
+          const userResp: User[] = await userApi.userGet({id: luugo.user?.id}, {
             headers: {
               "Authorization": `Bearer ${luugo?.token}`,
               "Content-Type": "application/json",
@@ -111,7 +111,7 @@ const AccountPage = () => {
     };
 
     fetchData();
-  },  [id, router]);
+  }, [id, router]);
 
   const showAlert = (msg: string, type: keyof AlertOptions = 'success') => {
     setAlert(msg);
@@ -182,7 +182,7 @@ const AccountPage = () => {
         localStorage.setItem('luugo', JSON.stringify(luugo));
       }
 
-      const userPutResponse = await userApi.userPut({ user }, {
+      const userPutResponse = await userApi.userPut({user}, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -248,7 +248,7 @@ const AccountPage = () => {
     if (storageData !== null) {
       let luugo = JSON.parse(storageData);
       try {
-        await userApi.userDelete({ id: luugo.user?.id }, {
+        await userApi.userDelete({id: luugo.user?.id}, {
           headers: {
             "Authorization": `Bearer ${luugo?.token}`,
             "Content-Type": "application/json",
@@ -286,7 +286,7 @@ const AccountPage = () => {
         }
       });
 
-      const mediaDetails = await mediaApi.mediaGet({ id: uploadedMediaId }, {
+      const mediaDetails = await mediaApi.mediaGet({id: uploadedMediaId}, {
         headers: {
           "Authorization": `Bearer ${token}`,
         }
@@ -303,7 +303,7 @@ const AccountPage = () => {
           thumbnail: mediaDetails[0].url,
         }
 
-      const userPutResponse = await userApi.userPut({ user }, {
+      const userPutResponse = await userApi.userPut({user}, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -337,7 +337,8 @@ const AccountPage = () => {
           <h2 className="text-2xl sm:text-3xl font-semibold">Informações de Usuário</h2>
           <div className="flex flex-col md:flex-row items-start md:space-x-6">
             {/* Avatar no topo, com o nome e outras informações abaixo */}
-            <div className="flex-shrink-0 flex items-center justify-center w-full md:w-32 h-32 mb-6 md:mb-0">
+            <div
+              className="flex-shrink-0 flex items-center justify-center w-full md:w-32 h-32 mb-6 md:mb-0">
               {/* AVATAR */}
               <div className="relative rounded-full overflow-hidden flex">
                 <img
@@ -347,7 +348,8 @@ const AccountPage = () => {
                   className="w-32 h-32 rounded-full object-cover z-0"
                   alt={""}/>
                 {/* Botão de editar */}
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white cursor-pointer group">
+                <div
+                  className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white cursor-pointer group">
                   <i className="text-2xl las la-camera"></i>
                   <input
                     type="file"
@@ -363,19 +365,20 @@ const AccountPage = () => {
             <div className="flex-grow mt-10 md:mt-0 md:pl-16 max-w-3xl space-y-6">
               <div>
                 <Label>Nome</Label>
-                <Input className="mt-1.5" defaultValue={firstName} onChange={changeFisrtName} />
+                <Input className="mt-1.5" defaultValue={firstName} onChange={changeFisrtName}/>
               </div>
               <div>
                 <Label>Sobrenome</Label>
-                <Input className="mt-1.5" defaultValue={lastName} onChange={changeLastName} />
+                <Input className="mt-1.5" defaultValue={lastName} onChange={changeLastName}/>
               </div>
               <div>
                 <Label>Endereço</Label>
                 <div className="mt-1.5 flex">
-                <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
+                <span
+                  className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-map-signs"></i>
                 </span>
-                  <Input className="!rounded-l-none" defaultValue={place} onChange={changePlace} />
+                  <Input className="!rounded-l-none" defaultValue={place} onChange={changePlace}/>
                 </div>
               </div>
               {/*<div>*/}

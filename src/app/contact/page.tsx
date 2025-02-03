@@ -20,7 +20,8 @@ const PageContact = ({}) => {
   return (
     <div className={`nc-PageContact overflow-hidden`}>
       <div className="">
-        <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
+        <h2
+          className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
           Contato
         </h2>
         <div className="container max-w-7xl mx-auto my-10">
@@ -40,7 +41,7 @@ const PageContact = ({}) => {
                 <h3 className="uppercase font-semibold text-sm dark:text-neutral-200 tracking-wider">
                   🌏 SOCIALS
                 </h3>
-                <SocialsList className="mt-2" />
+                <SocialsList className="mt-2"/>
               </div>
             </div>
           </div>

@@ -18,11 +18,11 @@ const PageRegister = () => {
   const [lastName, setLastName] = useState('');
   const [place, setPlace] = useState('');
   const [options, setOptions] = useState<Place[]>([]);
-  
+
   useEffect(() => {
-    if(storageData) {
+    if (storageData) {
       const jsonData = JSON.parse(storageData);
-      if(!jsonData.authenticationId && jsonData.token) return router.push("/home");
+      if (!jsonData.authenticationId && jsonData.token) return router.push("/home");
       else setHasPermission(true);
     } else {
       return router.push("/home")
@@ -30,7 +30,7 @@ const PageRegister = () => {
 
     const fetchOptions = async () => {
       try {
-        const isActive: any = { isActive: true}
+        const isActive: any = {isActive: true}
         const placeApi = new PlaceApi();
         const result = await placeApi.placeGet(isActive);
         setOptions(result);
@@ -45,7 +45,7 @@ const PageRegister = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if(storageData) {
+    if (storageData) {
       try {
         const jsonData = JSON.parse(storageData);
         const authenticationId = jsonData.user.authenticationId;
@@ -61,7 +61,7 @@ const PageRegister = () => {
 
         const result = await userApi.userPost({user: user})
 
-        if(result.token) {
+        if (result.token) {
           localStorage.setItem('luugo', JSON.stringify(result));
           router.push("/");
         }
@@ -76,13 +76,14 @@ const PageRegister = () => {
       {hasPermission && (
         <div className={`nc-PageRegister`} data-nc-id="PageRegister">
           <div className="container mb-24 lg:mb-32">
-            <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
+            <h2
+              className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
               Cadastro
             </h2>
             <div className="max-w-md mx-auto space-y-6">
               {/* FORM */}
               <form className="grid grid-cols-1 gap-6"
-              onSubmit={(e) => handleSubmit(e)}>
+                    onSubmit={(e) => handleSubmit(e)}>
                 <label className="block">
                   <span className="text-neutral-800 dark:text-neutral-200">
                     Nome
@@ -110,11 +111,12 @@ const PageRegister = () => {
                     Localização
                   </span>
                   <Select className="mt-1.5"
-                  value={place}
-                  onChange={(e) => setPlace(e.target.value)} >
+                          value={place}
+                          onChange={(e) => setPlace(e.target.value)}>
                     <option value="">Selecione...</option>
                     {options.map((option) => (
-                      <option key={`${option.city}-${option.state}`} value={`${option.city}/${option.state}`}>
+                      <option key={`${option.city}-${option.state}`}
+                              value={`${option.city}/${option.state}`}>
                         {`${option.city}, ${option.state}`}
                       </option>
                     ))}

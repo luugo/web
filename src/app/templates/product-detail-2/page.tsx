@@ -42,7 +42,7 @@ const LIST_IMAGES_GALLERY_DEMO: (string | StaticImageData)[] = [
 const PRICE = 108;
 
 const ProductDetailPage2 = ({}) => {
-  const { sizes, variants, status, allOfSizes, image } = PRODUCTS[0];
+  const {sizes, variants, status, allOfSizes, image} = PRODUCTS[0];
   //
   const router = useRouter();
   const thisPathname = usePathname();
@@ -99,10 +99,10 @@ const ProductDetailPage2 = ({}) => {
                     // @ts-ignore
                     typeof variant.thumbnail?.src === "string"
                       ? // @ts-ignore
-                        variant.thumbnail?.src
+                      variant.thumbnail?.src
                       : typeof variant.thumbnail === "string"
-                      ? variant.thumbnail
-                      : ""
+                        ? variant.thumbnail
+                        : ""
                   })`,
                 }}
               ></div>
@@ -124,7 +124,7 @@ const ProductDetailPage2 = ({}) => {
           variantActive={variantActive}
         />
       ),
-      { position: "top-right", id: "nc-product-notify", duration: 3000 }
+      {position: "top-right", id: "nc-product-notify", duration: 3000}
     );
   };
 
@@ -192,7 +192,7 @@ const ProductDetailPage2 = ({}) => {
     if (status === "New in") {
       return (
         <div className={CLASSES}>
-          <SparklesIcon className="w-3.5 h-3.5" />
+          <SparklesIcon className="w-3.5 h-3.5"/>
           <span className="ml-1 leading-none">{status}</span>
         </div>
       );
@@ -200,7 +200,7 @@ const ProductDetailPage2 = ({}) => {
     if (status === "50% Discount") {
       return (
         <div className={CLASSES}>
-          <IconDiscount className="w-3.5 h-3.5" />
+          <IconDiscount className="w-3.5 h-3.5"/>
           <span className="ml-1 leading-none">{status}</span>
         </div>
       );
@@ -208,7 +208,7 @@ const ProductDetailPage2 = ({}) => {
     if (status === "Sold Out") {
       return (
         <div className={CLASSES}>
-          <NoSymbolIcon className="w-3.5 h-3.5" />
+          <NoSymbolIcon className="w-3.5 h-3.5"/>
           <span className="ml-1 leading-none">{status}</span>
         </div>
       );
@@ -216,7 +216,7 @@ const ProductDetailPage2 = ({}) => {
     if (status === "limited edition") {
       return (
         <div className={CLASSES}>
-          <ClockIcon className="w-3.5 h-3.5" />
+          <ClockIcon className="w-3.5 h-3.5"/>
           <span className="ml-1 leading-none">{status}</span>
         </div>
       );
@@ -241,7 +241,7 @@ const ProductDetailPage2 = ({}) => {
                 className="flex items-center text-sm font-medium"
               >
                 <div className="">
-                  <StarIcon className="w-5 h-5 pb-[1px] text-orange-400" />
+                  <StarIcon className="w-5 h-5 pb-[1px] text-orange-400"/>
                 </div>
                 <span className="ml-1.5 flex">
                   <span>4.9 </span>
@@ -261,7 +261,8 @@ const ProductDetailPage2 = ({}) => {
           </div>
           {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
           <div className="flex space-x-3.5">
-            <div className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
+            <div
+              className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
               <NcInputNumber
                 defaultValue={qualitySelected}
                 onChange={setQualitySelected}
@@ -271,7 +272,7 @@ const ProductDetailPage2 = ({}) => {
               className="flex-1 flex-shrink-0"
               onClick={notifyAddTocart}
             >
-              <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
+              <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
               <span className="ml-3">Add to cart</span>
             </ButtonPrimary>
           </div>
@@ -317,7 +318,7 @@ const ProductDetailPage2 = ({}) => {
               className="hidden sm:flex items-center text-sm font-medium "
             >
               <div className="">
-                <StarIcon className="w-5 h-5 pb-[1px] text-slate-800 dark:text-slate-200" />
+                <StarIcon className="w-5 h-5 pb-[1px] text-slate-800 dark:text-slate-200"/>
               </div>
               <span className="ml-1.5">
                 <span>4.9</span>
@@ -331,7 +332,7 @@ const ProductDetailPage2 = ({}) => {
             {renderStatus()}
 
             <div className="ml-auto">
-              <LikeSaveBtns />
+              <LikeSaveBtns/>
             </div>
           </div>
         </div>
@@ -341,7 +342,7 @@ const ProductDetailPage2 = ({}) => {
         {/*  */}
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         {/*  */}
-        <AccordionInfo panelClassName="p-4 pt-3.5 text-slate-600 text-base dark:text-slate-300 leading-7" />
+        <AccordionInfo panelClassName="p-4 pt-3.5 text-slate-600 text-base dark:text-slate-300 leading-7"/>
       </div>
     );
   };
@@ -374,7 +375,7 @@ const ProductDetailPage2 = ({}) => {
           </ul>
         </div>
         {/* ---------- 6 ----------  */}
-        <Policy />
+        <Policy/>
       </div>
     );
   };
@@ -384,14 +385,14 @@ const ProductDetailPage2 = ({}) => {
       <div id="reviews" className="scroll-mt-[150px]">
         {/* HEADING */}
         <h2 className="text-2xl font-semibold flex items-center">
-          <StarIcon className="w-7 h-7 mb-0.5" />
+          <StarIcon className="w-7 h-7 mb-0.5"/>
           <span className="ml-1.5"> 4,87 · 142 Reviews</span>
         </h2>
 
         {/* comment */}
         <div className="mt-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-11 gap-x-28">
-            <ReviewItem />
+            <ReviewItem/>
             <ReviewItem
               data={{
                 comment: `I love the charcoal heavyweight hoodie. Still looks new after plenty of washes. 
@@ -451,7 +452,8 @@ const ProductDetailPage2 = ({}) => {
                   sizes="(max-width: 640px) 100vw, 50vw"
                   priority
                 />
-                <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity rounded-md sm:rounded-xl"></div>
+                <div
+                  className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity rounded-md sm:rounded-xl"></div>
               </div>
 
               {/*  */}
@@ -467,7 +469,8 @@ const ProductDetailPage2 = ({}) => {
                   className="object-cover w-full h-full rounded-md sm:rounded-xl"
                   src={LIST_IMAGES_GALLERY_DEMO[1]}
                 />
-                <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity"></div>
+                <div
+                  className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity"></div>
               </div>
 
               {/*  */}
@@ -541,11 +544,11 @@ const ProductDetailPage2 = ({}) => {
 
       {/* OTHER SECTION */}
       <div className="container pb-24 lg:pb-28 pt-14 space-y-14">
-        <hr className="border-slate-200 dark:border-slate-700" />
+        <hr className="border-slate-200 dark:border-slate-700"/>
 
         {renderReviews()}
 
-        <hr className="border-slate-200 dark:border-slate-700" />
+        <hr className="border-slate-200 dark:border-slate-700"/>
 
         <SectionSliderProductCard
           heading="Customers also purchased"

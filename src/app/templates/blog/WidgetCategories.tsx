@@ -7,8 +7,8 @@ export interface WidgetCategoriesProps {
 }
 
 const WidgetCategories: FC<WidgetCategoriesProps> = ({
-  className = "bg-neutral-100 dark:bg-neutral-800",
-}) => {
+                                                       className = "bg-neutral-100 dark:bg-neutral-800",
+                                                     }) => {
   return (
     <div
       className={`nc-WidgetCategories rounded-3xl overflow-hidden ${className}`}
@@ -16,7 +16,7 @@ const WidgetCategories: FC<WidgetCategoriesProps> = ({
     >
       <WidgetHeading1
         title="✨ Trending topic"
-        viewAll={{ label: "View all", href: "/#" }}
+        viewAll={{label: "View all", href: "/#"}}
       />
       <div className="flow-root">
         <div className="flex flex-col divide-y divide-neutral-200 dark:divide-neutral-700">

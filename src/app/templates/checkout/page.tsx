@@ -21,12 +21,12 @@ const CheckoutPage = () => {
   const handleScrollToEl = (id: string) => {
     const element = document.getElementById(id);
     setTimeout(() => {
-      element?.scrollIntoView({ behavior: "smooth" });
+      element?.scrollIntoView({behavior: "smooth"});
     }, 80);
   };
 
   const renderProduct = (item: Product, index: number) => {
-    const { image, price, name } = item;
+    const {image, price, name} = item;
 
     return (
       <div key={index} className="relative flex py-7 first:pt-0 last:pb-0">
@@ -153,14 +153,14 @@ const CheckoutPage = () => {
               </div>
 
               <div className="hidden flex-1 sm:flex justify-end">
-                <Prices price={price} className="mt-0.5" />
+                <Prices price={price} className="mt-0.5"/>
               </div>
             </div>
           </div>
 
           <div className="flex mt-auto pt-4 items-end justify-between text-sm">
             <div className="hidden sm:block text-center relative">
-              <NcInputNumber className="relative z-10" />
+              <NcInputNumber className="relative z-10"/>
             </div>
 
             <a
@@ -227,7 +227,8 @@ const CheckoutPage = () => {
           <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold ">
             Checkout
           </h2>
-          <div className="block mt-3 sm:mt-5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-400">
+          <div
+            className="block mt-3 sm:mt-5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-400">
             <Link href={"/"} className="">
               Homepage
             </Link>
@@ -243,7 +244,8 @@ const CheckoutPage = () => {
         <div className="flex flex-col lg:flex-row">
           <div className="flex-1">{renderLeft()}</div>
 
-          <div className="flex-shrink-0 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-700 my-10 lg:my-0 lg:mx-10 xl:lg:mx-14 2xl:mx-16 "></div>
+          <div
+            className="flex-shrink-0 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-700 my-10 lg:my-0 lg:mx-10 xl:lg:mx-14 2xl:mx-16 "></div>
 
           <div className="w-full lg:w-[36%] ">
             <h3 className="text-lg font-semibold">Order summary</h3>
@@ -251,12 +253,14 @@ const CheckoutPage = () => {
               {[PRODUCTS[0], PRODUCTS[2], PRODUCTS[3]].map(renderProduct)}
             </div>
 
-            <div className="mt-10 pt-6 text-sm text-slate-500 dark:text-slate-400 border-t border-slate-200/70 dark:border-slate-700 ">
+            <div
+              className="mt-10 pt-6 text-sm text-slate-500 dark:text-slate-400 border-t border-slate-200/70 dark:border-slate-700 ">
               <div>
                 <Label className="text-sm">Discount code</Label>
                 <div className="flex mt-1.5">
-                  <Input sizeClass="h-10 px-4 py-3" className="flex-1" />
-                  <button className="text-neutral-700 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 rounded-2xl px-4 ml-3 font-medium text-sm bg-neutral-200/70 dark:bg-neutral-700 dark:hover:bg-neutral-800 w-24 flex justify-center items-center transition-colors">
+                  <Input sizeClass="h-10 px-4 py-3" className="flex-1"/>
+                  <button
+                    className="text-neutral-700 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 rounded-2xl px-4 ml-3 font-medium text-sm bg-neutral-200/70 dark:bg-neutral-700 dark:hover:bg-neutral-800 w-24 flex justify-center items-center transition-colors">
                     Apply
                   </button>
                 </div>
@@ -280,13 +284,15 @@ const CheckoutPage = () => {
                   $24.90
                 </span>
               </div>
-              <div className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
+              <div
+                className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                 <span>Order total</span>
                 <span>$276.00</span>
               </div>
             </div>
             <ButtonPrimary className="mt-8 w-full">Confirm order</ButtonPrimary>
-            <div className="mt-5 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-center">
+            <div
+              className="mt-5 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-center">
               <p className="block relative pl-5">
                 <svg
                   className="w-4 h-4 absolute -left-1 top-0.5"

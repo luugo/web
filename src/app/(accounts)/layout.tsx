@@ -27,10 +27,10 @@ const pages: {
   },
 ];
 
-const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
+const CommonLayout: FC<CommonLayoutProps> = ({children}) => {
   const pathname = usePathname();
   const router = useRouter();
-  const { firstName, lastName, place } = useUserContext();
+  const {firstName, lastName, place} = useUserContext();
   const [_place, setPlace] = useState<string>('');
   const [_firstName, setFirstName] = useState<string>('');
   const [_lastName, setLastName] = useState<string>('');
@@ -40,11 +40,11 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
     if (typeof window !== 'undefined') {
       storageData = localStorage.getItem('luugo');
     }
-    if(storageData) {
-      const luugo =  JSON.parse(storageData);
-      if(luugo.token) {
+    if (storageData) {
+      const luugo = JSON.parse(storageData);
+      if (luugo.token) {
         const user = luugo.user;
-        if(user) {
+        if (user) {
           setFirstName(user.firstName);
           setLastName(user.lastName);
           setPlace(user.place);
