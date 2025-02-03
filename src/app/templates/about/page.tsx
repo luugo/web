@@ -1,5 +1,5 @@
 import rightImg from "@/images/hero-right1.png";
-import React, { FC } from "react";
+import React from "react";
 import SectionFounder from "./SectionFounder";
 import SectionStatistic from "./SectionStatistic";
 import BgGlassmorphism from "@/components/BgGlassmorphism/BgGlassmorphism";

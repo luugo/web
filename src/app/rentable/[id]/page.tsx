@@ -1,15 +1,8 @@
 import ProductDetail from "./RentablePage";
-import { remark } from "remark";
+import {remark} from "remark";
 import remarkHtml from "remark-html";
 import html from "remark-html";
-import {
-  MediaApi,
-  RentableApi,
-  RentableGeolocation,
-  UserContact,
-  UserContactApi,
-  UserContactGetRequest,
-} from "@api";
+import {MediaApi, RentableApi, RentableGeolocation, UserContact, UserContactApi, UserContactGetRequest,} from "@api";
 
 interface productParams {
   params: {

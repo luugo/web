@@ -1,11 +1,9 @@
 'use client'
-import { Route } from "@/routers/types";
+import {Route} from "@/routers/types";
 import Link from "next/link";
-import React, { useContext, useEffect, useState } from "react";
-import { FC } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { Providers } from "@/providers";
-import { useUserContext } from "@/context";
+import React, {FC, useEffect, useState} from "react";
+import {usePathname, useRouter} from "next/navigation";
+import {useUserContext} from "@/context";
 
 export interface CommonLayoutProps {
   children?: React.ReactNode;

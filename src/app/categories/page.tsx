@@ -1,10 +1,10 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import Input from "@/shared/Input/Input";
-import { CategoryApi } from '../../../luugoapi';
+import {CategoryApi} from '../../../luugoapi';
 import DoesNotExist from '@/components/DoesNotExist/DoesNotExist';
-import { CATEGORY } from '@/data/categories';
+import {CATEGORY} from '@/data/categories';
 
 const Categories: React.FC = () => {
     const [categoriesItems, setCategoriesItems] = useState<any[]>([]);

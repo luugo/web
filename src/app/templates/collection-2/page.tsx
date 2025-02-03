@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React from "react";
 import SectionSliderCollections from "@/components/SectionSliderLargeProduct";
 import SectionPromo1 from "@/components/SectionPromo1";
 import ProductCard from "@/components/ProductCard";
-import { PRODUCTS } from "@/data/data";
+import {PRODUCTS} from "@/data/data";
 import SidebarFilters from "@/components/SidebarFilters";
 
 const PageCollection2 = ({}) => {

@@ -1,14 +1,11 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, {FC, useState} from "react";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import {
-    AuthenticationApi,
-    AuthenticationEmailPutRequest,
-} from "@api";
+import {useRouter} from "next/navigation";
+import {AuthenticationApi, AuthenticationEmailPutRequest,} from "@api";
 
 const SignUpVerifyInputPage: FC = () => {
     const [code, setCode] = useState("");

@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import React from "react";
 import Pagination from "@/shared/Pagination/Pagination";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import SectionSliderCollections from "@/components/SectionSliderLargeProduct";
 import SectionPromo1 from "@/components/SectionPromo1";
 import ProductCard from "@/components/ProductCard";
-import { PRODUCTS } from "@/data/data";
+import {PRODUCTS} from "@/data/data";
 import TabFilters from "@/components/TabFilters";
 
 const PageCollection = ({}) => {

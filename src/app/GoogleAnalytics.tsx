@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+import {useEffect} from "react";
+import {usePathname} from "next/navigation";
 
 const GA_TRACKING_ID = "G-23XR5GPX7N";
 

@@ -3,10 +3,8 @@ import Label from "@/components/Label/Label";
 import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
-import avatarLuugo from "@/images/hero-2-right-1.png"
-import Image from "next/image";
 import {AlertOptions} from "@/interfaces";
-import {AuthenticationPostDefaultResponse, User, UserApi, UserContactApi, UserTypeEnum, MediaApi} from "@api";
+import {AuthenticationPostDefaultResponse, MediaApi, User, UserApi, UserContactApi, UserTypeEnum} from "@api";
 import {useUserContext} from "@/context";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import {Alert} from "@/shared/Alert/Alert";

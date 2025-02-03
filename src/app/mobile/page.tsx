@@ -1,7 +1,5 @@
 "use client";
 import React, {useEffect} from "react";
-import SectionHero3 from "@/components/SectionHero/SectionHero3";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
 export default function MobileRedirect() {
     useEffect(() => {

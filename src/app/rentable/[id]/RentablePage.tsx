@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Prices from "@/components/Prices";
 import ModalViewAllReviews from "./ModalViewAllReviews";
 import RentableInfo from "@/components/RentableInfo";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import {GoogleMap, LoadScript, Marker} from "@react-google-maps/api";
 import ImageGallery from "@/components/ImageGallery/ImageGallery";
-import { dataProduct } from "./page";
-import { UserContact } from "@api";
+import {dataProduct} from "./page";
+import {UserContact} from "@api";
 
 const ProductDetail = (dataProduct: dataProduct) => {
   const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] =

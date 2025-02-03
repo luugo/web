@@ -1,9 +1,9 @@
 'use client'
 import Prices from "@/components/Prices";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { AuthenticationPostDefaultResponse, Rentable, RentableApi } from "@api";
-import { useRouter } from "next/navigation";
+import {useEffect, useState} from "react";
+import {AuthenticationPostDefaultResponse, Rentable, RentableApi} from "@api";
+import {useRouter} from "next/navigation";
 import Link from "next/link";
 
 const AccountOrder = () => {

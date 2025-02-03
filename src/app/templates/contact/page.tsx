@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import SocialsList from "@/shared/SocialsList/SocialsList";
 import Label from "@/components/Label/Label";
 import Input from "@/shared/Input/Input";

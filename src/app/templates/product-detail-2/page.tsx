@@ -1,11 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import {
-  NoSymbolIcon,
-  ClockIcon,
-  SparklesIcon,
-} from "@heroicons/react/24/outline";
+import React, {useState} from "react";
+import {ClockIcon, NoSymbolIcon, SparklesIcon,} from "@heroicons/react/24/outline";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import NcImage from "@/shared/NcImage/NcImage";
@@ -14,22 +10,21 @@ import detail21JPG from "@/images/products/detail3-1.webp";
 import detail22JPG from "@/images/products/detail3-2.webp";
 import detail23JPG from "@/images/products/detail3-3.webp";
 import detail24JPG from "@/images/products/detail3-4.webp";
-import { PRODUCTS } from "@/data/data";
+import {PRODUCTS} from "@/data/data";
 import IconDiscount from "@/components/IconDiscount";
 import NcInputNumber from "@/components/NcInputNumber";
 import BagIcon from "@/components/BagIcon";
 import toast from "react-hot-toast";
-import { StarIcon } from "@heroicons/react/24/solid";
+import {StarIcon} from "@heroicons/react/24/solid";
 import SectionSliderProductCard from "@/components/SectionSliderProductCard";
 import NotifyAddTocart from "@/components/NotifyAddTocart";
-import Image, { StaticImageData } from "next/image";
+import {StaticImageData} from "next/image";
 import LikeSaveBtns from "@/components/LikeSaveBtns";
 import AccordionInfo from "@/components/AccordionInfo";
 import Policy from "../product-detail/Policy";
 import ModalViewAllReviews from "../product-detail/ModalViewAllReviews";
-import ListingImageGallery from "@/components/listing-image-gallery/ListingImageGallery";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Route } from "next";
+import {usePathname, useRouter} from "next/navigation";
+import {Route} from "next";
 
 const LIST_IMAGES_GALLERY_DEMO: (string | StaticImageData)[] = [
   detail21JPG,

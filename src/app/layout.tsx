@@ -1,4 +1,4 @@
-import { Poppins } from "next/font/google";
+import {Poppins} from "next/font/google";
 import "./globals.css";
 import "@/fonts/line-awesome-1.3.0/css/line-awesome.css";
 import "@/styles/index.scss";
@@ -6,8 +6,8 @@ import "rc-slider/assets/index.css";
 import Footer from "@/shared/Footer/Footer";
 import SiteHeader from "@/app/SiteHeader";
 import CommonClient from "./CommonClient";
-import { Providers } from "@/providers";
-import { GoogleOAuthProvider } from "@react-oauth/google";
+import {Providers} from "@/providers";
+import {GoogleOAuthProvider} from "@react-oauth/google";
 import GoogleAnalytics from "@/app/GoogleAnalytics";
 
 export const metadata = {

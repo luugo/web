@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import SectionHero2 from "@/components/SectionHero/SectionHero2";
 import About from "@/components/About/About";
 import HowItWorks from "@/components/HowItWorks/HowItWorks";

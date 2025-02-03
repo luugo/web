@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import Card12 from "./Card12";
 import Card13 from "./Card13";
 

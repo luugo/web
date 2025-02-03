@@ -1,8 +1,7 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import NcImage from "@/shared/NcImage/NcImage";
-import { _getImgRd, _getTitleRd } from "@/contains/fakeData";
+import {_getImgRd, _getTitleRd} from "@/contains/fakeData";
 import PostCardMeta from "@/components/PostCardMeta/PostCardMeta";
-import Link from "next/link";
 
 export interface Card13Props {
   className?: string;

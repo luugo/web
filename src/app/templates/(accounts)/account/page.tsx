@@ -1,10 +1,10 @@
 import Label from "@/components/Label/Label";
-import React, { FC } from "react";
+import React from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import Select from "@/shared/Select/Select";
 import Textarea from "@/shared/Textarea/Textarea";
-import { avatarImgs } from "@/contains/fakeData";
+import {avatarImgs} from "@/contains/fakeData";
 import Image from "next/image";
 
 const AccountPage = () => {

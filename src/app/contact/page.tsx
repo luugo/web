@@ -1,11 +1,5 @@
-import React, { FC } from "react";
+import React from "react";
 import SocialsList from "@/shared/SocialsList/SocialsList";
-import Label from "@/components/Label/Label";
-import Input from "@/shared/Input/Input";
-import Textarea from "@/shared/Textarea/Textarea";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import BackgroundSection from "@/components/BackgroundSection/BackgroundSection";
-import SectionPromo1 from "@/components/SectionPromo1";
 
 const info = [
   {

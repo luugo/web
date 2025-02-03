@@ -1,11 +1,11 @@
 "use client"
-import React, { Fragment, useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Input from "@/shared/Input/Input";
 import DoesNotExist from '@/components/DoesNotExist/DoesNotExist';
-import { RentableApi, RentableGetRequest } from '../../../../luugoapi';
-import { useParams } from 'next/navigation';
+import {RentableApi, RentableGetRequest} from '../../../../luugoapi';
+import {useParams} from 'next/navigation';
 import RentableCard from '@/components/RentableCard';
-import { CATEGORY } from '@/data/categories';
+import {CATEGORY} from '@/data/categories';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
 interface PlacesProps {

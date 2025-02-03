@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import imgAds from "@/images/ads.png";
 import Image from "next/image";
 

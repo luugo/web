@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import Pagination from "@/shared/Pagination/Pagination";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import SectionSliderCollections from "@/components/SectionSliderLargeProduct";
@@ -7,7 +7,7 @@ import HeaderFilterSearchPage from "@/components/HeaderFilterSearchPage";
 import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import ProductCard from "@/components/ProductCard";
-import { PRODUCTS } from "@/data/data";
+import {PRODUCTS} from "@/data/data";
 
 const PageSearch = ({}) => {
   return (

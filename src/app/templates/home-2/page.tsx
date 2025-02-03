@@ -4,11 +4,11 @@ import BackgroundSection from "@/components/BackgroundSection/BackgroundSection"
 import SectionSliderLargeProduct from "@/components/SectionSliderLargeProduct";
 import SectionSliderProductCard from "@/components/SectionSliderProductCard";
 import SectionGridMoreExplore from "@/components/SectionGridMoreExplore/SectionGridMoreExplore";
-import { DEMO_MORE_EXPLORE_DATA_2 } from "@/components/SectionGridMoreExplore/data";
+import {DEMO_MORE_EXPLORE_DATA_2} from "@/components/SectionGridMoreExplore/data";
 import SectionPromo2 from "@/components/SectionPromo2";
 import SectionHero3 from "@/components/SectionHero/SectionHero3";
 import SectionPromo1 from "@/components/SectionPromo1";
-import { SPORT_PRODUCTS } from "@/data/data";
+import {SPORT_PRODUCTS} from "@/data/data";
 import SectionGridFeatureItems from "@/components/SectionGridFeatureItems";
 
 function PageHome2() {
