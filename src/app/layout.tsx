@@ -9,8 +9,9 @@ import CommonClient from "./CommonClient";
 import {Providers} from "@/providers";
 import {GoogleOAuthProvider} from "@react-oauth/google";
 import GoogleAnalytics from "@/app/GoogleAnalytics";
+import {Metadata} from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL("https://www.luugo.com.br/"),
   title: "Luugo | Precisou? Alugou!",
   description: "Alugue qualquer coisa de forma fácil e rápida!",
@@ -44,7 +45,6 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  type: "website",
   openGraph: {
     title: "Luugo | Precisou? Alugou!",
     description: "Alugue qualquer coisa de forma fácil e rápida!",
