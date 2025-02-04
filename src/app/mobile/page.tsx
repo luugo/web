@@ -13,7 +13,7 @@ export default function MobileRedirect() {
       redirectUrl = "https://play.google.com/store/apps/details?id=br.com.luugo.app";
       platform = "android";
     } else if (/iPad|iPhone|iPod/.test(userAgent)) {
-      redirectUrl = "https://apps.apple.com/";
+      redirectUrl = "https://apps.apple.com/br/app/luugo/id1625096181";
       platform = "ios";
     }
 
