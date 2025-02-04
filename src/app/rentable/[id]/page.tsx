@@ -1,9 +1,15 @@
 import ProductDetail from "./RentablePage";
-import {remark} from "remark";
+import { remark } from "remark";
 import remarkHtml from "remark-html";
 import html from "remark-html";
-import {MediaApi, RentableApi, RentableGeolocation, UserContact, UserContactApi, UserContactGetRequest,} from "@api";
-
+import {
+  MediaApi,
+  RentableApi,
+  RentableGeolocation,
+  UserContact,
+  UserContactApi,
+  UserContactGetRequest,
+} from "@api";
 
 export interface dataProduct {
   id: string;
@@ -25,8 +31,8 @@ async function getProduct(id: string) {
   const rentableApi = new RentableApi();
   const mediaApi = new MediaApi();
 
-  const productData = await rentableApi.rentableGet({id});
-  const productImages = await mediaApi.mediaGet({rentableId: id});
+  const productData = await rentableApi.rentableGet({ id });
+  const productImages = await mediaApi.mediaGet({ rentableId: id });
   const productUserInfo = await getProductUserInfo(productData[0].userId);
 
   const productDescription = await remark()
@@ -77,6 +83,7 @@ export async function generateMetadata(props: {
   const Product = await getProduct(resolvedParams.id);
 
   return {
+    title: `${Product.title} | Luugo`,
     openGraph: {
       title: Product.title,
       description: Product.metadescription,
@@ -87,9 +94,7 @@ export async function generateMetadata(props: {
   };
 }
 
-async function ProductDetailPage(props: {
-  params: Promise<{ id: string }>;
-}) {
+async function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
   const resolvedParams = await props.params;
   const data = await getProduct(resolvedParams.id);
 

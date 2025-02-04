@@ -31,23 +31,6 @@ const ProductDetail = (dataProduct: dataProduct) => {
   const [processedDescription, setProcessedDescription] = useState("");
   const [isClient, setIsClient] = useState(false);
 
-  const renderHeader = () => {
-    return (
-      <>
-        <h2 className="text-2xl pb-2 sm:text-3xl font-semibold">
-          {dataProduct.title ?? ""}
-        </h2>
-        <div className="flex items-center">
-          <Prices
-            contentClass="py-1 px-2 md:py-1.5 md:px-3 text-lg font-semibold"
-            price={dataProduct.price}
-            billingFrequency={dataProduct.billingFrequency}
-          />
-        </div>
-      </>
-    );
-  };
-
   useEffect(() => {
     setIsClient(true);
     if (dataProduct.description) {
@@ -58,38 +41,67 @@ const ProductDetail = (dataProduct: dataProduct) => {
     <div className="pb-20 xl:pb-28">
       <div className={`nc-ProductDetailPage `}>
         <main className="container mt-1">
-          <div className="grid gap-6 grid-cols-12">
+          <div className="grid gap-6 grid-cols-12 items-start">
             <div className="pt-6 lg:col-span-12 md:col-span-12 col-span-12">
-              {renderHeader()}
+              <h2 className="text-2xl pb-2 sm:text-3xl font-semibold">
+                {dataProduct.title ?? ""}
+              </h2>
+              <div className="flex items-center">
+                <Prices
+                  contentClass="py-1 px-2 md:py-1.5 md:px-3 text-lg font-semibold"
+                  price={dataProduct.price}
+                  billingFrequency={dataProduct.billingFrequency}
+                />
+              </div>
             </div>
-            <div className="lg:col-span-12 md:col-span-8 col-span-12 rounded-lg overflow-hidden">
+            <div
+              className={`rounded-lg overflow-hidden ${
+                dataProduct.images.length < 5
+                  ? "col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-6"
+                  : "lg:col-span-12 md:col-span-12 col-span-12"
+              }`}
+            >
               {isClient ? (
                 <ImageGallery images={dataProduct.images} />
               ) : (
                 <p>Carregando imagens...</p>
               )}
             </div>
-            <div className="lg:col-span-4 md:col-span-4 col-span-12">
-              <RentableInfo
-                {...(dataProduct.user.social as unknown as {
-                  [key: string]: UserContact;
-                })}
-              />
-            </div>
-            <div className="lg:col-span-8 md:col-span-8 col-span-12 radius-lg overflow-hidden">
-              <h2 className="text-2xl font-semibold">Descrição</h2>
-              <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl mt-7">
-                {isClient ? (
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html:
-                        processedDescription || "Descrição não disponível",
-                    }}
-                  ></p>
-                ) : (
-                  <p>Carregando descrição...</p>
-                )}
+
+            <div
+              className={`grid grid-cols-subgrid gap-6 ${
+                dataProduct.images.length < 5
+                  ? "col-span-12 md:col-span-6 sm:col-span-12"
+                  : "col-span-12"
+              }`}
+            >
+              <div
+                className={`${
+                  dataProduct.images.length < 5
+                    ? "col-span-12 sm:col-span-12 md:col-span-4 order-2 md:order-2"
+                    : "lg:col-span-4 md:col-span-4 col-span-12"
+                }`}
+              >
+                <RentableInfo
+                  {...(dataProduct.user.social as unknown as {
+                    [key: string]: UserContact;
+                  })}
+                />
               </div>
+              {isClient ? (
+                <div
+                  className={`radius-lg overflow-hidden prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl ${
+                    dataProduct.images.length < 5
+                      ? "col-span-12 sm:col-span-12 md:col-span-8 order-1 md:order-1"
+                      : "lg:col-span-8 md:col-span-8 col-span-12"
+                  }`}
+                  dangerouslySetInnerHTML={{
+                    __html: processedDescription || "Descrição não disponível",
+                  }}
+                />
+              ) : (
+                <p>Carregando descrição...</p>
+              )}
             </div>
           </div>
 
