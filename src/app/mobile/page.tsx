@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 
 export default function MobileRedirect() {
   useEffect(() => {
@@ -15,6 +15,16 @@ export default function MobileRedirect() {
     } else if (/iPod|iPhone|iPad|Mac OS|Macintosh/.test(userAgent)) {
       redirectUrl = "https://apps.apple.com/br/app/luugo/id1625096181";
       platform = "ios";
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmParams = ["utm_source", "utm_medium", "utm_campaign"]
+      .map(param => urlParams.get(param) ? `${param}=${encodeURIComponent(urlParams.get(param) || "")}` : "")
+      .filter(param => param)
+      .join("&");
+
+    if (utmParams) {
+      redirectUrl += (redirectUrl.includes("?") ? "&" : "?") + utmParams;
     }
 
     if (typeof window.gtag === "function") {
