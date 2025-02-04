@@ -177,45 +177,10 @@ const OTHER_PAGE_CHILD: NavItemType[] = [
   },
 ];
 
-export const NAVIGATION_DEMO_2: NavItemType[] = [
+export const NAVIGATION: NavItemType[] = [
   {
     id: ncNanoId(),
     href: "/categories",
     name: "Categorias",
-  },
-  // {
-  //   id: ncNanoId(),
-  //   href: "/templates/collection",
-  //   name: "Men",
-  // },
-  // {
-  //   id: ncNanoId(),
-  //   href: "/templates/collection-2",
-  //   name: "Women",
-  // },
-  // {
-  //   id: ncNanoId(),
-  //   href: "/templates/collection",
-  //   name: "Beauty",
-  // },
-
-  // {
-  //   id: ncNanoId(),
-  //   href: "/templates/collection-2",
-  //   name: "Sport",
-  // },
-  // {
-  //   id: ncNanoId(),
-  //   href: "/templates/collection",
-  //   name: "Templates",
-  //   type: "megaMenu",
-  //   children: MEGAMENU_TEMPLATES,
-  // },
-  // {
-  //   id: ncNanoId(),
-  //   href: "/templates/search",
-  //   name: "Explore",
-  //   type: "dropdown",
-  //   children: OTHER_PAGE_CHILD,
-  // },
+  }
 ];

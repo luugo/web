@@ -2,7 +2,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { RentableApi, RentableGetRequest } from '@api';
+import {RentableApi, RentableGetRequest, RentableSearchInputGetRequest} from '@api';
 import RentableCard from '@/components/RentableCard';
 import DoesNotExist from '@/components/DoesNotExist/DoesNotExist';
 
@@ -15,15 +15,15 @@ const ItemsContent: React.FC = () => {
   useEffect(() => {
     if (!search) return;
 
-    const requestParameters: RentableGetRequest = { place: 'Natal/RN' };
+    const requestParameters: RentableSearchInputGetRequest = {
+      input : search
+    };
 
-    rentableApi.rentableGet(requestParameters)
+    rentableApi.rentableSearchInputGet(requestParameters)
       .then((response) => {
         const rentablesWithLinks = response
-          .filter((item) =>
-            item?.title.toLocaleLowerCase().includes(search.toLowerCase())
-          )
-          .map((item) => ({ ...item, link: `/rentable/${item.id}` }));
+          .map((item) => (
+            { ...item, link: `/rentable/${item.id}` }));
 
         setItems(rentablesWithLinks);
       })
