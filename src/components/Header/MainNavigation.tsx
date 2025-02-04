@@ -1,11 +1,10 @@
 "use client";
 
 import React, { createRef, FC, useState, useEffect } from "react";
-import { PlaceApi, PlaceGetRequest } from "../../../luugoapi";
+import { PlaceApi, PlaceGetRequest } from "@api";
 import Logo from "@/shared/Logo/Logo";
 import MenuBar from "@/shared/MenuBar/MenuBar";
 import AvatarDropdown from "./AvatarDropdown";
-import Navigation from "@/shared/Navigation/Navigation";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import Select from "@/shared/Select/Select";
@@ -13,7 +12,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 
 export interface MainNav2LoggedProps { }
 
-const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
+const MainNavigation: FC<MainNav2LoggedProps> = () => {
   const inputRef = createRef<HTMLInputElement>();
   const [showSearchForm, setShowSearchForm] = useState(false);
   const [placeItems, setPlaceItems] = useState<any[]>([]);
@@ -108,43 +107,49 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
           </div>
           <input type="submit" hidden value="" />
         </form>
-        <div className="ml-4 mt-4 width-10">
-          <Select
-            onChange={handleSelectPlace}
-            className="w-full"
-            value={selectedPlace ? selectedPlace?.city : 'Selecionar Local'}
-          >
-            <option value="Selecionar Local">Selecionar Local</option>
-            {placeItems.length &&
-              placeItems?.map(item => (
-                <option key={item.id} value={item.city}>
-                  {item.city} - {item.state}
-                </option>
-              )
-              )}
-          </Select>
-        </div>
+
       </>
     );
   };
 
+  const renderPlace = () => {
+    return (
+      <div className="ml-4 mt-4 width-10">
+        <Select
+          onChange={handleSelectPlace}
+          className="w-full"
+          value={selectedPlace ? selectedPlace?.city : 'Selecionar Local'}
+        >
+          <option value="Selecionar Local">Selecionar Local</option>
+          {placeItems.length &&
+            placeItems?.map(item => (
+                <option key={item.id} value={item.city}>
+                  {item.city} - {item.state}
+                </option>
+              )
+            )}
+        </Select>
+      </div>
+    )
+  }
+
   const renderContent = () => {
     return (
       <div className="h-20 flex justify-between">
-        <div className="flex items-center lg:hidden flex-1">
+        <div className="flex items-center flex-1">
           <MenuBar />
         </div>
 
-        <div className="lg:flex-1 flex items-center">
+        <div className="flex-1 hidden md:flex items-center">
           <Logo className="flex-shrink-0" />
         </div>
 
-        <div className="flex-[4] flex !mx-auto px-10 md:px-0">
+        <div className="flex-[5] flex !mx-auto px-10 md:px-0">
           {renderSearchForm()}
         </div>
 
-        <div className="flex-[2] hidden lg:flex mx-4">
-          <Navigation />
+        <div className="flex-1 hidden md:flex px-10 md:px-0">
+          {renderPlace()}
         </div>
 
         <div className="flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
@@ -161,4 +166,4 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
   );
 };
 
-export default MainNav2Logged;
+export default MainNavigation;

@@ -1,12 +1,12 @@
 import React, { FC } from "react";
-import MainNav2 from "./MainNav2";
+import MainNavigation from "./MainNavigation";
 
-export interface HeaderProps {}
+export interface HeaderLoggedProps {}
 
-const Header: FC<HeaderProps> = () => {
+const Header: FC<HeaderLoggedProps> = () => {
   return (
-    <div className="nc-Header relative w-full z-40 ">
-      <MainNav2 />
+    <div className="nc-HeaderLogged sticky top-0 w-full z-40 ">
+      <MainNavigation />
     </div>
   );
 };
