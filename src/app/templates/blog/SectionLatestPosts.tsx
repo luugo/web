@@ -6,7 +6,6 @@ import WidgetCategories from "./WidgetCategories";
 import WidgetPosts from "./WidgetPosts";
 import Card3 from "./Card3";
 
-//
 export interface SectionLatestPostsProps {
   className?: string;
   postCardName?: "card3";
