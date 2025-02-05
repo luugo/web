@@ -1,8 +1,8 @@
-pipeline:
+steps:
   test:
     image: node:18
     commands:
       - npm install
       - npm run build
     when:
-      event: [pull_request, push]
+      event: [ pull_request, push ]
