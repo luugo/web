@@ -8,7 +8,10 @@ import {useParams} from "next/navigation";
 const Categories: React.FC = () => {
   const params = useParams()
   const [categories, setCategories] = useState<any[]>([]);
-  const categoryType: CategoryGetTypeEnum | undefined = params?.type as CategoryGetTypeEnum;
+  const categoryType: CategoryGetTypeEnum | undefined = params?.type
+    ? (Array.isArray(params.type) ? params.type[0].toUpperCase() : params.type.toUpperCase()) as CategoryGetTypeEnum
+    : undefined;
+
 
   useEffect(() => {
     const fetchCategories = async () => {
