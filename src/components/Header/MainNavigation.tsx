@@ -97,7 +97,6 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Buscar..."
               className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-base"
-              autoFocus
             />
             <button type="button" onClick={() => {
               setSearchTerm("")
