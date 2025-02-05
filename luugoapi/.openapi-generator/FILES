@@ -9,6 +9,7 @@ apis/UserApi.ts
 apis/UserContactApi.ts
 apis/index.ts
 index.ts
+models/Authentication.ts
 models/AuthenticationApplePostRequest.ts
 models/AuthenticationEmailPostRequest.ts
 models/AuthenticationEmailPutRequest.ts

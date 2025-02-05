@@ -15,6 +15,7 @@
 
 import * as runtime from '../runtime';
 import type {
+  Authentication,
   AuthenticationApplePostRequest,
   AuthenticationEmailPostRequest,
   AuthenticationEmailPutRequest,
@@ -26,6 +27,8 @@ import type {
   AuthenticationResetPasswordPutRequest,
 } from '../models/index';
 import {
+    AuthenticationFromJSON,
+    AuthenticationToJSON,
     AuthenticationApplePostRequestFromJSON,
     AuthenticationApplePostRequestToJSON,
     AuthenticationEmailPostRequestFromJSON,
@@ -51,7 +54,9 @@ export interface AuthenticationApplePostOperationRequest {
 }
 
 export interface AuthenticationEmailDeleteRequest {
-    authenticationEmailPostRequest: AuthenticationEmailPostRequest;
+    email: string;
+    password: string;
+    confirmPassword: string;
     acceptLanguage?: string;
 }
 
@@ -62,6 +67,11 @@ export interface AuthenticationEmailPostOperationRequest {
 
 export interface AuthenticationEmailPutOperationRequest {
     authenticationEmailPutRequest: AuthenticationEmailPutRequest;
+    acceptLanguage?: string;
+}
+
+export interface AuthenticationGetRequest {
+    userId: string;
     acceptLanguage?: string;
 }
 
@@ -134,26 +144,51 @@ export class AuthenticationApi extends runtime.BaseAPI {
      * Deletes an user by using the user authentication
      */
     async authenticationEmailDeleteRaw(requestParameters: AuthenticationEmailDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.authenticationEmailPostRequest === null || requestParameters.authenticationEmailPostRequest === undefined) {
-            throw new runtime.RequiredError('authenticationEmailPostRequest','Required parameter requestParameters.authenticationEmailPostRequest was null or undefined when calling authenticationEmailDelete.');
+        if (requestParameters.email === null || requestParameters.email === undefined) {
+            throw new runtime.RequiredError('email','Required parameter requestParameters.email was null or undefined when calling authenticationEmailDelete.');
+        }
+
+        if (requestParameters.password === null || requestParameters.password === undefined) {
+            throw new runtime.RequiredError('password','Required parameter requestParameters.password was null or undefined when calling authenticationEmailDelete.');
+        }
+
+        if (requestParameters.confirmPassword === null || requestParameters.confirmPassword === undefined) {
+            throw new runtime.RequiredError('confirmPassword','Required parameter requestParameters.confirmPassword was null or undefined when calling authenticationEmailDelete.');
         }
 
         const queryParameters: any = {};
 
-        const headerParameters: runtime.HTTPHeaders = {};
+        if (requestParameters.email !== undefined) {
+            queryParameters['email'] = requestParameters.email;
+        }
 
-        headerParameters['Content-Type'] = 'application/json';
+        if (requestParameters.password !== undefined) {
+            queryParameters['password'] = requestParameters.password;
+        }
+
+        if (requestParameters.confirmPassword !== undefined) {
+            queryParameters['confirmPassword'] = requestParameters.confirmPassword;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
             headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/authentication/email`,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-            body: AuthenticationEmailPostRequestToJSON(requestParameters.authenticationEmailPostRequest),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -245,6 +280,46 @@ export class AuthenticationApi extends runtime.BaseAPI {
      */
     async authenticationEmailPut(requestParameters: AuthenticationEmailPutOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
         const response = await this.authenticationEmailPutRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Read Operation
+     * C[R]UD
+     */
+    async authenticationGetRaw(requestParameters: AuthenticationGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Authentication>> {
+        if (requestParameters.userId === null || requestParameters.userId === undefined) {
+            throw new runtime.RequiredError('userId','Required parameter requestParameters.userId was null or undefined when calling authenticationGet.');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.userId !== undefined) {
+            queryParameters['userId'] = requestParameters.userId;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
+        const response = await this.request({
+            path: `/authentication`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AuthenticationFromJSON(jsonValue));
+    }
+
+    /**
+     * Read Operation
+     * C[R]UD
+     */
+    async authenticationGet(requestParameters: AuthenticationGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Authentication> {
+        const response = await this.authenticationGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

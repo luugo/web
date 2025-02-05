@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+export * from './Authentication';
 export * from './AuthenticationApplePostRequest';
 export * from './AuthenticationEmailPostRequest';
 export * from './AuthenticationEmailPutRequest';
