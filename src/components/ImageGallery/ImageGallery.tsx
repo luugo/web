@@ -2,7 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImages } from "@fortawesome/free-solid-svg-icons";
+import {
+  faImages,
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 import dynamic from "next/dynamic";
 import { MediaPostRequest } from "@api";
 import LgImage from "./component/LgImage";
@@ -23,9 +27,6 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
   const [ImageSelected, setImageSelected] = useState<string | undefined>(
     undefined
   );
-
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(1);
 
   const maxThumbnails = 5;
   const displayedImages = images.slice(0, maxThumbnails);
@@ -81,49 +82,92 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
   };
 
   const gallerySecond = () => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
+    const [maxHeight, setMaxHeight] = useState("60vh");
+
+    useEffect(() => {
+      const updateMaxHeight = () => {
+        const heights = imageRefs.current.map((img) => img?.naturalHeight || 0);
+        const maxImageHeight = Math.max(...heights);
+        if (maxImageHeight > 0) {
+          setMaxHeight(`${maxImageHeight}px`);
+        }
+      };
+
+      updateMaxHeight();
+      window.addEventListener("resize", updateMaxHeight);
+      return () => window.removeEventListener("resize", updateMaxHeight);
+    }, [images]);
+
+    const handlePrev = () => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex > 0 ? prevIndex - 1 : prevIndex
+      );
+    };
+
+    const handleNext = () => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex < totalImages - 1 ? prevIndex + 1 : prevIndex
+      );
+    };
+
+    useEffect(() => {
+      if (scrollRef.current) {
+        scrollRef.current.style.transform = `translateX(-${
+          currentIndex * 100
+        }%)`;
+      }
+    }, [currentIndex]);
+
     return (
-      <>
-        <div className="relative w-full overflow-hidden">
-          <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-lg text-sm z-10">
-            {currentIndex}/{totalImages}
-          </div>
-          <div
-            ref={scrollRef}
-            className="w-full flex overflow-x-auto snap-x snap-mandatory scrollbar-hide h-[45vh] scroll-smooth"
-          >
-            {images.map((img, index) => (
-              <div key={index} className="flex-shrink-0 w-full snap-center">
-                <LgImage
-                  src={img.url || ""}
-                  alt={`Slide ${index + 1}`}
-                  fill
-                  containerClassName="w-full h-full relative"
-                  className="object-cover w-full h-auto"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
+      <div
+        className="relative w-full flex items-center justify-center overflow-hidden"
+        style={{ height: maxHeight }}
+      >
+        <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-lg text-sm z-10">
+          {currentIndex + 1}/{totalImages}
         </div>
-      </>
+
+        <div
+          ref={scrollRef}
+          className="flex w-full h-full transition-transform duration-500 ease-in-out"
+        >
+          {images.map((img, index) => (
+            <div key={index} className="w-full flex-shrink-0 h-full">
+              <LgImage
+                src={img.url || ""}
+                alt={`Slide ${index + 1}`}
+                fill
+                containerClassName="w-full h-full relative"
+                className="object-cover w-full h-full"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
+
+        {currentIndex > 0 && (
+          <div
+            onClick={handlePrev}
+            className="absolute w-10 h-10 flex items-center justify-center top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200 transition-colors"
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </div>
+        )}
+
+        {currentIndex < totalImages - 1 && (
+          <div
+            onClick={handleNext}
+            className="absolute w-10 h-10 flex items-center justify-center top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200 transition-colors"
+          >
+            <FontAwesomeIcon icon={faChevronRight} />
+          </div>
+        )}
+      </div>
     );
   };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (scrollRef.current) {
-        const scrollLeft = scrollRef.current.scrollLeft;
-        const width = scrollRef.current.clientWidth;
-        const newIndex = Math.round(scrollLeft / width) + 1;
-        setCurrentIndex(newIndex);
-      }
-    };
-
-    scrollRef.current?.addEventListener("scroll", handleScroll);
-    return () => {
-      scrollRef.current?.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <>
