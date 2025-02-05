@@ -31,7 +31,6 @@ const MobilePopup: React.FC<MobilePopupProps> = ({os, onClose}) => {
         textAlign: "center",
         zIndex: 1000,
       }}
-      // aria-live="polite" // Para acessibilidade
     >
       {/* Logo centralizado no topo */}
       <div
