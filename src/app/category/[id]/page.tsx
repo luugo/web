@@ -35,7 +35,6 @@ const Category: React.FC = () => {
   useEffect(() => {
     const fetchRentables = async () => {
       const place = selectedPlace || JSON.parse(localStorage.getItem('selectedPlace') || '');
-      console.log(place);
       const rentableApi = new RentableApi();
       const requestParameters: RentableGetRequest = {
         categoryId: categoryId,
