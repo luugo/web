@@ -43,7 +43,7 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
   }, []);
 
   const handleSelectPlace = (event:any) => {
-    const selected = placeItems.find(item => item.city === event.target.value) || '';
+    const selected = placeItems.find(item => item.id === event.target.value) || '';
     setSelectedPlace(selected);
     localStorage.setItem('selectedPlace', JSON.stringify(selected));
   }
@@ -118,12 +118,11 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
         <Select
           onChange={handleSelectPlace}
           className="w-full"
-          value={selectedPlace ? selectedPlace?.city : 'Selecionar Local'}
+          value={selectedPlace ? selectedPlace?.id : 'Natal/RN'}
         >
-          <option value="Selecionar Local">Selecionar Local</option>
           {placeItems.length &&
             placeItems?.map(item => (
-                <option key={item.id} value={item.city}>
+                <option key={item.id} value={item.id}>
                   {item.city} - {item.state}
                 </option>
               )
