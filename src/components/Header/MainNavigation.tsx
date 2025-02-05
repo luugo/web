@@ -89,7 +89,7 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
           className="flex-1 py-2 text-slate-900 dark:text-slate-100"
           onSubmit={handleSearchSubmit}
         >
-          <div className="bg-slate-50 dark:bg-slate-800 flex items-center space-x-1.5 px-5 h-full rounded">
+          <div className="rounded-2xl border-neutral-200 bg-white flex items-center space-x-1.5 px-5 h-full">
             {renderMagnifyingGlassIcon()}
             <input
               type="text"
@@ -135,23 +135,20 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
   const renderContent = () => {
     return (
       <div className="h-20 flex justify-between">
-        <div className="flex items-center flex-1">
+        <div className="flex items-center ">
           <MenuBar />
+          <Logo className="flex-shrink-0 hidden md:flex px-5" />
         </div>
 
-        <div className="flex-1 hidden md:flex items-center">
-          <Logo className="flex-shrink-0" />
-        </div>
-
-        <div className="flex-[5] flex !mx-auto px-10 md:px-0">
+        <div className="flex flex-grow !mx-auto px-10 md:px-0">
           {renderSearchForm()}
         </div>
 
-        <div className="flex-1 hidden md:flex px-10 md:px-0">
+        <div className="hidden lg:flex px-10 md:px-0">
           {renderPlace()}
         </div>
 
-        <div className="flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
+        <div className="flex items-center justify-end text-slate-700 dark:text-slate-100">
           <AvatarDropdown />
         </div>
       </div>
