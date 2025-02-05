@@ -5,7 +5,6 @@ import {Product, PRODUCTS} from "@/data/data";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
-// import { useRouter } from "next/navigation";
 
 const CartPage = () => {
   // const router = useRouter()
