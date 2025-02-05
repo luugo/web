@@ -57,7 +57,7 @@ const ProductDetailPage2 = ({}) => {
 
   //
   const handleCloseModalImageGallery = () => {
-    let params = new URLSearchParams(document.location.search);
+    const params = new URLSearchParams(document.location.search);
     params.delete("modal");
     router.push(`${thisPathname}/?${params.toString()}` as Route);
   };

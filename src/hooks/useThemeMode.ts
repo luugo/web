@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
-import { createGlobalState } from "react-hooks-global-state";
+import {useEffect} from "react";
+import {createGlobalState} from "react-hooks-global-state";
 
-const initialState = { isDarkmode: false };
-const { useGlobalState } = createGlobalState(initialState);
+const initialState = {isDarkmode: false};
+const {useGlobalState} = createGlobalState(initialState);
 
 export const useThemeMode = () => {
   const [isDarkMode, setIsDarkMode] = useGlobalState("isDarkmode");
@@ -22,7 +22,9 @@ export const useThemeMode = () => {
     setIsDarkMode(true);
     const root = document.querySelector("html");
     if (!root) return;
-    !root.classList.contains("dark") && root.classList.add("dark");
+    if (!root.classList.contains("dark")) {
+      root.classList.add("dark");
+    }
     localStorage.theme = "dark";
   };
 

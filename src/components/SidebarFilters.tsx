@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Checkbox from "@/shared/Checkbox/Checkbox";
 import Slider from "rc-slider";
 import Radio from "@/shared/Radio/Radio";
@@ -26,30 +26,30 @@ const DATA_categories = [
 ];
 
 const DATA_colors = [
-  { name: "White" },
-  { name: "Beige" },
-  { name: "Blue" },
-  { name: "Black" },
-  { name: "Brown" },
-  { name: "Green" },
-  { name: "Navy" },
+  {name: "White"},
+  {name: "Beige"},
+  {name: "Blue"},
+  {name: "Black"},
+  {name: "Brown"},
+  {name: "Green"},
+  {name: "Navy"},
 ];
 
 const DATA_sizes = [
-  { name: "XS" },
-  { name: "S" },
-  { name: "M" },
-  { name: "L" },
-  { name: "XL" },
-  { name: "2XL" },
+  {name: "XS"},
+  {name: "S"},
+  {name: "M"},
+  {name: "L"},
+  {name: "XL"},
+  {name: "2XL"},
 ];
 
 const DATA_sortOrderRadios = [
-  { name: "Most Popular", id: "Most-Popular" },
-  { name: "Best Rating", id: "Best-Rating" },
-  { name: "Newest", id: "Newest" },
-  { name: "Price Low - Hight", id: "Price-low-hight" },
-  { name: "Price Hight - Low", id: "Price-hight-low" },
+  {name: "Most Popular", id: "Most-Popular"},
+  {name: "Best Rating", id: "Best-Rating"},
+  {name: "Newest", id: "Newest"},
+  {name: "Price Low - Hight", id: "Price-low-hight"},
+  {name: "Price Hight - Low", id: "Price-hight-low"},
 ];
 
 const PRICE_RANGE = [1, 500];
@@ -175,7 +175,8 @@ const SidebarFilters = () => {
               Min price
             </label>
             <div className="mt-1 relative rounded-md">
-              <span className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
+              <span
+                className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
                 $
               </span>
               <input
@@ -196,7 +197,8 @@ const SidebarFilters = () => {
               Max price
             </label>
             <div className="mt-1 relative rounded-md">
-              <span className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
+              <span
+                className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
                 $
               </span>
               <input

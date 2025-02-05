@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useEffect, useRef } from "react";
+import React, {FC, useEffect, useRef} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Input from "@/shared/Input/Input";
@@ -11,9 +11,9 @@ export interface ModalTransferTokenProps {
 }
 
 const ModalTransferToken: FC<ModalTransferTokenProps> = ({
-  show,
-  onCloseModalTransferToken,
-}) => {
+                                                           show,
+                                                           onCloseModalTransferToken,
+                                                         }) => {
   const textareaRef = useRef(null);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const ModalTransferToken: FC<ModalTransferTokenProps> = ({
           You can transfer tokens from your address to another
         </span>
         <div className="mt-8 ">
-          <Input ref={textareaRef} placeholder="Paste address" type={"text"} />
+          <Input ref={textareaRef} placeholder="Paste address" type={"text"}/>
         </div>
         <div className="mt-4 space-x-3">
           <ButtonPrimary type="submit">Submit</ButtonPrimary>

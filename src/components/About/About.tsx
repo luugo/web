@@ -18,7 +18,8 @@ const About = () => {
         <p className="text-justify text-2xl block mt-6 text-slate-500 dark:text-slate-400">
           Somos uma plataforma que viabiliza o acesso aos mais diversos bens e serviços por meio da locação.
 
-          Acreditamos no consumo colaborativo e no fortalecimento do senso de comunidade, contribuindo para economia de recursos bem como para um estilo de vida mais sustentável.
+          Acreditamos no consumo colaborativo e no fortalecimento do senso de comunidade, contribuindo para economia de
+          recursos bem como para um estilo de vida mais sustentável.
         </p>
       </div>
     </div>

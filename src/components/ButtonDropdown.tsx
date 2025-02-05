@@ -1,14 +1,15 @@
-import React, { FC } from "react";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import Button, { ButtonProps } from "@/shared/Button/Button";
+import React, {FC} from "react";
+import {ChevronDownIcon} from "@heroicons/react/24/solid";
+import Button, {ButtonProps} from "@/shared/Button/Button";
 
-export interface ButtonDropdownProps extends ButtonProps {}
+export interface ButtonDropdownProps extends ButtonProps {
+}
 
 const ButtonDropdown: FC<ButtonDropdownProps> = ({
-  translate,
-  children,
-  ...args
-}) => {
+                                                   translate,
+                                                   children,
+                                                   ...args
+                                                 }) => {
   return (
     <Button
       className="text-neutral-700 border border-neutral-200 dark:text-neutral-200 dark:border-neutral-700"

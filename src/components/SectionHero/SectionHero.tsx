@@ -1,8 +1,8 @@
-import React, { FC, ReactNode } from "react";
+import React, {FC, ReactNode} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import rightImg from "@/images/about-hero-right.png";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import Image from "next/image";
 
 export interface SectionHeroProps {
@@ -12,10 +12,10 @@ export interface SectionHeroProps {
 }
 
 const SectionHero: FC<SectionHeroProps> = ({
-  className = "",
-  heading = "Discover, collect, and sell extraordinary NFTs ",
-  subHeading = "Discover the most outstanding NTFs in all topics of life. Creative your NTFs and sell them",
-}) => {
+                                             className = "",
+                                             heading = "Discover, collect, and sell extraordinary NFTs ",
+                                             subHeading = "Discover the most outstanding NTFs in all topics of life. Creative your NTFs and sell them",
+                                           }) => {
   return (
     <div
       className={`nc-SectionHero relative ${className}`}
@@ -23,7 +23,8 @@ const SectionHero: FC<SectionHeroProps> = ({
     >
       <div className="flex flex-col lg:flex-row space-y-14 lg:space-y-0 lg:space-x-10 lg:items-center relative">
         <div className="w-screen max-w-full xl:max-w-xl space-y-5 lg:space-y-7">
-          <h2 className="text-3xl !leading-tight font-semibold text-neutral-900 md:text-4xl xl:text-5xl dark:text-neutral-100">
+          <h2
+            className="text-3xl !leading-tight font-semibold text-neutral-900 md:text-4xl xl:text-5xl dark:text-neutral-100">
             {heading}
           </h2>
           <span className="block text-base xl:text-lg text-neutral-6000 dark:text-neutral-400 max-w-lg">
@@ -32,7 +33,7 @@ const SectionHero: FC<SectionHeroProps> = ({
           <div className="pt-7 flex  space-x-4">
             <ButtonPrimary href="/templates/search">
               <span className="">Explore</span>
-              <MagnifyingGlassIcon className="w-5 h-5 ml-2.5" />
+              <MagnifyingGlassIcon className="w-5 h-5 ml-2.5"/>
             </ButtonPrimary>
             <ButtonSecondary href="/templates/search">
               <span>Create</span>

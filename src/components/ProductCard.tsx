@@ -1,19 +1,19 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, {FC, useState} from "react";
 import LikeButton from "./LikeButton";
 import Prices from "./Prices";
-import { ArrowsPointingOutIcon } from "@heroicons/react/24/outline";
-import { Product, PRODUCTS } from "@/data/data";
-import { StarIcon } from "@heroicons/react/24/solid";
+import {ArrowsPointingOutIcon} from "@heroicons/react/24/outline";
+import {Product, PRODUCTS} from "@/data/data";
+import {StarIcon} from "@heroicons/react/24/solid";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import BagIcon from "./BagIcon";
 import toast from "react-hot-toast";
-import { Transition } from "@/app/headlessui";
+import {Transition} from "@/app/headlessui";
 import ModalQuickView from "./ModalQuickView";
 import ProductStatus from "./ProductStatus";
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import NcImage from "@/shared/NcImage/NcImage";
@@ -25,10 +25,10 @@ export interface ProductCardProps {
 }
 
 const ProductCard: FC<ProductCardProps> = ({
-  className = "",
-  data = PRODUCTS[0],
-  isLiked,
-}) => {
+                                             className = "",
+                                             data = PRODUCTS[0],
+                                             isLiked,
+                                           }) => {
   const {
     name,
     price,
@@ -47,7 +47,7 @@ const ProductCard: FC<ProductCardProps> = ({
   const [showModalQuickView, setShowModalQuickView] = useState(false);
   const router = useRouter();
 
-  const notifyAddTocart = ({ size }: { size?: string }) => {
+  const notifyAddTocart = ({size}: { size?: string }) => {
     toast.custom(
       (t) => (
         <Transition
@@ -65,8 +65,8 @@ const ProductCard: FC<ProductCardProps> = ({
           <p className="block text-base font-semibold leading-none">
             Added to cart!
           </p>
-          <div className="border-t border-slate-200 dark:border-slate-700 my-4" />
-          {renderProductCartOnNotify({ size })}
+          <div className="border-t border-slate-200 dark:border-slate-700 my-4"/>
+          {renderProductCartOnNotify({size})}
         </Transition>
       ),
       {
@@ -77,7 +77,7 @@ const ProductCard: FC<ProductCardProps> = ({
     );
   };
 
-  const renderProductCartOnNotify = ({ size }: { size?: string }) => {
+  const renderProductCartOnNotify = ({size}: { size?: string }) => {
     return (
       <div className="flex ">
         <div className="h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -103,7 +103,7 @@ const ProductCard: FC<ProductCardProps> = ({
                   <span>{size || "XL"}</span>
                 </p>
               </div>
-              <Prices price={price} className="mt-0.5" />
+              <Prices price={price} className="mt-0.5"/>
             </div>
           </div>
           <div className="flex flex-1 items-end justify-between text-sm">
@@ -200,10 +200,10 @@ const ProductCard: FC<ProductCardProps> = ({
                   // @ts-ignore
                   typeof variant.thumbnail?.src === "string"
                     ? // @ts-ignore
-                      variant.thumbnail?.src
+                    variant.thumbnail?.src
                     : typeof variant.thumbnail === "string"
-                    ? variant.thumbnail
-                    : ""
+                      ? variant.thumbnail
+                      : ""
                 })`,
               }}
             ></div>
@@ -215,14 +215,15 @@ const ProductCard: FC<ProductCardProps> = ({
 
   const renderGroupButtons = () => {
     return (
-      <div className="absolute bottom-0 group-hover:bottom-4 inset-x-1 flex justify-center opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+      <div
+        className="absolute bottom-0 group-hover:bottom-4 inset-x-1 flex justify-center opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
         <ButtonPrimary
           className="shadow-lg"
           fontSize="text-xs"
           sizeClass="py-2 px-4"
-          onClick={() => notifyAddTocart({ size: "XL" })}
+          onClick={() => notifyAddTocart({size: "XL"})}
         >
-          <BagIcon className="w-3.5 h-3.5 mb-0.5" />
+          <BagIcon className="w-3.5 h-3.5 mb-0.5"/>
           <span className="ms-1">Add to bag</span>
         </ButtonPrimary>
         <ButtonSecondary
@@ -231,7 +232,7 @@ const ProductCard: FC<ProductCardProps> = ({
           sizeClass="py-2 px-4"
           onClick={() => setShowModalQuickView(true)}
         >
-          <ArrowsPointingOutIcon className="w-3.5 h-3.5" />
+          <ArrowsPointingOutIcon className="w-3.5 h-3.5"/>
           <span className="ms-1">Quick view</span>
         </ButtonSecondary>
       </div>
@@ -244,13 +245,14 @@ const ProductCard: FC<ProductCardProps> = ({
     }
 
     return (
-      <div className="absolute bottom-0 inset-x-1 space-x-1.5 rtl:space-x-reverse flex justify-center opacity-0 invisible group-hover:bottom-4 group-hover:opacity-100 group-hover:visible transition-all">
+      <div
+        className="absolute bottom-0 inset-x-1 space-x-1.5 rtl:space-x-reverse flex justify-center opacity-0 invisible group-hover:bottom-4 group-hover:opacity-100 group-hover:visible transition-all">
         {sizes.map((size, index) => {
           return (
             <div
               key={index}
               className="nc-shadow-lg w-10 h-10 rounded-xl bg-white hover:bg-slate-900 hover:text-white transition-colors cursor-pointer flex items-center justify-center uppercase font-semibold tracking-tight text-sm text-slate-900"
-              onClick={() => notifyAddTocart({ size })}
+              onClick={() => notifyAddTocart({size})}
             >
               {size}
             </div>
@@ -278,8 +280,8 @@ const ProductCard: FC<ProductCardProps> = ({
               alt="product"
             />
           </Link>
-          <ProductStatus status={status} />
-          <LikeButton liked={isLiked} className="absolute top-3 end-3 z-10" />
+          <ProductStatus status={status}/>
+          <LikeButton liked={isLiked} className="absolute top-3 end-3 z-10"/>
           {sizes ? renderSizeList() : renderGroupButtons()}
         </div>
 
@@ -295,9 +297,9 @@ const ProductCard: FC<ProductCardProps> = ({
           </div>
 
           <div className="flex justify-between items-end ">
-            <Prices price={price} />
+            <Prices price={price}/>
             <div className="flex items-center mb-0.5">
-              <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
+              <StarIcon className="w-5 h-5 pb-[1px] text-amber-400"/>
               <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
                 {rating || ""} ({numberOfReviews || 0} reviews)
               </span>

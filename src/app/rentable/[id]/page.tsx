@@ -1,15 +1,8 @@
 import ProductDetail from "./RentablePage";
-import { remark } from "remark";
+import {remark} from "remark";
 import remarkHtml from "remark-html";
 import html from "remark-html";
-import {
-  MediaApi,
-  RentableApi,
-  RentableGeolocation,
-  UserContact,
-  UserContactApi,
-  UserContactGetRequest,
-} from "@api";
+import {MediaApi, RentableApi, RentableGeolocation, UserContact, UserContactApi, UserContactGetRequest,} from "@api";
 
 export interface dataProduct {
   id: string;
@@ -31,8 +24,8 @@ async function getProduct(id: string) {
   const rentableApi = new RentableApi();
   const mediaApi = new MediaApi();
 
-  const productData = await rentableApi.rentableGet({ id });
-  const productImages = await mediaApi.mediaGet({ rentableId: id });
+  const productData = await rentableApi.rentableGet({id});
+  const productImages = await mediaApi.mediaGet({rentableId: id});
   const productUserInfo = await getProductUserInfo(productData[0].userId);
 
   const productDescription = await remark()

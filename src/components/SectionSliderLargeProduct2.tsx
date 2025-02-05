@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect, useId, useRef, useState } from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import Heading from "@/components/Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
@@ -57,9 +57,9 @@ export const DEMO_LARGE_PRODUCTS = [
 ];
 
 const SectionSliderLargeProduct2: FC<SectionSliderLargeProduct2Props> = ({
-  className = "",
-  cardStyle = "style1",
-}) => {
+                                                                           className = "",
+                                                                           cardStyle = "style1",
+                                                                         }) => {
   const [tabActive, setTabActive] = useState("Last 24 hours");
 
   const sliderRef = useRef(null);
@@ -94,7 +94,7 @@ const SectionSliderLargeProduct2: FC<SectionSliderLargeProduct2Props> = ({
 
     if (!sliderRef.current) return;
 
-    let slider = new Glide(sliderRef.current, OPTIONS);
+    const slider = new Glide(sliderRef.current, OPTIONS);
     slider.mount();
     setIsShow(true);
     return () => {
@@ -165,7 +165,7 @@ const SectionSliderLargeProduct2: FC<SectionSliderLargeProduct2Props> = ({
             <div className="flex items-center justify-center sm:space-x-2.5 text-xs sm:text-sm ">
               <span
                 className="hidden sm:inline-block"
-                dangerouslySetInnerHTML={{ __html: item.icon }}
+                dangerouslySetInnerHTML={{__html: item.icon}}
               ></span>
               <span>{item.name}</span>
             </div>
@@ -178,7 +178,7 @@ const SectionSliderLargeProduct2: FC<SectionSliderLargeProduct2Props> = ({
             {DEMO_LARGE_PRODUCTS.map((item, index) => {
               return (
                 <li key={index} className={`glide__slide`}>
-                  <MyCollectionCard imgs={item.images} />
+                  <MyCollectionCard imgs={item.images}/>
                 </li>
               );
             })}
@@ -231,8 +231,8 @@ const SectionSliderLargeProduct2: FC<SectionSliderLargeProduct2Props> = ({
           </ul>
         </div>
 
-        <Next className="absolute left-full ml-5 top-1/2 -translate-y-1/2" />
-        <Prev className="absolute right-full mr-5 top-1/2 -translate-y-1/2" />
+        <Next className="absolute left-full ml-5 top-1/2 -translate-y-1/2"/>
+        <Prev className="absolute right-full mr-5 top-1/2 -translate-y-1/2"/>
       </div>
     </div>
   );

@@ -11,10 +11,10 @@ export interface LogoProps {
 }
 
 const Logo: React.FC<LogoProps> = ({
-  img = logoImg,
-  imgLight = logoLightImg,
-  className = "flex-shrink-0",
-}) => {
+                                     img = logoImg,
+                                     imgLight = logoLightImg,
+                                     className = "flex-shrink-0",
+                                   }) => {
   return (
     <Link
       href="/"

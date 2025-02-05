@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Link from "next/link";
-import Image, { StaticImageData } from "next/image";
-import { CATS_DISCOVER } from "./data";
+import Image, {StaticImageData} from "next/image";
+import {CATS_DISCOVER} from "./data";
 
 export interface CardCategory3Props {
   className?: string;
@@ -13,12 +13,12 @@ export interface CardCategory3Props {
 }
 
 const CardCategory3: FC<CardCategory3Props> = ({
-  className = "",
-  featuredImage = CATS_DISCOVER[2].featuredImage,
-  name = CATS_DISCOVER[2].name,
-  desc = CATS_DISCOVER[2].desc,
-  color = CATS_DISCOVER[2].color,
-}) => {
+                                                 className = "",
+                                                 featuredImage = CATS_DISCOVER[2].featuredImage,
+                                                 name = CATS_DISCOVER[2].name,
+                                                 desc = CATS_DISCOVER[2].desc,
+                                                 color = CATS_DISCOVER[2].color,
+                                               }) => {
   return (
     <Link
       href={"/templates/collection"}
@@ -47,7 +47,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
               {desc && (
                 <h2
                   className={`text-xl md:text-2xl text-slate-900 font-semibold`}
-                  dangerouslySetInnerHTML={{ __html: desc }}
+                  dangerouslySetInnerHTML={{__html: desc}}
                 ></h2>
               )}
             </div>

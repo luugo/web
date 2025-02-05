@@ -1,21 +1,19 @@
 "use client";
 
-import React, { createRef, FC, useState, useEffect } from "react";
-import { PlaceApi, PlaceGetRequest } from "@api";
+import React, {FC, useEffect, useState} from "react";
+import {Place, PlaceApi, PlaceGetRequest} from "@api";
 import Logo from "@/shared/Logo/Logo";
 import MenuBar from "@/shared/MenuBar/MenuBar";
 import AvatarDropdown from "./AvatarDropdown";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { useRouter } from "next/navigation";
+import {XMarkIcon} from "@heroicons/react/24/outline";
+import {useRouter} from "next/navigation";
 import Select from "@/shared/Select/Select";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
-export interface MainNav2LoggedProps { }
+export type MainNav2LoggedProps = object
 
 const MainNavigation: FC<MainNav2LoggedProps> = () => {
-  const inputRef = createRef<HTMLInputElement>();
-  const [showSearchForm, setShowSearchForm] = useState(false);
-  const [placeItems, setPlaceItems] = useState<any[]>([]);
+  const [places, setPlaces] = useState<Place[]>([]);
   const [selectedPlace, setSelectedPlace] = useLocalStorage<any>('selectedPlace', null);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
@@ -36,14 +34,14 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
       };
 
       const response = await placesApi?.placeGet(requestParameters);
-      setPlaceItems(response);
+      setPlaces(response);
     }
 
     fetchPlaces();
   }, []);
 
-  const handleSelectPlace = (event:any) => {
-    const selected = placeItems.find(item => item.id === event.target.value) || '';
+  const handleSelectPlace = (event: any) => {
+    const selected = places.find(item => item.id === event.target.value) || '';
     setSelectedPlace(selected);
     localStorage.setItem('selectedPlace', JSON.stringify(selected));
   }
@@ -101,10 +99,10 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
             <button type="button" onClick={() => {
               setSearchTerm("")
             }}>
-              <XMarkIcon className="w-5 h-5" />
+              <XMarkIcon className="w-5 h-5"/>
             </button>
           </div>
-          <input type="submit" hidden value="" />
+          <input type="submit" hidden value=""/>
         </form>
 
       </>
@@ -119,8 +117,8 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
           className="w-full"
           value={selectedPlace ? selectedPlace?.id : 'Natal/RN'}
         >
-          {placeItems.length &&
-            placeItems?.map(item => (
+          {places.length &&
+            places?.map(item => (
                 <option key={item.id} value={item.id}>
                   {item.city} - {item.state}
                 </option>
@@ -135,8 +133,8 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
     return (
       <div className="h-20 flex justify-between">
         <div className="flex items-center ">
-          <MenuBar />
-          <Logo className="flex-shrink-0 hidden md:flex px-5" />
+          <MenuBar/>
+          <Logo className="flex-shrink-0 hidden md:flex px-5"/>
         </div>
 
         <div className="flex flex-grow !mx-auto px-10 md:px-0">
@@ -148,14 +146,15 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
         </div>
 
         <div className="flex items-center justify-end text-slate-700 dark:text-slate-100">
-          <AvatarDropdown />
+          <AvatarDropdown/>
         </div>
       </div>
     );
   };
 
   return (
-    <div className="nc-MainNav2Logged relative z-10 bg-white dark:bg-neutral-900 border-b border-slate-100 dark:border-slate-700">
+    <div
+      className="nc-MainNav2Logged relative z-10 bg-white dark:bg-neutral-900 border-b border-slate-100 dark:border-slate-700">
       <div className="container ">{renderContent()}</div>
     </div>
   );

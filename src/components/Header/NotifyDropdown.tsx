@@ -1,5 +1,5 @@
-import { Popover, Transition } from "@/app/headlessui";
-import { Fragment } from "react";
+import {Popover, Transition} from "@/app/headlessui";
+import {Fragment} from "react";
 import Avatar from "@/shared/Avatar/Avatar";
 
 const solutions = [
@@ -27,7 +27,7 @@ export default function NotifyDropdown() {
   return (
     <div className="">
       <Popover className="relative">
-        {({ open }) => (
+        {({open}) => (
           <>
             <Popover.Button
               className={`
@@ -67,7 +67,8 @@ export default function NotifyDropdown() {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute z-10 w-screen max-w-xs sm:max-w-sm px-4 mt-3 -right-28 sm:right-0 sm:px-0">
+              <Popover.Panel
+                className="absolute z-10 w-screen max-w-xs sm:max-w-sm px-4 mt-3 -right-28 sm:right-0 sm:px-0">
                 <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid gap-8 bg-white dark:bg-neutral-800 p-7">
                     <h3 className="text-xl font-semibold">Notifications</h3>
@@ -77,7 +78,7 @@ export default function NotifyDropdown() {
                         href={item.href}
                         className="flex p-2 pr-8 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 relative"
                       >
-                        <Avatar sizeClass="w-8 h-8 sm:w-12 sm:h-12" />
+                        <Avatar sizeClass="w-8 h-8 sm:w-12 sm:h-12"/>
                         <div className="ml-3 sm:ml-4 space-y-1">
                           <p className="text-sm font-medium text-gray-900 dark:text-gray-200">
                             {item.name}
@@ -89,7 +90,8 @@ export default function NotifyDropdown() {
                             {item.time}
                           </p>
                         </div>
-                        <span className="absolute right-1 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full bg-blue-500"></span>
+                        <span
+                          className="absolute right-1 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full bg-blue-500"></span>
                       </a>
                     ))}
                   </div>

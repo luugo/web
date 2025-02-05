@@ -1,14 +1,10 @@
 "use client";
 
-import { MediaPostRequest } from "@api";
-import {
-  faAngleLeft,
-  faAngleRight,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {MediaPostRequest} from "@api";
+import {faAngleLeft, faAngleRight, faXmark,} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import {useEffect, useState} from "react";
 
 interface ModalGalleryProps {
   images: MediaPostRequest[];
@@ -17,10 +13,10 @@ interface ModalGalleryProps {
 }
 
 const ModalGallery = ({
-  images,
-  onClose,
-  selectedImageUrl,
-}: ModalGalleryProps) => {
+                        images,
+                        onClose,
+                        selectedImageUrl,
+                      }: ModalGalleryProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -59,7 +55,7 @@ const ModalGallery = ({
           className="absolute flex gap-2 top-4 right-4 text-white text-2xl"
           onClick={onClose}
         >
-          <FontAwesomeIcon icon={faXmark} />
+          <FontAwesomeIcon icon={faXmark}/>
           <span className="text-base font-medium">Fechar</span>
         </button>
         <div className="flex absolute justify-center items-center">
@@ -77,13 +73,13 @@ const ModalGallery = ({
             className="flex items-center justify-center text-white text-3xl border-solid border-4 rounded-full p-4 w-12 h-12 aspect-square border-white hover:bg-white hover:bg-opacity-30"
             onClick={handlePrev}
           >
-            <FontAwesomeIcon icon={faAngleLeft} />
+            <FontAwesomeIcon icon={faAngleLeft}/>
           </button>
           <button
             className="flex items-center justify-center text-white text-3xl border-solid border-4 rounded-full p-4 w-12 h-12 aspect-square border-white hover:bg-white hover:bg-opacity-30"
             onClick={handleNext}
           >
-            <FontAwesomeIcon icon={faAngleRight} />
+            <FontAwesomeIcon icon={faAngleRight}/>
           </button>
         </div>
       </div>

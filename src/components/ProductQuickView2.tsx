@@ -1,16 +1,12 @@
 "use client";
-import React, { FC, useState } from "react";
+import React, {FC, useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import LikeButton from "@/components/LikeButton";
-import { StarIcon } from "@heroicons/react/24/solid";
+import {StarIcon} from "@heroicons/react/24/solid";
 import BagIcon from "@/components/BagIcon";
 import NcInputNumber from "@/components/NcInputNumber";
-import { PRODUCTS } from "@/data/data";
-import {
-  NoSymbolIcon,
-  ClockIcon,
-  SparklesIcon,
-} from "@heroicons/react/24/outline";
+import {PRODUCTS} from "@/data/data";
+import {ClockIcon, NoSymbolIcon, SparklesIcon,} from "@heroicons/react/24/outline";
 import IconDiscount from "@/components/IconDiscount";
 import Prices from "@/components/Prices";
 import toast from "react-hot-toast";
@@ -25,8 +21,8 @@ export interface ProductQuickView2Props {
   className?: string;
 }
 
-const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
-  const { sizes, variants, status, allOfSizes } = PRODUCTS[0];
+const ProductQuickView2: FC<ProductQuickView2Props> = ({className = ""}) => {
+  const {sizes, variants, status, allOfSizes} = PRODUCTS[0];
   const LIST_IMAGES_DEMO = [detail1JPG, detail2JPG, detail3JPG];
 
   const [variantActive, setVariantActive] = useState(0);
@@ -44,7 +40,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
           variantActive={variantActive}
         />
       ),
-      { position: "top-right", id: "nc-product-notify", duration: 3000 }
+      {position: "top-right", id: "nc-product-notify", duration: 3000}
     );
   };
 
@@ -81,10 +77,10 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
                     // @ts-ignore
                     typeof variant.thumbnail?.src === "string"
                       ? // @ts-ignore
-                        variant.thumbnail?.src
+                      variant.thumbnail?.src
                       : typeof variant.thumbnail === "string"
-                      ? variant.thumbnail
-                      : ""
+                        ? variant.thumbnail
+                        : ""
                   })`,
                 }}
               ></div>
@@ -159,7 +155,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
     if (status === "New in") {
       return (
         <div className={CLASSES}>
-          <SparklesIcon className="w-3.5 h-3.5" />
+          <SparklesIcon className="w-3.5 h-3.5"/>
           <span className="ml-1 leading-none">{status}</span>
         </div>
       );
@@ -167,7 +163,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
     if (status === "50% Discount") {
       return (
         <div className={CLASSES}>
-          <IconDiscount className="w-3.5 h-3.5" />
+          <IconDiscount className="w-3.5 h-3.5"/>
           <span className="ml-1 leading-none">{status}</span>
         </div>
       );
@@ -175,7 +171,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
     if (status === "Sold Out") {
       return (
         <div className={CLASSES}>
-          <NoSymbolIcon className="w-3.5 h-3.5" />
+          <NoSymbolIcon className="w-3.5 h-3.5"/>
           <span className="ml-1 leading-none">{status}</span>
         </div>
       );
@@ -183,7 +179,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
     if (status === "limited edition") {
       return (
         <div className={CLASSES}>
-          <ClockIcon className="w-3.5 h-3.5" />
+          <ClockIcon className="w-3.5 h-3.5"/>
           <span className="ml-1 leading-none">{status}</span>
         </div>
       );
@@ -214,7 +210,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
                 href="#reviews"
                 className="flex items-center text-sm font-medium"
               >
-                <StarIcon className="w-5 h-5 pb-[1px] text-yellow-400" />
+                <StarIcon className="w-5 h-5 pb-[1px] text-yellow-400"/>
                 <div className="ml-1.5 flex">
                   <span>4.9</span>
                   <span className="block mx-2">·</span>
@@ -225,7 +221,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
               </a>
               <span className="hidden sm:block mx-2.5">·</span>
               <div className="hidden sm:flex items-center text-sm">
-                <SparklesIcon className="w-3.5 h-3.5" />
+                <SparklesIcon className="w-3.5 h-3.5"/>
                 <span className="ml-1 leading-none">{status}</span>
               </div>
             </div>
@@ -238,7 +234,8 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
 
         {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
         <div className="flex space-x-3.5">
-          <div className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
+          <div
+            className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
             <NcInputNumber
               defaultValue={qualitySelected}
               onChange={setQualitySelected}
@@ -248,7 +245,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
             className="flex-1 flex-shrink-0"
             onClick={notifyAddTocart}
           >
-            <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
+            <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
             <span className="ml-3">Add to cart</span>
           </ButtonPrimary>
         </div>
@@ -290,7 +287,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
             {/* STATUS */}
             {renderStatus()}
             {/* META FAVORITES */}
-            <LikeButton className="absolute right-3 top-3 " />
+            <LikeButton className="absolute right-3 top-3 "/>
           </div>
         </div>
 

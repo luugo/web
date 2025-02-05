@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import NcImage from "@/shared/NcImage/NcImage";
 import explore1Svg from "@/images/collections/explore1.svg";
-import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import Image, { StaticImageData } from "next/image";
+import {ArrowRightIcon} from "@heroicons/react/24/outline";
+import Image, {StaticImageData} from "next/image";
 import Link from "next/link";
 
 export interface CardCategory4Props {
@@ -16,21 +16,21 @@ export interface CardCategory4Props {
 }
 
 const CardCategory4: FC<CardCategory4Props> = ({
-  className = "",
-  featuredImage = ".",
-  bgSVG = explore1Svg,
-  name,
-  desc,
-  color = "bg-rose-50",
-  count,
-}) => {
+                                                 className = "",
+                                                 featuredImage = ".",
+                                                 bgSVG = explore1Svg,
+                                                 name,
+                                                 desc,
+                                                 color = "bg-rose-50",
+                                                 count,
+                                               }) => {
   return (
     <div
       className={`nc-CardCategory4 relative w-full aspect-w-12 aspect-h-11 h-0 rounded-3xl overflow-hidden bg-white dark:bg-neutral-900 group hover:nc-shadow-lg transition-shadow ${className}`}
     >
       <div>
         <div className="absolute bottom-0 right-0 max-w-[280px] opacity-80">
-          <Image src={bgSVG} alt="" />
+          <Image src={bgSVG} alt=""/>
         </div>
 
         <div className="absolute inset-5 sm:inset-8 flex flex-col justify-between">
@@ -61,7 +61,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
             className="flex items-center text-sm font-medium group-hover:text-primary-500 transition-colors"
           >
             <span>See Collection</span>
-            <ArrowRightIcon className="w-4 h-4 ml-2.5" />
+            <ArrowRightIcon className="w-4 h-4 ml-2.5"/>
           </Link>
         </div>
       </div>

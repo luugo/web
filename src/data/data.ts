@@ -1,4 +1,4 @@
-import { productImgs } from "@/contains/fakeData";
+import {productImgs} from "@/contains/fakeData";
 import productVariantImg2 from "@/images/products/v2.jpg";
 import productVariantImg3 from "@/images/products/v3.jpg";
 import productVariantImg4 from "@/images/products/v4.jpg";
@@ -13,7 +13,7 @@ import productSport5 from "@/images/products/sport-5.png";
 import productSport6 from "@/images/products/sport-6.png";
 import productSport7 from "@/images/products/sport-7.png";
 import productSport8 from "@/images/products/sport-8.png";
-import { StaticImageData } from "next/image";
+import {StaticImageData} from "next/image";
 
 //
 
@@ -83,8 +83,8 @@ export const RENTABLES: Rentable[] = [
       y: -5.8792985,
     },
     tags: [""],
-    link:"/product-detail/",
-    status:"New in"
+    link: "/product-detail/",
+    status: "New in"
   }]
 
 const DEMO_VARIANTS: ProductVariant[] = [

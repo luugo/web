@@ -3,8 +3,7 @@
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
 import Heading from "@/components/Heading/Heading";
-import React, { FC, useId, useRef, useState } from "react";
-import { useEffect } from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import clientSayMain from "@/images/clientSayMain.png";
 import clientSay1 from "@/images/clientSay1.png";
 import clientSay2 from "@/images/clientSay2.png";
@@ -14,15 +13,15 @@ import clientSay5 from "@/images/clientSay5.png";
 import clientSay6 from "@/images/clientSay6.png";
 import quotationImg from "@/images/quotation.png";
 import quotationImg2 from "@/images/quotation2.png";
-import { StarIcon } from "@heroicons/react/24/solid";
+import {StarIcon} from "@heroicons/react/24/solid";
 import Image from "next/image";
-import { DEMO_DATA } from "./data";
+import {DEMO_DATA} from "./data";
 
 export interface SectionClientSayProps {
   className?: string;
 }
 
-const SectionClientSay: FC<SectionClientSayProps> = ({ className = "" }) => {
+const SectionClientSay: FC<SectionClientSayProps> = ({className = ""}) => {
   const sliderRef = useRef(null);
 
   const [isShow, setIsShow] = useState(false);
@@ -34,7 +33,7 @@ const SectionClientSay: FC<SectionClientSayProps> = ({ className = "" }) => {
 
     if (!sliderRef.current) return;
 
-    let slider = new Glide(sliderRef.current, OPTIONS);
+    const slider = new Glide(sliderRef.current, OPTIONS);
     slider.mount();
     setIsShow(true);
     return () => {
@@ -96,7 +95,7 @@ const SectionClientSay: FC<SectionClientSayProps> = ({ className = "" }) => {
       <div className="relative md:mb-16 max-w-2xl mx-auto">
         {renderBg()}
 
-        <Image className="mx-auto" src={clientSayMain} alt="" />
+        <Image className="mx-auto" src={clientSayMain} alt=""/>
         <div
           ref={sliderRef}
           className={`mt-12 lg:mt-16 relative ${isShow ? "" : "invisible"}`}
@@ -123,11 +122,11 @@ const SectionClientSay: FC<SectionClientSayProps> = ({ className = "" }) => {
                     {item.clientName}
                   </span>
                   <div className="flex items-center space-x-0.5 mt-3.5 text-yellow-500">
-                    <StarIcon className="w-6 h-6" />
-                    <StarIcon className="w-6 h-6" />
-                    <StarIcon className="w-6 h-6" />
-                    <StarIcon className="w-6 h-6" />
-                    <StarIcon className="w-6 h-6" />
+                    <StarIcon className="w-6 h-6"/>
+                    <StarIcon className="w-6 h-6"/>
+                    <StarIcon className="w-6 h-6"/>
+                    <StarIcon className="w-6 h-6"/>
+                    <StarIcon className="w-6 h-6"/>
                   </div>
                 </li>
               ))}

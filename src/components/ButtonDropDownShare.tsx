@@ -7,9 +7,9 @@ export interface ButtonDropDownShareProps {
 }
 
 const ButtonDropDownShare = ({
-  className = "py-1.5 px-3 flex rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer ",
-  panelMenusClass = "",
-}) => {
+                               className = "py-1.5 px-3 flex rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer ",
+                               panelMenusClass = "",
+                             }) => {
   return (
     <NcDropDown
       className={className}
@@ -44,14 +44,15 @@ const ButtonDropDownShare = ({
         </svg>
       )}
       panelMenusClass={panelMenusClass}
-      onClick={() => {}}
+      onClick={() => {
+      }}
       data={[
         {
           id: "Facebook",
           name: "Facebook",
           icon: "lab la-facebook-f",
         },
-        { id: "Twitter", name: "Twitter", icon: "lab la-twitter" },
+        {id: "Twitter", name: "Twitter", icon: "lab la-twitter"},
         {
           id: "Linkedin",
           name: "Linkedin",

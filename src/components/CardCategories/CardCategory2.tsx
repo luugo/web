@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import NcImage from "@/shared/NcImage/NcImage";
 import Link from "next/link";
-import { StaticImageData } from "next/image";
+import {StaticImageData} from "next/image";
 
 export interface CardCategory2Props {
   className?: string;
@@ -13,13 +13,13 @@ export interface CardCategory2Props {
 }
 
 const CardCategory2: FC<CardCategory2Props> = ({
-  className = "",
-  ratioClass = "aspect-w-1 aspect-h-1",
-  bgClass = "bg-orange-50",
-  featuredImage = ".",
-  name,
-  desc,
-}) => {
+                                                 className = "",
+                                                 ratioClass = "aspect-w-1 aspect-h-1",
+                                                 bgClass = "bg-orange-50",
+                                                 featuredImage = ".",
+                                                 name,
+                                                 desc,
+                                               }) => {
   return (
     <Link
       href={"/templates/collection"}
@@ -38,7 +38,8 @@ const CardCategory2: FC<CardCategory2Props> = ({
             sizes="400px"
           />
         </div>
-        <span className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity rounded-2xl"></span>
+        <span
+          className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity rounded-2xl"></span>
       </div>
       <div className="mt-5 flex-1 text-center">
         <h2 className="text-base sm:text-lg text-neutral-900 dark:text-neutral-100 font-semibold">

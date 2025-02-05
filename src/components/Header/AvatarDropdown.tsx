@@ -1,19 +1,15 @@
 "use client";
 
-import { Popover, Transition } from "@/app/headlessui";
-import { avatarImgs } from "@/contains/fakeData";
-import avatarLuugo from "@/images/hero-2-right-1.png"
-import { Fragment } from "react";
+import {Popover, Transition} from "@/app/headlessui";
 import Avatar from "@/shared/Avatar/Avatar";
-import SwitchDarkMode2 from "@/shared/SwitchDarkMode/SwitchDarkMode2";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Link from "next/link";
-import { useUserContext } from "@/context";
+import {useUserContext} from "@/context";
 import useAuthenticated from "@/hooks/useAuthenticated";
 
-const isLoggedIn = ({ close }: { close: () => void }) => {
-  const { firstName, lastName, place } = useUserContext();
-  let storageData: any = null;
+const IsLoggedIn = ({close}: { close: () => void }) => {
+  const {firstName, lastName, place} = useUserContext();
+  let storageData: string | null = null;
   if (typeof window !== 'undefined') {
     storageData = localStorage.getItem('luugo');
   }
@@ -25,7 +21,7 @@ const isLoggedIn = ({ close }: { close: () => void }) => {
       const user = jsonData.user;
       return (
         <div className="flex items-center space-x-3">
-          <Avatar imgUrl={user.thumbnail} sizeClass="w-12 h-12" />
+          <Avatar imgUrl={user.thumbnail} sizeClass="w-12 h-12"/>
 
           <div className="flex-grow">
             <h4 className="font-semibold">
@@ -50,12 +46,12 @@ const isLoggedIn = ({ close }: { close: () => void }) => {
 }
 
 export default function AvatarDropdown() {
-  const { isAuthenticated } = useAuthenticated();
+  const {isAuthenticated} = useAuthenticated();
 
   return (
     <div className="AvatarDropdown ">
       <Popover className="relative">
-        {({ open, close }) => (
+        {({close}) => (
           <>
             <Popover.Button
               className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none flex items-center justify-center`}
@@ -95,17 +91,18 @@ export default function AvatarDropdown() {
                 <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid grid-cols-1 gap-6 bg-white dark:bg-neutral-800 py-7 px-6">
 
-                    {isLoggedIn({ close })}
+                    {IsLoggedIn({close})}
 
-                    <div className="w-full border-b border-neutral-200 dark:border-neutral-700" />
+                    <div className="w-full border-b border-neutral-200 dark:border-neutral-700"/>
 
                     {/* ------------------ 1 --------------------- */}
                     <Link
-                      href={{ pathname: '/account' }}
+                      href={{pathname: '/account'}}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
                     >
-                      <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
+                      <div
+                        className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
                         <svg
                           width="24"
                           height="24"
@@ -136,11 +133,12 @@ export default function AvatarDropdown() {
 
                     {/* ------------------ 2 --------------------- */}
                     <Link
-                      href={{ pathname: '/account-rentable' }}
+                      href={{pathname: '/account-rentable'}}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
                     >
-                      <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
+                      <div
+                        className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
                         <svg
                           width="24"
                           height="24"
@@ -186,12 +184,14 @@ export default function AvatarDropdown() {
                       </div>
                     </Link>
 
-                    <div className="w-full border-b border-neutral-200 dark:border-neutral-700" />
+                    <div className="w-full border-b border-neutral-200 dark:border-neutral-700"/>
 
                     {/* ------------------ 2 --------------------- */}
-                    <div className="flex items-center justify-between p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                    <div
+                      className="flex items-center justify-between p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
                       <div className="flex items-center">
-                        <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
+                        <div
+                          className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
                           <svg
                             width="24"
                             height="24"
@@ -226,7 +226,6 @@ export default function AvatarDropdown() {
                           <p className="text-sm font-medium ">{"Tema Escuro"}</p>
                         </div>
                       </div>
-                      <SwitchDarkMode2 />
                     </div>
 
                     {/* ------------------ 2 --------------------- */}
@@ -235,7 +234,8 @@ export default function AvatarDropdown() {
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
                     >
-                      <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
+                      <div
+                        className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
                         <svg
                           width="24"
                           height="24"
@@ -299,11 +299,12 @@ export default function AvatarDropdown() {
                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                         onClick={() => {
                           close();
-                            localStorage.removeItem('luugo');
+                          localStorage.removeItem('luugo');
                           window.location.reload();
                         }}
                       >
-                        <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
+                        <div
+                          className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
                           <svg
                             width="24"
                             height="24"

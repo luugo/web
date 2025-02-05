@@ -1,7 +1,7 @@
-import { TwMainColor } from "@/data/types";
-import { Route } from "@/routers/types";
+import {TwMainColor} from "@/data/types";
+import {Route} from "@/routers/types";
 import Link from "next/link";
-import React, { FC, ReactNode } from "react";
+import React, {FC, ReactNode} from "react";
 
 export interface BadgeProps {
   className?: string;
@@ -11,11 +11,11 @@ export interface BadgeProps {
 }
 
 const Badge: FC<BadgeProps> = ({
-  className = "relative",
-  name,
-  color = "blue",
-  href,
-}) => {
+                                 className = "relative",
+                                 name,
+                                 color = "blue",
+                                 href,
+                               }) => {
   const getColorClass = (hasHover = true) => {
     switch (color) {
       case "pink":

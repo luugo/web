@@ -1,9 +1,9 @@
 "use client";
 
-import { Popover, Transition } from "@/app/headlessui";
+import {Popover, Transition} from "@/app/headlessui";
 import Prices from "@/components/Prices";
-import { Product, PRODUCTS } from "@/data/data";
-import { Fragment } from "react";
+import {Product, PRODUCTS} from "@/data/data";
+import {Fragment} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Image from "next/image";
@@ -11,7 +11,7 @@ import Link from "next/link";
 
 export default function CartDropdown() {
   const renderProduct = (item: Product, index: number, close: () => void) => {
-    const { name, price, image } = item;
+    const {name, price, image} = item;
     return (
       <div key={index} className="flex py-5 last:pb-0">
         <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -43,7 +43,7 @@ export default function CartDropdown() {
                   <span>{"XL"}</span>
                 </p>
               </div>
-              <Prices price={price} className="mt-0.5" />
+              <Prices price={price} className="mt-0.5"/>
             </div>
           </div>
           <div className="flex flex-1 items-end justify-between text-sm">
@@ -65,14 +65,15 @@ export default function CartDropdown() {
 
   return (
     <Popover className="relative">
-      {({ open, close }) => (
+      {({open, close}) => (
         <>
           <Popover.Button
             className={`
                 ${open ? "" : "text-opacity-90"}
                  group w-10 h-10 sm:w-12 sm:h-12 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 relative`}
           >
-            <div className="w-3.5 h-3.5 flex items-center justify-center bg-primary-500 absolute top-1.5 right-1.5 rounded-full text-[10px] leading-none text-white font-medium">
+            <div
+              className="w-3.5 h-3.5 flex items-center justify-center bg-primary-500 absolute top-1.5 right-1.5 rounded-full text-[10px] leading-none text-white font-medium">
               <span className="mt-[1px]">3</span>
             </div>
             <svg
@@ -115,7 +116,7 @@ export default function CartDropdown() {
               />
             </svg>
 
-            <Link className="block md:hidden absolute inset-0" href={"/templates/cart"} />
+            <Link className="block md:hidden absolute inset-0" href={"/templates/cart"}/>
           </Popover.Button>
           <Transition
             as="div"
@@ -126,7 +127,8 @@ export default function CartDropdown() {
             leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 translate-y-1"
           >
-            <Popover.Panel className="hidden md:block absolute z-10 w-screen max-w-xs sm:max-w-md px-4 mt-3.5 -right-28 sm:right-0 sm:px-0">
+            <Popover.Panel
+              className="hidden md:block absolute z-10 w-screen max-w-xs sm:max-w-md px-4 mt-3.5 -right-28 sm:right-0 sm:px-0">
               <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 dark:ring-white/10">
                 <div className="relative bg-white dark:bg-neutral-800">
                   <div className="max-h-[60vh] p-5 overflow-y-auto hiddenScrollbar">

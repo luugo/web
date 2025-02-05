@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 
 interface IconDiscountProps {
   className?: string;
 }
 
-const IconDiscount: FC<IconDiscountProps> = ({ className = "w-5 h-5" }) => {
+const IconDiscount: FC<IconDiscountProps> = ({className = "w-5 h-5"}) => {
   return (
     <svg
       className={className}

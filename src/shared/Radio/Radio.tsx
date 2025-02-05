@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 
 export interface RadioProps {
   className?: string;
@@ -11,14 +11,14 @@ export interface RadioProps {
 }
 
 const Radio: FC<RadioProps> = ({
-  className = "",
-  name,
-  id,
-  onChange,
-  label,
-  sizeClassName = "w-6 h-6",
-  defaultChecked,
-}) => {
+                                 className = "",
+                                 name,
+                                 id,
+                                 onChange,
+                                 label,
+                                 sizeClassName = "w-6 h-6",
+                                 defaultChecked,
+                               }) => {
   return (
     <div className={`flex items-center text-sm sm:text-base ${className}`}>
       <input
@@ -34,7 +34,7 @@ const Radio: FC<RadioProps> = ({
         <label
           htmlFor={id}
           className="pl-2.5 sm:pl-3 block text-slate-900 dark:text-slate-100 select-none"
-          dangerouslySetInnerHTML={{ __html: label }}
+          dangerouslySetInnerHTML={{__html: label}}
         ></label>
       )}
     </div>

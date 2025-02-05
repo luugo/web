@@ -1,9 +1,9 @@
 "use client";
 
-import React, { FC, Fragment } from "react";
-import { Menu, Transition } from "@/app/headlessui";
+import React, {FC} from "react";
+import {Menu, Transition} from "@/app/headlessui";
 import Link from "next/link";
-import { Route } from "@/routers/types";
+import {Route} from "@/routers/types";
 
 export interface NcDropDownItem {
   id: string;
@@ -24,15 +24,15 @@ export interface NcDropDownProps {
 }
 
 const NcDropDown: FC<NcDropDownProps> = ({
-  className = `h-8 w-8 flex items-center justify-center`,
-  iconClass = "w-4 h-4 sm:h-5 sm:w-5",
-  panelMenusClass = "origin-top-right",
-  title = "More",
-  renderTrigger,
-  renderItem,
-  data,
-  onClick,
-}) => {
+                                           className = `h-8 w-8 flex items-center justify-center`,
+                                           iconClass = "w-4 h-4 sm:h-5 sm:w-5",
+                                           panelMenusClass = "origin-top-right",
+                                           title = "More",
+                                           renderTrigger,
+                                           renderItem,
+                                           data,
+                                           onClick,
+                                         }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button className={className} title={title}>

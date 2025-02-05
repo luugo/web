@@ -38,7 +38,7 @@ const Category: React.FC = () => {
       const rentableApi = new RentableApi();
       const requestParameters: RentableGetRequest = {
         categoryId: categoryId,
-        ...(place && { place: place.id})
+        ...(place && {place: place.id})
       };
       const response = await rentableApi?.rentableGet(requestParameters);
       setRentables(response);

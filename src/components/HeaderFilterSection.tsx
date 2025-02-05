@@ -1,21 +1,21 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, {FC, useState} from "react";
 import Heading from "@/shared/Heading/Heading";
 import Nav from "@/shared/Nav/Nav";
 import NavItem from "@/shared/NavItem/NavItem";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import TabFilters from "@/components/TabFilters";
-import { Transition } from "@/app/headlessui";
+import {Transition} from "@/app/headlessui";
 
 export interface HeaderFilterSectionProps {
   className?: string;
 }
 
 const HeaderFilterSection: FC<HeaderFilterSectionProps> = ({
-  className = "mb-12",
-}) => {
+                                                             className = "mb-12",
+                                                           }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [tabActive, setTabActive] = useState("All items");
 
@@ -94,7 +94,7 @@ const HeaderFilterSection: FC<HeaderFilterSectionProps> = ({
         leaveTo="opacity-0"
       >
         <div className="w-full border-b border-neutral-200 dark:border-neutral-700 my-8"></div>
-        <TabFilters />
+        <TabFilters/>
       </Transition>
     </div>
   );

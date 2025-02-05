@@ -1,11 +1,11 @@
 "use client";
 
-import React, { FC, useEffect, useId, useRef, useState } from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import Heading from "@/components/Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
 import ProductCard from "./ProductCard";
-import { Product, PRODUCTS } from "@/data/data";
+import {Product, PRODUCTS} from "@/data/data";
 
 export interface SectionSliderProductCardProps {
   className?: string;
@@ -18,14 +18,14 @@ export interface SectionSliderProductCardProps {
 }
 
 const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
-  className = "",
-  itemClassName = "",
-  headingFontClassName,
-  headingClassName,
-  heading,
-  subHeading = "REY backpacks & bags",
-  data = PRODUCTS.filter((_, i) => i < 8 && i > 2),
-}) => {
+                                                                       className = "",
+                                                                       itemClassName = "",
+                                                                       headingFontClassName,
+                                                                       headingClassName,
+                                                                       heading,
+                                                                       subHeading = "REY backpacks & bags",
+                                                                       data = PRODUCTS.filter((_, i) => i < 8 && i > 2),
+                                                                     }) => {
   const sliderRef = useRef(null);
 
   //
@@ -61,7 +61,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
     };
     if (!sliderRef.current) return;
 
-    let slider = new Glide(sliderRef.current, OPTIONS);
+    const slider = new Glide(sliderRef.current, OPTIONS);
     slider.mount();
     setIsShow(true);
     return () => {
@@ -84,7 +84,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
           <ul className="glide__slides">
             {data.map((item, index) => (
               <li key={index} className={`glide__slide ${itemClassName}`}>
-                <ProductCard data={item} />
+                <ProductCard data={item}/>
               </li>
             ))}
           </ul>

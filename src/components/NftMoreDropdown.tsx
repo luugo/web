@@ -1,7 +1,7 @@
 "use client";
 
-import React, { FC, useState } from "react";
-import NcDropDown, { NcDropDownItem } from "@/shared/NcDropDown/NcDropDown";
+import React, {FC, useState} from "react";
+import NcDropDown, {NcDropDownItem} from "@/shared/NcDropDown/NcDropDown";
 import ModalDelete from "./ModalDelete";
 import ModalEdit from "./ModalEdit";
 import ModalReportItem from "./ModalReportItem";
@@ -15,18 +15,18 @@ export interface NftMoreDropdownProps {
 }
 
 const actionsDefault: NftMoreDropdownProps["actions"] = [
-  { id: "edit", name: "Change price", icon: "las la-dollar-sign" },
-  { id: "transferToken", name: "Transfer token", icon: "las la-sync" },
-  { id: "report", name: "Report abuse", icon: "las la-flag" },
-  { id: "delete", name: "Delete item", icon: "las la-trash-alt" },
+  {id: "edit", name: "Change price", icon: "las la-dollar-sign"},
+  {id: "transferToken", name: "Transfer token", icon: "las la-sync"},
+  {id: "report", name: "Report abuse", icon: "las la-flag"},
+  {id: "delete", name: "Delete item", icon: "las la-trash-alt"},
 ];
 
 const NftMoreDropdown: FC<NftMoreDropdownProps> = ({
-  containerClassName = "py-1.5 px-3 flex rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer",
-  iconClass = "w-4 h-4 sm:h-5 sm:w-5",
-  dropdownPositon = "down",
-  actions = actionsDefault,
-}) => {
+                                                     containerClassName = "py-1.5 px-3 flex rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer",
+                                                     iconClass = "w-4 h-4 sm:h-5 sm:w-5",
+                                                     dropdownPositon = "down",
+                                                     actions = actionsDefault,
+                                                   }) => {
   const [isEditting, setIsEditting] = useState(false);
   const [isReporting, setIsReporting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -87,11 +87,12 @@ const NftMoreDropdown: FC<NftMoreDropdownProps> = ({
         show={isReporting}
         onCloseModalReportItem={closeModalReport}
       />
-      <ModalEdit show={isEditting} onCloseModalEdit={closeModalEdit} />
+      <ModalEdit show={isEditting} onCloseModalEdit={closeModalEdit}/>
 
-      <ModalDelete show={isDeleting} onCloseModalDelete={closeModalDelete} modalTitle={""} modalDescription={""} handleConfirm={function (): void {
-        throw new Error("Function not implemented.");
-      } } />
+      <ModalDelete show={isDeleting} onCloseModalDelete={closeModalDelete} modalTitle={""} modalDescription={""}
+                   handleConfirm={function (): void {
+                     throw new Error("Function not implemented.");
+                   }}/>
       <ModalTransferToken
         show={isTransfering}
         onCloseModalTransferToken={closeModalTransferToken}

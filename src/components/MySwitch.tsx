@@ -1,6 +1,6 @@
 "use client";
-import { FC, useEffect, useState } from "react";
-import { Switch } from "@/app/headlessui";
+import {FC, useEffect, useState} from "react";
+import {Switch} from "@/app/headlessui";
 import Label from "./Label/Label";
 
 export interface MySwitchProps {
@@ -12,12 +12,12 @@ export interface MySwitchProps {
 }
 
 const MySwitch: FC<MySwitchProps> = ({
-  enabled = false,
-  label = "Put on sale",
-  desc = "You’ll receive bids on this item",
-  className = "",
-  onChange,
-}) => {
+                                       enabled = false,
+                                       label = "Put on sale",
+                                       desc = "You’ll receive bids on this item",
+                                       className = "",
+                                       onChange,
+                                     }) => {
   const [enabledState, setEnabledState] = useState(false);
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 "use client";
-import React, { FC, useEffect, useRef, useState } from "react";
-import { RadioGroup } from "@/app/headlessui";
+import React, {FC, useEffect, useRef, useState} from "react";
+import {RadioGroup} from "@/app/headlessui";
 import Textarea from "@/shared/Textarea/Textarea";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
@@ -19,17 +19,17 @@ export interface ModalReportItemProps {
 }
 
 const problemPlansDemo = [
-  { name: "Violence", id: "Violence", label: "Violence" },
-  { name: "Trouble", id: "Trouble", label: "Trouble" },
-  { name: "Spam", id: "Spam", label: "Spam" },
-  { name: "Other", id: "Other", label: "Other" },
+  {name: "Violence", id: "Violence", label: "Violence"},
+  {name: "Trouble", id: "Trouble", label: "Trouble"},
+  {name: "Spam", id: "Spam", label: "Spam"},
+  {name: "Other", id: "Other", label: "Other"},
 ];
 
 const ModalReportItem: FC<ModalReportItemProps> = ({
-  problemPlans = problemPlansDemo,
-  show,
-  onCloseModalReportItem,
-}) => {
+                                                     problemPlans = problemPlansDemo,
+                                                     show,
+                                                     onCloseModalReportItem,
+                                                   }) => {
   const textareaRef = useRef(null);
 
   const [problemSelected, setProblemSelected] = useState(problemPlans[0]);
@@ -45,12 +45,13 @@ const ModalReportItem: FC<ModalReportItemProps> = ({
     }
   }, [show]);
 
-  const handleClickSubmitForm = () => {};
+  const handleClickSubmitForm = () => {
+  };
 
   const renderCheckIcon = () => {
     return (
       <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
-        <circle cx={12} cy={12} r={12} fill="#fff" opacity="0.2" />
+        <circle cx={12} cy={12} r={12} fill="#fff" opacity="0.2"/>
         <path
           d="M7 13l3 3 7-7"
           stroke="#fff"
@@ -73,7 +74,7 @@ const ModalReportItem: FC<ModalReportItemProps> = ({
               <RadioGroup.Option
                 key={plan.name}
                 value={plan}
-                className={({ checked }) => {
+                className={({checked}) => {
                   return `${
                     checked
                       ? "bg-primary-6000 text-white dark:bg-primary-700"
@@ -81,7 +82,7 @@ const ModalReportItem: FC<ModalReportItemProps> = ({
                   } relative shadow-lg rounded-lg px-3 py-3 cursor-pointer flex sm:px-5 sm:py-4 focus:outline-none `;
                 }}
               >
-                {({ checked }) => (
+                {({checked}) => (
                   <div className="flex items-center justify-between w-full">
                     <div className="flex items-center">
                       <div className="text-sm">

@@ -1,21 +1,22 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import NcImage from "@/shared/NcImage/NcImage";
 import rightImgDemo from "@/images/promo3.png";
 import backgroundLineSvg from "@/images/BackgroundLine.svg";
 import Badge from "@/shared/Badge/Badge";
 import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
-import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
+import {ArrowSmallRightIcon} from "@heroicons/react/24/solid";
 import Image from "next/image";
 
 export interface SectionPromo3Props {
   className?: string;
 }
 
-const SectionPromo3: FC<SectionPromo3Props> = ({ className = "lg:pt-10" }) => {
+const SectionPromo3: FC<SectionPromo3Props> = ({className = "lg:pt-10"}) => {
   return (
     <div className={`nc-SectionPromo3 ${className}`}>
-      <div className="relative flex flex-col lg:flex-row bg-slate-50 dark:bg-slate-800 rounded-2xl sm:rounded-[40px] p-4 pb-0 sm:p-5 sm:pb-0 lg:p-24">
+      <div
+        className="relative flex flex-col lg:flex-row bg-slate-50 dark:bg-slate-800 rounded-2xl sm:rounded-[40px] p-4 pb-0 sm:p-5 sm:pb-0 lg:p-24">
         <div className="absolute inset-0">
           <Image
             fill
@@ -35,19 +36,19 @@ const SectionPromo3: FC<SectionPromo3Props> = ({ className = "lg:pt-10" }) => {
           </span>
           <ul className="space-y-4 mt-10">
             <li className="flex items-center space-x-4">
-              <Badge color="purple" name="01" />
+              <Badge color="purple" name="01"/>
               <span className="font-medium text-neutral-700 dark:text-neutral-300">
                 Savings combos
               </span>
             </li>
             <li className="flex items-center space-x-4">
-              <Badge name="02" />
+              <Badge name="02"/>
               <span className="font-medium text-neutral-700 dark:text-neutral-300">
                 Freeship
               </span>
             </li>
             <li className="flex items-center space-x-4">
-              <Badge color="red" name="03" />
+              <Badge color="red" name="03"/>
               <span className="font-medium text-neutral-700 dark:text-neutral-300">
                 Premium magazines
               </span>
@@ -65,7 +66,7 @@ const SectionPromo3: FC<SectionPromo3Props> = ({ className = "lg:pt-10" }) => {
               type="submit"
               className="absolute transform top-1/2 -translate-y-1/2 right-1"
             >
-              <ArrowSmallRightIcon className="w-6 h-6" />
+              <ArrowSmallRightIcon className="w-6 h-6"/>
             </ButtonCircle>
           </form>
         </div>

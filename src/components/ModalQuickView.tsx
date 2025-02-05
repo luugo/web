@@ -1,11 +1,11 @@
 "use client";
 
-import { Dialog, Transition } from "@/app/headlessui";
-import React, { FC, Fragment } from "react";
+import {Dialog, Transition} from "@/app/headlessui";
+import React, {FC} from "react";
 import ButtonClose from "@/shared/ButtonClose/ButtonClose";
 import ProductQuickView from "./ProductQuickView";
 import ProductQuickView2 from "./ProductQuickView2";
-import { usePathname } from "next/navigation";
+import {usePathname} from "next/navigation";
 import {TransitionChild} from "@headlessui/react";
 
 export interface ModalQuickViewProps {
@@ -14,9 +14,9 @@ export interface ModalQuickViewProps {
 }
 
 const ModalQuickView: FC<ModalQuickViewProps> = ({
-  show,
-  onCloseModalQuickView,
-}) => {
+                                                   show,
+                                                   onCloseModalQuickView,
+                                                 }) => {
   const pathname = usePathname();
 
   return (
@@ -36,7 +36,7 @@ const ModalQuickView: FC<ModalQuickViewProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/40 dark:bg-black/70" />
+            <div className="fixed inset-0 bg-black/40 dark:bg-black/70"/>
           </TransitionChild>
 
           {/* This element is to trick the browser into centering the modal contents. */}
@@ -58,14 +58,14 @@ const ModalQuickView: FC<ModalQuickViewProps> = ({
               dark:bg-neutral-900 dark:border dark:border-slate-700 dark:text-slate-100 shadow-xl"
               >
                 <span className="absolute end-3 top-3 z-50">
-                  <ButtonClose onClick={onCloseModalQuickView} />
+                  <ButtonClose onClick={onCloseModalQuickView}/>
                 </span>
 
                 <div className="flex-1 overflow-y-auto rounded-xl hiddenScrollbar">
                   {pathname.includes("/home-2") ? (
-                    <ProductQuickView2 />
+                    <ProductQuickView2/>
                   ) : (
-                    <ProductQuickView />
+                    <ProductQuickView/>
                   )}
                 </div>
               </div>

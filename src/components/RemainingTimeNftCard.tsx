@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 
 interface Props {
   className?: string;
@@ -6,9 +6,9 @@ interface Props {
 }
 
 const RemainingTimeNftCard: FC<Props> = ({
-  className = "absolute top-[-1px] right-[-1px] flex items-center",
-  contentClassName = "right-5 top-1/2 -translate-y-1/2",
-}) => {
+                                           className = "absolute top-[-1px] right-[-1px] flex items-center",
+                                           contentClassName = "right-5 top-1/2 -translate-y-1/2",
+                                         }) => {
   return (
     <div className={className}>
       <svg

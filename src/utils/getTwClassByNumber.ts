@@ -52,6 +52,7 @@ function _gridCols2XL(index: number) {
       return "";
   }
 }
+
 function _gridColsXL(index: number) {
   switch (index) {
     case 1:
@@ -83,6 +84,7 @@ function _gridColsXL(index: number) {
       return "";
   }
 }
+
 function _gridColsLG(index: number) {
   switch (index) {
     case 1:
@@ -114,6 +116,7 @@ function _gridColsLG(index: number) {
       return "";
   }
 }
+
 function _gridColsMD(index: number) {
   switch (index) {
     case 1:
@@ -145,6 +148,7 @@ function _gridColsMD(index: number) {
       return "";
   }
 }
+
 function _gridColsSM(index: number) {
   switch (index) {
     case 1:
@@ -176,6 +180,7 @@ function _gridColsSM(index: number) {
       return "";
   }
 }
+
 function _gridCols(index: number) {
   switch (index) {
     case 1:

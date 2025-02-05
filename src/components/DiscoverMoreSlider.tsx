@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect, useId, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Heading from "./Heading/Heading";
 import CardCategory3 from "./CardCategories/CardCategory3";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
-import { CATS_DISCOVER } from "./CardCategories/data";
+import {CATS_DISCOVER} from "./CardCategories/data";
 
 const DiscoverMoreSlider = () => {
   const sliderRef = useRef(null);
@@ -43,7 +43,7 @@ const DiscoverMoreSlider = () => {
     };
     if (!sliderRef.current) return;
 
-    let slider = new Glide(sliderRef.current, OPTIONS);
+    const slider = new Glide(sliderRef.current, OPTIONS);
     slider.mount();
     setIsShow(true);
     return () => {

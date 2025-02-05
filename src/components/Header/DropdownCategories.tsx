@@ -1,10 +1,10 @@
 "use client";
 
-import { Route } from "@/routers/types";
-import { Popover, Transition } from "@/app/headlessui";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import {Route} from "@/routers/types";
+import {Popover, Transition} from "@/app/headlessui";
+import {ChevronDownIcon} from "@heroicons/react/24/solid";
 import Link from "next/link";
-import { Fragment } from "react";
+import {Fragment} from "react";
 
 interface SolutionItem {
   name: string;
@@ -73,7 +73,7 @@ export default function DropdownCategories() {
   return (
     <div className="DropdownCategories">
       <Popover className="relative">
-        {({ open, close }) => (
+        {({open, close}) => (
           <>
             <Popover.Button
               className={`${open ? "" : "text-opacity-90"}
@@ -108,7 +108,7 @@ export default function DropdownCategories() {
                         }`}
                       >
                         <div
-                          dangerouslySetInnerHTML={{ __html: item.icon }}
+                          dangerouslySetInnerHTML={{__html: item.icon}}
                           className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-primary-50 rounded-md text-primary-500 sm:h-12 sm:w-12"
                         ></div>
                         <div className="ml-4 space-y-0.5">

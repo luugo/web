@@ -185,6 +185,7 @@ const aTitles = [
 function _getTitleRd() {
   return aTitles[Math.floor(Math.random() * aTitles.length)];
 }
+
 function _getPersonNameRd() {
   return personNames[Math.floor(Math.random() * personNames.length)];
 }
@@ -200,6 +201,7 @@ function _getImgHightQualityRd() {
 function _getTagNameRd() {
   return tagNames[Math.floor(Math.random() * tagNames.length)];
 }
+
 function _getAvatarRd() {
   return avatarImgs[Math.floor(Math.random() * avatarImgs.length)];
 }

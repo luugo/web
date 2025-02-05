@@ -6,11 +6,11 @@ export interface InviewPortType {
 }
 
 const checkInViewIntersectionObserver = ({
-  target,
-  options = { root: null, rootMargin: `0%`, threshold: 0 },
-  callback,
-  freezeOnceVisible = false,
-}: InviewPortType) => {
+                                           target,
+                                           options = {root: null, rootMargin: `0%`, threshold: 0},
+                                           callback,
+                                           freezeOnceVisible = false,
+                                         }: InviewPortType) => {
   const _funCallback: IntersectionObserverCallback = (
     entries: IntersectionObserverEntry[],
     observer: IntersectionObserver
@@ -37,7 +37,9 @@ const checkInViewIntersectionObserver = ({
   }
 
   const observer = new IntersectionObserver(_funCallback, options);
-  target && observer.observe(target);
+  if (target) {
+    observer.observe(target);
+  }
 };
 
 export default checkInViewIntersectionObserver;

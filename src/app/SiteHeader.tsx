@@ -7,7 +7,7 @@ import {useThemeMode} from "@/hooks/useThemeMode";
 const SiteHeader = () => {
   useThemeMode();
 
-  return <Header/> ;
+  return <Header/>;
 };
 
 export default SiteHeader;

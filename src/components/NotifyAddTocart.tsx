@@ -1,8 +1,8 @@
-import React, { FC } from "react";
-import { Transition } from "@/app/headlessui";
+import React, {FC} from "react";
+import {Transition} from "@/app/headlessui";
 import Prices from "@/components/Prices";
-import { PRODUCTS } from "@/data/data";
-import Image, { StaticImageData } from "next/image";
+import {PRODUCTS} from "@/data/data";
+import Image, {StaticImageData} from "next/image";
 
 interface Props {
   show: boolean;
@@ -13,13 +13,13 @@ interface Props {
 }
 
 const NotifyAddTocart: FC<Props> = ({
-  show,
-  productImage,
-  variantActive,
-  qualitySelected,
-  sizeSelected,
-}) => {
-  const { name, price, variants } = PRODUCTS[0];
+                                      show,
+                                      productImage,
+                                      variantActive,
+                                      qualitySelected,
+                                      sizeSelected,
+                                    }) => {
+  const {name, price, variants} = PRODUCTS[0];
 
   const renderProductCartOnNotify = () => {
     return (
@@ -47,7 +47,7 @@ const NotifyAddTocart: FC<Props> = ({
                   <span>{sizeSelected || "XL"}</span>
                 </p>
               </div>
-              <Prices price={price} className="mt-0.5" />
+              <Prices price={price} className="mt-0.5"/>
             </div>
           </div>
           <div className="flex flex-1 items-end justify-between text-sm">
@@ -83,7 +83,7 @@ const NotifyAddTocart: FC<Props> = ({
       <p className="block text-base font-semibold leading-none">
         Added to cart!
       </p>
-      <hr className=" border-slate-200 dark:border-slate-700 my-4" />
+      <hr className=" border-slate-200 dark:border-slate-700 my-4"/>
       {renderProductCartOnNotify()}
     </Transition>
   );

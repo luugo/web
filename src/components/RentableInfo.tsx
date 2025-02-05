@@ -1,9 +1,9 @@
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
-import {faInstagram, faWhatsapp, faFacebook, IconDefinition} from '@fortawesome/free-brands-svg-icons'
-import { faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import React, {useEffect, useState} from "react";
+import {faFacebook, faInstagram, faWhatsapp, IconDefinition} from '@fortawesome/free-brands-svg-icons'
+import {faEnvelope, faPhone} from '@fortawesome/free-solid-svg-icons'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 
 type UserContact = {

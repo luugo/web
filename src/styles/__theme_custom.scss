@@ -46,11 +46,13 @@
 .nc-will-change-top {
   will-change: top;
 }
+
 //
 
 .nc-SectionClientSay .glide__bullet--active {
   @apply bg-neutral-700;
 }
+
 .nc-GallerySlider .glide__bullet--active {
   @apply bg-white w-2 h-2;
 }
@@ -81,6 +83,7 @@
     font-weight: normal;
   }
 }
+
 .menuIsNew {
   > a::after {
     content: "New!";
@@ -123,6 +126,7 @@
 .nc-origin-100 {
   transform-origin: 100% 50% 0px;
 }
+
 .nc-origin-50 {
   transform-origin: 50% 50% 0px;
 }
@@ -131,6 +135,7 @@
 .nc-hero-field-padding {
   @apply py-3 px-4 md:py-4 md:px-6 xl:py-6 xl:px-8;
 }
+
 .nc-hero-field-focused {
   @apply shadow-2xl rounded-full dark:bg-white/5;
 }
@@ -138,6 +143,7 @@
 .nc-icon-field {
   @apply w-5 h-5 lg:w-7 lg:h-7;
 }
+
 //
 button.gm-control-active.gm-fullscreen-control {
   @apply rounded-xl #{!important};
@@ -149,11 +155,13 @@ button.gm-control-active.gm-fullscreen-control {
     @apply text-neutral-300;
   }
 }
-/* 
+
+/*
  */
 .nc-shadow-lg {
   box-shadow: 2px 8px 40px rgba(0, 0, 0, 0.08);
 }
+
 .hover\:nc-shadow-lg:hover {
   box-shadow: 2px 8px 40px rgba(0, 0, 0, 0.08);
 }
@@ -161,6 +169,7 @@ button.gm-control-active.gm-fullscreen-control {
 .nc-shadow-sketch {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
+
 .hover\:nc-shadow-sketch:hover {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
@@ -290,6 +299,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     opacity: 1;
   }
 }
+
 @keyframes SectionHero2ItemDot {
   from {
     width: 30px;
@@ -326,11 +336,13 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     animation-duration: 800ms;
     animation-timing-function: ease-in-out;
   }
+
   .nc-SectionHero2Item__heading {
     animation-name: CardLarge1ExampleLeft;
     animation-duration: 600ms;
     animation-timing-function: ease-in-out;
   }
+
   .nc-SectionHero2Item__subheading {
     animation-name: CardLarge1ExampleLeft;
     animation-timing-function: ease-in-out;

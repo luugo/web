@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect, useId, useRef, useState } from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import Heading from "@/components/Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
@@ -9,7 +9,7 @@ import department1Png from "@/images/collections/department1.png";
 import department2Png from "@/images/collections/department2.png";
 import department3Png from "@/images/collections/department3.png";
 import department4Png from "@/images/collections/department4.png";
-import { StaticImageData } from "next/image";
+import {StaticImageData} from "next/image";
 import Link from "next/link";
 
 export interface CardCategoryData {
@@ -18,6 +18,7 @@ export interface CardCategoryData {
   img: string | StaticImageData;
   color?: string;
 }
+
 const CATS: CardCategoryData[] = [
   {
     name: "Travel Kits",
@@ -44,6 +45,7 @@ const CATS: CardCategoryData[] = [
     color: "bg-orange-100",
   },
 ];
+
 export interface SectionSliderCategoriesProps {
   className?: string;
   itemClassName?: string;
@@ -53,12 +55,12 @@ export interface SectionSliderCategoriesProps {
 }
 
 const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
-  heading = "Shop by department",
-  subHeading = "",
-  className = "",
-  itemClassName = "",
-  data = CATS,
-}) => {
+                                                                     heading = "Shop by department",
+                                                                     subHeading = "",
+                                                                     className = "",
+                                                                     itemClassName = "",
+                                                                     data = CATS,
+                                                                   }) => {
   const sliderRef = useRef(null);
   const [isShow, setIsShow] = useState(false);
 
@@ -92,7 +94,7 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
 
     if (!sliderRef.current) return;
 
-    let slider = new Glide(sliderRef.current, OPTIONS);
+    const slider = new Glide(sliderRef.current, OPTIONS);
     slider.mount();
     setIsShow(true);
     return () => {

@@ -3,11 +3,11 @@
 import React from "react";
 import ButtonClose from "@/shared/ButtonClose/ButtonClose";
 import Logo from "@/shared/Logo/Logo";
-import { Disclosure } from "@/app/headlessui";
-import { NavItemType } from "./NavigationItem";
-import { NAVIGATION } from "@/data/navigation";
+import {Disclosure} from "@/app/headlessui";
+import {NavItemType} from "./NavigationItem";
+import {NAVIGATION} from "@/data/navigation";
 import SocialsList from "@/shared/SocialsList/SocialsList";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import {ChevronDownIcon} from "@heroicons/react/24/solid";
 import Link from "next/link";
 
 export interface NavMobileProps {
@@ -16,9 +16,9 @@ export interface NavMobileProps {
 }
 
 const NavMobile: React.FC<NavMobileProps> = ({
-  data = NAVIGATION,
-  onClickClose,
-}) => {
+                                               data = NAVIGATION,
+                                               onClickClose,
+                                             }) => {
   const _renderMenuChild = (
     item: NavItemType,
     itemClass = " pl-3 text-neutral-900 dark:text-neutral-200 font-medium "
@@ -114,20 +114,21 @@ const NavMobile: React.FC<NavMobileProps> = ({
   };
 
   return (
-    <div className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1 dark:ring-neutral-700 bg-white dark:bg-neutral-900 divide-y-2 divide-neutral-100 dark:divide-neutral-800">
+    <div
+      className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1 dark:ring-neutral-700 bg-white dark:bg-neutral-900 divide-y-2 divide-neutral-100 dark:divide-neutral-800">
       <div className="py-6 px-5">
-        <Logo />
+        <Logo/>
         <div className="flex flex-col mt-5 text-slate-600 dark:text-slate-300 text-sm">
           <span>
             Precisou? Alugou! 
           </span>
 
           <div className="flex justify-between items-center mt-4">
-            <SocialsList itemClass="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full text-xl" />
+            <SocialsList itemClass="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full text-xl"/>
           </div>
         </div>
         <span className="absolute right-2 top-2 p-1">
-          <ButtonClose onClick={onClickClose} />
+          <ButtonClose onClick={onClickClose}/>
         </span>
       </div>
       <ul className="flex flex-col py-6 px-2 space-y-1">

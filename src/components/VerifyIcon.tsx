@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 
 export interface VerifyIconProps {
   className?: string;
@@ -6,9 +6,9 @@ export interface VerifyIconProps {
 }
 
 const VerifyIcon: FC<VerifyIconProps> = ({
-  className = "ml-1",
-  iconClass = "w-5 h-5",
-}) => {
+                                           className = "ml-1",
+                                           iconClass = "w-5 h-5",
+                                         }) => {
   return (
     <span className={className}>
       <svg className={iconClass} viewBox="0 0 17 17" fill="none">

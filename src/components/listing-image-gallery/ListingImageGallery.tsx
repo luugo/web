@@ -2,24 +2,24 @@
 
 import "./styles/index.css";
 import Image from "next/image";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { FC, Fragment, useEffect, useRef } from "react";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {FC, Fragment, useEffect, useRef} from "react";
 import Modal from "./components/Modal";
-import type { ListingGalleryImage } from "./utils/types";
-import { useLastViewedPhoto } from "./utils/useLastViewedPhoto";
-import { ArrowSmallLeftIcon } from "@heroicons/react/24/outline";
+import type {ListingGalleryImage} from "./utils/types";
+import {useLastViewedPhoto} from "./utils/useLastViewedPhoto";
+import {ArrowSmallLeftIcon} from "@heroicons/react/24/outline";
 import {Dialog, Transition, TransitionChild} from "@headlessui/react";
 import LikeSaveBtns from "@/components/LikeSaveBtns";
-import { Route } from "next";
+import {Route} from "next";
 
 export const getNewParam = ({
-  paramName = "photoId",
-  value,
-}: {
+                              paramName = "photoId",
+                              value,
+                            }: {
   paramName?: string;
   value: string | number;
 }) => {
-  let params = new URLSearchParams(document.location.search);
+  const params = new URLSearchParams(document.location.search);
   params.set(paramName, String(value));
   return params.toString();
 };
@@ -30,7 +30,7 @@ interface Props {
   isShowModal: boolean;
 }
 
-const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
+const ListingImageGallery: FC<Props> = ({images, onClose, isShowModal}) => {
   const searchParams = useSearchParams();
   const photoId = searchParams?.get("photoId");
   const router = useRouter();
@@ -41,7 +41,7 @@ const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
   useEffect(() => {
     // This effect keeps track of the last viewed photo in the modal to keep the index page in sync when the user navigates back
     if (lastViewedPhoto && !photoId) {
-      lastViewedPhotoRef.current?.scrollIntoView({ block: "center" });
+      lastViewedPhotoRef.current?.scrollIntoView({block: "center"});
       setLastViewedPhoto(null);
     }
   }, [photoId, lastViewedPhoto, setLastViewedPhoto]);
@@ -59,7 +59,7 @@ const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
             onClose={() => {
               // @ts-ignore
               setLastViewedPhoto(photoId);
-              let params = new URLSearchParams(document.location.search);
+              const params = new URLSearchParams(document.location.search);
               params.delete("photoId");
               router.push(`${thisPathname}/?${params.toString()}` as Route);
             }}
@@ -67,11 +67,11 @@ const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
         )}
 
         <div className="columns-1 gap-4 sm:columns-2 xl:columns-3">
-          {images.map(({ id, url }) => (
+          {images.map(({id, url}) => (
             <div
               key={id}
               onClick={() => {
-                const newPathname = getNewParam({ value: id });
+                const newPathname = getNewParam({value: id});
                 router.push(`${thisPathname}/?${newPathname}` as Route);
               }}
               ref={id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null}
@@ -108,7 +108,7 @@ const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-white" />
+            <div className="fixed inset-0 bg-white"/>
           </TransitionChild>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -117,9 +117,9 @@ const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
                 className="focus:outline-none focus:ring-0 w-10 h-10 rounded-full flex items-center justify-center hover:bg-neutral-100"
                 onClick={handleClose}
               >
-                <ArrowSmallLeftIcon className="w-6 h-6" />
+                <ArrowSmallLeftIcon className="w-6 h-6"/>
               </button>
-              <LikeSaveBtns />
+              <LikeSaveBtns/>
             </div>
 
             <div className="flex min-h-full items-center justify-center sm:p-4 pt-0 text-center">

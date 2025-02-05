@@ -1,28 +1,24 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faImages,
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+import {useEffect, useRef, useState} from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faChevronLeft, faChevronRight, faImages,} from "@fortawesome/free-solid-svg-icons";
 import dynamic from "next/dynamic";
-import { MediaPostRequest } from "@api";
+import {MediaPostRequest} from "@api";
 import LgImage from "./component/LgImage";
+import useViewportSize from "@/utils/useViewportSize";
 
 const ModalGallery = dynamic(() => import("./modalGallery"), {
   ssr: false,
   loading: () => <p>Carregando galeria...</p>,
 });
-import useViewportSize from "@/utils/useViewportSize";
 
 interface ImageGalleryProps {
   images: MediaPostRequest[];
 }
 
-const ImageGallery = ({ images }: ImageGalleryProps) => {
-  const { width } = useViewportSize();
+const ImageGallery = ({images}: ImageGalleryProps) => {
+  const {width} = useViewportSize();
   const [OpenLibrary, setOpenLibrary] = useState(false);
   const [ImageSelected, setImageSelected] = useState<string | undefined>(
     undefined
@@ -66,7 +62,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
             }}
             className="absolute flex gap-2 items-center bottom-4 right-4 z-10 bg-white px-4 py-2 rounded-lg shadow-lg cursor-pointer border border-cyan-950 text-cyan-950 hover:scale-95 transition-transform duration-300 ease-in-out"
           >
-            <FontAwesomeIcon icon={faImages} />
+            <FontAwesomeIcon icon={faImages}/>
             <span className="text-sm font-medium">Mostrar todas as fotos</span>
           </div>
         </div>
@@ -124,7 +120,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
     return (
       <div
         className="relative w-full flex items-center justify-center overflow-hidden"
-        style={{ height: maxHeight }}
+        style={{height: maxHeight}}
       >
         <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-lg text-sm z-10">
           {currentIndex + 1}/{totalImages}
@@ -153,7 +149,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
             onClick={handlePrev}
             className="absolute w-10 h-10 flex items-center justify-center top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200 transition-colors"
           >
-            <FontAwesomeIcon icon={faChevronLeft} />
+            <FontAwesomeIcon icon={faChevronLeft}/>
           </div>
         )}
 
@@ -162,7 +158,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
             onClick={handleNext}
             className="absolute w-10 h-10 flex items-center justify-center top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200 transition-colors"
           >
-            <FontAwesomeIcon icon={faChevronRight} />
+            <FontAwesomeIcon icon={faChevronRight}/>
           </div>
         )}
       </div>

@@ -1,12 +1,12 @@
 "use client";
 
-import React, { FC, useEffect, useId, useRef, useState } from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import Heading from "@/components/Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
 import CollectionCard from "./CollectionCard";
 import CollectionCard2 from "./CollectionCard2";
-import { DEMO_LARGE_PRODUCTS } from "./SectionSliderLargeProduct2";
+import {DEMO_LARGE_PRODUCTS} from "./SectionSliderLargeProduct2";
 import Link from "next/link";
 
 export interface SectionSliderLargeProductProps {
@@ -16,9 +16,9 @@ export interface SectionSliderLargeProductProps {
 }
 
 const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
-  className = "",
-  cardStyle = "style2",
-}) => {
+                                                                         className = "",
+                                                                         cardStyle = "style2",
+                                                                       }) => {
   const sliderRef = useRef(null);
 
   const [isShow, setIsShow] = useState(false);
@@ -50,7 +50,7 @@ const SectionSliderLargeProduct: FC<SectionSliderLargeProductProps> = ({
     };
     if (!sliderRef.current) return;
 
-    let slider = new Glide(sliderRef.current, OPTIONS);
+    const slider = new Glide(sliderRef.current, OPTIONS);
     slider.mount();
     setIsShow(true);
     return () => {

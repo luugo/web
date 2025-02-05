@@ -1,5 +1,5 @@
-import { StarIcon } from "@heroicons/react/24/solid";
-import React, { FC } from "react";
+import {StarIcon} from "@heroicons/react/24/solid";
+import React, {FC} from "react";
 import Avatar from "@/shared/Avatar/Avatar";
 
 interface ReviewItemDataType {
@@ -24,9 +24,9 @@ const DEMO_DATA: ReviewItemDataType = {
 };
 
 const ReviewItem: FC<ReviewItemProps> = ({
-  className = "",
-  data = DEMO_DATA,
-}) => {
+                                           className = "",
+                                           data = DEMO_DATA,
+                                         }) => {
   return (
     <div
       className={`nc-ReviewItem flex flex-col ${className}`}
@@ -51,11 +51,11 @@ const ReviewItem: FC<ReviewItemProps> = ({
           </div>
 
           <div className="mt-0.5 flex text-yellow-500">
-            <StarIcon className="w-5 h-5" />
-            <StarIcon className="w-5 h-5" />
-            <StarIcon className="w-5 h-5" />
-            <StarIcon className="w-5 h-5" />
-            <StarIcon className="w-5 h-5" />
+            <StarIcon className="w-5 h-5"/>
+            <StarIcon className="w-5 h-5"/>
+            <StarIcon className="w-5 h-5"/>
+            <StarIcon className="w-5 h-5"/>
+            <StarIcon className="w-5 h-5"/>
           </div>
         </div>
       </div>

@@ -170,11 +170,11 @@ const AccountPage = () => {
       ]
 
       if (storageData !== null) {
-        let luugo = JSON.parse(storageData);
+        const luugo = JSON.parse(storageData);
         luugo['user'].firstName = firstName;
         luugo['user'].lastName = lastName;
         luugo['user'].place = place;
-        let contactsObject: any = []
+        const contactsObject: any = []
         userContact?.forEach((obj: any) => {
           contactsObject.push(obj)
         })
@@ -207,7 +207,7 @@ const AccountPage = () => {
       ]
 
       let contactPutResponse;
-      let storage = JSON.parse(storageData)
+      const storage = JSON.parse(storageData)
 
       // if (storage['contacts'] === undefined) {
       //   for (let contact of userContact) {
@@ -246,7 +246,7 @@ const AccountPage = () => {
 
   const onDeleteAccount = useCallback(async () => {
     if (storageData !== null) {
-      let luugo = JSON.parse(storageData);
+      const luugo = JSON.parse(storageData);
       try {
         await userApi.userDelete({id: luugo.user?.id}, {
           headers: {

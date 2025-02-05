@@ -1,16 +1,12 @@
 "use client";
-import React, { FC, useState } from "react";
+import React, {FC, useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import LikeButton from "@/components/LikeButton";
-import { StarIcon } from "@heroicons/react/24/solid";
+import {StarIcon} from "@heroicons/react/24/solid";
 import BagIcon from "@/components/BagIcon";
 import NcInputNumber from "@/components/NcInputNumber";
-import { PRODUCTS } from "@/data/data";
-import {
-  NoSymbolIcon,
-  ClockIcon,
-  SparklesIcon,
-} from "@heroicons/react/24/outline";
+import {PRODUCTS} from "@/data/data";
+import {ClockIcon, NoSymbolIcon, SparklesIcon,} from "@heroicons/react/24/outline";
 import IconDiscount from "@/components/IconDiscount";
 import Prices from "@/components/Prices";
 import toast from "react-hot-toast";
@@ -26,8 +22,8 @@ export interface ProductQuickViewProps {
   className?: string;
 }
 
-const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
-  const { sizes, variants, status, allOfSizes } = PRODUCTS[0];
+const ProductQuickView: FC<ProductQuickViewProps> = ({className = ""}) => {
+  const {sizes, variants, status, allOfSizes} = PRODUCTS[0];
   const LIST_IMAGES_DEMO = [detail1JPG, detail2JPG, detail3JPG];
 
   const [variantActive, setVariantActive] = useState(0);
@@ -45,7 +41,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
           variantActive={variantActive}
         />
       ),
-      { position: "top-right", id: "nc-product-notify", duration: 3000 }
+      {position: "top-right", id: "nc-product-notify", duration: 3000}
     );
   };
 
@@ -82,10 +78,10 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
                     // @ts-ignore
                     typeof variant.thumbnail?.src === "string"
                       ? // @ts-ignore
-                        variant.thumbnail?.src
+                      variant.thumbnail?.src
                       : typeof variant.thumbnail === "string"
-                      ? variant.thumbnail
-                      : ""
+                        ? variant.thumbnail
+                        : ""
                   })`,
                 }}
               ></div>
@@ -160,7 +156,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
     if (status === "New in") {
       return (
         <div className={CLASSES}>
-          <SparklesIcon className="w-3.5 h-3.5" />
+          <SparklesIcon className="w-3.5 h-3.5"/>
           <span className="ms-1 leading-none">{status}</span>
         </div>
       );
@@ -168,7 +164,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
     if (status === "50% Discount") {
       return (
         <div className={CLASSES}>
-          <IconDiscount className="w-3.5 h-3.5" />
+          <IconDiscount className="w-3.5 h-3.5"/>
           <span className="ms-1 leading-none">{status}</span>
         </div>
       );
@@ -176,7 +172,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
     if (status === "Sold Out") {
       return (
         <div className={CLASSES}>
-          <NoSymbolIcon className="w-3.5 h-3.5" />
+          <NoSymbolIcon className="w-3.5 h-3.5"/>
           <span className="ms-1 leading-none">{status}</span>
         </div>
       );
@@ -184,7 +180,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
     if (status === "limited edition") {
       return (
         <div className={CLASSES}>
-          <ClockIcon className="w-3.5 h-3.5" />
+          <ClockIcon className="w-3.5 h-3.5"/>
           <span className="ms-1 leading-none">{status}</span>
         </div>
       );
@@ -201,7 +197,8 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
             <Link href="/templates/product-detail">Heavy Weight Shoes</Link>
           </h2>
 
-          <div className="flex justify-start rtl:justify-end items-center mt-5 space-x-4 sm:space-x-5 rtl:space-x-reverse">
+          <div
+            className="flex justify-start rtl:justify-end items-center mt-5 space-x-4 sm:space-x-5 rtl:space-x-reverse">
             {/* <div className="flex text-xl font-semibold">$112.00</div> */}
             <Prices
               contentClass="py-1 px-2 md:py-1.5 md:px-3 text-lg font-semibold"
@@ -215,7 +212,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
                 href="/templates/product-detail"
                 className="flex items-center text-sm font-medium"
               >
-                <StarIcon className="w-5 h-5 pb-[1px] text-yellow-400" />
+                <StarIcon className="w-5 h-5 pb-[1px] text-yellow-400"/>
                 <div className="ms-1.5 flex">
                   <span>4.9</span>
                   <span className="block mx-2">·</span>
@@ -226,7 +223,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
               </Link>
               <span className="hidden sm:block mx-2.5">·</span>
               <div className="hidden sm:flex items-center text-sm">
-                <SparklesIcon className="w-3.5 h-3.5" />
+                <SparklesIcon className="w-3.5 h-3.5"/>
                 <span className="ms-1 leading-none">{status}</span>
               </div>
             </div>
@@ -239,7 +236,8 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
 
         {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
         <div className="flex space-x-3.5 rtl:space-x-reverse">
-          <div className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
+          <div
+            className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
             <NcInputNumber
               defaultValue={qualitySelected}
               onChange={setQualitySelected}
@@ -249,7 +247,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
             className="flex-1 flex-shrink-0"
             onClick={notifyAddTocart}
           >
-            <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
+            <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5"/>
             <span className="ms-3">Add to cart</span>
           </ButtonPrimary>
         </div>
@@ -308,7 +306,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
             {/* STATUS */}
             {renderStatus()}
             {/* META FAVORITES */}
-            <LikeButton className="absolute end-3 top-3 " />
+            <LikeButton className="absolute end-3 top-3 "/>
           </div>
           <div className="hidden lg:grid grid-cols-2 gap-3 mt-3 sm:gap-6 sm:mt-6 xl:gap-5 xl:mt-5">
             {[LIST_IMAGES_DEMO[1], LIST_IMAGES_DEMO[2]].map((item, index) => {

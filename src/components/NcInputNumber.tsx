@@ -1,7 +1,7 @@
 "use client";
 
-import React, { FC, useEffect, useState } from "react";
-import { MinusIcon, PlusIcon } from "@heroicons/react/24/solid";
+import React, {FC, useEffect, useState} from "react";
+import {MinusIcon, PlusIcon} from "@heroicons/react/24/solid";
 
 export interface NcInputNumberProps {
   className?: string;
@@ -14,14 +14,14 @@ export interface NcInputNumberProps {
 }
 
 const NcInputNumber: FC<NcInputNumberProps> = ({
-  className = "w-full",
-  defaultValue = 1,
-  min = 1,
-  max = 99,
-  onChange,
-  label,
-  desc,
-}) => {
+                                                 className = "w-full",
+                                                 defaultValue = 1,
+                                                 min = 1,
+                                                 max = 99,
+                                                 onChange,
+                                                 label,
+                                                 desc,
+                                               }) => {
   const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const NcInputNumber: FC<NcInputNumberProps> = ({
           onClick={handleClickDecrement}
           disabled={min >= value}
         >
-          <MinusIcon className="w-4 h-4" />
+          <MinusIcon className="w-4 h-4"/>
         </button>
         <span className="select-none block flex-1 text-center leading-none">
           {value}
@@ -84,7 +84,7 @@ const NcInputNumber: FC<NcInputNumberProps> = ({
           onClick={handleClickIncrement}
           disabled={max ? max <= value : false}
         >
-          <PlusIcon className="w-4 h-4" />
+          <PlusIcon className="w-4 h-4"/>
         </button>
       </div>
     </div>

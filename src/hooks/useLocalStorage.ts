@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useEffect, useState} from 'react';
 
 export const LOCAL_STORAGE_CHANGE_EVENT = 'onLocalStorageChange';
 
@@ -28,7 +28,7 @@ function useLocalStorage<T>(
 
   useEffect(() => {
     const handleStorageChange = (e: CustomEvent<LocalStorageEvent>) => {
-      const { key: eventKey, value } = e.detail;
+      const {key: eventKey, value} = e.detail;
       if (eventKey === key) {
         setStoredValue(value as T);
       }
@@ -52,7 +52,7 @@ function useLocalStorage<T>(
       const valueToStore = value instanceof Function ? value(storedValue) : value;
       setStoredValue(valueToStore);
       localStorage.setItem(key, JSON.stringify(valueToStore));
-      
+
       window.dispatchEvent(
         new CustomEvent<LocalStorageEvent>(LOCAL_STORAGE_CHANGE_EVENT, {
           detail: {

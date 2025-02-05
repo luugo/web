@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 
 export interface BtnLikeIconProps {
   className?: string;
@@ -7,10 +7,10 @@ export interface BtnLikeIconProps {
 }
 
 const BtnLikeIcon: FC<BtnLikeIconProps> = ({
-  className = "",
-  colorClass = "text-white bg-black bg-opacity-30 hover:bg-opacity-50",
-  isLiked = false,
-}) => {
+                                             className = "",
+                                             colorClass = "text-white bg-black bg-opacity-30 hover:bg-opacity-50",
+                                             isLiked = false,
+                                           }) => {
   return (
     <div
       className={`nc-BtnLikeIcon w-8 h-8 flex items-center justify-center rounded-full  ${colorClass} ${className}`}

@@ -1,14 +1,14 @@
 "use client";
 
-import React, { Fragment, useState } from "react";
-import { Dialog, Popover, Transition } from "@/app/headlessui";
+import React, {Fragment, useState} from "react";
+import {Dialog, Popover, Transition} from "@/app/headlessui";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonThird from "@/shared/Button/ButtonThird";
 import ButtonClose from "@/shared/ButtonClose/ButtonClose";
 import Checkbox from "@/shared/Checkbox/Checkbox";
 import Slider from "rc-slider";
 import Radio from "@/shared/Radio/Radio";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import MySwitch from "@/components/MySwitch";
 import {TransitionChild} from "@headlessui/react";
 
@@ -38,31 +38,31 @@ const DATA_categories = [
 ];
 
 const DATA_colors = [
-  { name: "White" },
-  { name: "Beige" },
-  { name: "Blue" },
-  { name: "Black" },
-  { name: "Brown" },
-  { name: "Green" },
-  { name: "Navy" },
+  {name: "White"},
+  {name: "Beige"},
+  {name: "Blue"},
+  {name: "Black"},
+  {name: "Brown"},
+  {name: "Green"},
+  {name: "Navy"},
 ];
 
 const DATA_sizes = [
-  { name: "XXS" },
-  { name: "XS" },
-  { name: "S" },
-  { name: "M" },
-  { name: "L" },
-  { name: "XL" },
-  { name: "2XL" },
+  {name: "XXS"},
+  {name: "XS"},
+  {name: "S"},
+  {name: "M"},
+  {name: "L"},
+  {name: "XL"},
+  {name: "2XL"},
 ];
 
 const DATA_sortOrderRadios = [
-  { name: "Most Popular", id: "Most-Popular" },
-  { name: "Best Rating", id: "Best-Rating" },
-  { name: "Newest", id: "Newest" },
-  { name: "Price Low - Hight", id: "Price-low-hight" },
-  { name: "Price Hight - Low", id: "Price-hight-low" },
+  {name: "Most Popular", id: "Most-Popular"},
+  {name: "Best Rating", id: "Best-Rating"},
+  {name: "Newest", id: "Newest"},
+  {name: "Price Low - Hight", id: "Price-low-hight"},
+  {name: "Price Hight - Low", id: "Price-hight-low"},
 ];
 
 const PRICE_RANGE = [1, 500];
@@ -105,7 +105,8 @@ const TabFilters = () => {
   // OK
   const renderXClear = () => {
     return (
-      <span className="flex-shrink-0 w-4 h-4 rounded-full bg-primary-500 text-white flex items-center justify-center ml-3 cursor-pointer">
+      <span
+        className="flex-shrink-0 w-4 h-4 rounded-full bg-primary-500 text-white flex items-center justify-center ml-3 cursor-pointer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-3 w-3"
@@ -126,20 +127,20 @@ const TabFilters = () => {
   const renderTabsCategories = () => {
     return (
       <Popover className="relative">
-        {({ open, close }) => (
+        {({open, close}) => (
           <>
             <Popover.Button
               className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none select-none
                ${
-                 open
-                   ? "!border-primary-500 "
-                   : "border-neutral-300 dark:border-neutral-700"
-               }
+                open
+                  ? "!border-primary-500 "
+                  : "border-neutral-300 dark:border-neutral-700"
+              }
                 ${
-                  !!categoriesState.length
-                    ? "!border-primary-500 bg-primary-50 text-primary-900"
-                    : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
-                }
+                !!categoriesState.length
+                  ? "!border-primary-500 bg-primary-50 text-primary-900"
+                  : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
+              }
                 `}
             >
               <svg
@@ -192,7 +193,7 @@ const TabFilters = () => {
 
               <span className="ml-2">Categories</span>
               {!categoriesState.length ? (
-                <ChevronDownIcon className="w-4 h-4 ml-3" />
+                <ChevronDownIcon className="w-4 h-4 ml-3"/>
               ) : (
                 <span onClick={() => setCategoriesState([])}>
                   {renderXClear()}
@@ -209,7 +210,8 @@ const TabFilters = () => {
               leaveTo="opacity-0 translate-y-1"
             >
               <Popover.Panel className="absolute z-40 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-md">
-                <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
+                <div
+                  className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-5">
                     <Checkbox
                       name="All Categories"
@@ -221,7 +223,7 @@ const TabFilters = () => {
                         handleChangeCategories(checked, "All Categories")
                       }
                     />
-                    <div className="w-full border-b border-neutral-200 dark:border-neutral-700" />
+                    <div className="w-full border-b border-neutral-200 dark:border-neutral-700"/>
                     {DATA_categories.map((item) => (
                       <div key={item.name} className="">
                         <Checkbox
@@ -235,7 +237,8 @@ const TabFilters = () => {
                       </div>
                     ))}
                   </div>
-                  <div className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
+                  <div
+                    className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                     <ButtonThird
                       onClick={() => {
                         close();
@@ -265,16 +268,16 @@ const TabFilters = () => {
   const renderTabsSortOrder = () => {
     return (
       <Popover className="relative">
-        {({ open, close }) => (
+        {({open, close}) => (
           <>
             <Popover.Button
               className={`flex items-center justify-center px-4 py-2 text-sm border rounded-full focus:outline-none select-none
               ${open ? "!border-primary-500 " : ""}
                 ${
-                  !!sortOrderStates.length
-                    ? "!border-primary-500 bg-primary-50 text-primary-900"
-                    : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
-                }
+                !!sortOrderStates.length
+                  ? "!border-primary-500 bg-primary-50 text-primary-900"
+                  : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
+              }
                 `}
             >
               <svg className="w-4 h-4" viewBox="0 0 20 20" fill="none">
@@ -322,12 +325,12 @@ const TabFilters = () => {
               <span className="ml-2">
                 {sortOrderStates
                   ? DATA_sortOrderRadios.filter(
-                      (i) => i.id === sortOrderStates
-                    )[0].name
+                    (i) => i.id === sortOrderStates
+                  )[0].name
                   : "Sort order"}
               </span>
               {!sortOrderStates.length ? (
-                <ChevronDownIcon className="w-4 h-4 ml-3" />
+                <ChevronDownIcon className="w-4 h-4 ml-3"/>
               ) : (
                 <span onClick={() => setSortOrderStates("")}>
                   {renderXClear()}
@@ -344,7 +347,8 @@ const TabFilters = () => {
               leaveTo="opacity-0 translate-y-1"
             >
               <Popover.Panel className="absolute z-40 w-screen max-w-sm px-4 mt-3 right-0 sm:px-0 lg:max-w-sm">
-                <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
+                <div
+                  className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-5">
                     {DATA_sortOrderRadios.map((item) => (
                       <Radio
@@ -357,7 +361,8 @@ const TabFilters = () => {
                       />
                     ))}
                   </div>
-                  <div className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
+                  <div
+                    className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                     <ButtonThird
                       onClick={() => {
                         close();
@@ -387,16 +392,16 @@ const TabFilters = () => {
   const renderTabsColor = () => {
     return (
       <Popover className="relative">
-        {({ open, close }) => (
+        {({open, close}) => (
           <>
             <Popover.Button
               className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none select-none
               ${open ? "!border-primary-500 " : ""}
                 ${
-                  !!colorsState.length
-                    ? "!border-primary-500 bg-primary-50 text-primary-900"
-                    : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
-                }
+                !!colorsState.length
+                  ? "!border-primary-500 bg-primary-50 text-primary-900"
+                  : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
+              }
                 `}
             >
               <svg
@@ -448,7 +453,7 @@ const TabFilters = () => {
 
               <span className="ml-2">Colors</span>
               {!colorsState.length ? (
-                <ChevronDownIcon className="w-4 h-4 ml-3" />
+                <ChevronDownIcon className="w-4 h-4 ml-3"/>
               ) : (
                 <span onClick={() => setColorsState([])}>{renderXClear()}</span>
               )}
@@ -463,7 +468,8 @@ const TabFilters = () => {
               leaveTo="opacity-0 translate-y-1"
             >
               <Popover.Panel className="absolute z-40 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-sm">
-                <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
+                <div
+                  className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-5">
                     {DATA_colors.map((item) => (
                       <div key={item.name} className="">
@@ -478,7 +484,8 @@ const TabFilters = () => {
                       </div>
                     ))}
                   </div>
-                  <div className="p-5 bg-slate-50 dark:bg-slate-900 dark:border-t dark:border-slate-800 flex items-center justify-between">
+                  <div
+                    className="p-5 bg-slate-50 dark:bg-slate-900 dark:border-t dark:border-slate-800 flex items-center justify-between">
                     <ButtonThird
                       onClick={() => {
                         close();
@@ -508,16 +515,16 @@ const TabFilters = () => {
   const renderTabsSize = () => {
     return (
       <Popover className="relative">
-        {({ open, close }) => (
+        {({open, close}) => (
           <>
             <Popover.Button
               className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none select-none
               ${open ? "!border-primary-500 " : ""}
                 ${
-                  !!sizesState.length
-                    ? "!border-primary-500 bg-primary-50 text-primary-900"
-                    : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
-                }
+                !!sizesState.length
+                  ? "!border-primary-500 bg-primary-50 text-primary-900"
+                  : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
+              }
                 `}
             >
               <svg
@@ -558,7 +565,7 @@ const TabFilters = () => {
 
               <span className="ml-2">Sizes</span>
               {!sizesState.length ? (
-                <ChevronDownIcon className="w-4 h-4 ml-3" />
+                <ChevronDownIcon className="w-4 h-4 ml-3"/>
               ) : (
                 <span onClick={() => setSizesState([])}>{renderXClear()}</span>
               )}
@@ -573,7 +580,8 @@ const TabFilters = () => {
               leaveTo="opacity-0 translate-y-1"
             >
               <Popover.Panel className="absolute z-40 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-sm">
-                <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
+                <div
+                  className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-5">
                     {DATA_sizes.map((item) => (
                       <div key={item.name} className="">
@@ -588,7 +596,8 @@ const TabFilters = () => {
                       </div>
                     ))}
                   </div>
-                  <div className="p-5 bg-slate-50 dark:bg-slate-900 dark:border-t dark:border-slate-800 flex items-center justify-between">
+                  <div
+                    className="p-5 bg-slate-50 dark:bg-slate-900 dark:border-t dark:border-slate-800 flex items-center justify-between">
                     <ButtonThird
                       onClick={() => {
                         close();
@@ -618,7 +627,7 @@ const TabFilters = () => {
   const renderTabsPriceRage = () => {
     return (
       <Popover className="relative">
-        {({ open, close }) => (
+        {({open, close}) => (
           <>
             <Popover.Button
               className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border border-primary-500 bg-primary-50 text-primary-900 focus:outline-none `}
@@ -670,7 +679,8 @@ const TabFilters = () => {
               leaveTo="opacity-0 translate-y-1"
             >
               <Popover.Panel className="absolute z-40 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 ">
-                <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
+                <div
+                  className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-8">
                     <div className="space-y-5">
                       <span className="font-medium">Price range</span>
@@ -696,7 +706,8 @@ const TabFilters = () => {
                           Min price
                         </label>
                         <div className="mt-1 relative rounded-md">
-                          <span className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
+                          <span
+                            className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
                             $
                           </span>
                           <input
@@ -717,7 +728,8 @@ const TabFilters = () => {
                           Max price
                         </label>
                         <div className="mt-1 relative rounded-md">
-                          <span className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
+                          <span
+                            className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
                             $
                           </span>
                           <input
@@ -732,7 +744,8 @@ const TabFilters = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
+                  <div
+                    className="p-5 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                     <ButtonThird
                       onClick={() => {
                         setRangePrices(PRICE_RANGE);
@@ -933,7 +946,7 @@ const TabFilters = () => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <div className="fixed inset-0 bg-black bg-opacity-40 dark:bg-opacity-60" />
+                <div className="fixed inset-0 bg-black bg-opacity-40 dark:bg-opacity-60"/>
               </TransitionChild>
 
               {/* This element is to trick the browser into centering the modal contents. */}
@@ -953,8 +966,10 @@ const TabFilters = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <div className="inline-flex flex-col w-full text-left align-middle transition-all transform bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 h-full">
-                  <div className="relative flex-shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
+                <div
+                  className="inline-flex flex-col w-full text-left align-middle transition-all transform bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 h-full">
+                  <div
+                    className="relative flex-shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
                     <Dialog.Title
                       as="h3"
                       className="text-lg font-medium leading-6 text-gray-900"
@@ -962,7 +977,7 @@ const TabFilters = () => {
                       Products filters
                     </Dialog.Title>
                     <span className="absolute left-3 top-3">
-                      <ButtonClose onClick={closeModalMoreFilter} />
+                      <ButtonClose onClick={closeModalMoreFilter}/>
                     </span>
                   </div>
 
@@ -1101,7 +1116,8 @@ const TabFilters = () => {
                     </div>
                   </div>
 
-                  <div className="p-6 flex-shrink-0 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
+                  <div
+                    className="p-6 flex-shrink-0 bg-neutral-50 dark:bg-neutral-900 dark:border-t dark:border-neutral-800 flex items-center justify-between">
                     <ButtonThird
                       onClick={() => {
                         setRangePrices(PRICE_RANGE);

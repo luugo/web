@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import {createContext, useCallback, useContext, useState} from "react";
 
 interface UserContextProps {
   id: string | undefined;
@@ -28,17 +28,25 @@ const UserContext = createContext<UserContextProps>({
   email: '',
   place: '',
   phone: '',
-  handleIdChange: () => {},
-  handleAuthIdChange: () => {},
-  handleTokenChange: () => {},
-  handleFirstNameChange: () => {},
-  handleLastNameChange: () => {},
-  handleEmailChange: () => {},
-  handlePlaceChange: () => {},
-  handlePhoneChange: () => {},
+  handleIdChange: () => {
+  },
+  handleAuthIdChange: () => {
+  },
+  handleTokenChange: () => {
+  },
+  handleFirstNameChange: () => {
+  },
+  handleLastNameChange: () => {
+  },
+  handleEmailChange: () => {
+  },
+  handlePlaceChange: () => {
+  },
+  handlePhoneChange: () => {
+  },
 });
 
-export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+export const UserProvider = ({children}: { children: React.ReactNode }) => {
   const [id, setId] = useState<string | undefined>('');
   const [authId, setAuthId] = useState<string | undefined | null>('');
   const [token, setToken] = useState<string | undefined>('');
@@ -75,7 +83,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       handleEmailChange,
       handlePlaceChange,
       handlePhoneChange
-    }}>{ children }</UserContext.Provider>
+    }}>{children}</UserContext.Provider>
 }
 
 export const useUserContext = () => useContext(UserContext);

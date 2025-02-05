@@ -4,7 +4,7 @@ export interface PlayVideoButtonProps {
   className?: string;
 }
 
-const PlayVideoButton: React.FC<PlayVideoButtonProps> = ({ className }) => {
+const PlayVideoButton: React.FC<PlayVideoButtonProps> = ({className}) => {
   return (
     <button
       className={`bg-black/50 w-10 h-10 flex items-center justify-center rounded-full text-white ${className}`}

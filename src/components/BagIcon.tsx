@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 
 interface BagIconProps {
   className?: string;
 }
 
-const BagIcon: FC<BagIconProps> = ({ className = "w-5 h-5" }) => {
+const BagIcon: FC<BagIconProps> = ({className = "w-5 h-5"}) => {
   return (
     <svg className={className} viewBox="0 0 9 9" fill="none">
       <path

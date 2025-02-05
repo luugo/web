@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import NcImage from "@/shared/NcImage/NcImage";
 import HIW1img from "@/images/HIW1img.png";
 import HIW2img from "@/images/HIW2img.png";
@@ -45,9 +45,9 @@ const DEMO_DATA = [
 ];
 
 const SectionHowItWork: FC<SectionHowItWorkProps> = ({
-  className = "",
-  data = DEMO_DATA,
-}) => {
+                                                       className = "",
+                                                       data = DEMO_DATA,
+                                                     }) => {
   return (
     <div className={`nc-SectionHowItWork ${className}`}>
       <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-16 xl:gap-20">
@@ -75,10 +75,10 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({
                   !index
                     ? "red"
                     : index === 1
-                    ? "indigo"
-                    : index === 2
-                    ? "yellow"
-                    : "purple"
+                      ? "indigo"
+                      : index === 2
+                        ? "yellow"
+                        : "purple"
                 }
               />
               <h3 className="text-base font-semibold">{item.title}</h3>
