@@ -41,8 +41,6 @@ const Category: React.FC = () => {
         categoryId: categoryId,
         ...(place && { place: place.id})
       };
-
-      console.log(requestParameters);
       const response = await rentableApi?.rentableGet(requestParameters);
       setRentables(response);
     };
