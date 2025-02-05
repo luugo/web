@@ -21,12 +21,20 @@ jobs:
               "https://api.github.com/repos/$REPO_FULL_NAME/collaborators/$USER_LOGIN/permission" \
               | jq -r '.permission')
 
-          # Admins and maintainers are allowed to push
+          # Allow admins/maintainers to push
           if [[ "$USER_ROLE" == "admin" ]] || [[ "$USER_ROLE" == "maintain" ]]; then
               echo "✅ User $USER_LOGIN is an admin/maintainer. Push allowed."
               exit 0
           fi
 
-          # Block the push for other users
-          echo "❌ User $USER_LOGIN does not have admin privileges. Direct pushes to main are not allowed."
+          echo "❌ User $USER_LOGIN does not have admin privileges. Reverting their commit."
+
+          # Revert the commit
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+          git fetch origin main
+          git reset --hard origin/main^
+          git push --force origin main
+
           exit 1
