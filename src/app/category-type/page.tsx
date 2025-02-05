@@ -26,9 +26,9 @@ const CategoryType: React.FC = () => {
       <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-14">
         <div className="space-y-10 lg:space-y-34">
           <div className="max-w-screen-sm">
-            <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold">
-              Categorias
-            </h2>
+            <h5 className="block sm:text-3xl font-semibold">
+              🔍 O que você procura?
+            </h5>
           </div>
         </div>
         <header className="max-w-2xl mx-auto -mt-10 flex flex-col lg:-mt-7">
@@ -37,7 +37,7 @@ const CategoryType: React.FC = () => {
         {categories?.length ? (
           <div className="grid md:grid-cols-2 gap-6 lg:grid-cols-3 xl:gap-8">
             {categories.map((categoryType) => (
-              <Link href={`/categories/${categoryType}`} key={categoryType}>
+              <Link href={`/categories/${categoryType.toLowerCase()}`} key={categoryType}>
                 <div
                   className="p-6 text-center bg-neutral-50 dark:bg-neutral-800 rounded-2xl dark:border-neutral-800"
                 >
