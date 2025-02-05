@@ -1,7 +1,7 @@
 "use client"
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
-import {Category, CategoryApi, CategoryGetRequest, CategoryGetTypeEnum} from '@api';
+import {CategoryGetTypeEnum} from '@api';
 import DoesNotExist from '@/components/DoesNotExist/DoesNotExist';
 import {useParams} from "next/navigation";
 
@@ -16,7 +16,6 @@ const CategoryType: React.FC = () => {
   const [categories, setCategories] = useState<CategoryGetTypeEnum[]>([]);
 
   useEffect(() => {
-    // Converte os valores do enum para um array
     const enumValues = Object.values(CategoryGetTypeEnum) as CategoryGetTypeEnum[];
     setCategories(enumValues);
   }, []);
