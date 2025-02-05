@@ -1,6 +1,5 @@
 "use client"
 import React, {useEffect, useState} from 'react';
-import Input from "@/shared/Input/Input";
 import DoesNotExist from '@/components/DoesNotExist/DoesNotExist';
 import {Category, CategoryApi, CategoryGetRequest, RentableApi, RentableGetRequest} from '../../../../luugoapi';
 import {useParams} from 'next/navigation';
@@ -16,17 +15,8 @@ const Category: React.FC = () => {
   const params = useParams()
   const categoryId: string = String(params?.id)
   const [rentables, setRentables] = useState<any[]>([])
-  const [places, setPlaces] = useState<PlacesProps[]>([{id: 0, name: 'Todas Localidades'}]);
-  const [selectedPlace, setSelectedPlace] = useState<PlacesProps>({id: 0, name: 'Todas Localidades'});
-  const [selectedLocalPlace, setSelectedLocalPlace] = useState<any>(null);
-  const [selectCity] = useLocalStorage<any | null>('selectedPlace', null);
+  const [selectedPlace, setSelectedPlace] = useLocalStorage<any>('selectedPlace', null);
   const [category, setCategory] = useState<Category>({title: ''});
-
-  useEffect(() => {
-    if (selectCity) {
-      setSelectedLocalPlace(selectCity);
-    }
-  }, [selectCity]);
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -43,31 +33,22 @@ const Category: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    if (!rentables.length) return;
-
-    const cities = Array.from(new Set(rentables?.map(i => i?.place)));
-    const citiesWithAllOption = [{id: 0, name: 'Todas Localidades'}, ...cities.map((city, index) => ({
-      id: index + 1,
-      name: city
-    }))];
-
-    setPlaces(citiesWithAllOption);
-    if (!selectedPlace || !citiesWithAllOption.some(place => place.id === selectedPlace.id)) {
-      setSelectedPlace(citiesWithAllOption[0]);
-    }
-  }, [rentables]);
-
-  useEffect(() => {
     const fetchRentables = async () => {
-      const rentableApi = new RentableApi()
+      const place = selectedPlace || JSON.parse(localStorage.getItem('selectedPlace') || '');
+      console.log(place);
+      const rentableApi = new RentableApi();
       const requestParameters: RentableGetRequest = {
         categoryId: categoryId,
-      }
-      const response = await rentableApi?.rentableGet(requestParameters)
-      setRentables(response)
-    }
-    fetchRentables()
-  }, [selectedLocalPlace])
+        ...(place && { place: place.id})
+      };
+
+      console.log(requestParameters);
+      const response = await rentableApi?.rentableGet(requestParameters);
+      setRentables(response);
+    };
+
+    fetchRentables();
+  }, [categoryId, selectedPlace]);
 
   const addLink = (item: any) => {
     item.link = `/rentable/${item.id}`;
