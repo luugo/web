@@ -20,13 +20,6 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const selectedLocalPlace = localStorage?.getItem('selectedPlace');
-    if (selectedLocalPlace) {
-      setSelectedPlace(JSON.parse(selectedLocalPlace));
-    }
-  }, [setSelectedPlace]);
-
-  useEffect(() => {
     (async () => {
       const placesApi = new PlaceApi();
       const requestParameters: PlaceGetRequest = {
