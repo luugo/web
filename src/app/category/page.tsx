@@ -36,7 +36,7 @@ const CategoryType: React.FC = () => {
         {categories?.length ? (
           <div className="grid md:grid-cols-2 gap-6 lg:grid-cols-3 xl:gap-8">
             {categories.map((categoryType) => (
-              <Link href={`/categories/${categoryType.toLowerCase()}`} key={categoryType}>
+              <Link href={`/category/${categoryType.toLowerCase()}`} key={categoryType}>
                 <div
                   className="p-6 text-center bg-neutral-50 dark:bg-neutral-800 rounded-2xl dark:border-neutral-800"
                 >

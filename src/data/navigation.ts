@@ -59,7 +59,7 @@ export const MEGAMENU_TEMPLATES: NavItemType[] = [
 export const NAVIGATION: NavItemType[] = [
   {
     id: ncNanoId(),
-    href: "/category-type",
+    href: "/category",
     name: "Categorias",
   }
 ];
