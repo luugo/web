@@ -68,6 +68,9 @@ export default function RootLayout({
     <html lang="en" dir="" className={poppins.className}>
     <GoogleAnalytics/>
     <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
+
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W75H4VVQ"
+                      height="0" width="0" style={{display:"none", visibility:"hidden"}}></iframe></noscript>
     <GoogleOAuthProvider clientId="637549763916-sa80ph8s7nsbpdhtnv3bf6a1q29s3fae.apps.googleusercontent.com">
       <Providers>
         <SiteHeader/>
