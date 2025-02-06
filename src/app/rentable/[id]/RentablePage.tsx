@@ -2,7 +2,6 @@
 
 import React, {useEffect, useState} from "react";
 import Prices from "@/components/Prices";
-import ModalViewAllReviews from "./ModalViewAllReviews";
 import RentableInfo from "@/components/RentableInfo";
 import dynamic from "next/dynamic";
 import {dataProduct} from "./page";
@@ -26,8 +25,6 @@ const MarkerComponent = dynamic(
 );
 
 const ProductDetail = (dataProduct: dataProduct) => {
-  const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] =
-    useState(false);
   const [processedDescription, setProcessedDescription] = useState("");
   const [isClient, setIsClient] = useState(false);
 
@@ -136,11 +133,6 @@ const ProductDetail = (dataProduct: dataProduct) => {
             </div>
           </div>
         </main>
-
-        <ModalViewAllReviews
-          show={isOpenModalViewAllReviews}
-          onCloseModalViewAllReviews={() => setIsOpenModalViewAllReviews(false)}
-        />
       </div>
     </div>
   );

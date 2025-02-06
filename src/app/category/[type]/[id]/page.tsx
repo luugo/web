@@ -5,13 +5,15 @@ import {Category, CategoryApi, CategoryGetRequest, Place, Rentable, RentableApi,
 import {useParams} from 'next/navigation';
 import RentableCard from '@/components/RentableCard';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import NotFound from "@/app/not-found";
 
-const Category: React.FC = () => {
+const CategoryView: React.FC = () => {
   const params = useParams()
   const categoryId: string = String(params?.id)
   const [rentables, setRentables] = useState<Rentable[]>([])
   const [selectedPlace] = useLocalStorage<Place | null>('selectedPlace', null);
   const [category, setCategory] = useState<Category>({title: ''});
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -19,8 +21,13 @@ const Category: React.FC = () => {
       const requestParams: CategoryGetRequest = {
         id: categoryId,
       }
-      const result = await categoryApi?.categoryGet(requestParams);
-      setCategory(result[0]);
+      const response = await categoryApi?.categoryGet(requestParams);
+
+      if (!response || !response[0]) {
+        setNotFound(true);
+        return;
+      }
+      setCategory(response[0]);
 
     })();
   }, [categoryId])
@@ -37,6 +44,8 @@ const Category: React.FC = () => {
       setRentables(response);
     })();
   }, [categoryId, selectedPlace]);
+
+  if (notFound) return <NotFound />;
 
   return (
     <div className={`nc-PageCategories`}>
@@ -66,4 +75,4 @@ const Category: React.FC = () => {
   )
 };
 
-export default Category;
+export default CategoryView;
