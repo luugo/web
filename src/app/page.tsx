@@ -1,17 +1,19 @@
 "use client";
-import React, {useEffect, useState} from "react";
-import SectionHero2 from "@/components/SectionHero/SectionHero2";
-import About from "@/components/About/About";
-import HowItWorks from "@/components/HowItWorks/HowItWorks";
+import React, { useEffect, useState } from "react";
 import logoImg from "@/images/logo.svg";
 import Image from "next/image";
+import { useUserContext } from "@/context";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { Rentable, RentableApi, Place } from "@api";
+import RentableCard from "@/components/RentableCard";
+import ProductCardSkeleton from "@/components/Skeleton/rentableCard";
 
 interface MobilePopupProps {
   os?: "android" | "ios";
   onClose: () => void;
 }
 
-const MobilePopup: React.FC<MobilePopupProps> = ({os, onClose}) => {
+const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
   const appLinks = {
     android: "https://play.google.com/store/apps/details?id=br.com.luugo.app",
     ios: "https://apps.apple.com/br/app/luugo/id1625096181",
@@ -41,7 +43,7 @@ const MobilePopup: React.FC<MobilePopupProps> = ({os, onClose}) => {
           marginBottom: "20px",
         }}
       >
-        <Image src={logoImg} alt="Logo" width={80} height={80}/>
+        <Image src={logoImg} alt="Logo" width={80} height={80} />
       </div>
 
       {/* Texto do popup */}
@@ -100,15 +102,31 @@ const MobilePopup: React.FC<MobilePopupProps> = ({os, onClose}) => {
 };
 
 function PageHome() {
+  const rentableApi = new RentableApi();
+  const { geolocation, handleGeolocationChange } = useUserContext();
   const [isMobile, setIsMobile] = useState(false);
   const [os, setOs] = useState<"android" | "ios" | undefined>(undefined);
   const [showPopup, setShowPopup] = useState(true);
+  const [selectedPlace, setSelectedPlace] = useLocalStorage<Place | null>(
+    "selectedPlace",
+    null
+  );
+  const [rentableLatLong, setrentableLatLong] = useState<
+    Rentable[] | undefined
+  >(undefined);
 
   useEffect(() => {
     const userAgent = navigator.userAgent;
 
     const mobile = /android|iphone|ipad|ipod/i.test(userAgent);
     setIsMobile(mobile);
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(async ({ coords }) => {
+        const { latitude, longitude } = coords;
+        handleGeolocationChange(latitude, longitude);
+      });
+    }
 
     if (/android/i.test(userAgent)) {
       setOs("android");
@@ -117,22 +135,53 @@ function PageHome() {
     }
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      if (geolocation.lat !== undefined && geolocation.long !== undefined) {
+        const rentables = await rentableApi.rentableNearbyLatitudeLongitudeGet({
+          latitude: geolocation.lat,
+          longitude: geolocation.long,
+        });
+        setrentableLatLong(rentables);
+      } else {
+        const rentables = await rentableApi.rentableNewInTownGet({
+          place: selectedPlace?.id || "Natal/RN",
+        });
+        setrentableLatLong(rentables);
+      }
+    })();
+  }, [geolocation]);
+
   const closePopup = () => {
     setShowPopup(false);
   };
 
   return (
     <div className="nc-PageHome relative overflow-hidden">
-      {isMobile && showPopup && <MobilePopup os={os} onClose={closePopup}/>}
-
-      <SectionHero2/>
-
-      <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-72">
-        <HowItWorks/>
+      {isMobile && showPopup && <MobilePopup os={os} onClose={closePopup} />}
+      <div className=" pt-10 px-10 2xl:px-20 xl:px-20 lg:px-10 md:px-10 sm:px-10">
+        <h2 className="text-2xl sm:text-3xl font-semibold">
+          Últimas atualizações
+        </h2>
       </div>
-
-      <div className="container flex items-center relative space-y-24 my-24 lg:space-y-32 lg:my-72">
-        <About/>
+      <div className="grid gap-6 py-10 px-10 2xl:grid-cols-6 2xl:px-20 xl:grid-cols-5 xl:px-20 lg:grid-cols-4 lg:px-10 md:grid-cols-3 md:px-10 sm:grid-cols-2 sm:px-10">
+        {rentableLatLong === undefined ? (
+          <>
+            {[...Array(12)].map((_, index) => (
+              <ProductCardSkeleton key={index} />
+            ))}
+          </>
+        ) : rentableLatLong.length > 0 ? (
+          rentableLatLong.map((rentable, index) => (
+            <RentableCard rentable={rentable} key={index} />
+          ))
+        ) : (
+          <>
+            {[...Array(12)].map((_, index) => (
+              <ProductCardSkeleton key={index} />
+            ))}
+          </>
+        )}
       </div>
     </div>
   );

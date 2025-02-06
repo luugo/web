@@ -1,33 +1,26 @@
 "use client";
 
-import React, {FC, useState} from "react";
+import React, { FC, useState } from "react";
 import Prices from "./Prices";
 import ModalQuickView from "./ModalQuickView";
 import placeholderSmall from "@/images/placeholder-small.png";
 import NcImage from "@/shared/NcImage/NcImage";
-import {MapPinIcon} from "@heroicons/react/20/solid";
-import {shortStringText} from "@/utils/shortStringText";
-import {Rentable} from "@api";
+import { MapPinIcon } from "@heroicons/react/20/solid";
+import { shortStringText } from "@/utils/shortStringText";
+import { Rentable } from "@api";
 
 export interface ProductCardProps {
   className?: string;
-  rentable: Rentable
+  rentable: Rentable;
   isLiked?: boolean;
 }
 
-const RentableCard: FC<ProductCardProps> = ({
-                                              className = "",
-                                              rentable,
-                                            }) => {
-
+const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
   const [showModalQuickView, setShowModalQuickView] = useState(false);
-
 
   const renderGroupButtons = () => {
     return (
-      <div
-        className="absolute bottom-0 group-hover:bottom-4 inset-x-1 flex justify-center opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-      </div>
+      <div className="absolute bottom-0 group-hover:bottom-4 inset-x-1 flex justify-center opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all"></div>
     );
   };
 
@@ -65,9 +58,12 @@ const RentableCard: FC<ProductCardProps> = ({
           </div>
 
           <div className="flex justify-between items-end ">
-            <Prices price={rentable.price} billingFrequency={rentable.billingFrequency}/>
+            <Prices
+              price={rentable.price}
+              billingFrequency={rentable.billingFrequency}
+            />
             <div className="flex items-center mb-0.5">
-              <MapPinIcon className="w-5 h-5 pb-[1px] text-red-500"/>
+              <MapPinIcon className="w-5 h-5 pb-[1px] text-red-500" />
               <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
                 {rentable.place || ""}
               </span>
