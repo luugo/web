@@ -50,7 +50,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({children}) => {
         router.push("/login");
       }
     }
-  }, [firstName, lastName, place]);
+  }, [auth, firstName, lastName, place, router]);
 
   return (
     <div className="nc-AccountCommonLayout container">

@@ -10,6 +10,7 @@ import {Providers} from "@/providers";
 import {GoogleOAuthProvider} from "@react-oauth/google";
 import GoogleAnalytics from "@/app/GoogleAnalytics";
 import {Metadata} from "next";
+import React from "react";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.luugo.com.br/"),

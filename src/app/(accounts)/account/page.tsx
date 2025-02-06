@@ -17,6 +17,7 @@ import {Alert} from "@/shared/Alert/Alert";
 import {useRouter} from "next/navigation";
 import ModalDelete from "@/components/ModalDelete";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import Image from "next/image";
 
 const AccountPage = () => {
   const router = useRouter();
@@ -35,7 +36,6 @@ const AccountPage = () => {
   const [, setSelectedImage] = useState<File | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [auth, ] = useLocalStorage<AuthenticationPostDefaultResponse|null>('auth', null);
-  const userApi = new UserApi();
   const mediaApi = new MediaApi();
 
   const {
@@ -45,7 +45,8 @@ const AccountPage = () => {
   } = useUserContext();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const userApi = new UserApi();
+    (async () => {
       try {
         if (auth) {
           if (id) return;
@@ -75,10 +76,8 @@ const AccountPage = () => {
       } catch (error) {
         console.error("Erro ao recuperar dados do usuário:", error);
       }
-    };
-
-    fetchData();
-  }, [id, router]);
+    })();
+  }, [auth, handleFirstNameChange, handleLastNameChange, handlePlaceChange, id, router]);
 
   const showAlert = (msg: string, type: keyof AlertOptions = 'success') => {
     setAlert(msg);
@@ -102,6 +101,7 @@ const AccountPage = () => {
   };
 
   const onUpdateAccount = async () => {
+    const userApi = new UserApi();
     try {
       const user: User =
         {
@@ -142,6 +142,7 @@ const AccountPage = () => {
   }
 
   const onDeleteAccount = useCallback(async () => {
+    const userApi = new UserApi();
     if (auth) {
       try {
         await userApi.userDelete({id: auth.user?.id}, {
@@ -162,9 +163,10 @@ const AccountPage = () => {
         showAlert('Conta de usuário não deletada. Por favor tente outra vez!', 'error');
       }
     }
-  }, [auth, userApi])
+  }, [auth, router])
 
   const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const userApi = new UserApi();
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -235,7 +237,7 @@ const AccountPage = () => {
             <div
               className="flex-shrink-0 flex items-center justify-center w-full md:w-32 h-32 mb-6 md:mb-0">
               <div className="relative rounded-full overflow-hidden flex">
-                <img
+                <Image
                   src={thumbnailPreview || user?.thumbnail || ""}
                   width={128}
                   height={128}

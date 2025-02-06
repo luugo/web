@@ -95,7 +95,7 @@ const ImageGallery = ({images}: ImageGalleryProps) => {
       updateMaxHeight();
       window.addEventListener("resize", updateMaxHeight);
       return () => window.removeEventListener("resize", updateMaxHeight);
-    }, [images]);
+    }, []);
 
     const handlePrev = () => {
       setCurrentIndex((prevIndex) =>

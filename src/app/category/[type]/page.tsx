@@ -14,16 +14,14 @@ const Categories: React.FC = () => {
 
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    (async () => {
       const categoryApi = new CategoryApi();
       const requestParams: CategoryGetRequest = {
         type: categoryType,
       }
       setCategories(await categoryApi?.categoryGet(requestParams));
-    }
-
-    fetchCategories()
-  }, [])
+    })()
+  }, [categoryType]);
 
   return (
     <div className={`nc-PageCategories`}>

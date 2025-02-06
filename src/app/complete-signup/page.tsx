@@ -25,7 +25,7 @@ const PageRegister = () => {
       return router.push("/")
     }
 
-    const fetchOptions = async () => {
+    (async () => {
       try {
         const placeApi = new PlaceApi();
         const result = await placeApi.placeGet({isActive: true});
@@ -33,10 +33,8 @@ const PageRegister = () => {
       } catch (error) {
         console.error('Erro ao buscar opções da API', error);
       }
-    };
-
-    fetchOptions();
-  }, []);
+    })();
+  }, [auth, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -9,7 +9,6 @@ const ItemsContent: React.FC = () => {
   const searchParams = useSearchParams();
   const search = searchParams.get("search") || "";
   const [rentables, setRentables] = useState<Rentable[]>([]);
-  const rentableApi = new RentableApi();
 
   useEffect(() => {
     if (!search) return;
@@ -17,6 +16,7 @@ const ItemsContent: React.FC = () => {
     const requestParameters: RentableSearchInputGetRequest = {
       input: search
     };
+    const rentableApi = new RentableApi();
 
     rentableApi.rentableSearchInputGet(requestParameters)
       .then((response) => {

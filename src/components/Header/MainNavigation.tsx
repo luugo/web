@@ -24,10 +24,10 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
     if (selectedLocalPlace) {
       setSelectedPlace(JSON.parse(selectedLocalPlace));
     }
-  }, []);
+  }, [setSelectedPlace]);
 
   useEffect(() => {
-    const fetchPlaces = async () => {
+    (async () => {
       const placesApi = new PlaceApi();
       const requestParameters: PlaceGetRequest = {
         isActive: true
@@ -35,9 +35,7 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
 
       const response = await placesApi?.placeGet(requestParameters);
       setPlaces(response);
-    }
-
-    fetchPlaces();
+    })();
   }, []);
 
   const handleSelectPlace = (event: React.ChangeEvent<HTMLSelectElement>) => {

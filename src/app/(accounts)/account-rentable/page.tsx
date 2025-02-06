@@ -9,13 +9,13 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 
 const AccountOrder = () => {
   const router = useRouter();
-  const rentableApi = new RentableApi();
   const [rentables, setRentables] = useState<Rentable[]>([]);
   const [auth, ] = useLocalStorage<AuthenticationPostDefaultResponse|null>('auth', null);
 
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
+      const rentableApi = new RentableApi();
       try {
         if (auth) {
           const renableResp = await rentableApi.rentableGet({userId: auth.user?.id});
@@ -28,10 +28,8 @@ const AccountOrder = () => {
       } catch (error) {
         console.error("Erro ao recuperar dados do usuário:", error);
       }
-    };
-
-    fetchData();
-  }, []);
+    })();
+  }, [auth, router]);
 
   const renderProductItem = (rentable: Rentable, index: number) => {
     const {thumbnail, title, place, price, billingFrequency, description, id} = rentable;
@@ -54,7 +52,6 @@ const AccountOrder = () => {
                 <h3 className="text-base font-medium line-clamp-1">{title}</h3>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                   <span>{place}</span>
-                  {/* <span className="mx-2 border-l border-slate-200 dark:border-slate-700 h-4"></span> */}
                 </p>
               </div>
               <Prices price={price} billingFrequency={billingFrequency} className="mt-0.5 ml-2"/>

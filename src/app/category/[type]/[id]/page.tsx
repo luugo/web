@@ -20,7 +20,7 @@ const Category: React.FC = () => {
   const [category, setCategory] = useState<Category>({title: ''});
 
   useEffect(() => {
-    const fetchCategory = async () => {
+    (async () => {
       const categoryApi = new CategoryApi();
       const requestParams: CategoryGetRequest = {
         id: categoryId,
@@ -28,13 +28,11 @@ const Category: React.FC = () => {
       const result = await categoryApi?.categoryGet(requestParams);
       setCategory(result[0]);
 
-    }
-
-    fetchCategory()
-  }, [])
+    })();
+  }, [categoryId])
 
   useEffect(() => {
-    const fetchRentables = async () => {
+    (async () => {
       const place = selectedPlace || JSON.parse(localStorage.getItem('selectedPlace') || '');
       const rentableApi = new RentableApi();
       const requestParameters: RentableGetRequest = {
@@ -43,9 +41,7 @@ const Category: React.FC = () => {
       };
       const response = await rentableApi?.rentableGet(requestParameters);
       setRentables(response);
-    };
-
-    fetchRentables();
+    })();
   }, [categoryId, selectedPlace]);
 
   return (
