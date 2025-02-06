@@ -107,10 +107,7 @@ function PageHome() {
   const [isMobile, setIsMobile] = useState(false);
   const [os, setOs] = useState<"android" | "ios" | undefined>(undefined);
   const [showPopup, setShowPopup] = useState(true);
-  const [selectedPlace, setSelectedPlace] = useLocalStorage<Place | null>(
-    "selectedPlace",
-    null
-  );
+  const [selectedPlace] = useLocalStorage<Place | null>("selectedPlace", null);
   const [rentableLatLong, setrentableLatLong] = useState<
     Rentable[] | undefined
   >(undefined);
