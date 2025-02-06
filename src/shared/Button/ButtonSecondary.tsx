@@ -1,8 +1,7 @@
 import Button, {ButtonProps} from "@/shared/Button/Button";
 import React from "react";
 
-export interface ButtonSecondaryProps extends ButtonProps {
-}
+export type ButtonSecondaryProps = ButtonProps
 
 const ButtonSecondary: React.FC<ButtonSecondaryProps> = ({
                                                            className = " border border-slate-300 text-slate-700 dark:border-slate-700 ",

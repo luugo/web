@@ -10,7 +10,7 @@ const PageRegister = () => {
   const router = useRouter();
   let storageData: any = null;
   if (typeof window !== 'undefined') {
-    storageData = localStorage.getItem('luugo');
+    storageData = localStorage.getItem('auth');
   }
 
   const [hasPermission, setHasPermission] = useState(false);
@@ -22,10 +22,10 @@ const PageRegister = () => {
   useEffect(() => {
     if (storageData) {
       const jsonData = JSON.parse(storageData);
-      if (!jsonData.authenticationId && jsonData.token) return router.push("/home");
+      if (!jsonData.authenticationId && jsonData.token) return router.push("/");
       else setHasPermission(true);
     } else {
-      return router.push("/home")
+      return router.push("/")
     }
 
     const fetchOptions = async () => {
@@ -42,7 +42,7 @@ const PageRegister = () => {
     fetchOptions();
   }, []);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (storageData) {
@@ -62,7 +62,7 @@ const PageRegister = () => {
         const result = await userApi.userPost({user: user})
 
         if (result.token) {
-          localStorage.setItem('luugo', JSON.stringify(result));
+          localStorage.setItem('auth', JSON.stringify(result));
           router.push("/");
         }
       } catch (error) {

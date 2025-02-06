@@ -2,15 +2,13 @@
 
 import React, {FC, useEffect, useRef, useState} from "react";
 import Heading from "@/components/Heading/Heading";
-// @ts-ignore
-import Glide from "@glidejs/glide/dist/glide.esm";
-import CardCategory2 from "@/components/CardCategories/CardCategory2";
 import department1Png from "@/images/collections/department1.png";
 import department2Png from "@/images/collections/department2.png";
 import department3Png from "@/images/collections/department3.png";
 import department4Png from "@/images/collections/department4.png";
 import {StaticImageData} from "next/image";
 import Link from "next/link";
+import Glide from "@glidejs/glide";
 
 export interface CardCategoryData {
   name: string;
@@ -112,12 +110,7 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
           <ul className="glide__slides">
             {data.map((item, index) => (
               <li key={index} className={`glide__slide ${itemClassName}`}>
-                <CardCategory2
-                  featuredImage={item.img}
-                  name={item.name}
-                  desc={item.desc}
-                  bgClass={item.color}
-                />
+
               </li>
             ))}
             <li className={`glide__slide ${itemClassName}`}>
@@ -160,7 +153,7 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
                   </div>
                 </div>
                 <Link
-                  href={"/templates/collection"}
+                  href={"#"}
                   className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity"
                 ></Link>
               </div>

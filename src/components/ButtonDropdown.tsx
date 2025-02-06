@@ -2,11 +2,9 @@ import React, {FC} from "react";
 import {ChevronDownIcon} from "@heroicons/react/24/solid";
 import Button, {ButtonProps} from "@/shared/Button/Button";
 
-export interface ButtonDropdownProps extends ButtonProps {
-}
+export type ButtonDropdownProps = ButtonProps
 
 const ButtonDropdown: FC<ButtonDropdownProps> = ({
-                                                   translate,
                                                    children,
                                                    ...args
                                                  }) => {

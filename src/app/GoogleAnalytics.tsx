@@ -12,13 +12,13 @@ const GoogleAnalytics = () => {
     if (typeof window === "undefined") return;
 
     if (!document.getElementById("google-analytics-script")) {
-      const scriptTag = document.createElement("script");
+      const scriptTag: HTMLScriptElement = document.createElement("script");
       scriptTag.async = true;
       scriptTag.src = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`;
       scriptTag.id = "google-analytics-script";
       document.head.appendChild(scriptTag);
 
-      const scriptInit = document.createElement("script");
+      const scriptInit: HTMLScriptElement = document.createElement("script");
       scriptInit.id = "google-analytics-init";
       scriptInit.innerHTML = `
         window.dataLayer = window.dataLayer || [];

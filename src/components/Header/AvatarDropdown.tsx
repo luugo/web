@@ -11,7 +11,7 @@ const IsLoggedIn = ({close}: { close: () => void }) => {
   const {firstName, lastName, place} = useUserContext();
   let storageData: string | null = null;
   if (typeof window !== 'undefined') {
-    storageData = localStorage.getItem('luugo');
+    storageData = localStorage.getItem('auth');
   }
 
   if (storageData) {

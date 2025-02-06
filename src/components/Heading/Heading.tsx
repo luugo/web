@@ -4,26 +4,11 @@ import NextPrev from "@/shared/NextPrev/NextPrev";
 export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   fontClass?: string;
   rightDescText?: ReactNode;
-  rightPopoverOptions?: typeof solutions;
   desc?: ReactNode;
   hasNextPrev?: boolean;
   isCenter?: boolean;
 }
 
-const solutions = [
-  {
-    name: "last 24 hours",
-    href: "##",
-  },
-  {
-    name: "last 7 days",
-    href: "##",
-  },
-  {
-    name: "last 30 days",
-    href: "##",
-  },
-];
 
 const Heading: React.FC<HeadingProps> = ({
                                            children,
@@ -33,7 +18,6 @@ const Heading: React.FC<HeadingProps> = ({
                                            hasNextPrev = false,
                                            fontClass = "text-3xl md:text-4xl font-semibold",
                                            rightDescText,
-                                           rightPopoverOptions = solutions,
                                            ...args
                                          }) => {
   return (

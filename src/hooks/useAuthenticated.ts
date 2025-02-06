@@ -9,7 +9,7 @@ const useAuthenticated = (): AuthenticationStatus => {
 
   let storageData: any = null;
   if (typeof window !== 'undefined') {
-    storageData = localStorage.getItem('luugo');
+    storageData = localStorage.getItem('auth');
   }
 
   useEffect(() => {

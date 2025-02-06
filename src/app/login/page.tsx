@@ -8,7 +8,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import {AuthenticationApi, UserContactApi} from "@api";
+import {AuthenticationApi, ResponseError, UserContactApi} from "@api";
 import Label from "@/components/Label/Label";
 import {GoogleLogin} from '@react-oauth/google';
 
@@ -51,7 +51,7 @@ const PageLogin = () => {
   const [loginError, setLoginError] = useState('');
   const router = useRouter();
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const authenticationApi = new AuthenticationApi();
@@ -65,20 +65,23 @@ const PageLogin = () => {
       const result = await authenticationApi.authenticationPost(requestParameters)
       await handleLoginResult(result, router);
 
-    } catch (error: any) {
-      const errorData = await error.response.json();
-      const errorMessage = errorData[0]?.message
+    } catch (error: unknown) {
+      if (error instanceof ResponseError) {
+        const errorData = await error.response.json();
+        const errorMessage = errorData[0]?.message
 
-      if (errorMessage === "O usuário ainda não foi verificado") {
-        router.push("/sign-up-confirm-code");
+        if (errorMessage === "O usuário ainda não foi verificado") {
+          router.push("/sign-up-confirm-code");
+        }
+        setLoginError(errorMessage);
       }
-      setLoginError(errorMessage);
+
     }
   };
 
   const handleLoginResult = async (result: any, router: any) => {
     if (result.token) {
-      localStorage.setItem('luugo', JSON.stringify(result));
+      localStorage.setItem('auth', JSON.stringify(result));
 
       const userContactApi = new UserContactApi();
       const user = result.user;
@@ -88,7 +91,7 @@ const PageLogin = () => {
         try {
           const contacts = await userContactApi.userContactGet({userId});
 
-          localStorage.setItem('luugo', JSON.stringify({...result, contacts}));
+          localStorage.setItem('auth', JSON.stringify({...result, contacts}));
         } catch (error) {
           console.error('Erro ao buscar contatos:', error);
         }
@@ -96,7 +99,7 @@ const PageLogin = () => {
       router.push('/');
     } else if (result.authenticationId) {
 
-      localStorage.setItem('luugo', JSON.stringify({user: {authenticationId: result.authenticationId}}));
+      localStorage.setItem('auth', JSON.stringify({user: {authenticationId: result.authenticationId}}));
       router.push('/complete-signup');
     }
   };

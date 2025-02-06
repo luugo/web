@@ -38,7 +38,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({children}) => {
   useEffect(() => {
     let storageData: any = null;
     if (typeof window !== 'undefined') {
-      storageData = localStorage.getItem('luugo');
+      storageData = localStorage.getItem('auth');
     }
     if (storageData) {
       const luugo = JSON.parse(storageData);

@@ -4,13 +4,12 @@ import {Route} from "@/routers/types";
 import {Popover, Transition} from "@/app/headlessui";
 import {ChevronDownIcon} from "@heroicons/react/24/solid";
 import Link from "next/link";
-import {Fragment} from "react";
 
 interface SolutionItem {
   name: string;
   description: string;
   href?: Route;
-  icon: any;
+  icon: string;
   active?: boolean;
 }
 
@@ -101,7 +100,7 @@ export default function DropdownCategories() {
                     {CATEGORIES.map((item, index) => (
                       <Link
                         key={index}
-                        href={"/templates/collection"}
+                        href={"#"}
                         onClick={() => close()}
                         className={`flex items-center focus:outline-none focus-visible:ring-0 ${
                           item.active ? "" : ""
@@ -123,7 +122,7 @@ export default function DropdownCategories() {
                   {/* FOOTER */}
                   <div className="p-4 bg-neutral-50 dark:bg-neutral-700">
                     <Link
-                      href="/templates/collection-2"
+                      href="#"
                       className="flow-root px-2 py-2 space-y-0.5 transition duration-150 ease-in-out rounded-md focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                     >
                       <div className="flex items-center">

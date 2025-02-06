@@ -2,10 +2,7 @@
 
 import React, {useEffect, useRef, useState} from "react";
 import Heading from "./Heading/Heading";
-import CardCategory3 from "./CardCategories/CardCategory3";
-// @ts-ignore
-import Glide from "@glidejs/glide/dist/glide.esm";
-import {CATS_DISCOVER} from "./CardCategories/data";
+import Glide from "@glidejs/glide";
 
 const DiscoverMoreSlider = () => {
   const sliderRef = useRef(null);
@@ -68,16 +65,7 @@ const DiscoverMoreSlider = () => {
       </Heading>
       <div className="" data-glide-el="track">
         <ul className="glide__slides">
-          {CATS_DISCOVER.map((item, index) => (
-            <li key={index} className={`glide__slide`}>
-              <CardCategory3
-                name={item.name}
-                desc={item.desc}
-                featuredImage={item.featuredImage}
-                color={item.color}
-              />
-            </li>
-          ))}
+
         </ul>
       </div>
     </div>

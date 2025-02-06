@@ -1,8 +1,7 @@
 import Button, {ButtonProps} from "@/shared/Button/Button";
 import React from "react";
 
-export interface ButtonThirdProps extends ButtonProps {
-}
+export type ButtonThirdProps = ButtonProps
 
 const ButtonThird: React.FC<ButtonThirdProps> = ({
                                                    className = "text-neutral-700 border border-neutral-200 dark:text-neutral-200 dark:border-neutral-700",

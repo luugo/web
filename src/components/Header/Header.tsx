@@ -1,8 +1,7 @@
 import React, {FC} from "react";
 import MainNavigation from "./MainNavigation";
 
-export interface HeaderLoggedProps {
-}
+export type HeaderLoggedProps = object
 
 const Header: FC<HeaderLoggedProps> = () => {
   return (

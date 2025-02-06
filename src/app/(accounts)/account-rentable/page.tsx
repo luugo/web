@@ -5,22 +5,20 @@ import {useEffect, useState} from "react";
 import {AuthenticationPostDefaultResponse, Rentable, RentableApi} from "@api";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const AccountOrder = () => {
   const router = useRouter();
   const rentableApi = new RentableApi();
   const [rentables, setRentables] = useState<Rentable[]>([]);
-  let storageData: any = null;
-  if (typeof window !== 'undefined') {
-    storageData = localStorage.getItem('luugo');
-  }
+  const [auth, ] = useLocalStorage<AuthenticationPostDefaultResponse|null>('auth', null);
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (storageData !== null) {
-          const luugo: AuthenticationPostDefaultResponse = JSON.parse(storageData);
-          const renableResp = await rentableApi.rentableGet({userId: luugo.user?.id});
+        if (auth) {
+          const renableResp = await rentableApi.rentableGet({userId: auth.user?.id});
           if (renableResp) {
             setRentables(renableResp as Rentable[])
           }
@@ -35,15 +33,15 @@ const AccountOrder = () => {
     fetchData();
   }, []);
 
-  const renderProductItem = (product: any, index: number) => {
-    const {thumbnail, title, place, price, billingFrequency, description, id} = product;
+  const renderProductItem = (rentable: Rentable, index: number) => {
+    const {thumbnail, title, place, price, billingFrequency, description, id} = rentable;
     return (
       <Link href={`/rentable/${id}`} key={index} className="flex py-4 sm:py-7 last:pb-0 first:pt-0">
         <div className="relative h-24 w-16 sm:w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
           <Image
             fill
             sizes="100px"
-            src={thumbnail}
+            src={thumbnail || ""}
             alt={title}
             className="h-full w-full object-cover object-center"
           />
@@ -94,7 +92,6 @@ const AccountOrder = () => {
 
   return (
     <div className="space-y-10 sm:space-y-12">
-      {/* HEADING */}
       <h2 className="text-2xl sm:text-3xl font-semibold">Meus Anúncios</h2>
       {rentables.length > 0 ?
         renderOrder({myRentables: rentables}) :

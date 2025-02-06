@@ -38,7 +38,9 @@ const MySwitch: FC<MySwitchProps> = ({
         checked={enabledState}
         onChange={(e: boolean) => {
           setEnabledState(e);
-          onChange && onChange(e);
+          if(onChange) {
+            onChange(e);
+          }
         }}
         className={`${
           enabledState ? "bg-teal-700" : "bg-neutral-400 dark:bg-neutral-6000"

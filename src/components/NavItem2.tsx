@@ -29,7 +29,7 @@ const NavItem2: FC<NavItem2Props> = ({
             : "text-slate-600 dark:text-slate-400 dark:hover:text-slate-100 hover:text-slate-900 "
         } ${twFocusClass()}`}
         onClick={() => {
-          onClick && onClick();
+          if (onClick) onClick();
         }}
       >
         {children}

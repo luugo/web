@@ -9,7 +9,7 @@ import {AlertOptions} from "@/interfaces";
 import {useRouter} from "next/navigation";
 
 const AccountPass = () => {
-  const router = useRouter();
+  useRouter();
   const [alert, setAlert] = useState('');
   const [typeAlert, setTypeAlert] = useState<keyof AlertOptions>('success');
   const [isShowAlert, setShowAlert] = useState<boolean>(false);
@@ -22,7 +22,7 @@ const AccountPass = () => {
 
   let storageData: any = null;
   if (typeof window !== 'undefined') {
-    storageData = localStorage.getItem('luugo');
+    storageData = localStorage.getItem('auth');
   }
 
   const showAlert = (msg: string, type: keyof AlertOptions = 'success') => {

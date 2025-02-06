@@ -1,21 +1,22 @@
 "use client"
 import React, {useEffect, useState} from 'react';
 import DoesNotExist from '@/components/DoesNotExist/DoesNotExist';
-import {Category, CategoryApi, CategoryGetRequest, RentableApi, RentableGetRequest} from '../../../../luugoapi';
+import {
+  Category,
+  CategoryApi,
+  CategoryGetRequest, Place,
+  Rentable,
+  RentableApi,
+  RentableGetRequest
+} from '@api';
 import {useParams} from 'next/navigation';
 import RentableCard from '@/components/RentableCard';
 import useLocalStorage from '@/hooks/useLocalStorage';
-
-interface PlacesProps {
-  id: number;
-  name: string;
-}
-
 const Category: React.FC = () => {
   const params = useParams()
   const categoryId: string = String(params?.id)
-  const [rentables, setRentables] = useState<any[]>([])
-  const [selectedPlace, setSelectedPlace] = useLocalStorage<any>('selectedPlace', null);
+  const [rentables, setRentables] = useState<Rentable[]>([])
+  const [selectedPlace] = useLocalStorage<Place|null>('selectedPlace', null);
   const [category, setCategory] = useState<Category>({title: ''});
 
   useEffect(() => {
@@ -47,13 +48,6 @@ const Category: React.FC = () => {
     fetchRentables();
   }, [categoryId, selectedPlace]);
 
-  const addLink = (item: any) => {
-    item.link = `/rentable/${item.id}`;
-    return item;
-  };
-
-  const rentablesWithLinks = rentables.map(addLink);
-
   return (
     <div className={`nc-PageCategories`}>
       <div className="container py-16 lg:pb-28 lg:pt-20 space-y-16 sm:space-y-20 lg:space-y-14">
@@ -69,8 +63,8 @@ const Category: React.FC = () => {
         <hr className="border-slate-200 dark:border-slate-700"/>
         {rentables?.length ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
-            {rentablesWithLinks?.map((item, index) => (
-              <RentableCard data={item} key={index}/>
+            {rentables?.map((item, index) => (
+              <RentableCard rentable={item} key={index}/>
             ))}
           </div>
         ) : (

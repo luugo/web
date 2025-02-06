@@ -2,8 +2,7 @@
 
 import {Popover, Transition} from "@/app/headlessui";
 import Prices from "@/components/Prices";
-import {Product, PRODUCTS} from "@/data/data";
-import {Fragment} from "react";
+import {Product} from "@/data/data";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Image from "next/image";
@@ -24,7 +23,7 @@ export default function CartDropdown() {
           <Link
             onClick={close}
             className="absolute inset-0"
-            href={"/templates/product-detail"}
+            href={"#"}
           />
         </div>
 
@@ -33,7 +32,7 @@ export default function CartDropdown() {
             <div className="flex justify-between ">
               <div>
                 <h3 className="text-base font-medium ">
-                  <Link onClick={close} href={"/templates/product-detail"}>
+                  <Link onClick={close} href={"#"}>
                     {name}
                   </Link>
                 </h3>
@@ -116,7 +115,7 @@ export default function CartDropdown() {
               />
             </svg>
 
-            <Link className="block md:hidden absolute inset-0" href={"/templates/cart"}/>
+            <Link className="block md:hidden absolute inset-0" href={"#"}/>
           </Popover.Button>
           <Transition
             as="div"
@@ -134,9 +133,7 @@ export default function CartDropdown() {
                   <div className="max-h-[60vh] p-5 overflow-y-auto hiddenScrollbar">
                     <h3 className="text-xl font-semibold">Shopping cart</h3>
                     <div className="divide-y divide-slate-100 dark:divide-slate-700">
-                      {[PRODUCTS[0], PRODUCTS[1], PRODUCTS[2]].map(
-                        (item, index) => renderProduct(item, index, close)
-                      )}
+
                     </div>
                   </div>
                   <div className="bg-neutral-50 dark:bg-slate-900 p-5">
@@ -151,14 +148,14 @@ export default function CartDropdown() {
                     </p>
                     <div className="flex space-x-2 mt-5">
                       <ButtonSecondary
-                        href="/templates/cart"
+                        href="#"
                         className="flex-1 border border-slate-200 dark:border-slate-700"
                         onClick={close}
                       >
                         View cart
                       </ButtonSecondary>
                       <ButtonPrimary
-                        href="/templates/checkout"
+                        href="#"
                         onClick={close}
                         className="flex-1"
                       >

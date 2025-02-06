@@ -15,9 +15,9 @@ function useLocalStorage<T>(
 ): [T, (value: SetValue<T>) => void] {
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
-      let storageData: any = null;
+      let storageData: string | null = "";
       if (typeof window !== 'undefined') {
-        storageData = localStorage.getItem('luugo');
+        storageData = localStorage.getItem(key);
       }
       return storageData ? JSON.parse(storageData) : initialValue;
     } catch (error) {

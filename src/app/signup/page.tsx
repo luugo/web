@@ -8,7 +8,7 @@ import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Image from "next/image";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import {AuthenticationApi} from "@api";
+import {AuthenticationApi, ResponseError} from "@api";
 import {Alert} from "@/shared/Alert/Alert";
 
 const loginSocials = [
@@ -65,7 +65,7 @@ const PageSignUp = () => {
 
   const router = useRouter();
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       if (password != confirmPassword) {
@@ -80,15 +80,17 @@ const PageSignUp = () => {
         }
       }
 
-      const result = await authenticationApi.authenticationEmailPost(requestParameters)
+      await authenticationApi.authenticationEmailPost(requestParameters)
 
       router.push("/sign-up-confirm-code");
 
-    } catch (e: any) {
-      const response = await e.response.json();
-      const error = response.map((err: any) => err.message).join(', ')
-      showError(error, true);
-      console.error('Erro durante a solicitação:', response);
+    } catch (e:unknown) {
+      if (e instanceof ResponseError) {
+        const response = await e.response.json();
+        const error = response.map((err: any) => err.message).join(', ')
+        showError(error, true);
+        console.error('Erro durante a solicitação:', response);
+      }
     }
   };
 

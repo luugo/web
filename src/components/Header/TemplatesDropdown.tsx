@@ -2,9 +2,7 @@
 
 import {Popover, Transition} from "@/app/headlessui";
 import {ChevronDownIcon} from "@heroicons/react/24/solid";
-import {Fragment} from "react";
 import {MEGAMENU_TEMPLATES} from "@/data/navigation";
-import CardCategory3 from "@/components/CardCategories/CardCategory3";
 import {NavItemType} from "@/shared/Navigation/NavigationItem";
 import Link from "next/link";
 
@@ -67,7 +65,6 @@ export default function TemplatesDropdown() {
                         ))}
                       </div>
                       <div className="w-[40%] xl:w-[35%]">
-                        <CardCategory3/>
                       </div>
                     </div>
                   </div>

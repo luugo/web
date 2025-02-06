@@ -14,7 +14,7 @@ export type MainNav2LoggedProps = object
 
 const MainNavigation: FC<MainNav2LoggedProps> = () => {
   const [places, setPlaces] = useState<Place[]>([]);
-  const [selectedPlace, setSelectedPlace] = useLocalStorage<any>('selectedPlace', null);
+  const [selectedPlace, setSelectedPlace] = useLocalStorage<Place|null>('selectedPlace', null);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const router = useRouter();
@@ -40,13 +40,13 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
     fetchPlaces();
   }, []);
 
-  const handleSelectPlace = (event: any) => {
-    const selected = places.find(item => item.id === event.target.value) || '';
+  const handleSelectPlace = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selected = places.find(item => item.id === event.target.value) || null;
     setSelectedPlace(selected);
     localStorage.setItem('selectedPlace', JSON.stringify(selected));
   }
 
-  const handleSearchSubmit = (e: any) => {
+  const handleSearchSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (searchTerm.trim()) {
       router.push(`/items?search=${searchTerm}`);

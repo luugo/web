@@ -3,8 +3,6 @@
 import {Dialog, Transition} from "@/app/headlessui";
 import React, {FC} from "react";
 import ButtonClose from "@/shared/ButtonClose/ButtonClose";
-import ProductQuickView from "./ProductQuickView";
-import ProductQuickView2 from "./ProductQuickView2";
 import {usePathname} from "next/navigation";
 import {TransitionChild} from "@headlessui/react";
 
@@ -17,7 +15,7 @@ const ModalQuickView: FC<ModalQuickViewProps> = ({
                                                    show,
                                                    onCloseModalQuickView,
                                                  }) => {
-  const pathname = usePathname();
+  usePathname();
 
   return (
     <Transition appear show={show} as="div">
@@ -62,11 +60,7 @@ const ModalQuickView: FC<ModalQuickViewProps> = ({
                 </span>
 
                 <div className="flex-1 overflow-y-auto rounded-xl hiddenScrollbar">
-                  {pathname.includes("/home-2") ? (
-                    <ProductQuickView2/>
-                  ) : (
-                    <ProductQuickView/>
-                  )}
+
                 </div>
               </div>
             </div>

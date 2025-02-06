@@ -23,7 +23,7 @@ const PrivacyPolicy = () => {
           <div className="policy-details">
             <div className="my-1">
               <p>Termos não definidos nesta Política de Privacidade têm a mesma definição que em
-                nossos Termos de Uso - <b>"Termos"</b>.</p>
+                nossos Termos de Uso - <b>&#34;Termos&#34;</b>.</p>
             </div>
           </div>
         </div>
@@ -469,7 +469,7 @@ const PrivacyPolicy = () => {
               <p><b>5.1 Análise de suas comunicações</b></p>
               <p>
                 Podemos avaliar, examinar ou analisar suas comunicações no aplicativo LuuGo pelos
-                motivos descritos na seção "Como usamos as informações que coletamos" desta
+                motivos descritos na seção &#34;Como usamos as informações que coletamos&#34; desta
                 política, incluindo prevenção de fraudes, avaliação de riscos, conformidade
                 regulatória, investigações, desenvolvimento de produtos, pesquisas, análises,
                 aplicação de nossos Termos de uso e para fins de atendimento ao cliente. Por
@@ -489,7 +489,7 @@ const PrivacyPolicy = () => {
               <p><b>5.2 Vincular com contas de terceiros</b></p>
               <p>
                 Você pode vincular sua Conta do LuuGo a determinados serviços de terceiros, como
-                redes sociais. Seus contatos nesses serviços de terceiros são chamados de "Amigos".
+                redes sociais. Seus contatos nesses serviços de terceiros são chamados de &#34;Amigos&#34;.
                 Ao conduzir o compartilhamento de dados com essa vinculação:
               </p>
               <ul>
@@ -631,7 +631,7 @@ const PrivacyPolicy = () => {
                 Nós nos reservamos o direito de modificar esta Política de Privacidade a
                 qualquer momento, de acordo com a lei aplicável. Se fizermos isso,
                 publicaremos a Política de Privacidade revisada e atualizaremos a data
-                de "Última Atualização" na parte superior. Em caso de alterações
+                de &#34;Última Atualização&#34; na parte superior. Em caso de alterações
                 significativas, também forneceremos um aviso sobre as modificações, por
                 email, pelo menos 30 (trinta) dias antes da data prevista para entrarem
                 em vigor. Caso você não concorde com a Política de Privacidade revisada,

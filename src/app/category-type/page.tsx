@@ -12,7 +12,7 @@ const CategoryType: React.FC = () => {
     [CategoryGetTypeEnum.Service]: "Serviço",
     [CategoryGetTypeEnum.Auto]: "Auto",
   };
-  const params = useParams();
+  useParams();
   const [categories, setCategories] = useState<CategoryGetTypeEnum[]>([]);
 
   useEffect(() => {

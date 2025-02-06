@@ -127,7 +127,7 @@
   dependencies:
     prop-types "^15.8.1"
 
-"@glidejs/glide@^3.6.0":
+"@glidejs/glide@^3.7.1":
   version "3.7.1"
   resolved "https://registry.npmjs.org/@glidejs/glide/-/glide-3.7.1.tgz"
   integrity sha512-8he0pZpLSqTesSFYiuWdhBmtdlYSPWxfPUCKtkkiX6ZmT8UdMdmoFPtJaOwLBXv4p2JiGxqbuPdiRGGo2e/htQ==
