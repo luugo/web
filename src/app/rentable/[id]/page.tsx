@@ -2,7 +2,17 @@ import ProductDetail from "./RentablePage";
 import {remark} from "remark";
 import remarkHtml from "remark-html";
 import html from "remark-html";
-import {MediaApi, RentableApi, RentableGeolocation, UserContact, UserContactApi, UserContactGetRequest,} from "@api";
+import {
+  Media,
+  MediaApi,
+  Rentable,
+  RentableApi,
+  RentableGeolocation,
+  UserContact,
+  UserContactApi,
+  UserContactGetRequest,
+} from "@api";
+import NotFound from "@/app/not-found";
 
 export interface dataProduct {
   id: string;
@@ -20,13 +30,16 @@ export interface dataProduct {
   };
 }
 
-async function getProduct(id: string) {
+async function getRentable(id: string) {
   const rentableApi = new RentableApi();
   const mediaApi = new MediaApi();
 
-  const productData = await rentableApi.rentableGet({id});
-  const productImages = await mediaApi.mediaGet({rentableId: id});
-  const productUserInfo = await getProductUserInfo(productData[0].userId);
+  const productData :Rentable[] = await rentableApi.rentableGet({id});
+  if (productData.length === 0) {
+    return;
+  }
+  const productImages: Media[] = await mediaApi.mediaGet({rentableId: id});
+  const productUserInfo: UserContact[] = await getProductUserInfo(productData[0].userId);
 
   const productDescription = await remark()
     .use(html)
@@ -73,15 +86,17 @@ export async function generateMetadata(props: {
   params: Promise<{ id: string }>;
 }) {
   const resolvedParams = await props.params;
-  const Product = await getProduct(resolvedParams.id);
+  const rentable = await getRentable(resolvedParams.id);
+
+  if (!rentable) return {};
 
   return {
-    title: `${Product.title} | Luugo`,
+    title: `${rentable.title} | Luugo`,
     openGraph: {
-      title: Product.title,
-      description: Product.metadescription,
-      images: Product.thumbnail
-        ? [Product.thumbnail]
+      title: rentable.title,
+      description: rentable.metadescription,
+      images: rentable.thumbnail
+        ? [rentable.thumbnail]
         : "metadata/thumbnail_default.png",
     },
   };
@@ -89,11 +104,12 @@ export async function generateMetadata(props: {
 
 async function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
   const resolvedParams = await props.params;
-  const data = await getProduct(resolvedParams.id);
+  const rentable = await getRentable(resolvedParams.id);
+  if (!rentable) return <NotFound />;
 
   return (
     <>
-      <ProductDetail {...data} />
+      <ProductDetail {...rentable} />
     </>
   );
 }
