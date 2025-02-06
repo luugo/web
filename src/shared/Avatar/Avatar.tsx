@@ -40,6 +40,8 @@ const Avatar: FC<AvatarProps> = ({
         <Image
           sizes="100px"
           className={`absolute inset-0 w-full h-full object-cover ${radius}`}
+          width={100}
+          height={100}
           src={url}
           alt={name}
         />

@@ -7,6 +7,7 @@ import NcImage from "@/shared/NcImage/NcImage";
 import { MapPinIcon } from "@heroicons/react/20/solid";
 import { shortStringText } from "@/utils/shortStringText";
 import { Rentable } from "@api";
+import {stripMarkdown} from "@/utils/stripMarkdown";
 
 export interface ProductCardProps {
   className?: string;
@@ -30,10 +31,10 @@ const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
       >
         <a href={link} className="absolute inset-0"></a>
 
-        <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group">
+        <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-2xl overflow-hidden z-1 group">
           <a href={link} className="block">
             <NcImage
-              containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
+              containerClassName="flex aspect-w-11 aspect-h-11 w-full h-0"
               src={rentable.thumbnail || placeholderSmall}
               className="object-cover w-full h-full drop-shadow-xl"
               fill
@@ -44,13 +45,13 @@ const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
           {renderGroupButtons()}
         </div>
 
-        <div className="space-y-4 px-2.5 pt-5 pb-2.5">
+        <div className="space-y-6 px-2.5 pt-6 pb-2.5">
           <div>
             <h2 className="nc-ProductCard__title text-base font-semibold transition-colors">
               {rentable.title}
             </h2>
-            <p className={`text-sm text-slate-500 dark:text-slate-400 mt-1 `}>
-              {shortStringText(rentable.description, 40)}
+            <p className={`text-xs text-slate-500 mt-1 `}>
+              {stripMarkdown(shortStringText(rentable.description, 40))}
             </p>
           </div>
 
@@ -61,7 +62,7 @@ const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
             />
             <div className="flex items-center mb-0.5">
               <MapPinIcon className="w-5 h-5 pb-[1px] text-red-500" />
-              <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
+              <span className="text-sm ms-1 text-slate-500">
                 {rentable.place || ""}
               </span>
             </div>
