@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductCardSkeleton: React.FC = () => {
+const RentableCardSkeleton: React.FC = () => {
   return (
     <div className="product-card bg-white rounded-2xl">
       <div
@@ -27,4 +27,4 @@ const ProductCardSkeleton: React.FC = () => {
   );
 };
 
-export default ProductCardSkeleton;
+export default RentableCardSkeleton;

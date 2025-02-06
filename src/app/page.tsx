@@ -6,7 +6,7 @@ import { useUserContext } from "@/context";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { Rentable, RentableApi, Place } from "@api";
 import RentableCard from "@/components/RentableCard";
-import ProductCardSkeleton from "@/components/Skeleton/rentableCard";
+import RentableCardSkeleton from "@/components/Skeleton/RentableCard";
 
 interface MobilePopupProps {
   os?: "android" | "ios";
@@ -165,7 +165,7 @@ function PageHome() {
         {rentableLatLong === undefined ? (
           <>
             {[...Array(12)].map((_, index) => (
-              <ProductCardSkeleton key={index} />
+              <RentableCardSkeleton key={index} />
             ))}
           </>
         ) : rentableLatLong.length > 0 ? (
@@ -175,7 +175,7 @@ function PageHome() {
         ) : (
           <>
             {[...Array(12)].map((_, index) => (
-              <ProductCardSkeleton key={index} />
+              <RentableCardSkeleton key={index} />
             ))}
           </>
         )}
