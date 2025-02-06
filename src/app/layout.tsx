@@ -8,7 +8,7 @@ import SiteHeader from "@/app/SiteHeader";
 import CommonClient from "./CommonClient";
 import {Providers} from "@/providers";
 import {GoogleOAuthProvider} from "@react-oauth/google";
-import GoogleAnalytics from "@/app/GoogleAnalytics";
+import GoogleTagManager from "@/app/GoogleTagManager";
 import {Metadata} from "next";
 import React from "react";
 
@@ -66,7 +66,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" dir="" className={poppins.className}>
-    <GoogleAnalytics/>
+    <GoogleTagManager/>
     <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
 
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W75H4VVQ"
