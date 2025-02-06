@@ -34,7 +34,7 @@ async function getRentable(id: string) {
   const rentableApi = new RentableApi();
   const mediaApi = new MediaApi();
 
-  const productData :Rentable[] = await rentableApi.rentableGet({id});
+  const productData: Rentable[] = await rentableApi.rentableGet({id});
   if (productData.length === 0) {
     return;
   }
@@ -105,7 +105,7 @@ export async function generateMetadata(props: {
 async function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
   const resolvedParams = await props.params;
   const rentable = await getRentable(resolvedParams.id);
-  if (!rentable) return <NotFound />;
+  if (!rentable) return <NotFound/>;
 
   return (
     <>

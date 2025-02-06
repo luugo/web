@@ -84,7 +84,7 @@ const PageSignUp = () => {
 
       router.push("/sign-up-confirm-code");
 
-    } catch (e:unknown) {
+    } catch (e: unknown) {
       if (e instanceof ResponseError) {
         const response = await e.response.json();
         showError(e.message, true);

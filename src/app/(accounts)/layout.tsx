@@ -36,7 +36,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({children}) => {
   const [_place, setPlace] = useState<string>('');
   const [_firstName, setFirstName] = useState<string>('');
   const [_lastName, setLastName] = useState<string>('');
-  const [auth, ] = useLocalStorage<AuthenticationPostDefaultResponse|null>('auth', null);
+  const [auth,] = useLocalStorage<AuthenticationPostDefaultResponse | null>('auth', null);
   useEffect(() => {
     if (auth) {
       if (auth.token) {

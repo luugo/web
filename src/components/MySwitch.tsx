@@ -38,7 +38,7 @@ const MySwitch: FC<MySwitchProps> = ({
         checked={enabledState}
         onChange={(e: boolean) => {
           setEnabledState(e);
-          if(onChange) {
+          if (onChange) {
             onChange(e);
           }
         }}

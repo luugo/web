@@ -18,7 +18,7 @@ const AccountPass = () => {
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [auth] = useLocalStorage<AuthenticationPostDefaultResponse|null>('auth', null);
+  const [auth] = useLocalStorage<AuthenticationPostDefaultResponse | null>('auth', null);
 
   const authApi = new AuthenticationApi();
 

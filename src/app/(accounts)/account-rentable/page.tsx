@@ -10,7 +10,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 const AccountOrder = () => {
   const router = useRouter();
   const [rentables, setRentables] = useState<Rentable[]>([]);
-  const [auth, ] = useLocalStorage<AuthenticationPostDefaultResponse|null>('auth', null);
+  const [auth,] = useLocalStorage<AuthenticationPostDefaultResponse | null>('auth', null);
 
 
   useEffect(() => {

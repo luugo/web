@@ -15,7 +15,7 @@ const PageRegister = () => {
   const [lastName, setLastName] = useState('');
   const [place, setPlace] = useState('');
   const [options, setOptions] = useState<Place[]>([]);
-  const [auth, ] = useLocalStorage<AuthenticationPostDefaultResponse|null>('auth', null);
+  const [auth,] = useLocalStorage<AuthenticationPostDefaultResponse | null>('auth', null);
 
   useEffect(() => {
     if (auth) {

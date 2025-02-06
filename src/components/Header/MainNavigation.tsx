@@ -14,7 +14,7 @@ export type MainNav2LoggedProps = object
 
 const MainNavigation: FC<MainNav2LoggedProps> = () => {
   const [places, setPlaces] = useState<Place[]>([]);
-  const [selectedPlace, setSelectedPlace] = useLocalStorage<Place|null>('selectedPlace', null);
+  const [selectedPlace, setSelectedPlace] = useLocalStorage<Place | null>('selectedPlace', null);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const router = useRouter();

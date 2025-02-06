@@ -4,12 +4,7 @@ import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import {
-  AuthenticationApi,
-  AuthenticationPostDefaultResponse,
-  ResponseError,
-  UserContactApi
-} from "@api";
+import {AuthenticationApi, AuthenticationPostDefaultResponse, ResponseError, UserContactApi} from "@api";
 import Label from "@/components/Label/Label";
 import {CredentialResponse, GoogleLogin} from '@react-oauth/google';
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
@@ -82,7 +77,7 @@ const PageLogin = () => {
       }
     }
 
-    const result:AuthenticationPostDefaultResponse = await authenticationApi.authenticationGooglePost(requestParameters);
+    const result: AuthenticationPostDefaultResponse = await authenticationApi.authenticationGooglePost(requestParameters);
 
     await handleLoginResult(result, router);
   };

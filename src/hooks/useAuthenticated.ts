@@ -7,7 +7,7 @@ type AuthenticationStatus = {
 const useAuthenticated = (): AuthenticationStatus => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  let storageData: string|null = null;
+  let storageData: string | null = null;
   if (typeof window !== 'undefined') {
     storageData = localStorage.getItem('auth');
   }

@@ -1,22 +1,16 @@
 "use client"
 import React, {useEffect, useState} from 'react';
 import DoesNotExist from '@/components/DoesNotExist/DoesNotExist';
-import {
-  Category,
-  CategoryApi,
-  CategoryGetRequest, Place,
-  Rentable,
-  RentableApi,
-  RentableGetRequest
-} from '@api';
+import {Category, CategoryApi, CategoryGetRequest, Place, Rentable, RentableApi, RentableGetRequest} from '@api';
 import {useParams} from 'next/navigation';
 import RentableCard from '@/components/RentableCard';
 import useLocalStorage from '@/hooks/useLocalStorage';
+
 const Category: React.FC = () => {
   const params = useParams()
   const categoryId: string = String(params?.id)
   const [rentables, setRentables] = useState<Rentable[]>([])
-  const [selectedPlace] = useLocalStorage<Place|null>('selectedPlace', null);
+  const [selectedPlace] = useLocalStorage<Place | null>('selectedPlace', null);
   const [category, setCategory] = useState<Category>({title: ''});
 
   useEffect(() => {

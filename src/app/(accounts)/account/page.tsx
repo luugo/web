@@ -4,13 +4,7 @@ import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import {AlertOptions} from "@/interfaces";
-import {
-  AuthenticationPostDefaultResponse,
-  MediaApi,
-  User,
-  UserApi,
-  UserTypeEnum
-} from "@api";
+import {AuthenticationPostDefaultResponse, MediaApi, User, UserApi, UserTypeEnum} from "@api";
 import {useUserContext} from "@/context";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import {Alert} from "@/shared/Alert/Alert";
@@ -35,7 +29,7 @@ const AccountPage = () => {
   const [, setThumbnail] = useState<string | null>(null);
   const [, setSelectedImage] = useState<File | null>(null);
   const [user, setUser] = useState<User | null>(null);
-  const [auth, ] = useLocalStorage<AuthenticationPostDefaultResponse|null>('auth', null);
+  const [auth,] = useLocalStorage<AuthenticationPostDefaultResponse | null>('auth', null);
   const mediaApi = new MediaApi();
 
   const {
