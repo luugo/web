@@ -1,8 +1,7 @@
 "use client";
 
-import React, {FC, useState} from "react";
+import React, {FC} from "react";
 import Prices from "./Prices";
-import ModalQuickView from "./ModalQuickView";
 import placeholderSmall from "@/images/placeholder-small.png";
 import NcImage from "@/shared/NcImage/NcImage";
 import {MapPinIcon} from "@heroicons/react/20/solid";
@@ -19,9 +18,6 @@ const RentableCard: FC<ProductCardProps> = ({
                                               className = "",
                                               rentable,
                                             }) => {
-
-  const [showModalQuickView, setShowModalQuickView] = useState(false);
-
 
   const renderGroupButtons = () => {
     return (
@@ -75,12 +71,6 @@ const RentableCard: FC<ProductCardProps> = ({
           </div>
         </div>
       </div>
-
-      {/* QUICKVIEW */}
-      <ModalQuickView
-        show={showModalQuickView}
-        onCloseModalQuickView={() => setShowModalQuickView(false)}
-      />
     </>
   );
 };
