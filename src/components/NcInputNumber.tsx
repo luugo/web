@@ -33,7 +33,7 @@ const NcInputNumber: FC<NcInputNumberProps> = ({
     setValue((state) => {
       return state - 1;
     });
-    onChange && onChange(value - 1);
+    if (onChange) onChange(value - 1);
   };
   const handleClickIncrement = () => {
     if (max && max <= value) return;

@@ -1,16 +1,8 @@
-import Link from "next/link";
 import React, {useEffect, useState} from "react";
 import {faFacebook, faInstagram, faWhatsapp, IconDefinition} from '@fortawesome/free-brands-svg-icons'
 import {faEnvelope, faPhone} from '@fortawesome/free-solid-svg-icons'
-
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-
-
-type UserContact = {
-  id: string;
-  type: "INSTAGRAM" | "FACEBOOK" | "EMAIL" | "PHONE" | "WHATSAPP";
-  value: string;
-};
+import {UserContact} from "@api";
 
 const RentableInfo = (data: { [key: string]: UserContact }) => {
   const [isClient, setIsClient] = useState(false);
@@ -28,13 +20,13 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
 
   const dataArray = Object.values(data);
 
-  const renderSocialIcon = (network: IconDefinition, value: string, url: any) => (
+  const renderSocialIcon = (network: IconDefinition, value: string, url: string) => (
     <div key={`${network}-${url}`}>
       <FontAwesomeIcon icon={network} size={"lg"}/>
       <span className="ml-2"></span>
-      <Link href={url} key={url}>
+      <a href={url} key={url} target={"_blank"}>
         {value}
-      </Link>
+      </a>
     </div>
   );
 

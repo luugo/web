@@ -4,6 +4,8 @@ import Link from "next/link";
 import React, {FC, useEffect, useState} from "react";
 import {usePathname, useRouter} from "next/navigation";
 import {useUserContext} from "@/context";
+import {useLocalStorage} from "react-use";
+import {AuthenticationPostDefaultResponse} from "@api";
 
 export interface CommonLayoutProps {
   children?: React.ReactNode;
@@ -34,16 +36,11 @@ const CommonLayout: FC<CommonLayoutProps> = ({children}) => {
   const [_place, setPlace] = useState<string>('');
   const [_firstName, setFirstName] = useState<string>('');
   const [_lastName, setLastName] = useState<string>('');
-
+  const [auth, ] = useLocalStorage<AuthenticationPostDefaultResponse|null>('auth', null);
   useEffect(() => {
-    let storageData: any = null;
-    if (typeof window !== 'undefined') {
-      storageData = localStorage.getItem('auth');
-    }
-    if (storageData) {
-      const luugo = JSON.parse(storageData);
-      if (luugo.token) {
-        const user = luugo.user;
+    if (auth) {
+      if (auth.token) {
+        const user = auth.user;
         if (user) {
           setFirstName(user.firstName);
           setLastName(user.lastName);

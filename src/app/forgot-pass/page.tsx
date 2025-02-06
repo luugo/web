@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Link from "next/link";
-import {AuthenticationApi, AuthenticationResetPasswordPostRequest} from "@api";
+import {AuthenticationApi, AuthenticationResetPasswordPostRequest, ResponseError} from "@api";
 import {AlertOptions} from "@/interfaces";
 import {Alert} from "@/shared/Alert/Alert";
 import {useRouter} from "next/navigation";
@@ -39,13 +39,15 @@ const PageForgotPass = ({}) => {
 
       router.push("/reset-password");
 
-    } catch (error: any) {
-      const errorData = await error.response.json();
-      const message = errorData[0]?.message
-      if (message == null) {
-        showAlert("Erro inesperado. Por favor, tente novamente.");
-      } else {
-        showAlert(message, 'error');
+    } catch (error: unknown) {
+      if (error instanceof ResponseError) {
+        const errorData = await error.response.json();
+        const message = errorData[0]?.message
+        if (message == null) {
+          showAlert("Erro inesperado. Por favor, tente novamente.");
+        } else {
+          showAlert(message, 'error');
+        }
       }
     }
   };

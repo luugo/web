@@ -1,49 +1,19 @@
 "use client"
 import React, {useState} from "react";
-import facebookSvg from "@/images/Facebook.svg";
-import twitterSvg from "@/images/Twitter.svg";
-import googleSvg from "@/images/Google.svg";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Image from "next/image";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import {AuthenticationApi, ResponseError, UserContactApi} from "@api";
+import {
+  AuthenticationApi,
+  AuthenticationPostDefaultResponse,
+  ResponseError,
+  UserContactApi
+} from "@api";
 import Label from "@/components/Label/Label";
-import {GoogleLogin} from '@react-oauth/google';
+import {CredentialResponse, GoogleLogin} from '@react-oauth/google';
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-const loginSocials = [
-  {
-    name: "Continue with Facebook",
-    href: "#",
-    icon: facebookSvg,
-  },
-  {
-    name: "Continue with Twitter",
-    href: "#",
-    icon: twitterSvg,
-  },
-  {
-    name: "Continue with Google",
-    href: "#",
-    icon: googleSvg,
-  },
-];
-
-const renderOR = () => {
-  if (!loginSocials.length) {
-    return (
-      <div className="relative text-center">
-        <span
-          className="relative z-10 inline-block px-4 font-medium text-sm bg-white dark:text-neutral-400 dark:bg-neutral-900">
-          OR
-        </span>
-        <div
-          className="absolute left-0 w-full top-1/2 transform -translate-y-1/2 border border-neutral-100 dark:border-neutral-800"></div>
-      </div>
-    )
-  }
-}
 
 const PageLogin = () => {
   const [username, setUsername] = useState('');
@@ -79,7 +49,7 @@ const PageLogin = () => {
     }
   };
 
-  const handleLoginResult = async (result: any, router: any) => {
+  const handleLoginResult = async (result: AuthenticationPostDefaultResponse, router: AppRouterInstance) => {
     if (result.token) {
       localStorage.setItem('auth', JSON.stringify(result));
 
@@ -104,21 +74,21 @@ const PageLogin = () => {
     }
   };
 
-  const handleSuccess = async (response: any) => {
+  const handleSuccess = async (response: CredentialResponse) => {
     const authenticationApi = new AuthenticationApi();
     const requestParameters = {
       authenticationGooglePostRequest: {
-        token: response.credential
+        token: response.credential!
       }
     }
 
-    const result = await authenticationApi.authenticationGooglePost(requestParameters);
+    const result:AuthenticationPostDefaultResponse = await authenticationApi.authenticationGooglePost(requestParameters);
 
     await handleLoginResult(result, router);
   };
 
   const handleError = () => {
-    console.log('Login Failed');
+    console.error('Login Failed');
   };
 
   return (
@@ -129,29 +99,6 @@ const PageLogin = () => {
           Conecte-se
         </h2>
         <div className="max-w-md mx-auto space-y-6">
-          <div className="grid gap-3">
-            {!loginSocials?.length && loginSocials?.map((item, index) => (
-              <a
-                key={index}
-                href={item?.href}
-                className="flex w-full rounded-lg bg-primary-50 dark:bg-neutral-800 px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]"
-              >
-                <Image
-                  className="flex-shrink-0"
-                  src={item?.icon}
-                  alt={item?.name}
-                  sizes="40px"
-                />
-                <h3
-                  className="flex-grow text-center text-sm font-medium text-neutral-700 dark:text-neutral-300 sm:text-sm">
-                  {item?.name}
-                </h3>
-              </a>
-            ))}
-          </div>
-          {/* OR */}
-          {renderOR()}
-          {/* FORM */}
           <form className="grid grid-cols-1 gap-6"
                 onSubmit={(e) => handleSubmit(e)}>
             <label className="block">

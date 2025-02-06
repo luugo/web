@@ -87,8 +87,7 @@ const PageSignUp = () => {
     } catch (e:unknown) {
       if (e instanceof ResponseError) {
         const response = await e.response.json();
-        const error = response.map((err: any) => err.message).join(', ')
-        showError(error, true);
+        showError(e.message, true);
         console.error('Erro durante a solicitação:', response);
       }
     }

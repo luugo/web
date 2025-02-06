@@ -1,7 +1,5 @@
 "use client";
 
-// @ts-ignore
-import Glide from "@glidejs/glide/dist/glide.esm";
 import Heading from "@/components/Heading/Heading";
 import React, {FC, useEffect, useRef, useState} from "react";
 import clientSayMain from "@/images/clientSayMain.png";
@@ -16,6 +14,7 @@ import quotationImg2 from "@/images/quotation2.png";
 import {StarIcon} from "@heroicons/react/24/solid";
 import Image from "next/image";
 import {DEMO_DATA} from "./data";
+import Glide from "@glidejs/glide";
 
 export interface SectionClientSayProps {
   className?: string;

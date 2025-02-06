@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Link from "next/link";
-import {AuthenticationApi, AuthenticationResetPasswordPutRequest} from "@api";
+import {AuthenticationApi, AuthenticationResetPasswordPutRequest, ResponseError} from "@api";
 import {AlertOptions} from "@/interfaces";
 import {Alert} from "@/shared/Alert/Alert";
 import {useRouter} from "next/navigation";
@@ -59,13 +59,15 @@ const PageResetPassword = ({}) => {
         router.push("/login");
       }, 5000);
 
-    } catch (error: any) {
-      const errorData = await error.response.json();
-      const message = errorData[0]?.message;
-      if (message == null) {
-        showAlert("Erro inesperado. Por favor, tente novamente.", "error");
-      } else {
-        showAlert(message, "error");
+    } catch (error: unknown) {
+      if (error instanceof ResponseError) {
+        const errorData = await error.response.json();
+        const message = errorData[0]?.message;
+        if (message == null) {
+          showAlert("Erro inesperado. Por favor, tente novamente.", "error");
+        } else {
+          showAlert(message, "error");
+        }
       }
     }
   };

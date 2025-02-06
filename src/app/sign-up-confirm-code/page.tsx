@@ -5,12 +5,19 @@ import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import {AuthenticationApi, AuthenticationEmailPutRequest,} from "@api";
+import {
+  AuthenticationApi,
+  AuthenticationEmailPutRequest,
+  AuthenticationPostDefaultResponse,
+  ResponseError,
+} from "@api";
+import {useLocalStorage} from "react-use";
 
 const SignUpVerifyInputPage: FC = () => {
   const [code, setCode] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
+  const [, setAuth] = useLocalStorage<AuthenticationPostDefaultResponse | null>('auth', null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,19 +38,18 @@ const SignUpVerifyInputPage: FC = () => {
       });
 
       if (result) {
-        localStorage.setItem(
-          "luugo",
-          JSON.stringify({user: {authenticationId: result}})
-        );
+        setAuth({authenticationId: result});
         router.push("/complete-signup");
       }
-    } catch (error: any) {
-      const errorData = await error.response.json();
-      const message = errorData[0]?.message
-      if (message == null) {
-        setErrorMessage("Erro inesperado. Por favor, tente novamente.");
-      } else {
-        setErrorMessage(message);
+    } catch (error: unknown) {
+      if (error instanceof ResponseError) {
+        const errorData = await error.response.json();
+        const message = errorData[0]?.message
+        if (message == null) {
+          setErrorMessage("Erro inesperado. Por favor, tente novamente.");
+        } else {
+          setErrorMessage(message);
+        }
       }
     }
   };

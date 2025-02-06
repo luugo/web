@@ -3,26 +3,23 @@ import React, {useEffect, useState} from "react";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import {useRouter} from "next/navigation";
-import {Place, PlaceApi, UserApi, UserTypeEnum} from "@api";
+import {AuthenticationPostDefaultResponse, Place, PlaceApi, UserApi, UserTypeEnum} from "@api";
 import Select from "@/shared/Select/Select";
+import {useLocalStorage} from "react-use";
 
 const PageRegister = () => {
   const router = useRouter();
-  let storageData: any = null;
-  if (typeof window !== 'undefined') {
-    storageData = localStorage.getItem('auth');
-  }
 
   const [hasPermission, setHasPermission] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [place, setPlace] = useState('');
   const [options, setOptions] = useState<Place[]>([]);
+  const [auth, ] = useLocalStorage<AuthenticationPostDefaultResponse|null>('auth', null);
 
   useEffect(() => {
-    if (storageData) {
-      const jsonData = JSON.parse(storageData);
-      if (!jsonData.authenticationId && jsonData.token) return router.push("/");
+    if (auth) {
+      if (!auth.authenticationId && auth.token) return router.push("/");
       else setHasPermission(true);
     } else {
       return router.push("/")
@@ -30,9 +27,8 @@ const PageRegister = () => {
 
     const fetchOptions = async () => {
       try {
-        const isActive: any = {isActive: true}
         const placeApi = new PlaceApi();
-        const result = await placeApi.placeGet(isActive);
+        const result = await placeApi.placeGet({isActive: true});
         setOptions(result);
       } catch (error) {
         console.error('Erro ao buscar opções da API', error);
@@ -45,10 +41,9 @@ const PageRegister = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (storageData) {
+    if (auth) {
       try {
-        const jsonData = JSON.parse(storageData);
-        const authenticationId = jsonData.user.authenticationId;
+        const authenticationId = auth!.authenticationId;
         const userApi = new UserApi();
 
         const user = {

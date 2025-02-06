@@ -1,6 +1,7 @@
 import {avatarColors} from "@/contains/contants";
 import React, {FC} from "react";
 import VerifyIcon from "@/components/VerifyIcon";
+import Image from "next/image";
 
 export interface AvatarProps {
   containerClassName?: string;
@@ -36,7 +37,7 @@ const Avatar: FC<AvatarProps> = ({
       style={{backgroundColor: url ? undefined : _setBgColor(name)}}
     >
       {url && (
-        <img
+        <Image
           sizes="100px"
           className={`absolute inset-0 w-full h-full object-cover ${radius}`}
           src={url}

@@ -77,7 +77,7 @@ const ImageGallery = ({images}: ImageGalleryProps) => {
     );
   };
 
-  const gallerySecond = () => {
+  const GallerySecond = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollRef = useRef<HTMLDivElement>(null);
     const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
@@ -171,10 +171,10 @@ const ImageGallery = ({images}: ImageGalleryProps) => {
         width > 744 ? (
           <>{galleryFirst()}</>
         ) : (
-          <>{gallerySecond()}</>
+          <>{GallerySecond()}</>
         )
       ) : (
-        <>{gallerySecond()}</>
+        <>{GallerySecond()}</>
       )}
     </>
   );

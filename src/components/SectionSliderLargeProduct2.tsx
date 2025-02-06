@@ -2,8 +2,6 @@
 
 import React, {FC, useEffect, useRef, useState} from "react";
 import Heading from "@/components/Heading/Heading";
-// @ts-ignore
-import Glide from "@glidejs/glide/dist/glide.esm";
 import CollectionCard from "./CollectionCard";
 import CollectionCard2 from "./CollectionCard2";
 import Nav from "@/shared/Nav/Nav";
@@ -25,6 +23,7 @@ import full31Img from "@/images/products/full3-1.png";
 import full32Img from "@/images/products/full3-2.png";
 import full33Img from "@/images/products/full3-3.png";
 import Link from "next/link";
+import Glide from "@glidejs/glide";
 
 export interface SectionSliderLargeProduct2Props {
   className?: string;

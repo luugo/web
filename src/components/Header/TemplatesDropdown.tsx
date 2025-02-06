@@ -25,7 +25,7 @@ export default function TemplatesDropdown() {
   return (
     <div className="TemplatesDropdown hidden lg:block">
       <Popover className="">
-        {({open, close}) => (
+        {({open}) => (
           <>
             <Popover.Button
               className={`

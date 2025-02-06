@@ -21,14 +21,14 @@ const Terms = () => {
             </h3>
           </div>
           <div>
-            <p>Estes Termos de uso (”<b>Termos</b>") são um contrato legal vinculativo entre você
+            <p>Estes Termos de uso (&#34;<b>Termos</b>&#34;) são um contrato legal vinculativo entre você
               e o LuuGo, que regem o uso do aplicativo.</p>
-            <p>O aplicativo LuuGo oferece um espaço online que permite que os usuários ("<b>Membros</b>")
+            <p>O aplicativo LuuGo oferece um espaço online que permite que os usuários (&#34;<b>Membros</b>&#34;)
               publiquem,
               ofereçam, busquem e reservem ítens. Os membros que publicam e oferecem ítens são
-              chamados de <b>"Locador”</b>
+              chamados de <b>&#34;Locador&#34;</b>
               e os membros que buscam, reservam ou usam os ítens são chamados de
-              <b>"Locatários"</b>.</p>
+              <b>&#34;Locatários&#34;</b>.</p>
           </div>
         </div>
         {/* end terms description */}

@@ -4,9 +4,10 @@ import React, {useState} from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
 import {Alert} from "@/shared/Alert/Alert";
-import {AuthenticationApi, AuthenticationPostDefaultResponse} from "@api";
+import {AuthenticationApi, AuthenticationPostDefaultResponse, AuthenticationPutRequest, ResponseError} from "@api";
 import {AlertOptions} from "@/interfaces";
 import {useRouter} from "next/navigation";
+import {useLocalStorage} from "react-use";
 
 const AccountPass = () => {
   useRouter();
@@ -17,13 +18,10 @@ const AccountPass = () => {
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [auth] = useLocalStorage<AuthenticationPostDefaultResponse|null>('auth', null);
 
   const authApi = new AuthenticationApi();
 
-  let storageData: any = null;
-  if (typeof window !== 'undefined') {
-    storageData = localStorage.getItem('auth');
-  }
 
   const showAlert = (msg: string, type: keyof AlertOptions = 'success') => {
     setAlert(msg);
@@ -36,22 +34,20 @@ const AccountPass = () => {
 
   const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (storageData !== null) {
-      JSON.parse(storageData);
-      const requestParameters: any = {
+    if (auth !== null) {
+
+      const requestParameters: AuthenticationPutRequest = {
         currentPassword: currentPassword,
         newPassword: newPassword,
         confirmNewPassword: confirmNewPassword,
       };
 
       try {
-        const luugo: AuthenticationPostDefaultResponse = JSON.parse(storageData);
-
         await authApi?.authenticationPut(
           {authenticationPutRequest: requestParameters},
           {
             headers: {
-              Authorization: `Bearer ${luugo?.token}`,
+              Authorization: `Bearer ${auth?.token}`,
               "Content-Type": "application/json",
             },
           }
@@ -59,14 +55,16 @@ const AccountPass = () => {
 
         showAlert('Senha alterada com sucesso!');
 
-      } catch (error: any) {
-        const errorData = await error.response?.json();
-        if (errorData) {
-          const message = errorData[0]?.message
-          if (message == null) {
-            setErrorMessage("Erro inesperado. Por favor, tente novamente.");
-          } else {
-            setErrorMessage(message);
+      } catch (error: unknown) {
+        if (error instanceof ResponseError) {
+          const errorData = await error.response?.json();
+          if (errorData) {
+            const message = errorData[0]?.message
+            if (message == null) {
+              setErrorMessage("Erro inesperado. Por favor, tente novamente.");
+            } else {
+              setErrorMessage(message);
+            }
           }
         }
       }

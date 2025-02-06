@@ -1,13 +1,13 @@
 "use client"
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
-import {CategoryApi, CategoryGetRequest, CategoryGetTypeEnum} from '@api';
+import {Category, CategoryApi, CategoryGetRequest, CategoryGetTypeEnum} from '@api';
 import DoesNotExist from '@/components/DoesNotExist/DoesNotExist';
 import {useParams} from "next/navigation";
 
 const Categories: React.FC = () => {
   const params = useParams()
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const categoryType: CategoryGetTypeEnum | undefined = params?.type
     ? (Array.isArray(params.type) ? params.type[0].toUpperCase() : params.type.toUpperCase()) as CategoryGetTypeEnum
     : undefined;
