@@ -6,7 +6,7 @@ import {useParams} from 'next/navigation';
 import RentableCard from '@/components/RentableCard';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
-const Category: React.FC = () => {
+const CategoryView: React.FC = () => {
   const params = useParams()
   const categoryId: string = String(params?.id)
   const [rentables, setRentables] = useState<Rentable[]>([])
@@ -66,4 +66,4 @@ const Category: React.FC = () => {
   )
 };
 
-export default Category;
+export default CategoryView;

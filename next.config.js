@@ -31,6 +31,12 @@ const nextConfig = {
       },
     ],
   },
+  exclude: [
+    'node_modules',
+    '.next',
+    'public',
+    'luugoapi',
+  ],
 };
 
 module.exports = nextConfig;

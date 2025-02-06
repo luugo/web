@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 
-export const LOCAL_STORAGE_CHANGE_EVENT = 'onLocalStorageChange';
+const LOCAL_STORAGE_CHANGE_EVENT = 'onLocalStorageChange';
 
 interface LocalStorageEvent {
   key: string;

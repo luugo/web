@@ -1,4 +1,3 @@
-import {SocialType} from "@/shared/SocialsShare/SocialsShare";
 import React, {FC} from "react";
 import facebook from "@/images/socials/facebook.svg";
 import twitter from "@/images/socials/twitter.svg";
@@ -8,6 +7,12 @@ import Image from "next/image";
 
 export interface SocialsList1Props {
   className?: string;
+}
+
+interface SocialType {
+  name: string;
+  icon: string;
+  href: string;
 }
 
 const socials: SocialType[] = [
