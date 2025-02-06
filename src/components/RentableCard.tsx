@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import Prices from "./Prices";
 import placeholderSmall from "@/images/placeholder-small.png";
 import NcImage from "@/shared/NcImage/NcImage";
@@ -15,8 +15,6 @@ export interface ProductCardProps {
 }
 
 const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
-  const [showModalQuickView, setShowModalQuickView] = useState(false);
-
   const renderGroupButtons = () => {
     return (
       <div className="absolute bottom-0 group-hover:bottom-4 inset-x-1 flex justify-center opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all"></div>
