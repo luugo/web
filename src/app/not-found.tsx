@@ -1,6 +1,6 @@
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
-import I404Png from "@/images/luguinho_pensativo.png";
+import I404Png from "@/images/luuguinho_pensativo.png";
 import NcImage from "@/shared/NcImage/NcImage";
 
 const Page404 = () => (

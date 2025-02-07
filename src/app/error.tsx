@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import NcImage from "@/shared/NcImage/NcImage";
-import I500Png from "@/images/luguinho_pensativo.png";
+import I500Png from "@/images/luuguinho_dead.png";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
 export default function ErrorPage({ error, reset }: { error: Error; reset: () => void }) {
