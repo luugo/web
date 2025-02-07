@@ -1,4 +1,4 @@
-import {Poppins} from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import "@/fonts/line-awesome-1.3.0/css/line-awesome.css";
 import "@/styles/index.scss";
@@ -6,10 +6,10 @@ import "rc-slider/assets/index.css";
 import Footer from "@/shared/Footer/Footer";
 import SiteHeader from "@/app/SiteHeader";
 import CommonClient from "./CommonClient";
-import {Providers} from "@/providers";
-import {GoogleOAuthProvider} from "@react-oauth/google";
+import { Providers } from "@/providers";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleTagManager from "@/app/GoogleTagManager";
-import {Metadata} from "next";
+import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -60,26 +60,31 @@ const poppins = Poppins({
 });
 
 export default function RootLayout({
-                                     children,
-                                   }: {
+  children,
+}: {
   children: React.ReactNode;
 }) {
   return (
     <html lang="en" dir="" className={poppins.className}>
-    <GoogleTagManager/>
-    <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
-
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W75H4VVQ"
-                      height="0" width="0" style={{display:"none", visibility:"hidden"}}></iframe></noscript>
-    <GoogleOAuthProvider clientId="637549763916-sa80ph8s7nsbpdhtnv3bf6a1q29s3fae.apps.googleusercontent.com">
-      <Providers>
-        <SiteHeader/>
-        {children}
-        <CommonClient/>
-        <Footer/>
-      </Providers>
-    </GoogleOAuthProvider>
-    </body>
+      <GoogleTagManager />
+      <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-W75H4VVQ"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
+        <GoogleOAuthProvider clientId="637549763916-sa80ph8s7nsbpdhtnv3bf6a1q29s3fae.apps.googleusercontent.com">
+          <Providers>
+            <SiteHeader />
+            {children}
+            <CommonClient />
+            <Footer />
+          </Providers>
+        </GoogleOAuthProvider>
+      </body>
     </html>
   );
 }

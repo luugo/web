@@ -1,7 +1,7 @@
 "use client";
 
-import {useEffect} from "react";
-import {usePathname} from "next/navigation";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const GoogleTagManager = () => {
   const pathname = usePathname();
@@ -10,7 +10,8 @@ const GoogleTagManager = () => {
     if (typeof window === "undefined") return;
 
     if (!document.getElementById("google-tag-manager")) {
-      const scriptTagManager: HTMLScriptElement = document.createElement("script");
+      const scriptTagManager: HTMLScriptElement =
+        document.createElement("script");
       scriptTagManager.id = "google-tag-manager";
       scriptTagManager.innerHTML = `
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

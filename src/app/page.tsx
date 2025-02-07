@@ -4,7 +4,7 @@ import logoImg from "@/images/logo.svg";
 import Image from "next/image";
 import { useUserContext } from "@/context";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { Rentable, RentableApi, Place } from "@api";
+import { Place, Rentable, RentableApi } from "@api";
 import RentableCard from "@/components/RentableCard";
 import RentableCardSkeleton from "@/components/Skeleton/RentableCard";
 
@@ -102,7 +102,6 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
 };
 
 function PageHome() {
-  const rentableApi = new RentableApi();
   const { geolocation, handleGeolocationChange } = useUserContext();
   const [isMobile, setIsMobile] = useState(false);
   const [os, setOs] = useState<"android" | "ios" | undefined>(undefined);
@@ -130,9 +129,10 @@ function PageHome() {
     } else if (/iPad|iPhone|iPod/.test(userAgent)) {
       setOs("ios");
     }
-  }, []);
+  }, [handleGeolocationChange]);
 
   useEffect(() => {
+    const rentableApi = new RentableApi();
     (async () => {
       if (geolocation.lat !== undefined && geolocation.long !== undefined) {
         const rentables = await rentableApi.rentableNearbyLatitudeLongitudeGet({
@@ -147,7 +147,7 @@ function PageHome() {
         setrentableLatLong(rentables);
       }
     })();
-  }, [geolocation]);
+  }, [geolocation, selectedPlace?.id]);
 
   const closePopup = () => {
     setShowPopup(false);

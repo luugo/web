@@ -1,4 +1,4 @@
-import {StaticImageData} from "next/image";
+import { StaticImageData } from "next/image";
 
 export interface ProductVariant {
   id: number;
@@ -25,4 +25,3 @@ export interface Product {
   rating?: string;
   numberOfReviews?: number;
 }
-

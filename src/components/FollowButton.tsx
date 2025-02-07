@@ -1,5 +1,7 @@
-import React, {FC} from "react";
-import ButtonPrimary, {ButtonPrimaryProps,} from "@/shared/Button/ButtonPrimary";
+import React, { FC } from "react";
+import ButtonPrimary, {
+  ButtonPrimaryProps,
+} from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 
 export interface FollowButtonProps extends ButtonPrimaryProps {
@@ -7,11 +9,11 @@ export interface FollowButtonProps extends ButtonPrimaryProps {
 }
 
 const FollowButton: FC<FollowButtonProps> = ({
-                                               className = "relative z-10",
-                                               sizeClass = "px-4 py-1.5 min-w-[84px]",
-                                               fontSize = "text-sm font-medium",
-                                               isFollowing = Math.random() > 0.5,
-                                             }) => {
+  className = "relative z-10",
+  sizeClass = "px-4 py-1.5 min-w-[84px]",
+  fontSize = "text-sm font-medium",
+  isFollowing = Math.random() > 0.5,
+}) => {
   const [following, setFollowing] = React.useState(isFollowing);
 
   return !following ? (

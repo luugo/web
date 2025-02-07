@@ -1,4 +1,4 @@
-import React, {FC, ReactNode} from "react";
+import React, { FC, ReactNode } from "react";
 import twFocusClass from "@/utils/twFocusClass";
 
 export interface NavItemProps {
@@ -11,14 +11,13 @@ export interface NavItemProps {
 }
 
 const NavItem: FC<NavItemProps> = ({
-                                     className = "px-5 py-2.5 text-sm sm:text-base sm:px-6 sm:py-3 capitalize",
-                                     radius = "rounded-full",
-                                     children,
-                                     onClick = () => {
-                                     },
-                                     isActive = false,
-                                     renderX,
-                                   }) => {
+  className = "px-5 py-2.5 text-sm sm:text-base sm:px-6 sm:py-3 capitalize",
+  radius = "rounded-full",
+  children,
+  onClick = () => {},
+  isActive = false,
+  renderX,
+}) => {
   return (
     <li className="nc-NavItem relative" data-nc-id="NavItem">
       {renderX && renderX}

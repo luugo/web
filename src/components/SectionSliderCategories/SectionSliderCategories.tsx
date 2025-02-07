@@ -1,12 +1,12 @@
 "use client";
 
-import React, {FC, useEffect, useRef, useState} from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import Heading from "@/components/Heading/Heading";
 import department1Png from "@/images/collections/department1.png";
 import department2Png from "@/images/collections/department2.png";
 import department3Png from "@/images/collections/department3.png";
 import department4Png from "@/images/collections/department4.png";
-import {StaticImageData} from "next/image";
+import { StaticImageData } from "next/image";
 import Link from "next/link";
 import Glide from "@glidejs/glide";
 
@@ -53,12 +53,12 @@ export interface SectionSliderCategoriesProps {
 }
 
 const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
-                                                                     heading = "Shop by department",
-                                                                     subHeading = "",
-                                                                     className = "",
-                                                                     itemClassName = "",
-                                                                     data = CATS,
-                                                                   }) => {
+  heading = "Shop by department",
+  subHeading = "",
+  className = "",
+  itemClassName = "",
+  data = CATS,
+}) => {
   const sliderRef = useRef(null);
   const [isShow, setIsShow] = useState(false);
 
@@ -109,9 +109,7 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
         <div className="glide__track" data-glide-el="track">
           <ul className="glide__slides">
             {data.map((item, index) => (
-              <li key={index} className={`glide__slide ${itemClassName}`}>
-
-              </li>
+              <li key={index} className={`glide__slide ${itemClassName}`}></li>
             ))}
             <li className={`glide__slide ${itemClassName}`}>
               <div

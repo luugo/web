@@ -1,18 +1,18 @@
-import {Popover, Transition} from "@/app/headlessui";
+import { Popover, Transition } from "@/app/headlessui";
 import Input from "@/shared/Input/Input";
-import React, {FC, Fragment} from "react";
+import React, { FC, Fragment } from "react";
 
 interface Props {
   className?: string;
 }
 
-const SearchDropdown: FC<Props> = ({className = ""}) => {
+const SearchDropdown: FC<Props> = ({ className = "" }) => {
   const inputRef = React.createRef<HTMLInputElement>();
 
   return (
     <React.Fragment>
       <Popover className={`relative ${className}`}>
-        {({open}) => {
+        {({ open }) => {
           if (open) {
             setTimeout(() => {
               inputRef.current?.focus();
@@ -21,8 +21,7 @@ const SearchDropdown: FC<Props> = ({className = ""}) => {
 
           return (
             <>
-              <Popover.Button
-                className="w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center">
+              <Popover.Button className="w-12 h-12 rounded-full text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none flex items-center justify-center">
                 <svg
                   width={22}
                   height={22}
@@ -67,7 +66,7 @@ const SearchDropdown: FC<Props> = ({className = ""}) => {
                       type="search"
                       placeholder="Type and press enter"
                     />
-                    <input type="submit" hidden value=""/>
+                    <input type="submit" hidden value="" />
                   </form>
                 </Popover.Panel>
               </Transition>

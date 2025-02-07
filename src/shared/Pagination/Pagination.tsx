@@ -1,5 +1,5 @@
-import {CustomLink} from "@/data/types";
-import React, {FC} from "react";
+import { CustomLink } from "@/data/types";
+import React, { FC } from "react";
 import twFocusClass from "@/utils/twFocusClass";
 import Link from "next/link";
 
@@ -26,7 +26,7 @@ export interface PaginationProps {
   className?: string;
 }
 
-const Pagination: FC<PaginationProps> = ({className = ""}) => {
+const Pagination: FC<PaginationProps> = ({ className = "" }) => {
   const renderItem = (pag: CustomLink, index: number) => {
     if (index === 0) {
       return (

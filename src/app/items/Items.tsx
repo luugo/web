@@ -1,9 +1,9 @@
 "use client";
-import React, {useEffect, useState} from 'react';
-import {useSearchParams} from 'next/navigation';
-import {Rentable, RentableApi, RentableSearchInputGetRequest} from '@api';
-import RentableCard from '@/components/RentableCard';
-import DoesNotExist from '@/components/DoesNotExist/DoesNotExist';
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Rentable, RentableApi, RentableSearchInputGetRequest } from "@api";
+import RentableCard from "@/components/RentableCard";
+import DoesNotExist from "@/components/DoesNotExist/DoesNotExist";
 
 const ItemsContent: React.FC = () => {
   const searchParams = useSearchParams();
@@ -14,15 +14,17 @@ const ItemsContent: React.FC = () => {
     if (!search) return;
 
     const requestParameters: RentableSearchInputGetRequest = {
-      input: search
+      input: search,
     };
     const rentableApi = new RentableApi();
 
-    rentableApi.rentableSearchInputGet(requestParameters)
+    rentableApi
+      .rentableSearchInputGet(requestParameters)
       .then((response) => {
-        const rentablesWithLinks = response
-          .map((item) => (
-            {...item, link: `/rentable/${item.id}`}));
+        const rentablesWithLinks = response.map((item) => ({
+          ...item,
+          link: `/rentable/${item.id}`,
+        }));
 
         setRentables(rentablesWithLinks);
       })
@@ -39,16 +41,16 @@ const ItemsContent: React.FC = () => {
             </h2>
           </div>
         </div>
-        <hr className="border-slate-200 dark:border-slate-700"/>
+        <hr className="border-slate-200 dark:border-slate-700" />
 
         {rentables.length ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
             {rentables.map((item) => (
-              <RentableCard rentable={item} key={item.id}/>
+              <RentableCard rentable={item} key={item.id} />
             ))}
           </div>
         ) : (
-          <DoesNotExist title="anúncios"/>
+          <DoesNotExist title="anúncios" />
         )}
       </div>
     </div>

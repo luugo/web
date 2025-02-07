@@ -5,8 +5,8 @@ export interface ItemTypeImageIconProps {
 }
 
 const ItemTypeImageIcon: React.FC<ItemTypeImageIconProps> = ({
-                                                               className = "w-8 h-8 md:w-10 md:h-10",
-                                                             }) => {
+  className = "w-8 h-8 md:w-10 md:h-10",
+}) => {
   return (
     <div
       className={`bg-black/50 flex items-center justify-center rounded-full text-white ${className}`}

@@ -1,10 +1,10 @@
-import React, {TextareaHTMLAttributes} from "react";
+import React, { TextareaHTMLAttributes } from "react";
 
-export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement>
+export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 // eslint-disable-next-line react/display-name
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({className = "", children, rows = 4, ...args}, ref) => {
+  ({ className = "", children, rows = 4, ...args }, ref) => {
     return (
       <textarea
         ref={ref}
@@ -15,7 +15,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         {children}
       </textarea>
     );
-  }
+  },
 );
 
 export default Textarea;

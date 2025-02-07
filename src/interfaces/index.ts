@@ -1,1 +1,1 @@
-export type {AlertOptions} from "./alert"
+export type { AlertOptions } from "./alert";

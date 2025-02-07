@@ -1,7 +1,7 @@
 import Logo from "@/shared/Logo/Logo";
 import Link from "next/link";
 import SocialsList1 from "@/shared/SocialsList1/SocialsList1";
-import {CustomLink} from "@/data/types";
+import { CustomLink } from "@/data/types";
 import React from "react";
 
 export interface WidgetFooterMenu {
@@ -15,25 +15,23 @@ const widgetMenus: WidgetFooterMenu[] = [
     id: "5",
     title: "Produto",
     menus: [
-      {href: "/about", label: "Sobre"},
+      { href: "/about", label: "Sobre" },
       // { href: "#", label: "FAQs" },
     ],
   },
   {
     id: "2",
     title: "Recursos",
-    menus: [
-      {href: "/signup", label: "Cadastre-se"},
-    ],
+    menus: [{ href: "/signup", label: "Cadastre-se" }],
   },
   {
     id: "3",
     title: "Companhia",
     menus: [
-      {href: "/contact", label: "Contato"},
-      {href: "/privacy-policy", label: "Política de privacidade"},
-      {href: "/terms", label: "Termos de Uso"},
-      {href: "/child-safety", label: "Segurança Infantil"},
+      { href: "/contact", label: "Contato" },
+      { href: "/privacy-policy", label: "Política de privacidade" },
+      { href: "/terms", label: "Termos de Uso" },
+      { href: "/child-safety", label: "Segurança Infantil" },
     ],
   },
 ];
@@ -65,14 +63,13 @@ const Footer: React.FC = () => {
 
   return (
     <div className="nc-Footer relative py-20 lg:pt-28 lg:pb-24 border-t border-neutral-200 dark:border-neutral-700">
-      <div
-        className="container grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-5 lg:gap-x-10 ">
+      <div className="container grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-5 lg:gap-x-10 ">
         <div className="grid grid-cols-4 gap-5 col-span-2 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
           <div className="col-span-2 md:col-span-1">
-            <Logo/>
+            <Logo />
           </div>
           <div className="col-span-2 flex items-center md:col-span-3">
-            <SocialsList1 className="flex items-center space-x-2 lg:space-x-0 lg:flex-col lg:space-y-3 lg:items-start"/>
+            <SocialsList1 className="flex items-center space-x-2 lg:space-x-0 lg:flex-col lg:space-y-3 lg:items-start" />
           </div>
         </div>
         {widgetMenus.map(renderWidgetMenuItem)}

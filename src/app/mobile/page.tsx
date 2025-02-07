@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 
 export default function MobileRedirect() {
   useEffect(() => {
@@ -10,7 +10,8 @@ export default function MobileRedirect() {
     let platform = "unknown";
 
     if (/android/i.test(userAgent)) {
-      redirectUrl = "https://play.google.com/store/apps/details?id=br.com.luugo.app";
+      redirectUrl =
+        "https://play.google.com/store/apps/details?id=br.com.luugo.app";
       platform = "android";
     } else if (/iPod|iPhone|iPad|Mac OS|Macintosh/.test(userAgent)) {
       redirectUrl = "https://apps.apple.com/br/app/luugo/id1625096181";
@@ -19,8 +20,12 @@ export default function MobileRedirect() {
 
     const urlParams = new URLSearchParams(window.location.search);
     const utmParams = ["utm_source", "utm_medium", "utm_campaign"]
-      .map(param => urlParams.get(param) ? `${param}=${encodeURIComponent(urlParams.get(param) || "")}` : "")
-      .filter(param => param)
+      .map((param) =>
+        urlParams.get(param)
+          ? `${param}=${encodeURIComponent(urlParams.get(param) || "")}`
+          : "",
+      )
+      .filter((param) => param)
       .join("&");
 
     if (utmParams) {
@@ -43,9 +48,7 @@ export default function MobileRedirect() {
   return (
     <div>
       <div className="container px-4 -bottom-4 -top-4">
-        <h5>
-          Redirecionando ...
-        </h5>
+        <h5>Redirecionando ...</h5>
       </div>
     </div>
   );

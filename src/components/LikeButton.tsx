@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 export interface LikeButtonProps {
   className?: string;
@@ -8,9 +8,9 @@ export interface LikeButtonProps {
 }
 
 const LikeButton: React.FC<LikeButtonProps> = ({
-                                                 className = "",
-                                                 liked = false,
-                                               }) => {
+  className = "",
+  liked = false,
+}) => {
   const [isLiked, setIsLiked] = useState(liked);
 
   // make random for demo

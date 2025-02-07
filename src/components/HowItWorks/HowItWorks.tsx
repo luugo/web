@@ -1,5 +1,5 @@
-import React from 'react';
-import Heading from '../Heading/Heading';
+import React from "react";
+import Heading from "../Heading/Heading";
 import NcImage from "@/shared/NcImage/NcImage";
 import HIW1img from "@/images/HIW1img.png";
 import HIW2img from "@/images/HIW2img.png";
@@ -10,7 +10,6 @@ import Image from "next/image";
 import Badge from "@/shared/Badge/Badge";
 
 const HowItWorks = () => {
-
   const data = [
     {
       id: 1,
@@ -59,7 +58,10 @@ const HowItWorks = () => {
           alt="vector"
         />
         {data?.map((item, index) => (
-          <div key={item.id} className="text-center transition-transform transform hover:scale-110">
+          <div
+            key={item.id}
+            className="text-center transition-transform transform hover:scale-110"
+          >
             <div className="flex flex-col items-center">
               <NcImage
                 containerClassName="mb-4 sm:mb-10 max-w-[140px] mx-auto"
@@ -82,7 +84,9 @@ const HowItWorks = () => {
                   }
                 />
               </div>
-              <p className="text-1xl block mt-6 text-slate-500 dark:text-slate-400">{item?.desc}</p>
+              <p className="text-1xl block mt-6 text-slate-500 dark:text-slate-400">
+                {item?.desc}
+              </p>
             </div>
           </div>
         ))}

@@ -1,8 +1,13 @@
-import React, {useEffect, useState} from "react";
-import {faFacebook, faInstagram, faWhatsapp, IconDefinition} from '@fortawesome/free-brands-svg-icons'
-import {faEnvelope, faPhone} from '@fortawesome/free-solid-svg-icons'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {UserContact} from "@api";
+import React, { useEffect, useState } from "react";
+import {
+  faFacebook,
+  faInstagram,
+  faWhatsapp,
+  IconDefinition,
+} from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { UserContact } from "@api";
 
 const RentableInfo = (data: { [key: string]: UserContact }) => {
   const [isClient, setIsClient] = useState(false);
@@ -20,9 +25,13 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
 
   const dataArray = Object.values(data);
 
-  const renderSocialIcon = (network: IconDefinition, value: string, url: string) => (
+  const renderSocialIcon = (
+    network: IconDefinition,
+    value: string,
+    url: string,
+  ) => (
     <div key={`${network}-${url}`}>
-      <FontAwesomeIcon icon={network} size={"lg"}/>
+      <FontAwesomeIcon icon={network} size={"lg"} />
       <span className="ml-2"></span>
       <a href={url} key={url} target={"_blank"}>
         {value}
@@ -42,7 +51,7 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
                     renderSocialIcon(
                       faInstagram,
                       `@${item.value}`,
-                      `https://instagram.com/${item.value}`
+                      `https://instagram.com/${item.value}`,
                     )}
                 </li>
               );
@@ -53,7 +62,7 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
                     renderSocialIcon(
                       faFacebook,
                       item.value,
-                      `https://fb.me/${item.value}`
+                      `https://fb.me/${item.value}`,
                     )}
                 </li>
               );
@@ -64,7 +73,7 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
                     renderSocialIcon(
                       faEnvelope,
                       item.value,
-                      `mailto:${item.value}`
+                      `mailto:${item.value}`,
                     )}
                 </li>
               );
@@ -72,11 +81,7 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
               return (
                 <li key={item.id}>
                   {isClient &&
-                    renderSocialIcon(
-                      faPhone,
-                      item.value,
-                      `tel:${item.value}`
-                    )}
+                    renderSocialIcon(faPhone, item.value, `tel:${item.value}`)}
                 </li>
               );
             case "WHATSAPP":
@@ -86,7 +91,7 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
                     renderSocialIcon(
                       faWhatsapp,
                       item.value,
-                      `https://wa.me/${item.value.replace(/\D/g, "")}`
+                      `https://wa.me/${item.value.replace(/\D/g, "")}`,
                     )}
                 </li>
               );

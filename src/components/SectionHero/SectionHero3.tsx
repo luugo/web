@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, { FC } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import backgroundLineSvg from "@/images/Moon.svg";
 import imageRightPng2 from "@/images/hero-2-right-1.png";
@@ -8,7 +8,7 @@ export interface SectionHero3Props {
   className?: string;
 }
 
-const SectionHero3: FC<SectionHero3Props> = ({className = ""}) => {
+const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
   return (
     <div
       className={`nc-SectionHero3 relative ${className}`}
@@ -19,8 +19,7 @@ const SectionHero3: FC<SectionHero3Props> = ({className = ""}) => {
           <span className="sm:text-lg md:text-xl font-semibold text-neutral-900">
             In this season, find the best 🔥
           </span>
-          <h2
-            className="font-bold text-black text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl !leading-[115%] ">
+          <h2 className="font-bold text-black text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl !leading-[115%] ">
             Sports equipment collection.
           </h2>
           <div className="sm:pt-4">
@@ -36,8 +35,7 @@ const SectionHero3: FC<SectionHero3Props> = ({className = ""}) => {
 
       <div className="relative z-[1] lg:aspect-w-16 lg:aspect-h-8 2xl:aspect-h-7">
         <div className=" ">
-          <div
-            className="mt-5 lg:mt-0 lg:absolute right-0 bottom-0 top-0 w-full max-w-xl lg:max-w-2xl xl:max-w-3xl 2xl:max-w-4xl ml-auto">
+          <div className="mt-5 lg:mt-0 lg:absolute right-0 bottom-0 top-0 w-full max-w-xl lg:max-w-2xl xl:max-w-3xl 2xl:max-w-4xl ml-auto">
             <Image
               sizes="(max-width: 768px) 100vw, 50vw"
               fill

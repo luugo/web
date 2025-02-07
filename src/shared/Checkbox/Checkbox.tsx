@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, { FC } from "react";
 
 export interface CheckboxProps {
   label?: string;
@@ -12,15 +12,15 @@ export interface CheckboxProps {
 }
 
 const Checkbox: FC<CheckboxProps> = ({
-                                       subLabel = "",
-                                       label = "",
-                                       name,
-                                       className = "",
-                                       sizeClassName = "w-6 h-6",
-                                       labelClassName = "",
-                                       defaultChecked,
-                                       onChange,
-                                     }) => {
+  subLabel = "",
+  label = "",
+  name,
+  className = "",
+  sizeClassName = "w-6 h-6",
+  labelClassName = "",
+  defaultChecked,
+  onChange,
+}) => {
   return (
     <div className={`flex text-sm sm:text-base ${className}`}>
       <input
@@ -38,7 +38,7 @@ const Checkbox: FC<CheckboxProps> = ({
         >
           <span
             className={`text-slate-900 dark:text-slate-100 ${labelClassName} ${
-              !!subLabel ? "-mt-0.5" : ""
+              subLabel ? "-mt-0.5" : ""
             }`}
           >
             {label}

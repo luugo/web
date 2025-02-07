@@ -1,9 +1,9 @@
 "use client";
-import React, {FC, ReactNode, useEffect, useState} from "react";
-import {Dialog, Transition} from "@/app/headlessui";
+import React, { FC, ReactNode, useEffect, useState } from "react";
+import { Dialog, Transition } from "@/app/headlessui";
 import ButtonClose from "@/shared/ButtonClose/ButtonClose";
 import Button from "@/shared/Button/Button";
-import {TransitionChild} from "@headlessui/react";
+import { TransitionChild } from "@headlessui/react";
 
 export interface NcModalProps {
   renderContent: () => ReactNode;
@@ -17,15 +17,15 @@ export interface NcModalProps {
 }
 
 const NcModal: FC<NcModalProps> = ({
-                                     renderTrigger,
-                                     renderContent,
-                                     contentExtraClass = "max-w-screen-xl",
-                                     contentPaddingClass = "py-4 px-6 md:py-5",
-                                     triggerText = "Open Modal",
-                                     modalTitle = "Modal title",
-                                     isOpenProp,
-                                     onCloseModal,
-                                   }) => {
+  renderTrigger,
+  renderContent,
+  contentExtraClass = "max-w-screen-xl",
+  contentPaddingClass = "py-4 px-6 md:py-5",
+  triggerText = "Open Modal",
+  modalTitle = "Modal title",
+  isOpenProp,
+  onCloseModal,
+}) => {
   const [isOpen, setIsOpen] = useState(!!isOpenProp);
 
   function closeModal() {
@@ -71,7 +71,7 @@ const NcModal: FC<NcModalProps> = ({
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="fixed inset-0 bg-neutral-900 bg-opacity-50 dark:bg-opacity-80"/>
+              <div className="fixed inset-0 bg-neutral-900 bg-opacity-50 dark:bg-opacity-80" />
             </TransitionChild>
 
             {/* This element is to trick the browser into centering the modal contents. */}
@@ -93,8 +93,7 @@ const NcModal: FC<NcModalProps> = ({
               <div
                 className={`inline-block w-full my-5 overflow-hidden text-left align-middle transition-all transform bg-white border border-black border-opacity-5 shadow-xl rounded-2xl sm:my-8 dark:bg-neutral-800 dark:border-neutral-700 text-neutral-900 dark:text-neutral-300 ${contentExtraClass}`}
               >
-                <div
-                  className="py-4 px-6 text-center relative border-b border-neutral-100 dark:border-neutral-700 md:py-5">
+                <div className="py-4 px-6 text-center relative border-b border-neutral-100 dark:border-neutral-700 md:py-5">
                   <ButtonClose
                     onClick={closeModal}
                     className="absolute left-2 top-1/2 transform -translate-y-1/2 sm:left-4"

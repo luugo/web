@@ -1,5 +1,5 @@
 "use client";
-import React, {FC, useEffect, useRef} from "react";
+import React, { FC, useEffect, useRef } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Input from "@/shared/Input/Input";
@@ -10,7 +10,7 @@ export interface ModalEditProps {
   onCloseModalEdit: () => void;
 }
 
-const ModalEdit: FC<ModalEditProps> = ({show, onCloseModalEdit}) => {
+const ModalEdit: FC<ModalEditProps> = ({ show, onCloseModalEdit }) => {
   const textareaRef = useRef(null);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const ModalEdit: FC<ModalEditProps> = ({show, onCloseModalEdit}) => {
           (element as HTMLTextAreaElement).focus();
           (element as HTMLTextAreaElement).setSelectionRange(
             (element as HTMLTextAreaElement).value.length,
-            (element as HTMLTextAreaElement).value.length
+            (element as HTMLTextAreaElement).value.length,
           );
         }
       }, 400);
@@ -36,7 +36,7 @@ const ModalEdit: FC<ModalEditProps> = ({show, onCloseModalEdit}) => {
         </h3>
         <span className="text-sm">Are you sure you want to change price?</span>
         <div className="mt-8 relative rounded-md shadow-sm">
-          <Input ref={textareaRef} defaultValue={"1.000"} type={"text"}/>
+          <Input ref={textareaRef} defaultValue={"1.000"} type={"text"} />
 
           <div className="absolute inset-y-0 right-0 flex items-center">
             <label htmlFor="currency" className="sr-only">

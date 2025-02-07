@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, { FC } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import NcModal from "@/shared/NcModal/NcModal";
@@ -11,17 +11,20 @@ export interface ModalDeleteProps {
   handleConfirm: () => void;
 }
 
-const ModalDelete: FC<ModalDeleteProps> = ({show, modalTitle, modalDescription, onCloseModalDelete, handleConfirm}) => {
-
+const ModalDelete: FC<ModalDeleteProps> = ({
+  show,
+  modalTitle,
+  modalDescription,
+  onCloseModalDelete,
+  handleConfirm,
+}) => {
   const renderContent = () => {
     return (
       <>
         <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-200">
           {modalTitle}
         </h3>
-        <span className="text-sm">
-          {modalDescription}
-        </span>
+        <span className="text-sm">{modalDescription}</span>
         <div className="mt-4 space-x-3">
           <ButtonPrimary onClick={handleConfirm} type="submit">
             Deletar

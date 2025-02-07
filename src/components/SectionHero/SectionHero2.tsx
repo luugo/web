@@ -1,7 +1,7 @@
 "use client";
 
-import React, {FC, useState} from "react";
-import {useMediaQuery} from "react-responsive";
+import React, { FC, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import backgroundLineSvg from "@/images/Moon.svg";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Next from "@/shared/NextPrev/Next";
@@ -10,7 +10,7 @@ import useInterval from "react-use/lib/useInterval";
 import useBoolean from "react-use/lib/useBoolean";
 import useAuthenticated from "@/hooks/useAuthenticated";
 import Image from "next/image";
-import {HERO2_DEMO_DATA as DATA} from "./data";
+import { HERO2_DEMO_DATA as DATA } from "./data";
 
 export interface SectionHero2Props {
   className?: string;
@@ -18,10 +18,10 @@ export interface SectionHero2Props {
 
 let TIME_OUT: NodeJS.Timeout | null = null;
 
-const SectionHero2: FC<SectionHero2Props> = ({className = ""}) => {
+const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
   // =================
-  const {isAuthenticated} = useAuthenticated();
-  const isMobile = useMediaQuery({query: '(max-width: 1024px)'})
+  const { isAuthenticated } = useAuthenticated();
+  const isMobile = useMediaQuery({ query: "(max-width: 1024px)" });
   const [indexActive, setIndexActive] = useState(0);
   const [isRunning, toggleIsRunning] = useBoolean(true);
 
@@ -29,7 +29,7 @@ const SectionHero2: FC<SectionHero2Props> = ({className = ""}) => {
     () => {
       handleAutoNext();
     },
-    isRunning ? 5500 : null
+    isRunning ? 5500 : null,
   );
   //
 
@@ -101,7 +101,8 @@ const SectionHero2: FC<SectionHero2Props> = ({className = ""}) => {
                 >
                   {isActive && (
                     <div
-                      className={`nc-SectionHero2Item__dot absolute inset-0 bg-slate-900 rounded-md ${isActive ? " " : " "
+                      className={`nc-SectionHero2Item__dot absolute inset-0 bg-slate-900 rounded-md ${
+                        isActive ? " " : " "
                       }`}
                     ></div>
                   )}
@@ -111,22 +112,22 @@ const SectionHero2: FC<SectionHero2Props> = ({className = ""}) => {
           })}
         </div>
 
-        {!isMobile &&
-            <>
-                <Prev
-                    className="absolute start-1 sm:start-5 top-3/4 sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
-                    btnClassName="w-12 h-12 hover:border-slate-400 dark:hover:border-slate-400"
-                    svgSize="w-6 h-6"
-                    onClickPrev={handleClickPrev}
-                />
-                <Next
-                    className="absolute end-1 sm:end-5 top-3/4 sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
-                    btnClassName="w-12 h-12 hover:border-slate-400 dark:hover:border-slate-400"
-                    svgSize="w-6 h-6"
-                    onClickNext={handleClickNext}
-                />
-            </>
-        }
+        {!isMobile && (
+          <>
+            <Prev
+              className="absolute start-1 sm:start-5 top-3/4 sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
+              btnClassName="w-12 h-12 hover:border-slate-400 dark:hover:border-slate-400"
+              svgSize="w-6 h-6"
+              onClickPrev={handleClickPrev}
+            />
+            <Next
+              className="absolute end-1 sm:end-5 top-3/4 sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
+              btnClassName="w-12 h-12 hover:border-slate-400 dark:hover:border-slate-400"
+              svgSize="w-6 h-6"
+              onClickNext={handleClickNext}
+            />
+          </>
+        )}
 
         {/* BG */}
         <div className="absolute inset-0 bg-[#E3FFE6]">
@@ -147,13 +148,12 @@ const SectionHero2: FC<SectionHero2Props> = ({className = ""}) => {
               {/* <span className="nc-SectionHero2Item__subheading block text-base md:text-xl text-slate-700 font-medium">
                 {item.subHeading}
               </span> */}
-              <h2
-                className="nc-SectionHero2Item__heading text-sm/[17px] font-semibold text-3xl sm:text-4xl whitespace-pre-line md:text-5xl xl:text-6xl 2xl:text-7xl !leading-[114%] text-slate-900">
+              <h2 className="nc-SectionHero2Item__heading text-sm/[17px] font-semibold text-3xl sm:text-4xl whitespace-pre-line md:text-5xl xl:text-6xl 2xl:text-7xl !leading-[114%] text-slate-900">
                 {item.heading}
               </h2>
             </div>
 
-            {!isAuthenticated ?
+            {!isAuthenticated ? (
               <ButtonPrimary
                 className="nc-SectionHero2Item__button dark:bg-slate-900"
                 sizeClass="py-3 px-6 sm:py-5 sm:px-9"
@@ -179,12 +179,11 @@ const SectionHero2: FC<SectionHero2Props> = ({className = ""}) => {
                 </svg>
               </span> */}
               </ButtonPrimary>
-              :
+            ) : (
               <div className="py-3 px-6 sm:py-5 sm:px-9"></div>
-            }
+            )}
           </div>
-          <div
-            className="mt-10 lg:mt-0 lg:absolute end-0 rtl:-end-28 bottom-0 top-0 w-full max-w-2xl xl:max-w-2xl 2xl:max-w-4xl">
+          <div className="mt-10 lg:mt-0 lg:absolute end-0 rtl:-end-28 bottom-0 top-0 w-full max-w-2xl xl:max-w-2xl 2xl:max-w-4xl">
             <Image
               fill
               sizes="(max-width: 768px) 100vw, 50vw"

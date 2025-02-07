@@ -1,5 +1,5 @@
 import React from "react";
-import {XMarkIcon} from "@heroicons/react/24/solid";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 import twFocusClass from "@/utils/twFocusClass";
 
 export interface ButtonCloseProps {
@@ -9,11 +9,10 @@ export interface ButtonCloseProps {
 }
 
 const ButtonClose: React.FC<ButtonCloseProps> = ({
-                                                   className = "",
-                                                   IconclassName = "w-5 h-5",
-                                                   onClick = () => {
-                                                   },
-                                                 }) => {
+  className = "",
+  IconclassName = "w-5 h-5",
+  onClick = () => {},
+}) => {
   return (
     <button
       className={
@@ -23,7 +22,7 @@ const ButtonClose: React.FC<ButtonCloseProps> = ({
       onClick={onClick}
     >
       <span className="sr-only">Close</span>
-      <XMarkIcon className={IconclassName}/>
+      <XMarkIcon className={IconclassName} />
     </button>
   );
 };

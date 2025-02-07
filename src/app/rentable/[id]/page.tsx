@@ -1,5 +1,5 @@
 import ProductDetail from "./RentablePage";
-import {remark} from "remark";
+import { remark } from "remark";
 import remarkHtml from "remark-html";
 import html from "remark-html";
 import {
@@ -34,12 +34,14 @@ async function getRentable(id: string) {
   const rentableApi = new RentableApi();
   const mediaApi = new MediaApi();
 
-  const productData: Rentable[] = await rentableApi.rentableGet({id});
+  const productData: Rentable[] = await rentableApi.rentableGet({ id });
   if (productData.length === 0) {
     return;
   }
-  const productImages: Media[] = await mediaApi.mediaGet({rentableId: id});
-  const productUserInfo: UserContact[] = await getProductUserInfo(productData[0].userId);
+  const productImages: Media[] = await mediaApi.mediaGet({ rentableId: id });
+  const productUserInfo: UserContact[] = await getProductUserInfo(
+    productData[0].userId,
+  );
 
   const productDescription = await remark()
     .use(html)
@@ -105,7 +107,7 @@ export async function generateMetadata(props: {
 async function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
   const resolvedParams = await props.params;
   const rentable = await getRentable(resolvedParams.id);
-  if (!rentable) return <NotFound/>;
+  if (!rentable) return <NotFound />;
 
   return (
     <>

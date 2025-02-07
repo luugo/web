@@ -1,29 +1,33 @@
-'use client'
+"use client";
 import Prices from "@/components/Prices";
 import Image from "next/image";
-import {useEffect, useState} from "react";
-import {AuthenticationPostDefaultResponse, Rentable, RentableApi} from "@api";
-import {useRouter} from "next/navigation";
+import { useEffect, useState } from "react";
+import { AuthenticationPostDefaultResponse, Rentable, RentableApi } from "@api";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 const AccountOrder = () => {
   const router = useRouter();
   const [rentables, setRentables] = useState<Rentable[]>([]);
-  const [auth,] = useLocalStorage<AuthenticationPostDefaultResponse | null>('auth', null);
-
+  const [auth] = useLocalStorage<AuthenticationPostDefaultResponse | null>(
+    "auth",
+    null,
+  );
 
   useEffect(() => {
     (async () => {
       const rentableApi = new RentableApi();
       try {
         if (auth) {
-          const renableResp = await rentableApi.rentableGet({userId: auth.user?.id});
+          const renableResp = await rentableApi.rentableGet({
+            userId: auth.user?.id,
+          });
           if (renableResp) {
-            setRentables(renableResp as Rentable[])
+            setRentables(renableResp as Rentable[]);
           }
         } else {
-          router.push('/login');
+          router.push("/login");
         }
       } catch (error) {
         console.error("Erro ao recuperar dados do usuário:", error);
@@ -32,9 +36,21 @@ const AccountOrder = () => {
   }, [auth, router]);
 
   const renderProductItem = (rentable: Rentable, index: number) => {
-    const {thumbnail, title, place, price, billingFrequency, description, id} = rentable;
+    const {
+      thumbnail,
+      title,
+      place,
+      price,
+      billingFrequency,
+      description,
+      id,
+    } = rentable;
     return (
-      <Link href={`/rentable/${id}`} key={index} className="flex py-4 sm:py-7 last:pb-0 first:pt-0">
+      <Link
+        href={`/rentable/${id}`}
+        key={index}
+        className="flex py-4 sm:py-7 last:pb-0 first:pt-0"
+      >
         <div className="relative h-24 w-16 sm:w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
           <Image
             fill
@@ -54,7 +70,11 @@ const AccountOrder = () => {
                   <span>{place}</span>
                 </p>
               </div>
-              <Prices price={price} billingFrequency={billingFrequency} className="mt-0.5 ml-2"/>
+              <Prices
+                price={price}
+                billingFrequency={billingFrequency}
+                className="mt-0.5 ml-2"
+              />
             </div>
           </div>
           <div className="flex flex-1 items-end justify-between text-sm">
@@ -76,11 +96,10 @@ const AccountOrder = () => {
     );
   };
 
-  const renderOrder = ({myRentables}: { myRentables: Rentable[] }) => {
+  const renderOrder = ({ myRentables }: { myRentables: Rentable[] }) => {
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden z-0">
-        <div
-          className="border-slate-200 dark:border-slate-700 p-2 sm:p-8 divide-y divide-y-slate-200 dark:divide-slate-700">
+        <div className="border-slate-200 dark:border-slate-700 p-2 sm:p-8 divide-y divide-y-slate-200 dark:divide-slate-700">
           {myRentables.map(renderProductItem)}
         </div>
       </div>
@@ -90,9 +109,11 @@ const AccountOrder = () => {
   return (
     <div className="space-y-10 sm:space-y-12">
       <h2 className="text-2xl sm:text-3xl font-semibold">Meus Anúncios</h2>
-      {rentables.length > 0 ?
-        renderOrder({myRentables: rentables}) :
-        <h1>Nenhum item foi encontrado.</h1>}
+      {rentables.length > 0 ? (
+        renderOrder({ myRentables: rentables })
+      ) : (
+        <h1>Nenhum item foi encontrado.</h1>
+      )}
     </div>
   );
 };

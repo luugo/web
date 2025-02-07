@@ -7,7 +7,7 @@ import NcImage from "@/shared/NcImage/NcImage";
 import { MapPinIcon } from "@heroicons/react/20/solid";
 import { shortStringText } from "@/utils/shortStringText";
 import { Rentable } from "@api";
-import {stripMarkdown} from "@/utils/stripMarkdown";
+import { stripMarkdown } from "@/utils/stripMarkdown";
 
 export interface ProductCardProps {
   className?: string;

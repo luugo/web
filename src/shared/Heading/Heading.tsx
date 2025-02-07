@@ -1,5 +1,5 @@
 import NextPrev from "@/shared/NextPrev/NextPrev";
-import React, {HTMLAttributes, ReactNode} from "react";
+import React, { HTMLAttributes, ReactNode } from "react";
 
 export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   fontClass?: string;
@@ -9,13 +9,13 @@ export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
 }
 
 const Heading: React.FC<HeadingProps> = ({
-                                           children,
-                                           desc = "Discover the most trending products in Ciseco.",
-                                           className = "mb-10 md:mb-12 text-neutral-900 dark:text-neutral-50",
-                                           isCenter = false,
-                                           hasNextPrev = false,
-                                           ...args
-                                         }) => {
+  children,
+  desc = "Discover the most trending products in Ciseco.",
+  className = "mb-10 md:mb-12 text-neutral-900 dark:text-neutral-50",
+  isCenter = false,
+  hasNextPrev = false,
+  ...args
+}) => {
   return (
     <div
       className={`nc-Section-Heading relative flex flex-col sm:flex-row sm:items-end justify-between ${className}`}
@@ -36,9 +36,7 @@ const Heading: React.FC<HeadingProps> = ({
       </div>
       {hasNextPrev && !isCenter && (
         <div className="mt-4 flex justify-end sm:ml-2 sm:mt-0 flex-shrink-0">
-          <NextPrev onClickNext={() => {
-          }} onClickPrev={() => {
-          }}/>
+          <NextPrev onClickNext={() => {}} onClickPrev={() => {}} />
         </div>
       )}
     </div>

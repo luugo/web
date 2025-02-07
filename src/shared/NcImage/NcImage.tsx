@@ -1,5 +1,5 @@
-import React, {FC} from "react";
-import Image, {ImageProps} from "next/image";
+import React, { FC } from "react";
+import Image, { ImageProps } from "next/image";
 
 export interface NcImageProps extends Omit<ImageProps, "alt"> {
   containerClassName?: string;
@@ -7,11 +7,11 @@ export interface NcImageProps extends Omit<ImageProps, "alt"> {
 }
 
 const NcImage: FC<NcImageProps> = ({
-                                     containerClassName = "",
-                                     alt = "nc-image",
-                                     className = "object-cover w-full h-full",
-                                     ...args
-                                   }) => {
+  containerClassName = "",
+  alt = "nc-image",
+  className = "object-cover w-full h-full",
+  ...args
+}) => {
   return (
     <div className={containerClassName}>
       <Image className={className} alt={alt} {...args} />

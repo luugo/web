@@ -1,11 +1,11 @@
-'use client'
-import {Route} from "@/routers/types";
+"use client";
+import { Route } from "@/routers/types";
 import Link from "next/link";
-import React, {FC, useEffect, useState} from "react";
-import {usePathname, useRouter} from "next/navigation";
-import {useUserContext} from "@/context";
-import {useLocalStorage} from "react-use";
-import {AuthenticationPostDefaultResponse} from "@api";
+import React, { FC, useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useUserContext } from "@/context";
+import { useLocalStorage } from "react-use";
+import { AuthenticationPostDefaultResponse } from "@api";
 
 export interface CommonLayoutProps {
   children?: React.ReactNode;
@@ -29,14 +29,17 @@ const pages: {
   },
 ];
 
-const CommonLayout: FC<CommonLayoutProps> = ({children}) => {
+const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   const pathname = usePathname();
   const router = useRouter();
-  const {firstName, lastName, place} = useUserContext();
-  const [_place, setPlace] = useState<string>('');
-  const [_firstName, setFirstName] = useState<string>('');
-  const [_lastName, setLastName] = useState<string>('');
-  const [auth,] = useLocalStorage<AuthenticationPostDefaultResponse | null>('auth', null);
+  const { firstName, lastName, place } = useUserContext();
+  const [_place, setPlace] = useState<string>("");
+  const [_firstName, setFirstName] = useState<string>("");
+  const [_lastName, setLastName] = useState<string>("");
+  const [auth] = useLocalStorage<AuthenticationPostDefaultResponse | null>(
+    "auth",
+    null,
+  );
   useEffect(() => {
     if (auth) {
       if (auth.token) {
@@ -60,10 +63,10 @@ const CommonLayout: FC<CommonLayoutProps> = ({children}) => {
             <h2 className="text-3xl xl:text-4xl font-semibold">Conta</h2>
             <span className="block mt-4 text-neutral-500 dark:text-neutral-400 text-base sm:text-lg">
               <span className="text-slate-900 dark:text-slate-200 font-semibold">
-                {_firstName || 'Nome'}
+                {_firstName || "Nome"}
                 {_lastName.length > 0 ? ` ${_lastName}` : null}
               </span>{" "}
-              · {_place || 'Local'}
+              · {_place || "Local"}
             </span>
           </div>
           <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>

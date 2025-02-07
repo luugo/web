@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, { FC } from "react";
 import facebook from "@/images/socials/facebook.svg";
 import twitter from "@/images/socials/twitter.svg";
 import instagram from "@/images/socials/instagram.svg";
@@ -16,13 +16,25 @@ interface SocialType {
 }
 
 const socials: SocialType[] = [
-  {name: "Facebook", icon: facebook, href: "https://www.facebook.com/profile.php?id=100083365119878"},
-  {name: "Youtube", icon: youtube, href: "https://www.youtube.com/channel/UCtAW7HDg8zt41_Haeqwt2qQ"},
-  {name: "Instagram", icon: instagram, href: "https://www.instagram.com/luugoapp/"},
-  {name: "Twitter", icon: twitter, href: "https://twitter.com/Luugoapp"},
+  {
+    name: "Facebook",
+    icon: facebook,
+    href: "https://www.facebook.com/profile.php?id=100083365119878",
+  },
+  {
+    name: "Youtube",
+    icon: youtube,
+    href: "https://www.youtube.com/channel/UCtAW7HDg8zt41_Haeqwt2qQ",
+  },
+  {
+    name: "Instagram",
+    icon: instagram,
+    href: "https://www.instagram.com/luugoapp/",
+  },
+  { name: "Twitter", icon: twitter, href: "https://twitter.com/Luugoapp" },
 ];
 
-const SocialsList1: FC<SocialsList1Props> = ({className = "space-y-3"}) => {
+const SocialsList1: FC<SocialsList1Props> = ({ className = "space-y-3" }) => {
   const renderItem = (item: SocialType, index: number) => {
     return (
       <a
@@ -31,7 +43,7 @@ const SocialsList1: FC<SocialsList1Props> = ({className = "space-y-3"}) => {
         key={index}
       >
         <div className="flex-shrink-0 w-5 ">
-          <Image sizes="40px" src={item.icon} alt=""/>
+          <Image sizes="40px" src={item.icon} alt="" />
         </div>
         <span className="hidden lg:block text-sm">{item.name}</span>
       </a>

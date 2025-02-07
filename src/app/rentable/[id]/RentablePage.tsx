@@ -1,27 +1,27 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Prices from "@/components/Prices";
 import RentableInfo from "@/components/RentableInfo";
 import dynamic from "next/dynamic";
-import {dataProduct} from "./page";
-import {UserContact} from "@api";
+import { dataProduct } from "./page";
+import { UserContact } from "@api";
 
 const ImageGallery = dynamic(
   () => import("@/components/ImageGallery/ImageGallery"),
-  {ssr: false, loading: () => <p>Carregando imagens...</p>}
+  { ssr: false, loading: () => <p>Carregando imagens...</p> },
 );
 const GoogleMapComponent = dynamic(
   () => import("@react-google-maps/api").then((mod) => mod.GoogleMap),
-  {ssr: false, loading: () => <p>Carregando mapa...</p>}
+  { ssr: false, loading: () => <p>Carregando mapa...</p> },
 );
 const LoadScriptComponent = dynamic(
   () => import("@react-google-maps/api").then((mod) => mod.LoadScript),
-  {ssr: false}
+  { ssr: false },
 );
 const MarkerComponent = dynamic(
   () => import("@react-google-maps/api").then((mod) => mod.Marker),
-  {ssr: false}
+  { ssr: false },
 );
 
 const ProductDetail = (dataProduct: dataProduct) => {
@@ -59,7 +59,7 @@ const ProductDetail = (dataProduct: dataProduct) => {
               }`}
             >
               {isClient ? (
-                <ImageGallery images={dataProduct.images}/>
+                <ImageGallery images={dataProduct.images} />
               ) : (
                 <p>Carregando imagens...</p>
               )}
@@ -103,7 +103,7 @@ const ProductDetail = (dataProduct: dataProduct) => {
           </div>
 
           <div className="mt-12 sm:mt-16 space-y-10 sm:space-y-16">
-            <hr className="border-slate-200 dark:border-slate-700"/>
+            <hr className="border-slate-200 dark:border-slate-700" />
             <div>
               <h2 className="text-2xl font-semibold">Localização</h2>
               {isClient && dataProduct.geolocation ? (
@@ -112,7 +112,7 @@ const ProductDetail = (dataProduct: dataProduct) => {
                   id={`${dataProduct.geolocation.y}:${dataProduct.geolocation.x}`}
                 >
                   <GoogleMapComponent
-                    mapContainerStyle={{width: "100%", height: "600px"}}
+                    mapContainerStyle={{ width: "100%", height: "600px" }}
                     center={{
                       lat: dataProduct.geolocation.y,
                       lng: dataProduct.geolocation.x,

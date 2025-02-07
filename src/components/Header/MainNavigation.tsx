@@ -1,21 +1,24 @@
 "use client";
 
-import React, {FC, useEffect, useState} from "react";
-import {Place, PlaceApi, PlaceGetRequest} from "@api";
+import React, { FC, useEffect, useState } from "react";
+import { Place, PlaceApi, PlaceGetRequest } from "@api";
 import Logo from "@/shared/Logo/Logo";
 import MenuBar from "@/shared/MenuBar/MenuBar";
 import AvatarDropdown from "./AvatarDropdown";
-import {XMarkIcon} from "@heroicons/react/24/outline";
-import {useRouter} from "next/navigation";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 import Select from "@/shared/Select/Select";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
-export type MainNav2LoggedProps = object
+export type MainNav2LoggedProps = object;
 
 const MainNavigation: FC<MainNav2LoggedProps> = () => {
   const [places, setPlaces] = useState<Place[]>([]);
-  const [selectedPlace, setSelectedPlace] = useLocalStorage<Place | null>('selectedPlace', null);
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [selectedPlace, setSelectedPlace] = useLocalStorage<Place | null>(
+    "selectedPlace",
+    null,
+  );
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const router = useRouter();
 
@@ -23,7 +26,7 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
     (async () => {
       const placesApi = new PlaceApi();
       const requestParameters: PlaceGetRequest = {
-        isActive: true
+        isActive: true,
       };
 
       const response = await placesApi?.placeGet(requestParameters);
@@ -32,17 +35,18 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
   }, []);
 
   const handleSelectPlace = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selected = places.find(item => item.id === event.target.value) || null;
+    const selected =
+      places.find((item) => item.id === event.target.value) || null;
     setSelectedPlace(selected);
-    localStorage.setItem('selectedPlace', JSON.stringify(selected));
-  }
+    localStorage.setItem("selectedPlace", JSON.stringify(selected));
+  };
 
   const handleSearchSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (searchTerm.trim()) {
       router.push(`/items?search=${searchTerm}`);
     }
-  }
+  };
 
   const renderMagnifyingGlassIcon = () => {
     return (
@@ -87,15 +91,17 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
               placeholder="Buscar..."
               className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-base"
             />
-            <button type="button" onClick={() => {
-              setSearchTerm("")
-            }}>
-              <XMarkIcon className="w-5 h-5"/>
+            <button
+              type="button"
+              onClick={() => {
+                setSearchTerm("");
+              }}
+            >
+              <XMarkIcon className="w-5 h-5" />
             </button>
           </div>
-          <input type="submit" hidden value=""/>
+          <input type="submit" hidden value="" />
         </form>
-
       </>
     );
   };
@@ -106,46 +112,42 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
         <Select
           onChange={handleSelectPlace}
           className="w-full"
-          value={selectedPlace ? selectedPlace?.id : 'Natal/RN'}
+          value={selectedPlace ? selectedPlace?.id : "Natal/RN"}
         >
           {places.length &&
-            places?.map(item => (
-                <option key={item.id} value={item.id}>
-                  {item.city} - {item.state}
-                </option>
-              )
-            )}
+            places?.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.city} - {item.state}
+              </option>
+            ))}
         </Select>
       </div>
-    )
-  }
+    );
+  };
 
   const renderContent = () => {
     return (
       <div className="h-20 flex justify-between">
         <div className="flex items-center ">
-          <MenuBar/>
-          <Logo className="flex-shrink-0 hidden md:flex px-5"/>
+          <MenuBar />
+          <Logo className="flex-shrink-0 hidden md:flex px-5" />
         </div>
 
         <div className="flex flex-grow !mx-auto px-10 md:px-0">
           {renderSearchForm()}
         </div>
 
-        <div className="hidden lg:flex px-10 md:px-0">
-          {renderPlace()}
-        </div>
+        <div className="hidden lg:flex px-10 md:px-0">{renderPlace()}</div>
 
         <div className="flex items-center justify-end text-slate-700 dark:text-slate-100">
-          <AvatarDropdown/>
+          <AvatarDropdown />
         </div>
       </div>
     );
   };
 
   return (
-    <div
-      className="nc-MainNav2Logged relative z-10 bg-white dark:bg-neutral-900 border-b border-slate-100 dark:border-slate-700">
+    <div className="nc-MainNav2Logged relative z-10 bg-white dark:bg-neutral-900 border-b border-slate-100 dark:border-slate-700">
       <div className="container ">{renderContent()}</div>
     </div>
   );

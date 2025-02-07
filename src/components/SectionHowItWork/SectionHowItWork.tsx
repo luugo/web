@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, { FC } from "react";
 import NcImage from "@/shared/NcImage/NcImage";
 import HIW1img from "@/images/HIW1img.png";
 import HIW2img from "@/images/HIW2img.png";
@@ -10,7 +10,7 @@ import Image from "next/image";
 
 export interface SectionHowItWorkProps {
   className?: string;
-  data?: typeof DEMO_DATA[0][];
+  data?: (typeof DEMO_DATA)[0][];
 }
 
 const DEMO_DATA = [
@@ -45,9 +45,9 @@ const DEMO_DATA = [
 ];
 
 const SectionHowItWork: FC<SectionHowItWorkProps> = ({
-                                                       className = "",
-                                                       data = DEMO_DATA,
-                                                     }) => {
+  className = "",
+  data = DEMO_DATA,
+}) => {
   return (
     <div className={`nc-SectionHowItWork ${className}`}>
       <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-16 xl:gap-20">
@@ -56,7 +56,7 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({
           src={VectorImg}
           alt="vector"
         />
-        {data.map((item: typeof DEMO_DATA[number], index: number) => (
+        {data.map((item: (typeof DEMO_DATA)[number], index: number) => (
           <div
             key={item.id}
             className="relative flex flex-col items-center max-w-xs mx-auto"

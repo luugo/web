@@ -1,41 +1,47 @@
-"use client"
+"use client";
 import Label from "@/components/Label/Label";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
-import {Alert} from "@/shared/Alert/Alert";
-import {AuthenticationApi, AuthenticationPostDefaultResponse, AuthenticationPutRequest, ResponseError} from "@api";
-import {AlertOptions} from "@/interfaces";
-import {useRouter} from "next/navigation";
-import {useLocalStorage} from "react-use";
+import { Alert } from "@/shared/Alert/Alert";
+import {
+  AuthenticationApi,
+  AuthenticationPostDefaultResponse,
+  AuthenticationPutRequest,
+  ResponseError,
+} from "@api";
+import { AlertOptions } from "@/interfaces";
+import { useRouter } from "next/navigation";
+import { useLocalStorage } from "react-use";
 
 const AccountPass = () => {
   useRouter();
-  const [alert, setAlert] = useState('');
-  const [typeAlert, setTypeAlert] = useState<keyof AlertOptions>('success');
+  const [alert, setAlert] = useState("");
+  const [typeAlert, setTypeAlert] = useState<keyof AlertOptions>("success");
   const [isShowAlert, setShowAlert] = useState<boolean>(false);
-  const [currentPassword, setCurrentPassword] = useState<string>('');
-  const [newPassword, setNewPassword] = useState<string>('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState<string>('');
+  const [currentPassword, setCurrentPassword] = useState<string>("");
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [auth] = useLocalStorage<AuthenticationPostDefaultResponse | null>('auth', null);
+  const [auth] = useLocalStorage<AuthenticationPostDefaultResponse | null>(
+    "auth",
+    null,
+  );
 
   const authApi = new AuthenticationApi();
 
-
-  const showAlert = (msg: string, type: keyof AlertOptions = 'success') => {
+  const showAlert = (msg: string, type: keyof AlertOptions = "success") => {
     setAlert(msg);
     setTypeAlert(type);
     setShowAlert(true);
     setTimeout(() => {
       setShowAlert(false);
     }, 5000);
-  }
+  };
 
   const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     if (auth !== null) {
-
       const requestParameters: AuthenticationPutRequest = {
         currentPassword: currentPassword,
         newPassword: newPassword,
@@ -44,22 +50,21 @@ const AccountPass = () => {
 
       try {
         await authApi?.authenticationPut(
-          {authenticationPutRequest: requestParameters},
+          { authenticationPutRequest: requestParameters },
           {
             headers: {
               Authorization: `Bearer ${auth?.token}`,
               "Content-Type": "application/json",
             },
-          }
+          },
         );
 
-        showAlert('Senha alterada com sucesso!');
-
+        showAlert("Senha alterada com sucesso!");
       } catch (error: unknown) {
         if (error instanceof ResponseError) {
           const errorData = await error.response?.json();
           if (errorData) {
-            const message = errorData[0]?.message
+            const message = errorData[0]?.message;
             if (message == null) {
               setErrorMessage("Erro inesperado. Por favor, tente novamente.");
             } else {
@@ -74,10 +79,17 @@ const AccountPass = () => {
   return (
     <div className="space-y-10 sm:space-y-12">
       <div className="fixed left-0 top-0 z-max w-full p-4">
-        {isShowAlert && (<Alert type={typeAlert} onClick={() => setShowAlert(false)}>{alert}</Alert>)}
+        {isShowAlert && (
+          <Alert type={typeAlert} onClick={() => setShowAlert(false)}>
+            {alert}
+          </Alert>
+        )}
       </div>
       {/* HEADING */}
-      <form onSubmit={handleUpdatePassword} className="w-full max-w-md space-y-4">
+      <form
+        onSubmit={handleUpdatePassword}
+        className="w-full max-w-md space-y-4"
+      >
         <h2 className="text-2xl sm:text-3xl font-semibold">
           Atualize sua Senha
         </h2>

@@ -12,9 +12,7 @@ const DiscoverMoreGrid = () => {
       >
         Discover more
       </Heading>
-      <div className="relative grid grid-cols-3 gap-8">
-
-      </div>
+      <div className="relative grid grid-cols-3 gap-8"></div>
     </div>
   );
 };

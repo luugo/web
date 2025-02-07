@@ -1,5 +1,5 @@
 import Label from "@/components/Label/Label";
-import React, {FC, ReactNode} from "react";
+import React, { FC, ReactNode } from "react";
 
 export interface FormItemProps {
   className?: string;
@@ -9,11 +9,11 @@ export interface FormItemProps {
 }
 
 const FormItem: FC<FormItemProps> = ({
-                                       children,
-                                       className = "",
-                                       label,
-                                       desc,
-                                     }) => {
+  children,
+  className = "",
+  label,
+  desc,
+}) => {
   return (
     <div className={className}>
       {label && <Label>{label}</Label>}

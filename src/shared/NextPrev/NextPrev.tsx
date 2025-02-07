@@ -1,5 +1,5 @@
 "use client";
-import React, {FC} from "react";
+import React, { FC } from "react";
 
 export interface NextPrevProps {
   className?: string;
@@ -13,15 +13,13 @@ export interface NextPrevProps {
 }
 
 const NextPrev: FC<NextPrevProps> = ({
-                                       className = "",
-                                       onClickNext = () => {
-                                       },
-                                       onClickPrev = () => {
-                                       },
-                                       btnClassName = "w-10 h-10",
-                                       onlyNext = false,
-                                       onlyPrev = false,
-                                     }) => {
+  className = "",
+  onClickNext = () => {},
+  onClickPrev = () => {},
+  btnClassName = "w-10 h-10",
+  onlyNext = false,
+  onlyPrev = false,
+}) => {
   const [focus, setFocus] = React.useState<"left" | "right">("right");
 
   return (

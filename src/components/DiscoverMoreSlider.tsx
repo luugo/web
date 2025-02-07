@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Heading from "./Heading/Heading";
 import Glide from "@glidejs/glide";
 
@@ -64,9 +64,7 @@ const DiscoverMoreSlider = () => {
         Discover more
       </Heading>
       <div className="" data-glide-el="track">
-        <ul className="glide__slides">
-
-        </ul>
+        <ul className="glide__slides"></ul>
       </div>
     </div>
   );

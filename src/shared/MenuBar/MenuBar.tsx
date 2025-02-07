@@ -1,11 +1,11 @@
 "use client";
 
-import React, {Fragment, useState} from "react";
-import {Dialog, Transition} from "@/app/headlessui";
+import React, { Fragment, useState } from "react";
+import { Dialog, Transition } from "@/app/headlessui";
 import NavMobile from "@/shared/Navigation/NavMobile";
-import {TransitionChild} from "@headlessui/react";
+import { TransitionChild } from "@headlessui/react";
 
-export type MenuBarProps = object
+export type MenuBarProps = object;
 
 const MenuBar: React.FC<MenuBarProps> = () => {
   const [isVisable, setIsVisable] = useState(false);
@@ -33,7 +33,7 @@ const MenuBar: React.FC<MenuBarProps> = () => {
                 leaveTo="opacity-0 -translate-x-14"
               >
                 <div className="z-20 relative">
-                  <NavMobile onClickClose={handleCloseMenu}/>
+                  <NavMobile onClickClose={handleCloseMenu} />
                 </div>
               </TransitionChild>
 
@@ -46,7 +46,7 @@ const MenuBar: React.FC<MenuBarProps> = () => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <div className="fixed inset-0 bg-neutral-900/60"/>
+                <div className="fixed inset-0 bg-neutral-900/60" />
               </TransitionChild>
             </React.Fragment>
           </div>

@@ -59,25 +59,25 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const handleIdChange = useCallback((id: string | undefined) => setId(id), []);
   const handleAuthIdChange = useCallback(
     (authId: string | undefined | null) => setAuthId(authId),
-    []
+    [],
   );
   const handleTokenChange = useCallback(
     (token: string | undefined) => setToken(token),
-    []
+    [],
   );
   const handleFirstNameChange = useCallback(
     (name: string) => setFirstName(name),
-    []
+    [],
   );
   const handleLastNameChange = useCallback(
     (name: string) => setLastName(name),
-    []
+    [],
   );
   const handleEmailChange = useCallback((email: string) => setEmail(email), []);
   const handlePlaceChange = useCallback((place: string) => setPlace(place), []);
   const handleGeolocationChange = useCallback(
     (lat: number, long: number) => setGeolocalion({ lat, long }),
-    []
+    [],
   );
   const handlePhoneChange = useCallback((phone: string) => setPhone(phone), []);
 
