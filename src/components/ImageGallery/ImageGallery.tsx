@@ -25,7 +25,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
   const { width } = useViewportSize();
   const [OpenLibrary, setOpenLibrary] = useState(false);
   const [ImageSelected, setImageSelected] = useState<string | undefined>(
-    undefined,
+    undefined
   );
 
   const maxThumbnails = 5;
@@ -70,13 +70,6 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
             <span className="text-sm font-medium">Mostrar todas as fotos</span>
           </div>
         </div>
-        {OpenLibrary && (
-          <ModalGallery
-            images={images}
-            onClose={() => setOpenLibrary(false)}
-            selectedImageUrl={ImageSelected}
-          />
-        )}
       </>
     );
   };
@@ -102,15 +95,15 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
     }, []);
 
     const handlePrev = () => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex > 0 ? prevIndex - 1 : prevIndex,
-      );
+      setCurrentIndex((prevIndex) => {
+        return prevIndex > 0 ? prevIndex - 1 : prevIndex;
+      });
     };
 
     const handleNext = () => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex < totalImages - 1 ? prevIndex + 1 : prevIndex,
-      );
+      setCurrentIndex((prevIndex) => {
+        return prevIndex < totalImages - 1 ? prevIndex + 1 : prevIndex;
+      });
     };
 
     useEffect(() => {
@@ -122,50 +115,59 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
     }, [currentIndex]);
 
     return (
-      <div
-        className="relative w-full flex items-center justify-center overflow-hidden"
-        style={{ height: maxHeight }}
-      >
-        <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-lg text-sm z-10">
-          {currentIndex + 1}/{totalImages}
-        </div>
-
+      <>
         <div
-          ref={scrollRef}
-          className="flex w-full h-full transition-transform duration-500 ease-in-out"
+          className="relative w-full flex items-center justify-center overflow-hidden"
+          style={{ height: maxHeight }}
         >
-          {images.map((img, index) => (
-            <div key={index} className="w-full flex-shrink-0 h-full">
-              <LgImage
-                src={img.url || ""}
-                alt={`Slide ${index + 1}`}
-                fill
-                containerClassName="w-full h-full relative"
-                className="object-cover w-full h-full"
-                loading="lazy"
-              />
+          <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-lg text-sm z-10">
+            {currentIndex + 1}/{totalImages}
+          </div>
+
+          <div
+            ref={scrollRef}
+            className="flex w-full h-full transition-transform duration-500 ease-in-out"
+          >
+            {images.map((img, index) => (
+              <div
+                key={index}
+                onClick={() => {
+                  setOpenLibrary(true);
+                  setImageSelected(img.url || "");
+                }}
+                className="w-full flex-shrink-0 h-full"
+              >
+                <LgImage
+                  src={img.url || ""}
+                  alt={`Slide ${index + 1}`}
+                  fill
+                  containerClassName="w-full h-full relative"
+                  className="object-cover w-full h-full"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+
+          {currentIndex > 0 && (
+            <div
+              onClick={handlePrev}
+              className="absolute w-10 h-10 flex items-center justify-center top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200 transition-colors"
+            >
+              <FontAwesomeIcon icon={faChevronLeft} />
             </div>
-          ))}
+          )}
+
+          {currentIndex < totalImages - 1 && (
+            <div
+              onClick={handleNext}
+              className="absolute w-10 h-10 flex items-center justify-center top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200 transition-colors"
+            >
+              <FontAwesomeIcon icon={faChevronRight} />
+            </div>
+          )}
         </div>
-
-        {currentIndex > 0 && (
-          <div
-            onClick={handlePrev}
-            className="absolute w-10 h-10 flex items-center justify-center top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200 transition-colors"
-          >
-            <FontAwesomeIcon icon={faChevronLeft} />
-          </div>
-        )}
-
-        {currentIndex < totalImages - 1 && (
-          <div
-            onClick={handleNext}
-            className="absolute w-10 h-10 flex items-center justify-center top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200 transition-colors"
-          >
-            <FontAwesomeIcon icon={faChevronRight} />
-          </div>
-        )}
-      </div>
+      </>
     );
   };
 
@@ -179,6 +181,13 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
         )
       ) : (
         <>{GallerySecond()}</>
+      )}
+      {OpenLibrary && (
+        <ModalGallery
+          images={images}
+          onClose={() => setOpenLibrary(false)}
+          selectedImageUrl={ImageSelected}
+        />
       )}
     </>
   );
