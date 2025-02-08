@@ -142,7 +142,7 @@ function PageHome() {
         setrentableLatLong(rentables);
       } else {
         const rentables = await rentableApi.rentableNewInTownGet({
-          place: selectedPlace?.id || "Natal/RN",
+          place: selectedPlace?.id || "Natal e Região Metropolitana",
         });
         setrentableLatLong(rentables);
       }
