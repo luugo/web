@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import UTMLink from "@/components/UTMLink";
 
+import { PlusIcon } from "@heroicons/react/24/outline";
+
 const AccountOrder = () => {
   const router = useRouter();
   const [rentables, setRentables] = useState<Rentable[]>([]);
@@ -112,7 +114,30 @@ const AccountOrder = () => {
       {rentables.length > 0 ? (
         renderOrder({ myRentables: rentables })
       ) : (
-        <h1>Nenhum item foi encontrado.</h1>
+        <div className="bg-gray-100">
+          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h1 className="mt-4 text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
+                Você ainda não tem nenhum aluguel.
+              </h1>
+              <p className="mt-6 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
+                Considere listar algo para ter a chance de ganhar algum dinheiro
+                extra.
+              </p>
+              <div className="mt-10 flex items-center justify-center gap-x-6">
+                <UTMLink
+                  href="/rentable/create"
+                  className="rounded-md bg-slate-900 hover:bg-slate-800 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  <PlusIcon
+                    aria-hidden="true"
+                    className="size-6 text-white group-hover:text-white"
+                  />
+                </UTMLink>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
