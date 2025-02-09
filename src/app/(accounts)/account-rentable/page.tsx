@@ -6,7 +6,6 @@ import { AuthenticationPostDefaultResponse, Rentable, RentableApi } from "@api";
 import { useRouter } from "next/navigation";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import UTMLink from "@/components/UTMLink";
-
 import { PlusIcon } from "@heroicons/react/24/outline";
 
 const AccountOrder = () => {
