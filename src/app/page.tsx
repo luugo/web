@@ -139,15 +139,31 @@ function PageHome() {
           latitude: geolocation.lat,
           longitude: geolocation.long,
         });
+        shuffle(rentables);
         setrentableLatLong(rentables);
       } else {
         const rentables = await rentableApi.rentableNewInTownGet({
           place: selectedPlace?.id || "Natal e Região Metropolitana",
         });
+        shuffle(rentables);
         setrentableLatLong(rentables);
       }
     })();
   }, [geolocation, selectedPlace?.id]);
+
+  function shuffle(array: any[]) {
+    let currentIndex = array.length;
+
+    while (currentIndex != 0) {
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+  }
 
   const closePopup = () => {
     setShowPopup(false);
@@ -183,5 +199,4 @@ function PageHome() {
     </div>
   );
 }
-
 export default PageHome;
