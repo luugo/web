@@ -1,420 +1,127 @@
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
-import { ChevronDownIcon } from '@heroicons/react/16/solid'
+"use client";
+
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { motion } from "framer-motion";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Heading from "@/components/Heading/Heading";
+
+import CategoryStep from "./step-category";
+import DetailsStep from "./step-details";
+import { useJsApiLoader } from "@react-google-maps/api";
+import ImagesStep from "./step-images";
+
+
+const schema = z.object({
+  category: z.string().min(1, "Selecione uma categoria"),
+  title: z.string().min(3, "O título é obrigatório"),
+  description: z.string().min(10, "A descrição deve ter pelo menos 10 caracteres"),
+  geolocation: z.object({
+    x: z.number().min(-90).max(90, "Latitude inválida"),
+    y: z.number().min(-180).max(180, "Longitude inválida"),
+  }),
+  images: z.array(z.instanceof(File)).min(1, "Pelo menos uma imagem é necessária").max(10, "Máximo de 10 imagens"),
+  subcategory: z.string().min(1, "Selecione uma subcategoria"),
+  priceType: z.enum(["negotiable", "hourly", "daily", "weekly", "monthly", "yearly"]),
+  price: z.string().optional()
+});
+
+const steps = ["Categoria", "Detalhes", "Fotos", "Subcategoria", "Preço"];
 
 const RentableCreate = () => {
+  const [step, setStep] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [userLocation, setUserLocation] = useState<{ x: number, y: number }>({ x: 0, y: 0 });
+  const [previewImages, setPreviewImages] = useState<string[]>([]);
+
+  type FormData = z.infer<typeof schema>;
+
+  const { register, handleSubmit, watch, setValue, trigger, formState: { errors } } =
+    useForm<FormData>({
+      resolver: zodResolver(schema),
+      defaultValues: { images: [], priceType: "negotiable", category: "" },
+    });
+
+  const watchPriceType = watch("priceType");
+
+  const nextStep = async () => {
+    const fieldsPerStep = [1, 3, 1, 2];
+    const stepKeys = Object.keys(schema.shape).slice(
+      fieldsPerStep.slice(0, step).reduce((acc, val) => acc + val, 0),
+      fieldsPerStep.slice(0, step + 1).reduce((acc, val) => acc + val, 0)
+    );
+
+    const isValid = await trigger(stepKeys as (keyof FormData)[]);
+    if (isValid) setStep((prev) => prev + 1);
+  };
+
+  const prevStep = () => setStep((prev) => prev - 1);
+
+  const onSubmit = (data: any) => {
+    console.log("Formulário enviado:", data);
+  };
+
+
+
   return (
-    <div className="container flex items-center justify-center relative space-y-24 my-24 lg:space-y-32">
-      <form className="space-y-10 sm:space-y-12">
-        <div className="space-y-12">
-          <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base/7 font-semibold text-gray-900">Profile</h2>
-            <p className="mt-1 text-sm/6 text-gray-600">
-              This information will be displayed publicly so be careful what you share.
-            </p>
+    <div className="max-w-7xl py-6 sm:px-6 lg:px-8 mx-auto p-4 min-w-0.5">
+      <Heading
+        className="mb-12 lg:mb-14 text-neutral-900 dark:text-neutral-50"
+        fontClass="text-3xl md:text-4xl 2xl:text-5xl font-semibold"
+        isCenter
+        desc=""
+      >
+        Cadastro de Anúncio
+      </Heading>
+      <motion.div
+        key={step}
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -50 }}
+      >
+        {step === 0 && <CategoryStep setValue={setValue} trigger={trigger} errors={errors} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />}
+        {step === 1 && <DetailsStep register={register} trigger={trigger} errors={errors} userLocation={userLocation} setValue={setValue} setUserLocation={setUserLocation} />}
+        {step === 2 && <ImagesStep setValue={setValue} trigger={trigger} errors={errors} previewImages={previewImages} setPreviewImages={setPreviewImages} />}
 
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-4">
-                <label htmlFor="username" className="block text-sm/6 font-medium text-gray-900">
-                  Username
-                </label>
-                <div className="mt-2">
-                  <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                    <div className="shrink-0 select-none text-base text-gray-500 sm:text-sm/6">workcation.com/</div>
-                    <input
-                      id="username"
-                      name="username"
-                      type="text"
-                      placeholder="janesmith"
-                      className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-span-full">
-                <label htmlFor="about" className="block text-sm/6 font-medium text-gray-900">
-                  About
-                </label>
-                <div className="mt-2">
-                  <textarea
-                    id="about"
-                    name="about"
-                    rows={3}
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    defaultValue={''}
-                  />
-                </div>
-                <p className="mt-3 text-sm/6 text-gray-600">Write a few sentences about yourself.</p>
-              </div>
-
-              <div className="col-span-full">
-                <label htmlFor="photo" className="block text-sm/6 font-medium text-gray-900">
-                  Photo
-                </label>
-                <div className="mt-2 flex items-center gap-x-3">
-                  <UserCircleIcon aria-hidden="true" className="size-12 text-gray-300" />
-                  <button
-                    type="button"
-                    className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                  >
-                    Change
-                  </button>
-                </div>
-              </div>
-
-              <div className="col-span-full">
-                <label htmlFor="cover-photo" className="block text-sm/6 font-medium text-gray-900">
-                  Cover photo
-                </label>
-                <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                  <div className="text-center">
-                    <PhotoIcon aria-hidden="true" className="mx-auto size-12 text-gray-300" />
-                    <div className="mt-4 flex text-sm/6 text-gray-600">
-                      <label
-                        htmlFor="file-upload"
-                        className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                      >
-                        <span>Upload a file</span>
-                        <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                      </label>
-                      <p className="pl-1">or drag and drop</p>
-                    </div>
-                    <p className="text-xs/5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+        {step === 3 && (
+          <div>
+            <label>Subcategoria:</label>
+            <input type="text" {...register("subcategory")} />
+            {errors.subcategory && <p>{errors.subcategory.message}</p>}
           </div>
+        )}
 
-          <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base/7 font-semibold text-gray-900">Personal Information</h2>
-            <p className="mt-1 text-sm/6 text-gray-600">Use a permanent address where you can receive mail.</p>
+        {step === 4 && (
+          <div>
+            <label>Preço:</label>
+            <select {...register("priceType")}>
+              <option value="negotiable">Negociável</option>
+              <option value="hourly">Por hora</option>
+              <option value="daily">Por dia</option>
+              <option value="weekly">Por semana</option>
+              <option value="monthly">Por mês</option>
+              <option value="yearly">Por ano</option>
+            </select>
+            {errors.priceType && <p>{errors.priceType.message}</p>}
 
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-3">
-                <label htmlFor="first-name" className="block text-sm/6 font-medium text-gray-900">
-                  First name
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="first-name"
-                    name="first-name"
-                    type="text"
-                    autoComplete="given-name"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
-                </div>
-              </div>
-
-              <div className="sm:col-span-3">
-                <label htmlFor="last-name" className="block text-sm/6 font-medium text-gray-900">
-                  Last name
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="last-name"
-                    name="last-name"
-                    type="text"
-                    autoComplete="family-name"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
-                </div>
-              </div>
-
-              <div className="sm:col-span-4">
-                <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-                  Email address
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
-                </div>
-              </div>
-
-              <div className="sm:col-span-3">
-                <label htmlFor="country" className="block text-sm/6 font-medium text-gray-900">
-                  Country
-                </label>
-                <div className="mt-2 grid grid-cols-1">
-                  <select
-                    id="country"
-                    name="country"
-                    autoComplete="country-name"
-                    className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  >
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
-                  </select>
-                  <ChevronDownIcon
-                    aria-hidden="true"
-                    className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                  />
-                </div>
-              </div>
-
-              <div className="col-span-full">
-                <label htmlFor="street-address" className="block text-sm/6 font-medium text-gray-900">
-                  Street address
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="street-address"
-                    name="street-address"
-                    type="text"
-                    autoComplete="street-address"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
-                </div>
-              </div>
-
-              <div className="sm:col-span-2 sm:col-start-1">
-                <label htmlFor="city" className="block text-sm/6 font-medium text-gray-900">
-                  City
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="city"
-                    name="city"
-                    type="text"
-                    autoComplete="address-level2"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
-                </div>
-              </div>
-
-              <div className="sm:col-span-2">
-                <label htmlFor="region" className="block text-sm/6 font-medium text-gray-900">
-                  State / Province
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="region"
-                    name="region"
-                    type="text"
-                    autoComplete="address-level1"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
-                </div>
-              </div>
-
-              <div className="sm:col-span-2">
-                <label htmlFor="postal-code" className="block text-sm/6 font-medium text-gray-900">
-                  ZIP / Postal code
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="postal-code"
-                    name="postal-code"
-                    type="text"
-                    autoComplete="postal-code"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
-                </div>
-              </div>
-            </div>
+            {watchPriceType !== "negotiable" && (
+              <input type="text" {...register("price")} placeholder="Valor" />
+            )}
           </div>
+        )}
+      </motion.div>
 
-          <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base/7 font-semibold text-gray-900">Notifications</h2>
-            <p className="mt-1 text-sm/6 text-gray-600">
-              We'll always let you know about important changes, but you pick what else you want to hear about.
-            </p>
-
-            <div className="mt-10 space-y-10">
-              <fieldset>
-                <legend className="text-sm/6 font-semibold text-gray-900">By email</legend>
-                <div className="mt-6 space-y-6">
-                  <div className="flex gap-3">
-                    <div className="flex h-6 shrink-0 items-center">
-                      <div className="group grid size-4 grid-cols-1">
-                        <input
-                          defaultChecked
-                          id="comments"
-                          name="comments"
-                          type="checkbox"
-                          aria-describedby="comments-description"
-                          className="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
-                        />
-                        <svg
-                          fill="none"
-                          viewBox="0 0 14 14"
-                          className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25"
-                        >
-                          <path
-                            d="M3 8L6 11L11 3.5"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="opacity-0 group-has-[:checked]:opacity-100"
-                          />
-                          <path
-                            d="M3 7H11"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="opacity-0 group-has-[:indeterminate]:opacity-100"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <div className="text-sm/6">
-                      <label htmlFor="comments" className="font-medium text-gray-900">
-                        Comments
-                      </label>
-                      <p id="comments-description" className="text-gray-500">
-                        Get notified when someones posts a comment on a posting.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="flex h-6 shrink-0 items-center">
-                      <div className="group grid size-4 grid-cols-1">
-                        <input
-                          id="candidates"
-                          name="candidates"
-                          type="checkbox"
-                          aria-describedby="candidates-description"
-                          className="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
-                        />
-                        <svg
-                          fill="none"
-                          viewBox="0 0 14 14"
-                          className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25"
-                        >
-                          <path
-                            d="M3 8L6 11L11 3.5"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="opacity-0 group-has-[:checked]:opacity-100"
-                          />
-                          <path
-                            d="M3 7H11"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="opacity-0 group-has-[:indeterminate]:opacity-100"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <div className="text-sm/6">
-                      <label htmlFor="candidates" className="font-medium text-gray-900">
-                        Candidates
-                      </label>
-                      <p id="candidates-description" className="text-gray-500">
-                        Get notified when a candidate applies for a job.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="flex h-6 shrink-0 items-center">
-                      <div className="group grid size-4 grid-cols-1">
-                        <input
-                          id="offers"
-                          name="offers"
-                          type="checkbox"
-                          aria-describedby="offers-description"
-                          className="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
-                        />
-                        <svg
-                          fill="none"
-                          viewBox="0 0 14 14"
-                          className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-gray-950/25"
-                        >
-                          <path
-                            d="M3 8L6 11L11 3.5"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="opacity-0 group-has-[:checked]:opacity-100"
-                          />
-                          <path
-                            d="M3 7H11"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="opacity-0 group-has-[:indeterminate]:opacity-100"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <div className="text-sm/6">
-                      <label htmlFor="offers" className="font-medium text-gray-900">
-                        Offers
-                      </label>
-                      <p id="offers-description" className="text-gray-500">
-                        Get notified when a candidate accepts or rejects an offer.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
-
-              <fieldset>
-                <legend className="text-sm/6 font-semibold text-gray-900">Push notifications</legend>
-                <p className="mt-1 text-sm/6 text-gray-600">These are delivered via SMS to your mobile phone.</p>
-                <div className="mt-6 space-y-6">
-                  <div className="flex items-center gap-x-3">
-                    <input
-                      defaultChecked
-                      id="push-everything"
-                      name="push-notifications"
-                      type="radio"
-                      className="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden"
-                    />
-                    <label htmlFor="push-everything" className="block text-sm/6 font-medium text-gray-900">
-                      Everything
-                    </label>
-                  </div>
-                  <div className="flex items-center gap-x-3">
-                    <input
-                      id="push-email"
-                      name="push-notifications"
-                      type="radio"
-                      className="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden"
-                    />
-                    <label htmlFor="push-email" className="block text-sm/6 font-medium text-gray-900">
-                      Same as email
-                    </label>
-                  </div>
-                  <div className="flex items-center gap-x-3">
-                    <input
-                      id="push-nothing"
-                      name="push-notifications"
-                      type="radio"
-                      className="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden"
-                    />
-                    <label htmlFor="push-nothing" className="block text-sm/6 font-medium text-gray-900">
-                      No push notifications
-                    </label>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-6 flex items-center justify-end gap-x-6">
-          <button type="button" className="text-sm/6 font-semibold text-gray-900">
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Save
-          </button>
-        </div>
-      </form>
+      <div className="flex justify-center gap-5 mt-4">
+        {step > 0 && <button onClick={prevStep} className="px-4 py-2 bg-gray-300">Voltar</button>}
+        {step < steps.length - 1 ? (
+          <button onClick={nextStep} className="px-4 py-2 bg-blue-500 text-white">Próximo</button>
+        ) : (
+          <button onClick={handleSubmit(onSubmit)} className="px-4 py-2 bg-green-500 text-white">Enviar</button>
+        )}
+      </div>
     </div>
-  )
+  );
 }
 
 export default RentableCreate;
