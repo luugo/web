@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import Prices from "@/components/Prices";
-import RentableInfo from "@/components/RentableInfo";
+import RentableUserContacts from "@/components/RentableUserContacts";
 import dynamic from "next/dynamic";
-import { dataProduct } from "./page";
+import { dataRentable } from "./page";
 import { UserContact } from "@api";
 
 const ImageGallery = dynamic(
@@ -24,7 +24,7 @@ const MarkerComponent = dynamic(
   { ssr: false },
 );
 
-const ProductDetail = (dataProduct: dataProduct) => {
+const RentablePage = (dataProduct: dataRentable) => {
   const [processedDescription, setProcessedDescription] = useState("");
   const [isClient, setIsClient] = useState(false);
 
@@ -79,7 +79,7 @@ const ProductDetail = (dataProduct: dataProduct) => {
                     : "lg:col-span-4 md:col-span-4 col-span-12"
                 }`}
               >
-                <RentableInfo
+                <RentableUserContacts
                   {...(dataProduct.user.social as unknown as {
                     [key: string]: UserContact;
                   })}
@@ -138,4 +138,4 @@ const ProductDetail = (dataProduct: dataProduct) => {
   );
 };
 
-export default ProductDetail;
+export default RentablePage;

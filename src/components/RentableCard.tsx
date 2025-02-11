@@ -44,7 +44,7 @@ const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
 
         <div className="space-y-6 px-2.5 pt-6 pb-2.5">
           <div>
-            <h2 className="nc-ProductCard__title text-base font-semibold transition-colors">
+            <h2 className="nc-ProductCard__title font-semibold transition-colors text-[clamp(0.4rem,0.2em*1rem,0.8rem)]">
               {rentable.title}
             </h2>
             <p className={`text-xs text-slate-500 mt-1 `}>
@@ -58,9 +58,9 @@ const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
               billingFrequency={rentable.billingFrequency}
             />
             <div className="flex items-center mb-0.5">
-              <MapPinIcon className="w-5 h-5 pb-[1px] text-red-500" />
-              <span className="text-sm ms-1 text-slate-500">
-                {rentable.place || ""}
+              <MapPinIcon className="w-5 h-5 pb-[1px] text-gray-500" />
+              <span className="text-xs ms-1 text-slate-500">
+                {rentable.place.replace(" Metropolitana", "") || ""}
               </span>
             </div>
           </div>

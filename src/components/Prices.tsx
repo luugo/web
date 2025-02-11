@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { BILLINGFREQUENCY } from "@/data/billingFrequency";
+import { RentableBillingFrequencyEnum } from "@api";
 
 export interface PricesProps {
   className?: string;
@@ -19,12 +20,17 @@ const Prices: FC<PricesProps> = ({
     currency: "BRL",
     minimumFractionDigits: 2,
   });
+
+  if (billingFrequency === RentableBillingFrequencyEnum.Negotiable) {
+    return <span></span>;
+  }
+
   return (
     <div className={`${className}`}>
       <div
-        className={`flex items-center border-2 border-green-500 rounded-lg ${contentClass}`}
+        className={`flex items-center border-2 border-teal-500 rounded-lg ${contentClass}`}
       >
-        <span className="text-green-500 !leading-none">
+        <span className="text-teal-500 !leading-none">
           {String(intlMonetary.format(price))}/
           {BILLINGFREQUENCY[billingFrequency]}
         </span>

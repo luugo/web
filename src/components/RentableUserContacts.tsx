@@ -9,7 +9,7 @@ import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserContact } from "@api";
 
-const RentableInfo = (data: { [key: string]: UserContact }) => {
+const RentableUserContacts = (data: { [key: string]: UserContact }) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
           switch (item.type) {
             case "INSTAGRAM":
               return (
-                <li key={item.id}>
+                <li key={item.id} className={"mb-1"}>
                   {isClient &&
                     renderSocialIcon(
                       faInstagram,
@@ -57,7 +57,7 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
               );
             case "FACEBOOK":
               return (
-                <li key={item.id}>
+                <li key={item.id} className={"mb-1"}>
                   {isClient &&
                     renderSocialIcon(
                       faFacebook,
@@ -68,7 +68,7 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
               );
             case "EMAIL":
               return (
-                <li key={item.id}>
+                <li key={item.id} className={"mb-1"}>
                   {isClient &&
                     renderSocialIcon(
                       faEnvelope,
@@ -79,14 +79,14 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
               );
             case "PHONE":
               return (
-                <li key={item.id}>
+                <li key={item.id} className={"mb-1"}>
                   {isClient &&
                     renderSocialIcon(faPhone, item.value, `tel:${item.value}`)}
                 </li>
               );
             case "WHATSAPP":
               return (
-                <li key={item.id}>
+                <li key={item.id} className={"mb-1"}>
                   {isClient &&
                     renderSocialIcon(
                       faWhatsapp,
@@ -97,7 +97,7 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
               );
             default:
               return (
-                <li key={item.id}>
+                <li key={item.id} className={"mb-1"}>
                   <p>{item.value}</p>
                 </li>
               );
@@ -108,4 +108,4 @@ const RentableInfo = (data: { [key: string]: UserContact }) => {
   );
 };
 
-export default RentableInfo;
+export default RentableUserContacts;

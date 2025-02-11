@@ -127,7 +127,8 @@ export const RentableBillingFrequencyEnum = {
     Daily: 'DAILY',
     Weekly: 'WEEKLY',
     Monthly: 'MONTHLY',
-    Yearly: 'YEARLY'
+    Yearly: 'YEARLY',
+    Negotiable: 'NEGOTIABLE'
 } as const;
 export type RentableBillingFrequencyEnum = typeof RentableBillingFrequencyEnum[keyof typeof RentableBillingFrequencyEnum];
 

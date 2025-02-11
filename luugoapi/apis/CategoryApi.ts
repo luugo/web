@@ -28,6 +28,8 @@ export interface CategoryDeleteRequest {
 }
 
 export interface CategoryGetRequest {
+    xLimit?: number;
+    xOffset?: number;
     acceptLanguage?: string;
     id?: string;
     isActive?: boolean;
@@ -114,6 +116,14 @@ export class CategoryApi extends runtime.BaseAPI {
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xLimit !== undefined && requestParameters.xLimit !== null) {
+            headerParameters['X-Limit'] = String(requestParameters.xLimit);
+        }
+
+        if (requestParameters.xOffset !== undefined && requestParameters.xOffset !== null) {
+            headerParameters['X-Offset'] = String(requestParameters.xOffset);
+        }
 
         if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
             headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);

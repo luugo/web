@@ -1,4 +1,4 @@
-import ProductDetail from "./RentablePage";
+import RentablePage from "./RentablePage";
 import { remark } from "remark";
 import remarkHtml from "remark-html";
 import html from "remark-html";
@@ -14,7 +14,7 @@ import {
 } from "@api";
 import NotFound from "@/app/not-found";
 
-export interface dataProduct {
+export interface dataRentable {
   id: string;
   title: string;
   description: string;
@@ -39,7 +39,7 @@ async function getRentable(id: string) {
     return;
   }
   const productImages: Media[] = await mediaApi.mediaGet({ rentableId: id });
-  const productUserInfo: UserContact[] = await getProductUserInfo(
+  const productUserInfo: UserContact[] = await getRentableUserInfo(
     productData[0].userId,
   );
 
@@ -75,7 +75,7 @@ async function getRentable(id: string) {
   };
 }
 
-async function getProductUserInfo(userId: string) {
+async function getRentableUserInfo(userId: string) {
   const userContactApi = new UserContactApi();
   const requestUserContactParameters: UserContactGetRequest = {
     userId: userId,
@@ -104,16 +104,16 @@ export async function generateMetadata(props: {
   };
 }
 
-async function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
+async function RentableDetailPage(props: { params: Promise<{ id: string }> }) {
   const resolvedParams = await props.params;
   const rentable = await getRentable(resolvedParams.id);
   if (!rentable) return <NotFound />;
 
   return (
     <>
-      <ProductDetail {...rentable} />
+      <RentablePage {...rentable} />
     </>
   );
 }
 
-export default ProductDetailPage;
+export default RentableDetailPage;
