@@ -9,6 +9,7 @@ import {
 } from "@api";
 import DoesNotExist from "@/components/DoesNotExist/DoesNotExist";
 import { useParams } from "next/navigation";
+import UTMLink from "@/components/UTMLink";
 
 const Categories: React.FC = () => {
   const params = useParams();
@@ -44,7 +45,7 @@ const Categories: React.FC = () => {
         {categories?.length ? (
           <div className="grid md:grid-cols-2 gap-6 lg:grid-cols-3 xl:gap-8">
             {categories?.map((item) => (
-              <Link
+              <UTMLink
                 href={`/category/${categoryType?.toLowerCase()}/${item?.id}`}
                 key={item?.id}
               >
@@ -53,7 +54,7 @@ const Categories: React.FC = () => {
                     {item.title}
                   </h3>
                 </div>
-              </Link>
+              </UTMLink>
             ))}
           </div>
         ) : (

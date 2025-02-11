@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useUserContext } from "@/context";
 import { useLocalStorage } from "react-use";
 import { AuthenticationPostDefaultResponse } from "@api";
+import UTMLink from "@/components/UTMLink";
 
 export interface CommonLayoutProps {
   children?: React.ReactNode;
@@ -74,7 +75,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
           <div className="flex space-x-8 md:space-x-14 overflow-x-auto hiddenScrollbar">
             {pages.map((item, index) => {
               return (
-                <Link
+                <UTMLink
                   key={index}
                   href={item.link}
                   className={`block py-5 md:py-8 border-b-2 flex-shrink-0 text-sm sm:text-base ${
@@ -84,7 +85,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
                   }`}
                 >
                   {item.name}
-                </Link>
+                </UTMLink>
               );
             })}
           </div>

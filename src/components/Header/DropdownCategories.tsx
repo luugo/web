@@ -4,6 +4,7 @@ import { Route } from "@/routers/types";
 import { Popover, Transition } from "@/app/headlessui";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import UTMLink from "@/components/UTMLink";
 
 interface SolutionItem {
   name: string;
@@ -98,7 +99,7 @@ export default function DropdownCategories() {
                 <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid grid-cols-1 gap-5 bg-white dark:bg-neutral-800 p-7 ">
                     {CATEGORIES.map((item, index) => (
-                      <Link
+                      <UTMLink
                         key={index}
                         href={"#"}
                         onClick={() => close()}
@@ -116,7 +117,7 @@ export default function DropdownCategories() {
                             {item.description}
                           </p>
                         </div>
-                      </Link>
+                      </UTMLink>
                     ))}
                   </div>
                   {/* FOOTER */}

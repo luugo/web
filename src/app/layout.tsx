@@ -11,6 +11,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleTagManager from "@/app/GoogleTagManager";
 import { Metadata } from "next";
 import React from "react";
+import UTMTracker from "@/components/UTMTracker";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.luugo.com.br/"),
@@ -79,6 +80,7 @@ export default function RootLayout({
         <GoogleOAuthProvider clientId="637549763916-sa80ph8s7nsbpdhtnv3bf6a1q29s3fae.apps.googleusercontent.com">
           <Providers>
             <SiteHeader />
+            <UTMTracker />
             {children}
             <CommonClient />
             <Footer />

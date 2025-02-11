@@ -8,7 +8,7 @@ import { NavItemType } from "./NavigationItem";
 import { NAVIGATION } from "@/data/navigation";
 import SocialsList from "@/shared/SocialsList/SocialsList";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import Link from "next/link";
+import UTMLink from "@/components/UTMLink";
 
 export interface NavMobileProps {
   data?: NavItemType[];
@@ -27,7 +27,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
       <ul className="nav-mobile-sub-menu pl-6 pb-1 text-base">
         {item.children?.map((i, index) => (
           <Disclosure key={index} as="li">
-            <Link
+            <UTMLink
               href={{
                 pathname: i.href || undefined,
               }}
@@ -55,7 +55,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
                   </Disclosure.Button>
                 </span>
               )}
-            </Link>
+            </UTMLink>
             {i.children && (
               <Disclosure.Panel>
                 {_renderMenuChild(
@@ -77,7 +77,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
         as="li"
         className="text-slate-900 dark:text-white"
       >
-        <Link
+        <UTMLink
           className="flex w-full items-center py-2.5 px-4 font-medium uppercase tracking-wide text-sm hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
           href={{
             pathname: item.href || undefined,
@@ -105,7 +105,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
               </Disclosure.Button>
             </span>
           )}
-        </Link>
+        </UTMLink>
         {item.children && (
           <Disclosure.Panel>{_renderMenuChild(item)}</Disclosure.Panel>
         )}

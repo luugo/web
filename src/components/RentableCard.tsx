@@ -8,6 +8,7 @@ import { MapPinIcon } from "@heroicons/react/20/solid";
 import { shortStringText } from "@/utils/shortStringText";
 import { Rentable } from "@api";
 import { stripMarkdown } from "@/utils/stripMarkdown";
+import UTMLink from "@/components/UTMLink";
 
 export interface ProductCardProps {
   className?: string;
@@ -22,17 +23,13 @@ const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
     );
   };
 
-  const link = `/rentable/${rentable.id}`;
-
   return (
     <>
       <div
         className={`nc-ProductCard relative flex flex-col bg-transparent ${className}`}
       >
-        <a href={link} className="absolute inset-0"></a>
-
         <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-2xl overflow-hidden z-1 group">
-          <a href={link} className="block">
+          <UTMLink href={`/rentable/${rentable.id}`} className="block">
             <NcImage
               containerClassName="flex aspect-w-11 aspect-h-11 w-full h-0"
               src={rentable.thumbnail || placeholderSmall}
@@ -41,7 +38,7 @@ const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
               sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
               alt="product"
             />
-          </a>
+          </UTMLink>
           {renderGroupButtons()}
         </div>
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CategoryGetTypeEnum } from "@api";
 import DoesNotExist from "@/components/DoesNotExist/DoesNotExist";
 import { useParams } from "next/navigation";
+import UTMLink from "@/components/UTMLink";
 
 const CategoryType: React.FC = () => {
   const categoryTranslations: Record<CategoryGetTypeEnum, string> = {
@@ -37,7 +38,7 @@ const CategoryType: React.FC = () => {
         {categories?.length ? (
           <div className="grid md:grid-cols-2 gap-6 lg:grid-cols-3 xl:gap-8">
             {categories.map((categoryType) => (
-              <Link
+              <UTMLink
                 href={`/category/${categoryType.toLowerCase()}`}
                 key={categoryType}
               >
@@ -46,7 +47,7 @@ const CategoryType: React.FC = () => {
                     {categoryTranslations[categoryType] || categoryType}
                   </h3>
                 </div>
-              </Link>
+              </UTMLink>
             ))}
           </div>
         ) : (

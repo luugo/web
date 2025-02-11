@@ -6,6 +6,7 @@ import { AuthenticationPostDefaultResponse, Rentable, RentableApi } from "@api";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import UTMLink from "@/components/UTMLink";
 
 const AccountOrder = () => {
   const router = useRouter();
@@ -46,7 +47,7 @@ const AccountOrder = () => {
       id,
     } = rentable;
     return (
-      <Link
+      <UTMLink
         href={`/rentable/${id}`}
         key={index}
         className="flex py-4 sm:py-7 last:pb-0 first:pt-0"
@@ -92,7 +93,7 @@ const AccountOrder = () => {
             </div>
           </div>
         </div>
-      </Link>
+      </UTMLink>
     );
   };
 
