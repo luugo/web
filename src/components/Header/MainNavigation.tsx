@@ -30,7 +30,10 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
       };
 
       const response = await placesApi?.placeGet(requestParameters);
-      setPlaces(response);
+      const filteredResponse = response.filter(
+        (place) => place.id != "Natal/RN",
+      );
+      setPlaces(filteredResponse);
     })();
   }, []);
 
@@ -112,7 +115,9 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
         <Select
           onChange={handleSelectPlace}
           className="w-full"
-          value={selectedPlace ? selectedPlace?.id : "Natal/RN"}
+          value={
+            selectedPlace ? selectedPlace?.id : "Natal e Região Metropolitana"
+          }
         >
           {places.length &&
             places?.map((item) => (
