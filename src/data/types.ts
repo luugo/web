@@ -1,8 +1,9 @@
-import { Route } from "@/routers/types";
+import { UrlObject } from "url";
+import { Route } from "next";
 
 export interface CustomLink {
   label: string;
-  href: Route;
+  href: UrlObject | Route;
   targetBlank?: boolean;
 }
 

@@ -21,19 +21,17 @@ const Prices: FC<PricesProps> = ({
     minimumFractionDigits: 2,
   });
 
-  if (billingFrequency === RentableBillingFrequencyEnum.Negotiable) {
-    return <span></span>;
-  }
+  const priceText =
+    billingFrequency === RentableBillingFrequencyEnum.Negotiable
+      ? "Negociável"
+      : `${String(intlMonetary.format(price))}/${BILLINGFREQUENCY[billingFrequency]}`;
 
   return (
     <div className={`${className}`}>
       <div
         className={`flex items-center border-2 border-teal-500 rounded-lg ${contentClass}`}
       >
-        <span className="text-teal-500 !leading-none">
-          {String(intlMonetary.format(price))}/
-          {BILLINGFREQUENCY[billingFrequency]}
-        </span>
+        <span className="text-teal-500 !leading-none">{priceText}</span>
       </div>
     </div>
   );
