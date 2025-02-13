@@ -12,6 +12,7 @@ import GoogleTagManager from "@/app/GoogleTagManager";
 import { Metadata } from "next";
 import React, { Suspense } from "react";
 import UTMTracker from "@/components/UTMTracker";
+import MainNavigation from "@/components/Header/MainNavigation";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.luugo.com.br/"),
@@ -79,7 +80,7 @@ export default function RootLayout({
         </noscript>
         <GoogleOAuthProvider clientId="637549763916-sa80ph8s7nsbpdhtnv3bf6a1q29s3fae.apps.googleusercontent.com">
           <Providers>
-            <SiteHeader />
+            <MainNavigation />
             <Suspense fallback={null}>
               <UTMTracker />
             </Suspense>
