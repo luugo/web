@@ -14,6 +14,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@glidejs/glide": "^3.7.1",
+    "@googlemaps/js-api-loader": "^1.16.8",
     "@headlessui/react": "^0.0.0-insiders.b6f355d1",
     "@heroicons/react": "^2.0.18",
     "@hookform/resolvers": "^3.10.0",
@@ -36,6 +37,7 @@
     "rc-slider": "^10.4.0",
     "react": "^18.3.1",
     "react-dom": "18.2.0",
+    "react-dropzone": "^14.3.5",
     "react-hook-form": "^7.54.2",
     "react-hooks-global-state": "^2.1.0",
     "react-hot-toast": "^2.4.1",
@@ -48,9 +50,10 @@
     "sass": "^1.69.5",
     "swiper": "^11.2.2",
     "whatwg-fetch": "^3.0.0",
-    "zod": "^3.24.1"
+    "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@types/google.maps": "^3.58.1",
     "@types/node": "^22.13.1",
     "@typescript-eslint/eslint-plugin": "^8.23.0",
     "@typescript-eslint/parser": "^8.23.0",
