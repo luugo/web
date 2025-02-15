@@ -117,7 +117,7 @@ const RentablePage = (dataProduct: dataRentable) => {
                       lat: dataProduct.geolocation.y,
                       lng: dataProduct.geolocation.x,
                     }}
-                    zoom={10}
+                    zoom={14}
                   >
                     <MarkerComponent
                       position={{
