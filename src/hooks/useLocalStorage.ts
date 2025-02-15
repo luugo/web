@@ -11,7 +11,7 @@ type SetValue<T> = T | ((val: T) => T);
 
 function useLocalStorage<T>(
   key: string,
-  initialValue: T,
+  initialValue: T
 ): [T, (value: SetValue<T>) => void] {
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
@@ -36,13 +36,13 @@ function useLocalStorage<T>(
 
     window.addEventListener(
       LOCAL_STORAGE_CHANGE_EVENT,
-      handleStorageChange as EventListener,
+      handleStorageChange as EventListener
     );
 
     return () => {
       window.removeEventListener(
         LOCAL_STORAGE_CHANGE_EVENT,
-        handleStorageChange as EventListener,
+        handleStorageChange as EventListener
       );
     };
   }, [key]);
@@ -60,7 +60,7 @@ function useLocalStorage<T>(
             key,
             value: valueToStore,
           },
-        }),
+        })
       );
     } catch (error) {
       console.error('Error setting localStorage key "${key}":', error);
@@ -71,3 +71,13 @@ function useLocalStorage<T>(
 }
 
 export default useLocalStorage;
+
+export const InitialValue = <T>(key: string): T | null => {
+  const localAuth = window.localStorage.getItem(key);
+  let result: T | null = null;
+  if (localAuth) {
+    result = JSON.parse(window.localStorage.getItem(key)?.toString() || "{}");
+  }
+
+  return result;
+};

@@ -12,7 +12,7 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
       <div className="flex gap-6 justify-between">
         <div className="flex items-center ">
           {/* <MenuBar /> */}
-          <Logo className="flex-shrink-0 hidden md:flex px-5" />
+          <Logo className="flex-shrink-0 md:flex px-5" />
         </div>
 
         <Account />

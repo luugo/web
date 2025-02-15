@@ -49,7 +49,7 @@ const SearchRentable: FC<SearchRentableProps> = ({ onSubmit }) => {
       <div className="py-1">
         <Select
           className={
-            "border-none h-full bg-transparent focus:outline-none focus:ring-2 focus:ring-teal-400 hover:ring-2 hover:ring-slate-200 ring-teal-400 text-base rounded-full"
+            "border-none h-full bg-transparent focus:outline-none focus:ring-2 focus:ring-teal-400 hover:ring-2 hover:ring-slate-200 ring-teal-400 text-base rounded-full inline-block"
           }
           onChange={handleSelectPlace}
           value={
@@ -118,7 +118,7 @@ const SearchRentable: FC<SearchRentableProps> = ({ onSubmit }) => {
   return (
     <>
       <form
-        className={`text-slate-900 w-[40%] shadow-md ring-2 rounded-full flex items-center gap-2 hover:ring-2 hover:ring-slate-200 ${isFocused ? "ring-teal-400" : "ring-slate-100"}`}
+        className={`text-slate-900 2xl:w-[45%] xl:w-[55%] lg:w-[60%] md:w-[85%] sm:w-full shadow-md ring-2 rounded-full flex items-center gap-2 hover:ring-2 hover:ring-slate-200 ${isFocused ? "ring-teal-400" : "ring-slate-100"}`}
         onSubmit={handleSearchSubmit}
       >
         <input
@@ -130,7 +130,9 @@ const SearchRentable: FC<SearchRentableProps> = ({ onSubmit }) => {
           onBlur={() => setIsFocused(false)}
           className="px-6 border-none bg-transparent focus:outline-none h-full focus:ring-0 w-full text-base placeholder-slate-400"
         />
-        {renderPlace()}
+        <div className="hidden md:block lg:block xl:block 2xl:block">
+          {renderPlace()}
+        </div>
         <button
           type="submit"
           className="px-3 py-3 hover:bg-teal-500 focus:ring-2 bg-teal-400 rounded-full my-1 mr-1"
