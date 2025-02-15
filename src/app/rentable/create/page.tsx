@@ -11,10 +11,11 @@ import CategoryStep from "./step-category";
 import DetailsStep from "./step-details";
 import ImagesStep from "./step-images";
 import SubcategoryStep from "./step-subcategory";
-import { AuthenticationPostDefaultResponse, CategoryGetTypeEnum, MediaApi, Rentable, RentableApi, ResponseError } from "@api";
+import { AuthenticationPostDefaultResponse, CategoryGetTypeEnum, MediaApi, Rentable, RentableApi, RentableBillingFrequencyEnum, ResponseError } from "@api";
 import PriceSelectorStep from "./step-price-selector";
 import { useLocalStorage } from "react-use";
 import { Alert } from "@/shared/Alert/Alert";
+import { useRouter } from "next/navigation";
 
 export interface zodFormData {
   category: string;
@@ -26,6 +27,7 @@ export interface zodFormData {
   price: number;
   place: string;
   geolocation: { x: number; y: number };
+  location: string;
 }
 
 const schema = z.object({
@@ -36,11 +38,12 @@ const schema = z.object({
   geolocation: z.object({
     x: z.number().min(-90).max(90, "Latitude inválida"),
     y: z.number().min(-180).max(180, "Longitude inválida"),
-  }, {required_error: "Selecione uma localização"}),
+  }, {required_error: "O endereço é obrigatório"}),
   images: z.array(z.instanceof(File)).min(1, "Pelo menos uma imagem é necessária").max(10, "Máximo de 10 imagens"),
   subcategory: z.string({required_error: "Selecione uma subcategoria"}),
   billingFrequency: z.enum(["NEGOTIABLE", "HOURLY", "DAILY", "WEEKLY", "MONTHLY", "YEARLY"]),
   price: z.string().optional(),
+  location: z.string().optional(),
 });
 
 const steps = ["Categoria", "Detalhes", "Fotos", "Subcategoria", "Preço"];
@@ -52,10 +55,12 @@ const RentableCreate = () => {
   const [selectedCategory, setSelectedCategory] = useState<CategoryGetTypeEnum | undefined>(undefined);
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
   const [place, setPlace] = useState<string | null>(null);
+  const [location, setLocation] = useState<string | null>(null);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [geolocation, setGeolocation] = useState({ x: 0, y: 0 });
-  const [billingFrequency, setBillingFrequency] = useState("NEGOTIABLE");
+  const [billingFrequency, setBillingFrequency] = useState<RentableBillingFrequencyEnum>("NEGOTIABLE");
   const [auth] = useLocalStorage<AuthenticationPostDefaultResponse | null>("auth", null);
+  const router = useRouter();
 
   const { register, handleSubmit, watch, setValue, trigger, formState: { errors } } =
     useForm<zodFormData>({
@@ -80,15 +85,15 @@ const RentableCreate = () => {
     try {
       if(auth) {
         const userId = auth.user?.id as string;
-        
+
         const body: Rentable = {
           title: data.title,
           description: data.description,
           type: data.category.toUpperCase(),
           place: data.place,
-          price: Number(data.price) ?? 0,
+          price: Number(data.price ?? 0),
           discount: 0,
-          billingFrequency: data.billingFrequency,
+          billingFrequency: billingFrequency,
           userId,
           categoryId: data.subcategory,
           geolocation: {
@@ -109,20 +114,26 @@ const RentableCreate = () => {
         
         const mediaApi = new MediaApi();
         for (const file of data.images) {
-          await mediaApi.mediaPost(
-            {
-              rentableId,
-              filename: file.name,
-              file,
-              type: "PHOTO",
-              userId,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${auth.token}`,
+          try {
+            await mediaApi.mediaPostRaw(
+              {
+                rentableId,
+                filename: file.name,
+                file,
+                type: "PHOTO",
+                userId,
               },
-            }
-          );
+              {
+                headers: {
+                  Authorization: `Bearer ${auth.token}`
+                },
+              }
+            );
+          } catch (error: any) {
+            console.log(error.message);          
+          }
+
+          router.push("/account-rentable");
         }
       }
       
@@ -167,7 +178,7 @@ const RentableCreate = () => {
         exit={{ opacity: 0, x: -50 }}
       >
         {step === 0 && <CategoryStep setValue={setValue} trigger={trigger} errors={errors} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />}
-        {step === 1 && <DetailsStep register={register} errors={errors} setValue={setValue} trigger={trigger} place={place} setPlace={setPlace} setGeolocation={setGeolocation} geolocation={geolocation} />}
+        {step === 1 && <DetailsStep register={register} errors={errors} setValue={setValue} trigger={trigger} place={place} setPlace={setPlace} setGeolocation={setGeolocation} geolocation={geolocation} location={location} setLocation={setLocation} />}
         {step === 2 && <ImagesStep setValue={setValue} trigger={trigger} errors={errors} previewImages={previewImages} setPreviewImages={setPreviewImages} />}
         {step === 3 && <SubcategoryStep setValue={setValue} trigger={trigger} errors={errors} selectedSubcategory={selectedSubcategory} setSelectedSubcategory={setSelectedSubcategory} selectedCategory={selectedCategory}	 />}
         {step === 4 && <PriceSelectorStep register={register} billingFrequency={billingFrequency} setBillingFrequency={setBillingFrequency} setValue={setValue} trigger={trigger} errors={errors} /> }

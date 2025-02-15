@@ -3,6 +3,7 @@ import { useFormContext, UseFormRegister } from 'react-hook-form';
 import { zodFormData } from './page';
 import { motion } from 'framer-motion';
 import Input from '@/shared/Input/Input';
+import { RentableBillingFrequencyEnum } from '@api';
 
 interface DetailsStepProps {
   errors: any;
@@ -10,7 +11,7 @@ interface DetailsStepProps {
   setValue: any;
   trigger: any;
   billingFrequency: string;
-  setBillingFrequency: (billingFrequency: string) => void;
+  setBillingFrequency: (billingFrequency: RentableBillingFrequencyEnum) => void;
 }
 
 const priceTypes = [
@@ -36,14 +37,14 @@ const PriceSelectorStep = ({
       <div className="flex flex-wrap justify-center gap-2 mb-4"> {/* Container para os botões */}
         {priceTypes.map((type) => (
           <motion.div
-          key={type.value}
-          whileTap={{ scale: 0.9 }}
-          className={`px-4 py-2 border-2 rounded-lg text-center cursor-pointer transition-all border-blue-950
-          ${billingFrequency === type.value? "text-white bg-blue-950" : "text-blue-950"}`}
-            onClick={() => {
-              setBillingFrequency(type.value);
-              register("billingFrequency").onChange({ target: { value: type.value } });
-            }}
+            key={type.value}
+            whileTap={{ scale: 0.9 }}
+            className={`px-4 py-2 border-2 rounded-lg text-center cursor-pointer transition-all border-blue-950
+            ${billingFrequency === type.value? "text-white bg-blue-950" : "text-blue-950"}`}
+              onClick={() => {
+                setBillingFrequency(type.value as RentableBillingFrequencyEnum);
+                register("billingFrequency").onChange({ target: { value: type.value } });
+              }}
           >
             {type.label}
           </motion.div>
@@ -53,7 +54,10 @@ const PriceSelectorStep = ({
 
       {billingFrequency !== 'NEGOTIABLE' && (
         <div className='flex justify-center'>
-          <Input type="number" {...register('price')} placeholder="R$ 0,00" className="mt-2 px-3 py-2 w-96 text-center" />
+          <div className="flex items-center rounded-2xl border border-gray-200 pl-5">
+            <span className='font-light  text-stone-600'>R$</span>
+            <Input type="number" {...register('price')} placeholder="0,00" prefix='R$' className="border-none ml-4 border-transparent focus:border-transparent focus:ring-0" />
+          </div>
         </div>
       )}
     </div>

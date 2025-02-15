@@ -3,6 +3,10 @@ import Map from "./map";
 import Input from "@/shared/Input/Input";
 import Textarea from "@/shared/Textarea/Textarea";
 import { zodFormData } from "./page";
+import { useEffect, useState } from "react";
+import { Place, PlaceApi } from "@api";
+import { useRouter } from "next/navigation";
+import Select from "@/shared/Select/Select";
 
 interface DetailsStepProps {
   errors: any;
@@ -12,7 +16,9 @@ interface DetailsStepProps {
   setValue: any;
   trigger: any;
   place: string | null;
-  setPlace: (place: string | null) => void
+  setPlace: (place: string | null) => void;
+  location: string | null;
+  setLocation: (location: string | null) => void;
 }
 
 const DetailsStep = ({
@@ -23,8 +29,24 @@ const DetailsStep = ({
   setValue,
   trigger,
   place,
-  setPlace
+  setPlace,
+  location,
+  setLocation
 }: DetailsStepProps) => {
+  const router = useRouter();
+  const [options, setOptions] = useState<Place[]>([]);
+  
+  useEffect(() => {
+      (async () => {
+        try {
+          const placeApi = new PlaceApi();
+          const result = await placeApi.placeGet({ isActive: true });
+          setOptions(result);
+        } catch (error) {
+          console.error("Erro ao buscar opções da API", error);
+        }
+      })();
+    }, [router]);
 
   return (
 
@@ -37,18 +59,35 @@ const DetailsStep = ({
       {errors.title && <p className="mb-4 text-red-500">{errors.title.message}</p>}
 
       <label className="mt-4 font-bold ">Descrição:</label>
-      <Textarea className="mb-2" {...register("description")}></Textarea>
+      <Textarea className="mb-2" {...register("description")} ></Textarea>
       {errors.description && <p className="mb-4 text-red-500">{errors.description.message}</p>}
 
+      <label className="block">
+      <label className="mt-4 font-bold ">Localização:</label>
+        <Select {...register("place")}
+          className="mt-1.5"
+          value={place as string}
+          onChange={(e) => setPlace(e.target.value)}
+        >
+          <option value="">Selecione...</option>
+          {options.map((option) => (
+            <option
+              key={`${option.id}`}
+              value={`${option.id}`}
+            >
+              {`${option.city}, ${option.state}`}
+            </option>
+          ))}
+        </Select>
+      </label>
+      {errors.place && <p className="mb-4 text-red-500">{errors.place.message}</p>}
       <Map
-        place={place}
-        setPlace={setPlace}
+        location={location}
+        setLocation={setLocation}
         geolocation={geolocation}
         errors={errors}
         setGeolocation={setGeolocation}
         setValue={setValue} trigger={trigger} register={register} />
-
-      {errors.geolocation && <p className="mb-4 text-red-500 mt-2">{errors.geolocation.message}</p>}
     </div>
   );
 }

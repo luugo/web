@@ -46,6 +46,7 @@ const AccountOrder = () => {
       description,
       id,
     } = rentable;
+
     return (
       <UTMLink
         href={`/rentable/${id}`}
@@ -88,7 +89,7 @@ const AccountOrder = () => {
                 type="button"
                 className="font-medium text-indigo-600 dark:text-primary-500 "
               >
-                Visualzar
+                Visualizar
               </button>
             </div>
           </div>
@@ -111,7 +112,19 @@ const AccountOrder = () => {
     <div className="space-y-10 sm:space-y-12">
       <h2 className="text-2xl sm:text-3xl font-semibold">Meus Anúncios</h2>
       {rentables.length > 0 ? (
-        renderOrder({ myRentables: rentables })
+        <>
+          <Link
+            href="/rentable/create"
+            className="flex justify-center bg-gray-100 max-w-7xl py-6 sm:px-6 lg:px-8 hover:text-gray-100 hover:bg-gray-900 rounded-md text-sm font-semibold"
+          >
+            <PlusIcon
+              aria-hidden="true"
+              className="size-6 mr-2 "
+            />
+            <span className="mt-0.5">CADASTRE UM NOVO ANÚNCIO</span>
+          </Link>
+          {renderOrder({ myRentables: rentables })}
+        </>
       ) : (
         <div className="bg-gray-100">
           <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">

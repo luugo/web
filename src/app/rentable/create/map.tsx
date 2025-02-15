@@ -17,13 +17,13 @@ interface LatLong {
   trigger: any;
   errors: any;
   register: UseFormRegister<zodFormData>;
-  place: string | null;
-  setPlace: (place: string | null) => void
+  location: string | null;
+  setLocation: (location: string | null) => void
 }
 
 const libs : Library[] = ["core", "places", "maps", "marker"];
 
-const Map = ({geolocation, setGeolocation, place, setPlace, setValue, trigger, register, errors }: LatLong) => {
+const Map = ({geolocation, setGeolocation, location, setLocation, setValue, trigger, register, errors }: LatLong) => {
   const [ map, setMap ] = useState<google.maps.Map | null>(null);
   const [ autocomplete, setAutoComplete ] = useState<google.maps.places.Autocomplete | null>(null);
   const [marker, setMarker] = useState<google.maps.marker.AdvancedMarkerElement | null>(null); // Store the marker
@@ -46,9 +46,8 @@ const Map = ({geolocation, setGeolocation, place, setPlace, setValue, trigger, r
           setGeolocation({ x: position.lng(), y: position.lat() });
           setValue("geolocation", { x: position.lng(), y: position.lat() });
           trigger("geolocation");
-          setPlace(place.formatted_address as string);
-          setValue("place", place.formatted_address);
-          trigger("palce");
+          setLocation(place.formatted_address as string);
+          setValue("location", place.formatted_address);
         }
       });
     }
@@ -79,7 +78,7 @@ const Map = ({geolocation, setGeolocation, place, setPlace, setValue, trigger, r
       setAutoComplete(gAutoComplete);
 
       if (placeAutoComplereRef.current) {
-        placeAutoComplereRef.current.value = place as string || "";
+        placeAutoComplereRef.current.value = location as string || "";
       }
       
     }
@@ -87,10 +86,10 @@ const Map = ({geolocation, setGeolocation, place, setPlace, setValue, trigger, r
 
   return (
     <div className="flex flex-col space-y-4">
-      <label className="mt-2 font-bold ">Localização:</label>
+      <label className="mt-2 font-bold ">Endereço:</label>
       <Input ref={placeAutoComplereRef} style={{marginTop: 0}} />
-      {errors.place && <p className="mb-4 text-red-500">{errors.place.message}</p>}
-      <input type="hidden" {...register("place")} /> 
+      {errors.geolocation && <p className="mb-4 text-red-500 mt-2">{errors.geolocation.message}</p>}
+      <input type="hidden" {...register("location")} /> 
       {isLoaded ? <div ref={mapRef} className="w-full h-96"></div> : <p>Loading...</p>}
     </div>
   )
