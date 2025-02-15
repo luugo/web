@@ -7,8 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import { UseFormRegister } from "react-hook-form";
 import { zodFormData } from "./page";
 
-const API_KEY = "AIzaSyDMShuuYwAuX9kCx-bIHZPTmLQabKghHW4";
-const MAP_ID = "70ed063a6795e38f"
+const API_KEY = "AIzaSyAMYZyR35_t_qG75PyL9JKDGHx_D05wAgc";
+const MAP_ID = "b72920ae635c56b2"
 
 interface LatLong {
   geolocation: { x: number; y: number };
