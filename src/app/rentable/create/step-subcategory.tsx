@@ -80,7 +80,6 @@ const SubcategoryStep = ({ setValue, trigger, errors, selectedSubcategory, selec
           ))}
       </div>
 
-
       {errors.subcategory && <p className="mt-4 text-red-500">{errors.subcategory.message || "Erro ao selecionar categoria"}</p>}
 
     </div>

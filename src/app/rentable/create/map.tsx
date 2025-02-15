@@ -6,9 +6,9 @@ import { useJsApiLoader } from "@react-google-maps/api";
 import { useEffect, useRef, useState } from "react";
 import { UseFormRegister } from "react-hook-form";
 import { zodFormData } from "./page";
+import { API_KEY, MAP_ID } from "@/data/keyMaps";
 
-const API_KEY = "AIzaSyAMYZyR35_t_qG75PyL9JKDGHx_D05wAgc";
-const MAP_ID = "b72920ae635c56b2"
+const libs : Library[] = ["core", "places", "maps", "marker"];
 
 interface LatLong {
   geolocation: { x: number; y: number };
@@ -21,12 +21,10 @@ interface LatLong {
   setLocation: (location: string | null) => void
 }
 
-const libs : Library[] = ["core", "places", "maps", "marker"];
-
 const Map = ({geolocation, setGeolocation, location, setLocation, setValue, trigger, register, errors }: LatLong) => {
   const [ map, setMap ] = useState<google.maps.Map | null>(null);
   const [ autocomplete, setAutoComplete ] = useState<google.maps.places.Autocomplete | null>(null);
-  const [marker, setMarker] = useState<google.maps.marker.AdvancedMarkerElement | null>(null); // Store the marker
+  const [marker, setMarker] = useState<google.maps.marker.AdvancedMarkerElement | null>(null);
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: API_KEY,

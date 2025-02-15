@@ -1,32 +1,32 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Prices from "@/components/RentableCard/Prices";
 import RentableUserContacts from "@/components/RentableUserContacts";
 import dynamic from "next/dynamic";
 import { dataRentable } from "./page";
 import { UserContact } from "@api";
+import { useJsApiLoader } from "@react-google-maps/api";
+import { Library } from "@googlemaps/js-api-loader";
+import { API_KEY, MAP_ID } from "@/data/keyMaps";
 
 const ImageGallery = dynamic(
   () => import("@/components/ImageGallery/ImageGallery"),
   { ssr: false, loading: () => <p>Carregando imagens...</p> },
 );
-const GoogleMapComponent = dynamic(
-  () => import("@react-google-maps/api").then((mod) => mod.GoogleMap),
-  { ssr: false, loading: () => <p>Carregando mapa...</p> },
-);
-const LoadScriptComponent = dynamic(
-  () => import("@react-google-maps/api").then((mod) => mod.LoadScript),
-  { ssr: false },
-);
-const MarkerComponent = dynamic(
-  () => import("@react-google-maps/api").then((mod) => mod.Marker),
-  { ssr: false },
-);
+
+const libs: Library[] = ["core", "places", "maps", "marker"];
 
 const RentablePage = (dataProduct: dataRentable) => {
   const [processedDescription, setProcessedDescription] = useState("");
   const [isClient, setIsClient] = useState(false);
+  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
+
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: API_KEY,
+    libraries: libs,
+  });
 
   useEffect(() => {
     setIsClient(true);
@@ -34,6 +34,36 @@ const RentablePage = (dataProduct: dataRentable) => {
       setProcessedDescription(dataProduct.description);
     }
   }, [dataProduct.description]);
+
+  useEffect(() => {
+    if (isLoaded && mapRef.current) {
+      const mapOptions = {
+        center: {
+          lat: dataProduct.geolocation.y,
+          lng: dataProduct.geolocation.x,
+        },
+        disableDoubleClickZoom: true,
+        zoom: 12,
+        mapId: MAP_ID,
+      };
+
+      const gMap = new google.maps.Map(
+        mapRef.current as HTMLDivElement,
+        mapOptions,
+      );
+      const initialPosition = new google.maps.LatLng(
+        dataProduct.geolocation.y,
+        dataProduct.geolocation.x,
+      );
+      new google.maps.marker.AdvancedMarkerElement({
+        map: gMap,
+        position: initialPosition,
+      });
+
+      setMap(gMap);
+    }
+  }, [isLoaded, dataProduct.geolocation]);
+
   return (
     <div className="pb-20 xl:pb-28">
       <div className={`nc-ProductDetailPage `}>
@@ -107,29 +137,10 @@ const RentablePage = (dataProduct: dataRentable) => {
             <hr className="border-slate-200 dark:border-slate-700" />
             <div>
               <h2 className="text-2xl font-semibold">Localização</h2>
-              {isClient && dataProduct.geolocation ? (
-                <LoadScriptComponent
-                  googleMapsApiKey="AIzaSyAMYZyR35_t_qG75PyL9JKDGHx_D05wAgc"
-                  id={`${dataProduct.geolocation.y}:${dataProduct.geolocation.x}`}
-                >
-                  <GoogleMapComponent
-                    mapContainerStyle={{ width: "100%", height: "600px" }}
-                    center={{
-                      lat: dataProduct.geolocation.y,
-                      lng: dataProduct.geolocation.x,
-                    }}
-                    zoom={14}
-                  >
-                    <MarkerComponent
-                      position={{
-                        lat: dataProduct.geolocation.y,
-                        lng: dataProduct.geolocation.x,
-                      }}
-                    />
-                  </GoogleMapComponent>
-                </LoadScriptComponent>
+              {isLoaded ? (
+                <div ref={mapRef} className="w-full h-96"></div>
               ) : (
-                <p>Carregando mapa...</p>
+                <p>Loading...</p>
               )}
             </div>
           </div>

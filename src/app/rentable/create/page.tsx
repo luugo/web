@@ -152,8 +152,6 @@ const RentableCreate = () => {
 
   };
 
-
-
   return (
     <div className="max-w-7xl py-6 sm:px-6 lg:px-8 mx-auto p-4 min-w-0.5">
       <div className="absolute top-0 z-max w-full p-4 right-0">

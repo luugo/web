@@ -34,7 +34,7 @@ const PriceSelectorStep = ({
       <h2 className="text-xl font-bold mb-4">Escolha como você vai cobrar pelo que está sendo anunciado.</h2>
       <h2 className="text-base mb-10">Um preço bem calculado pode atrair muitos clientes! Se o valor do seu anúncio não for fixo, você pode marcar a opção Negociável e permitir que os interessados façam propostas. Escolha um preço competitivo e maximize suas oportunidades de negócio.</h2>
       
-      <div className="flex flex-wrap justify-center gap-2 mb-4"> {/* Container para os botões */}
+      <div className="flex flex-wrap justify-center gap-2 mb-4">
         {priceTypes.map((type) => (
           <motion.div
             key={type.value}
