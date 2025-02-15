@@ -23,7 +23,7 @@ const IsLoggedIn = () => {
     <div className="flex items-center space-x-3">
       <Avatar
         imgUrl={auth.user?.thumbnail || "/avatar.jpg"}
-        sizeClass="w-8 h-8"
+        sizeClass="w-6 h-6"
       />
       <div className="flex-grow">
         <h4 className="font-semibold">{fullName}</h4>
