@@ -3,7 +3,6 @@
 import Avatar from "@/shared/Avatar/Avatar";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import { useEffect, useState } from "react";
 import useLocalStorage, { InitialValue } from "@/hooks/useLocalStorage";
 import { AuthenticationPostDefaultResponse } from "@api";
 import { Popover } from "@headlessui/react";
