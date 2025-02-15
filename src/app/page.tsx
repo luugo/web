@@ -4,9 +4,15 @@ import logoImg from "@/images/logo.svg";
 import Image from "next/image";
 import { useUserContext } from "@/context";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { Place, Rentable, RentableApi } from "@api";
+import {
+  Place,
+  Rentable,
+  RentableApi,
+  RentableSearchInputGetRequest,
+} from "@api";
 import RentableCard from "@/components/RentableCard";
 import RentableCardSkeleton from "@/components/Skeleton/RentableCard";
+import SearchRentable from "@/components/Header/SearchRentable";
 
 interface MobilePopupProps {
   os?: "android" | "ios";
@@ -111,6 +117,26 @@ function PageHome() {
     Rentable[] | undefined
   >(undefined);
 
+  const onSubmit = (searchTerm: string) => {
+    if (searchTerm.length === 0) return;
+    const rentableApi = new RentableApi();
+    const requestParameters: RentableSearchInputGetRequest = {
+      input: searchTerm,
+    };
+
+    rentableApi
+      .rentableSearchInputGet(requestParameters)
+      .then((response) => {
+        const rentablesWithLinks = response.map((item) => ({
+          ...item,
+          link: `/rentable/${item.id}`,
+        }));
+
+        setrentableLatLong(rentablesWithLinks);
+      })
+      .catch(console.error);
+  };
+
   useEffect(() => {
     const userAgent = navigator.userAgent;
 
@@ -172,29 +198,29 @@ function PageHome() {
   return (
     <div className="nc-PageHome relative overflow-hidden">
       {isMobile && showPopup && <MobilePopup os={os} onClose={closePopup} />}
-      <div className=" pt-10 px-10 2xl:px-20 xl:px-20 lg:px-10 md:px-10 sm:px-10">
-        <h2 className="text-2xl sm:text-3xl font-semibold">
-          Últimas atualizações
-        </h2>
-      </div>
-      <div className="grid gap-6 py-10 px-10 2xl:grid-cols-6 2xl:px-20 xl:grid-cols-5 xl:px-20 lg:grid-cols-4 lg:px-10 md:grid-cols-3 md:px-10 sm:grid-cols-2 sm:px-10">
-        {rentableLatLong === undefined ? (
-          <>
-            {[...Array(12)].map((_, index) => (
-              <RentableCardSkeleton key={index} />
-            ))}
-          </>
-        ) : rentableLatLong.length > 0 ? (
-          rentableLatLong.map((rentable, index) => (
-            <RentableCard rentable={rentable} key={index} />
-          ))
-        ) : (
-          <>
-            {[...Array(12)].map((_, index) => (
-              <RentableCardSkeleton key={index} />
-            ))}
-          </>
-        )}
+      <div className="flex-row justify-center pt-10 px-10 2xl:px-20 xl:px-20 lg:px-10 md:px-10 sm:px-10">
+        <div className="mx-auto w-full flex justify-center">
+          <SearchRentable onSubmit={onSubmit} />
+        </div>
+        <div className="grid gap-6 py-10 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
+          {rentableLatLong === undefined ? (
+            <>
+              {[...Array(12)].map((_, index) => (
+                <RentableCardSkeleton key={index} />
+              ))}
+            </>
+          ) : rentableLatLong.length > 0 ? (
+            rentableLatLong.map((rentable, index) => (
+              <RentableCard rentable={rentable} key={index} />
+            ))
+          ) : (
+            <>
+              {[...Array(12)].map((_, index) => (
+                <RentableCardSkeleton key={index} />
+              ))}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

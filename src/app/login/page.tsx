@@ -13,11 +13,15 @@ import {
 import Label from "@/components/Label/Label";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const PageLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [auth, setAuth] =
+    useLocalStorage<AuthenticationPostDefaultResponse | null>("auth", null);
+
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -49,29 +53,16 @@ const PageLogin = () => {
 
   const handleLoginResult = async (
     result: AuthenticationPostDefaultResponse,
-    router: AppRouterInstance,
+    router: AppRouterInstance
   ) => {
     if (result.token) {
-      localStorage.setItem("auth", JSON.stringify(result));
+      setAuth(result);
 
-      const userContactApi = new UserContactApi();
-      const user = result.user;
-      const userId = user?.id;
-
-      if (userId) {
-        try {
-          const contacts = await userContactApi.userContactGet({ userId });
-
-          localStorage.setItem("auth", JSON.stringify({ ...result, contacts }));
-        } catch (error) {
-          console.error("Erro ao buscar contatos:", error);
-        }
-      }
       router.push("/");
     } else if (result.authenticationId) {
       localStorage.setItem(
         "auth",
-        JSON.stringify({ user: { authenticationId: result.authenticationId } }),
+        JSON.stringify({ user: { authenticationId: result.authenticationId } })
       );
       router.push("/complete-signup");
     }
