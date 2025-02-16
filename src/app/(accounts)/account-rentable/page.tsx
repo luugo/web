@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AuthenticationPostDefaultResponse, Rentable, RentableApi } from "@api";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import UTMLink from "@/components/UTMLink";
 

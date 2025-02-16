@@ -1,6 +1,5 @@
 "use client";
 import { Route } from "@/routers/types";
-import Link from "next/link";
 import React, { FC, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useUserContext } from "@/context";

@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import Link, { LinkProps } from "next/link";
 import { UrlObject } from "url";
 
-interface UTMLinkProps<RouteInferType = any> extends LinkProps<RouteInferType> {
+interface UTMLinkProps<RouteInferType = unknown>
+  extends LinkProps<RouteInferType> {
   children: React.ReactNode;
 }
 
@@ -45,20 +46,6 @@ const appendUTMParams = (
     search: url.search,
     hash: url.hash,
   };
-};
-
-const saveUTMParamsToLocalStorage = (
-  query: Record<string, string | string[] | undefined>,
-) => {
-  if (typeof window !== "undefined") {
-    // Ensure this runs on client
-    utmParamsList.forEach((param) => {
-      const value = query[param];
-      if (typeof value === "string") {
-        localStorage.setItem(param, value);
-      }
-    });
-  }
 };
 
 const UTMLink = <RouteInferType,>({

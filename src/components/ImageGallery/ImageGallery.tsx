@@ -25,7 +25,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
   const { width } = useViewportSize();
   const [OpenLibrary, setOpenLibrary] = useState(false);
   const [ImageSelected, setImageSelected] = useState<string | undefined>(
-    undefined
+    undefined,
   );
 
   const maxThumbnails = 5;

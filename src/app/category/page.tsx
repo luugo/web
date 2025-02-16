@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import { CategoryGetTypeEnum } from "@api";
 import DoesNotExist from "@/components/DoesNotExist/DoesNotExist";
 import { useParams } from "next/navigation";

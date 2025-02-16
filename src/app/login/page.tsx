@@ -8,7 +8,6 @@ import {
   AuthenticationApi,
   AuthenticationPostDefaultResponse,
   ResponseError,
-  UserContactApi,
 } from "@api";
 import Label from "@/components/Label/Label";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
@@ -19,8 +18,10 @@ const PageLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
-  const [auth, setAuth] =
-    useLocalStorage<AuthenticationPostDefaultResponse | null>("auth", null);
+  const [, setAuth] = useLocalStorage<AuthenticationPostDefaultResponse | null>(
+    "auth",
+    null,
+  );
 
   const router = useRouter();
 
@@ -53,7 +54,7 @@ const PageLogin = () => {
 
   const handleLoginResult = async (
     result: AuthenticationPostDefaultResponse,
-    router: AppRouterInstance
+    router: AppRouterInstance,
   ) => {
     if (result.token) {
       setAuth(result);
@@ -62,7 +63,7 @@ const PageLogin = () => {
     } else if (result.authenticationId) {
       localStorage.setItem(
         "auth",
-        JSON.stringify({ user: { authenticationId: result.authenticationId } })
+        JSON.stringify({ user: { authenticationId: result.authenticationId } }),
       );
       router.push("/complete-signup");
     }

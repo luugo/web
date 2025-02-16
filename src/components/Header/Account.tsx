@@ -11,7 +11,7 @@ const Login = () => {
   const [auth, setAuth] =
     useLocalStorage<AuthenticationPostDefaultResponse | null>(
       "auth",
-      InitialValue<AuthenticationPostDefaultResponse>("auth")
+      InitialValue<AuthenticationPostDefaultResponse>("auth"),
     );
 
   if (!auth) {
@@ -76,7 +76,7 @@ const Login = () => {
 export default function Account() {
   const [auth] = useLocalStorage<AuthenticationPostDefaultResponse | null>(
     "auth",
-    InitialValue<AuthenticationPostDefaultResponse>("auth")
+    InitialValue<AuthenticationPostDefaultResponse>("auth"),
   );
 
   return (

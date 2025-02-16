@@ -4,7 +4,12 @@ import NcImage from "@/shared/NcImage/NcImage";
 import I500Png from "@/images/luuguinho_dead.png";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
-export default function ErrorPage({ error, reset }: { error: Error; reset: () => void }) {
+export default function ErrorPage({
+  error,
+}: {
+  error: Error;
+  reset: () => void;
+}) {
   useEffect(() => {
     console.error("Erro detectado:", error);
   }, [error]);
@@ -20,8 +25,8 @@ export default function ErrorPage({ error, reset }: { error: Error; reset: () =>
           />
 
           <span className="block text-sm text-neutral-800 sm:text-base dark:text-neutral-200 tracking-wider font-medium">
-          {`Algo deu errado ao carregar esta página.`}
-        </span>
+            {`Algo deu errado ao carregar esta página.`}
+          </span>
 
           <div className="pt-8">
             <ButtonPrimary href="/">Retornar à página inicial</ButtonPrimary>
