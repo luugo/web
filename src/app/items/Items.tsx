@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Rentable, RentableApi, RentableSearchInputGetRequest } from "@api";
-import RentableCard from "@/components/RentableCard";
+import RentableCard from "@/components/RentableCard/RentableCard";
 import DoesNotExist from "@/components/DoesNotExist/DoesNotExist";
 
 const ItemsContent: React.FC = () => {

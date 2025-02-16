@@ -11,7 +11,7 @@ import {
   RentableGetRequest,
 } from "@api";
 import { useParams } from "next/navigation";
-import RentableCard from "@/components/RentableCard";
+import RentableCard from "@/components/RentableCard/RentableCard";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import NotFound from "@/app/not-found";
 

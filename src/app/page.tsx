@@ -10,7 +10,7 @@ import {
   RentableApi,
   RentableSearchInputGetRequest,
 } from "@api";
-import RentableCard from "@/components/RentableCard";
+import RentableCard from "@/components/RentableCard/RentableCard";
 import RentableCardSkeleton from "@/components/Skeleton/RentableCard";
 import SearchRentable from "@/components/Header/SearchRentable";
 
