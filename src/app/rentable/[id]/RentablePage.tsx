@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Prices from "@/components/Prices";
+import Prices from "@/components/RentableCard/Prices";
 import RentableUserContacts from "@/components/RentableUserContacts";
 import dynamic from "next/dynamic";
 import { dataRentable } from "./page";
@@ -9,19 +9,19 @@ import { UserContact } from "@api";
 
 const ImageGallery = dynamic(
   () => import("@/components/ImageGallery/ImageGallery"),
-  { ssr: false, loading: () => <p>Carregando imagens...</p> },
+  { ssr: false, loading: () => <p>Carregando imagens...</p> }
 );
 const GoogleMapComponent = dynamic(
   () => import("@react-google-maps/api").then((mod) => mod.GoogleMap),
-  { ssr: false, loading: () => <p>Carregando mapa...</p> },
+  { ssr: false, loading: () => <p>Carregando mapa...</p> }
 );
 const LoadScriptComponent = dynamic(
   () => import("@react-google-maps/api").then((mod) => mod.LoadScript),
-  { ssr: false },
+  { ssr: false }
 );
 const MarkerComponent = dynamic(
   () => import("@react-google-maps/api").then((mod) => mod.Marker),
-  { ssr: false },
+  { ssr: false }
 );
 
 const RentablePage = (dataProduct: dataRentable) => {

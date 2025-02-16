@@ -1,5 +1,5 @@
 "use client";
-import Prices from "@/components/Prices";
+import Prices from "@/components/RentableCard/Prices";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AuthenticationPostDefaultResponse, Rentable, RentableApi } from "@api";
@@ -13,7 +13,7 @@ const AccountOrder = () => {
   const [rentables, setRentables] = useState<Rentable[]>([]);
   const [auth] = useLocalStorage<AuthenticationPostDefaultResponse | null>(
     "auth",
-    null,
+    null
   );
 
   useEffect(() => {
