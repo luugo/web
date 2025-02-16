@@ -12,7 +12,7 @@ const SearchRentable: FC<SearchRentableProps> = ({ onSubmit }) => {
   const [places, setPlaces] = useState<Place[]>([]);
   const [selectedPlace, setSelectedPlace] = useLocalStorage<Place | null>(
     "selectedPlace",
-    null
+    null,
   );
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [placeholder, setPlaceholder] = useState<string>("");
@@ -20,24 +20,6 @@ const SearchRentable: FC<SearchRentableProps> = ({ onSubmit }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [charIndex, setCharIndex] = useState<number>(0);
-
-  const placeholders = [
-    "carro...",
-    "furadeira...",
-    "casa...",
-    "passeios...",
-    "ferramentas...",
-    "móveis...",
-    "decoração...",
-    "acessórios...",
-    "roupas...",
-    "eletrônicos...",
-    "brinquedos...",
-    "instrumentos...",
-    "equipamentos...",
-    "objetos...",
-    "itens...",
-  ];
 
   const renderPlace = () => {
     const handleSelectPlace = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -73,6 +55,24 @@ const SearchRentable: FC<SearchRentableProps> = ({ onSubmit }) => {
   };
 
   useEffect(() => {
+    const placeholders = [
+      "carro...",
+      "furadeira...",
+      "casa...",
+      "passeios...",
+      "ferramentas...",
+      "móveis...",
+      "decoração...",
+      "acessórios...",
+      "roupas...",
+      "eletrônicos...",
+      "brinquedos...",
+      "instrumentos...",
+      "equipamentos...",
+      "objetos...",
+      "itens...",
+    ];
+
     const currentText = placeholders[currentIndex];
 
     const handleTypingEffect = () => {
@@ -108,7 +108,7 @@ const SearchRentable: FC<SearchRentableProps> = ({ onSubmit }) => {
 
       const response = await placesApi?.placeGet(requestParameters);
       const filteredResponse = response.filter(
-        (place) => place.id != "Natal/RN"
+        (place) => place.id != "Natal/RN",
       );
 
       setPlaces(filteredResponse);
