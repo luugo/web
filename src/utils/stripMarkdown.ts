@@ -37,6 +37,12 @@ export const stripMarkdown = (markdown: string) => {
   // Optionally, collapse multiple newlines into a single newline
   text = text.replace(/\n{2,}/g, "\n");
 
+  // Remove emojis
+  text = text.replace(
+    /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu,
+    ""
+  );
+
   // Trim leading/trailing whitespace
   return text.trim();
 };

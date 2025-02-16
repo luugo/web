@@ -211,7 +211,11 @@ function PageHome() {
             </>
           ) : rentableLatLong.length > 0 ? (
             rentableLatLong.map((rentable, index) => (
-              <RentableCard rentable={rentable} key={index} />
+              <RentableCard
+                className={"h-full"}
+                rentable={rentable}
+                key={index}
+              />
             ))
           ) : (
             <>

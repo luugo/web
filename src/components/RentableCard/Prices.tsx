@@ -10,10 +10,9 @@ export interface PricesProps {
 }
 
 const Prices: FC<PricesProps> = ({
-  className = "",
   price = 33,
   billingFrequency = "",
-  contentClass = "py-1 px-2 md:py-1.5 md:px-2.5 text-sm font-medium",
+  contentClass = "text-sm font-medium",
 }) => {
   const intlMonetary = new Intl.NumberFormat("pt-BR", {
     style: "currency",
@@ -24,15 +23,20 @@ const Prices: FC<PricesProps> = ({
   const priceText =
     billingFrequency === RentableBillingFrequencyEnum.Negotiable
       ? "Negociável"
-      : `${String(intlMonetary.format(price))}/${BILLINGFREQUENCY[billingFrequency]}`;
+      : `${String(intlMonetary.format(price))}`;
 
   return (
-    <div className={`${className}`}>
-      <div
-        className={`flex items-center border-2 border-teal-500 rounded-lg ${contentClass}`}
-      >
-        <span className="text-teal-500 !leading-none">{priceText}</span>
-      </div>
+    <div className={`inline-flex text-slate-900 items-center ${contentClass}`}>
+      {billingFrequency === RentableBillingFrequencyEnum.Negotiable ? (
+        "Negociável"
+      ) : (
+        <>
+          <span className="font-semibold leading-none">{priceText}</span>
+          <span className="ml-[1px] font-normal leading-none">
+            {BILLINGFREQUENCY[billingFrequency]}
+          </span>
+        </>
+      )}
     </div>
   );
 };

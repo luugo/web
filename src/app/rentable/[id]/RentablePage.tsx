@@ -45,7 +45,7 @@ const RentablePage = (dataProduct: dataRentable) => {
               </h2>
               <div className="flex items-center">
                 <Prices
-                  contentClass="py-1 px-2 md:py-1.5 md:px-3 text-lg font-semibold"
+                  contentClass="text-lg font-semibold"
                   price={dataProduct.price}
                   billingFrequency={dataProduct.billingFrequency}
                 />
