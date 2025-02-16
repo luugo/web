@@ -16,7 +16,7 @@ import PriceSelectorStep from "./step-price-selector";
 import { useLocalStorage } from "react-use";
 import { Alert } from "@/shared/Alert/Alert";
 import { useRouter } from "next/navigation";
-import { File } from 'node:buffer'
+import { File } from "buffer";
 
 export interface zodFormData {
   category: string;
