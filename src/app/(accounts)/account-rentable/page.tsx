@@ -1,5 +1,5 @@
 "use client";
-import Prices from "@/components/Prices";
+import Prices from "@/components/RentableCard/Prices";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AuthenticationPostDefaultResponse, Rentable, RentableApi } from "@api";
@@ -73,7 +73,7 @@ const AccountOrder = () => {
               <Prices
                 price={price}
                 billingFrequency={billingFrequency}
-                className="mt-0.5 ml-2"
+                priceClass="mt-0.5 ml-2"
               />
             </div>
           </div>

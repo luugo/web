@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Prices from "@/components/Prices";
+import Prices from "@/components/RentableCard/Prices";
 import RentableUserContacts from "@/components/RentableUserContacts";
 import dynamic from "next/dynamic";
 import { dataRentable } from "./page";
@@ -45,7 +45,8 @@ const RentablePage = (dataProduct: dataRentable) => {
               </h2>
               <div className="flex items-center">
                 <Prices
-                  contentClass="py-1 px-2 md:py-1.5 md:px-3 text-lg font-semibold"
+                  priceClass="text-3xl text-teal-500"
+                  frequencyClass="text-base text-slate-400"
                   price={dataProduct.price}
                   billingFrequency={dataProduct.billingFrequency}
                 />
