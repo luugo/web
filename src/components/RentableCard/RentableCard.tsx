@@ -47,12 +47,11 @@ const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
             </div>
             <div className="flex flex-col">
               <Prices
-                priceClass="text-lg text-teal-500"
-                frequencyClass="text-sm text-slate-400"
+                frequencyClass="text-xs text-slate-400 pt-1"
                 price={rentable.price}
                 billingFrequency={rentable.billingFrequency}
               />
-              <span className="text-sm text-slate-500 pt-1">
+              <span className="text-sm text-slate-500">
                 {rentable.place.replace(" Metropolitana", "") || ""}
               </span>
             </div>

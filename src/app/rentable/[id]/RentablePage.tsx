@@ -45,7 +45,8 @@ const RentablePage = (dataProduct: dataRentable) => {
               </h2>
               <div className="flex items-center">
                 <Prices
-                  priceClass="text-lg font-semibold"
+                  priceClass="text-3xl text-teal-500"
+                  frequencyClass="text-base text-slate-400"
                   price={dataProduct.price}
                   billingFrequency={dataProduct.billingFrequency}
                 />

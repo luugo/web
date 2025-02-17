@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import { BILLINGFREQUENCY } from "@/data/billingFrequency";
 import { RentableBillingFrequencyEnum } from "@api";
 
@@ -10,34 +11,42 @@ export interface PricesProps {
 }
 
 const Prices: FC<PricesProps> = ({
-  price = 33,
-  priceClass = "",
+  price = 0,
+  priceClass = "text-lg text-teal-500",
   billingFrequency = "",
-  frequencyClass = "text-sm font-medium",
+  frequencyClass = "text-xs text-slate-400",
 }) => {
+  const integerPart: number = Math.trunc(price);
+  const fractionPart = Math.trunc((price - integerPart) * 100);
+
   const intlMonetary = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
-    minimumFractionDigits: 2,
+    minimumFractionDigits: 0,
   });
 
   const priceText =
-    billingFrequency === RentableBillingFrequencyEnum.Negotiable
-      ? "Negociável"
-      : `${String(intlMonetary.format(price))}`;
+    billingFrequency === RentableBillingFrequencyEnum.Negotiable ? (
+      "Negociável"
+    ) : (
+      <>
+        <span className={`font-semibold ${priceClass}`}>
+          {intlMonetary.format(integerPart)}
+        </span>
+        <span className={`${frequencyClass}`}>
+          {fractionPart.toString().padStart(2, "0")}
+        </span>
+      </>
+    );
 
   return (
-    <div className={`inline-flex items-center`}>
+    <div className={`inline-flex flex-start`}>
       {billingFrequency === RentableBillingFrequencyEnum.Negotiable ? (
         "Negociável"
       ) : (
         <>
-          <span className={`font-semibold leading-none ${priceClass}`}>
-            {priceText}
-          </span>
-          <span
-            className={`ml-[1px] font-normal leading-none ${frequencyClass}`}
-          >
+          {priceText}
+          <span className={`ml-[1px] font-normal ${frequencyClass}`}>
             /{BILLINGFREQUENCY[billingFrequency]}
           </span>
         </>
