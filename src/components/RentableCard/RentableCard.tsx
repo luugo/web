@@ -4,7 +4,6 @@ import React, { FC } from "react";
 import Prices from "./Prices";
 import placeholderSmall from "@/images/placeholder-small.png";
 import NcImage from "@/shared/NcImage/NcImage";
-import { MapPinIcon } from "@heroicons/react/20/solid";
 import { shortStringText } from "@/utils/shortStringText";
 import { Rentable } from "@api";
 import { stripMarkdown } from "@/utils/stripMarkdown";

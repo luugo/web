@@ -12,7 +12,7 @@ const AccountOrder = () => {
   const [rentables, setRentables] = useState<Rentable[]>([]);
   const [auth] = useLocalStorage<AuthenticationPostDefaultResponse | null>(
     "auth",
-    null
+    null,
   );
 
   useEffect(() => {

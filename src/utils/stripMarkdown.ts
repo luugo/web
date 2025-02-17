@@ -40,7 +40,7 @@ export const stripMarkdown = (markdown: string) => {
   // Remove emojis
   text = text.replace(
     /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu,
-    ""
+    "",
   );
 
   // Trim leading/trailing whitespace
