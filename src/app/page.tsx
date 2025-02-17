@@ -196,7 +196,7 @@ function PageHome() {
   };
 
   return (
-    <div className="nc-PageHome relative overflow-hidden">
+    <div className="relative overflow-hidden bg-slate-50">
       {isMobile && showPopup && <MobilePopup os={os} onClose={closePopup} />}
       <div className="flex-row justify-center pt-10 px-10 2xl:px-20 xl:px-20 lg:px-10 md:px-10 sm:px-10">
         <div className="mx-auto w-full flex justify-center">

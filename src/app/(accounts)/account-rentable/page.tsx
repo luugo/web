@@ -73,7 +73,7 @@ const AccountOrder = () => {
               <Prices
                 price={price}
                 billingFrequency={billingFrequency}
-                className="mt-0.5 ml-2"
+                priceClass="mt-0.5 ml-2"
               />
             </div>
           </div>

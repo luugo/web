@@ -118,7 +118,7 @@ const SearchRentable: FC<SearchRentableProps> = ({ onSubmit }) => {
   return (
     <>
       <form
-        className={`text-slate-900 2xl:w-[45%] xl:w-[55%] lg:w-[60%] md:w-[85%] sm:w-full shadow-md ring-2 rounded-full flex items-center gap-2 hover:ring-2 hover:ring-slate-200 ${isFocused ? "ring-teal-400" : "ring-slate-100"}`}
+        className={`bg-white text-slate-900 2xl:w-[45%] xl:w-[55%] lg:w-[60%] md:w-[85%] sm:w-full shadow-md ring-2 rounded-full flex items-center gap-2 hover:ring-2 hover:ring-slate-200 ${isFocused ? "ring-teal-400" : "ring-slate-100"}`}
         onSubmit={handleSearchSubmit}
       >
         <input

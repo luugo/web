@@ -19,39 +19,46 @@ export interface ProductCardProps {
 const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
   return (
     <>
-      <div className={`flex flex-col bg-transparent ${className}`}>
-        <div className="flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-2xl overflow-hidden z-1 group">
-          <UTMLink href={`/rentable/${rentable.id}`} className="block">
+      <div
+        className={`flex flex-col bg-white rounded-xl shadow-md ring-2 ring-slate-100 transition-transform duration-300 hover:shadow-lg hover:ring-slate-200 hover:-translate-y-1 ${className}`}
+      >
+        <UTMLink
+          href={`/rentable/${rentable.id}`}
+          className="flex flex-col h-full justify-between"
+        >
+          <div className="flex-shrink-0 bg-slate-50 p-1 rounded-lg overflow-hidden z-1 group">
             <NcImage
-              containerClassName="flex aspect-w-11 aspect-h-9 w-full h-0"
+              containerClassName="flex aspect-w-11 aspect-h-7 rounded-lg overflow-hidden w-full h-0"
               src={rentable.thumbnail || placeholderSmall}
               className="object-cover w-full h-full object-top"
               fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
+              sizes="(max-width: 720px) 100vw, 40vw"
               alt="product"
             />
-          </UTMLink>
-        </div>
+          </div>
 
-        <div className="px-2 py-2 h-full flex flex-col justify-between gap-4">
-          <div>
-            <h2 className="font-semibold transition-colors text-[clamp(0.4rem,0.2em*1rem,0.8rem)] truncate w-full">
-              {rentable.title}
-            </h2>
-            <p className="text-sm text-slate-500">
-              {stripMarkdown(shortStringText(rentable.description, 60))}
-            </p>
+          <div className="px-4 py-4 h-full flex flex-col justify-between gap-4">
+            <div>
+              <h2 className="font-semibold transition-colors text-[clamp(0.4rem,0.2em*1rem,0.8rem)] truncate w-full">
+                {rentable.title}
+              </h2>
+              <p className="text-sm text-slate-500">
+                {stripMarkdown(shortStringText(rentable.description, 55))}
+              </p>
+            </div>
+            <div className="flex flex-col">
+              <Prices
+                priceClass="text-lg text-teal-500"
+                frequencyClass="text-sm text-slate-400"
+                price={rentable.price}
+                billingFrequency={rentable.billingFrequency}
+              />
+              <span className="text-sm text-slate-500 pt-1">
+                {rentable.place.replace(" Metropolitana", "") || ""}
+              </span>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <span className="text-xs text-slate-500">
-              {rentable.place.replace(" Metropolitana", "") || ""}
-            </span>
-            <Prices
-              price={rentable.price}
-              billingFrequency={rentable.billingFrequency}
-            />
-          </div>
-        </div>
+        </UTMLink>
       </div>
     </>
   );

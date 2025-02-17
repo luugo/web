@@ -3,16 +3,17 @@ import { BILLINGFREQUENCY } from "@/data/billingFrequency";
 import { RentableBillingFrequencyEnum } from "@api";
 
 export interface PricesProps {
-  className?: string;
+  priceClass?: string;
   price?: number;
   billingFrequency?: string;
-  contentClass?: string;
+  frequencyClass?: string;
 }
 
 const Prices: FC<PricesProps> = ({
   price = 33,
+  priceClass = "",
   billingFrequency = "",
-  contentClass = "text-sm font-medium",
+  frequencyClass = "text-sm font-medium",
 }) => {
   const intlMonetary = new Intl.NumberFormat("pt-BR", {
     style: "currency",
@@ -26,14 +27,18 @@ const Prices: FC<PricesProps> = ({
       : `${String(intlMonetary.format(price))}`;
 
   return (
-    <div className={`inline-flex text-slate-900 items-center ${contentClass}`}>
+    <div className={`inline-flex items-center`}>
       {billingFrequency === RentableBillingFrequencyEnum.Negotiable ? (
         "Negociável"
       ) : (
         <>
-          <span className="font-semibold leading-none">{priceText}</span>
-          <span className="ml-[1px] font-normal leading-none">
-            {BILLINGFREQUENCY[billingFrequency]}
+          <span className={`font-semibold leading-none ${priceClass}`}>
+            {priceText}
+          </span>
+          <span
+            className={`ml-[1px] font-normal leading-none ${frequencyClass}`}
+          >
+            /{BILLINGFREQUENCY[billingFrequency]}
           </span>
         </>
       )}
