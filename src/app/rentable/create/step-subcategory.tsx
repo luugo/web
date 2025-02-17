@@ -2,7 +2,8 @@ import {
   Category,
   CategoryApi,
   CategoryGetRequest,
-  CategoryGetTypeEnum, ResponseError,
+  CategoryGetTypeEnum,
+  ResponseError,
 } from "@api";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -82,7 +83,8 @@ const SubcategoryStep = ({
         Em qual dessas categorias seu anúncio se encaixa?
       </h2>
       <h2 className="text-base mb-10">
-        Muitos usuários pesquisam anúncios através das categorias. Por isso é importante escolher uma que seja relevante para o seu anúncio.
+        Muitos usuários pesquisam anúncios através das categorias. Por isso é
+        importante escolher uma que seja relevante para o seu anúncio.
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -105,8 +107,11 @@ const SubcategoryStep = ({
         )
       </div>
 
-      {errors.subcategory && <p className="mt-4 text-red-500">{errors.subcategory.message || "Erro ao selecionar categoria"}</p>}
-
+      {errors.subcategory && (
+        <p className="mt-4 text-red-500">
+          {errors.subcategory.message || "Erro ao selecionar categoria"}
+        </p>
+      )}
     </div>
   );
 };
