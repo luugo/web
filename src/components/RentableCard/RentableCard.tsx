@@ -27,7 +27,7 @@ const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
         >
           <div className="flex-shrink-0 bg-slate-50 p-1 rounded-lg overflow-hidden z-1 group">
             <NcImage
-              containerClassName="flex aspect-w-11 aspect-h-7 rounded-lg overflow-hidden w-full h-0"
+              containerClassName="flex aspect-w-11 aspect-h-11 rounded-lg overflow-hidden w-full h-0"
               src={rentable.thumbnail || placeholderSmall}
               className="object-cover w-full h-full object-top"
               fill
@@ -47,7 +47,7 @@ const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
             </div>
             <div className="flex flex-col">
               <Prices
-                frequencyClass="text-xs text-slate-400 pt-1"
+                frequencyClass="text-xs text-slate-400"
                 price={rentable.price}
                 billingFrequency={rentable.billingFrequency}
               />

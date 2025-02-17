@@ -14,7 +14,7 @@ const Prices: FC<PricesProps> = ({
   price = 0,
   priceClass = "text-lg text-teal-500",
   billingFrequency = "",
-  frequencyClass = "text-xs text-slate-400",
+  frequencyClass = "text-xs text-slate-400 self-end",
 }) => {
   const integerPart: number = Math.trunc(price);
   const fractionPart = Math.trunc((price - integerPart) * 100);
@@ -30,17 +30,17 @@ const Prices: FC<PricesProps> = ({
       "Negociável"
     ) : (
       <>
-        <span className={`font-semibold ${priceClass}`}>
+        <span className={`font-semibold leading-none ${priceClass}`}>
           {intlMonetary.format(integerPart)}
         </span>
-        <span className={`${frequencyClass}`}>
+        <span className={`self-start leading-none ${frequencyClass}`}>
           {fractionPart.toString().padStart(2, "0")}
         </span>
       </>
     );
 
   return (
-    <div className={`inline-flex flex-start`}>
+    <div className={`inline-flex items-end`}>
       {billingFrequency === RentableBillingFrequencyEnum.Negotiable ? (
         "Negociável"
       ) : (
