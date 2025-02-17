@@ -20,7 +20,7 @@ const libs: Library[] = ["core", "places", "maps", "marker"];
 const RentablePage = (dataProduct: dataRentable) => {
   const [processedDescription, setProcessedDescription] = useState("");
   const [isClient, setIsClient] = useState(false);
-  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [, setMap] = useState<google.maps.Map | null>(null);
   const mapRef = useRef<HTMLDivElement>(null);
 
   const { isLoaded } = useJsApiLoader({

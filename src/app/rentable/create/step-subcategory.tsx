@@ -75,7 +75,7 @@ const SubcategoryStep = ({
     };
 
     fetchSubcategories();
-  }, []);
+  }, [categoryType]);
 
   return (
     <div className="p-4 m-auto">
