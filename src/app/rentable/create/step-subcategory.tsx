@@ -1,27 +1,40 @@
-import { Category, CategoryApi, CategoryGetRequest, CategoryGetTypeEnum } from "@api";
+import {
+  Category,
+  CategoryApi,
+  CategoryGetRequest,
+  CategoryGetTypeEnum, ResponseError,
+} from "@api";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useUnmount } from "react-use";
 import { Icon } from "./icons";
+import { FieldErrors, UseFormSetValue, UseFormTrigger } from "react-hook-form";
+import { zodFormData } from "@/app/rentable/create/page";
 
 interface SubcategoryStepProps {
-  setValue: any;
-  trigger: any;
-  errors: any;
+  errors: FieldErrors<zodFormData>;
+  setValue: UseFormSetValue<zodFormData>;
+  trigger: UseFormTrigger<zodFormData>;
   selectedSubcategory: string | null;
   setSelectedSubcategory: (subcategory: string) => void;
   selectedCategory: CategoryGetTypeEnum | undefined;
 }
 
-const SubcategoryStep = ({ setValue, trigger, errors, selectedSubcategory, selectedCategory, setSelectedSubcategory }: SubcategoryStepProps) => {
+const SubcategoryStep = ({
+  setValue,
+  trigger,
+  errors,
+  selectedSubcategory,
+  selectedCategory,
+  setSelectedSubcategory,
+}: SubcategoryStepProps) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
 
   const categoryType: CategoryGetTypeEnum | undefined = selectedCategory
     ? ((Array.isArray(selectedCategory)
-      ? selectedCategory.toUpperCase()
-      : selectedCategory.toUpperCase()) as CategoryGetTypeEnum)
+        ? selectedCategory.toUpperCase()
+        : selectedCategory.toUpperCase()) as CategoryGetTypeEnum)
     : undefined;
 
   const _setSelectedSubcategory = (categoryId: string) => {
@@ -34,22 +47,27 @@ const SubcategoryStep = ({ setValue, trigger, errors, selectedSubcategory, selec
     trigger("subcategory");
   };
 
-  useUnmount(() => {
-    console.log("Unmounted");
-    console.log(errors.subcategory)
-  })
-
   useEffect(() => {
     const fetchSubcategories = async () => {
       try {
         const categoryApi = new CategoryApi();
         const requestParams: CategoryGetRequest = {
           type: categoryType,
-          isActive: true
+          isActive: true,
         };
         setCategories(await categoryApi?.categoryGet(requestParams));
-      } catch (err: any) {
-        setError(err.message);
+      } catch (error: unknown) {
+        if (error instanceof ResponseError) {
+          const errorData = await error.response?.json();
+          if (errorData) {
+            const message = errorData[0]?.message;
+            if (message == null) {
+              setError("Erro inesperado. Por favor, tente novamente.");
+            } else {
+              setError(message);
+            }
+          }
+        }
       } finally {
         setLoading(false);
       }
@@ -60,12 +78,17 @@ const SubcategoryStep = ({ setValue, trigger, errors, selectedSubcategory, selec
 
   return (
     <div className="p-4 m-auto">
-      <h2 className="text-xl font-bold mb-4">Em qual dessas categorias seu anúncio se encaixa?</h2>
-      <h2 className="text-base mb-10">Muitos usuários pesquisam anúncios através das categorias. Por isso é importante escolher uma que seja relevante para o seu anúncio.</h2>
+      <h2 className="text-xl font-bold mb-4">
+        Em qual dessas categorias seu anúncio se encaixa?
+      </h2>
+      <h2 className="text-base mb-10">
+        Muitos usuários pesquisam anúncios através das categorias. Por isso é importante escolher uma que seja relevante para o seu anúncio.
+      </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {loading ?
-          <p>Loading subcategories...</p> :
+        {loading ? (
+          <p>Loading subcategories...</p>
+        ) : (
           categories.map((sub: Category) => (
             <motion.div
               key={sub.id}
@@ -77,7 +100,9 @@ const SubcategoryStep = ({ setValue, trigger, errors, selectedSubcategory, selec
               {<Icon code={sub.icon as number} />}
               <p className="mt-2 font-semibold">{sub.title}</p>
             </motion.div>
-          ))}
+          ))
+        )}
+        )
       </div>
 
       {errors.subcategory && <p className="mt-4 text-red-500">{errors.subcategory.message || "Erro ao selecionar categoria"}</p>}

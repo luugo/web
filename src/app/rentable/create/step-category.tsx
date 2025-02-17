@@ -1,28 +1,81 @@
-import { FC, useState } from "react";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBuildingUser, faCar, faScrewdriverWrench, faVolleyball } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBuildingUser,
+  faCar,
+  faScrewdriverWrench,
+  faVolleyball,
+} from "@fortawesome/free-solid-svg-icons";
 import { CategoryGetTypeEnum } from "@api";
+import { FieldErrors, UseFormSetValue, UseFormTrigger } from "react-hook-form";
+import { zodFormData } from "@/app/rentable/create/page";
 
 interface CategoryStepProps {
-  setValue: any;
-  trigger: any;
-  errors: any;
+  setValue: UseFormSetValue<zodFormData>;
+  trigger: UseFormTrigger<zodFormData>;
+  errors: FieldErrors<zodFormData>;
   selectedCategory: CategoryGetTypeEnum | undefined;
   setSelectedCategory: (category: CategoryGetTypeEnum) => void;
 }
 
-const CategoryStep = ({ setValue, trigger, errors, selectedCategory, setSelectedCategory }: CategoryStepProps) => {
-
+const CategoryStep = ({
+  setValue,
+  trigger,
+  errors,
+  selectedCategory,
+  setSelectedCategory,
+}: CategoryStepProps) => {
   const _setSelectedCategory = (category: CategoryGetTypeEnum) => {
     setSelectedCategory(category);
   };
 
   const categories = [
-    { id: "item", label: "Item", icon: <FontAwesomeIcon size="5x" icon={faVolleyball} className="text-amber-300" />, description: "Alugue ferramentas, equipamentos e outros objetos." },
-    { id: "place", label: "Local", icon: <FontAwesomeIcon size="5x" icon={faBuildingUser} className="text-amber-300" />, description: "Ofereça espaços como casas, salas, escritórios e eventos." },
-    { id: "service", label: "Serviço", icon: <FontAwesomeIcon size="5x" icon={faScrewdriverWrench} className="text-amber-300" />, description: "Divulgue serviços como manutenção, transporte, fotografia e mais." },
-    { id: "auto", label: "Veículo", icon: <FontAwesomeIcon size="5x" icon={faCar} className="text-amber-300" />, description: "Disponibilize carros, motos, bicicletas ou outros veículos para aluguel." }
+    {
+      id: "item",
+      label: "Item",
+      icon: (
+        <FontAwesomeIcon
+          size="5x"
+          icon={faVolleyball}
+          className="text-amber-300"
+        />
+      ),
+      description: "Alugue ferramentas, equipamentos e outros objetos.",
+    },
+    {
+      id: "place",
+      label: "Local",
+      icon: (
+        <FontAwesomeIcon
+          size="5x"
+          icon={faBuildingUser}
+          className="text-amber-300"
+        />
+      ),
+      description: "Ofereça espaços como casas, salas, escritórios e eventos.",
+    },
+    {
+      id: "service",
+      label: "Serviço",
+      icon: (
+        <FontAwesomeIcon
+          size="5x"
+          icon={faScrewdriverWrench}
+          className="text-amber-300"
+        />
+      ),
+      description:
+        "Divulgue serviços como manutenção, transporte, fotografia e mais.",
+    },
+    {
+      id: "auto",
+      label: "Veículo",
+      icon: (
+        <FontAwesomeIcon size="5x" icon={faCar} className="text-amber-300" />
+      ),
+      description:
+        "Disponibilize carros, motos, bicicletas ou outros veículos para aluguel.",
+    },
   ];
 
   const onCategorySelect = (category: CategoryGetTypeEnum) => {
@@ -33,8 +86,12 @@ const CategoryStep = ({ setValue, trigger, errors, selectedCategory, setSelected
 
   return (
     <div className="p-4 m-auto">
-      <h2 className="text-xl font-bold mb-4">O que você quer anunciar no LuuGo?</h2>
-      <h2 className="text-base mb-10">Aqui você escolhe o tipo de anuncio que quer fazer:</h2>
+      <h2 className="text-xl font-bold mb-4">
+        O que você quer anunciar no LuuGo?
+      </h2>
+      <h2 className="text-base mb-10">
+        Aqui você escolhe o tipo de anuncio que quer fazer:
+      </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {categories.map((cat) => (
@@ -57,8 +114,11 @@ const CategoryStep = ({ setValue, trigger, errors, selectedCategory, setSelected
         </motion.p>
       )}
 
-      {errors.category && <p className="mt-2 text-red-500">{errors.category.message || "Erro ao selecionar categoria"}</p>}
-
+      {errors.category && (
+        <p className="mt-2 text-red-500">
+          {errors.category.message || "Erro ao selecionar categoria"}
+        </p>
+      )}
     </div>
   );
 };

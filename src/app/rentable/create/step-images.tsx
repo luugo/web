@@ -6,23 +6,33 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useDropzone } from "react-dropzone";
 import Input from "@/shared/Input/Input";
+import { FieldErrors, UseFormSetValue, UseFormTrigger } from "react-hook-form";
+import { zodFormData } from "@/app/rentable/create/page";
 
 interface ImagesStepProps {
-  setValue: any;
-  trigger: any;
-  errors: any;
+  setValue: UseFormSetValue<zodFormData>;
+  trigger: UseFormTrigger<zodFormData>;
+  errors: FieldErrors<zodFormData>;
   previewImages: string[];
   setPreviewImages: (category: string[]) => void;
 }
 
-const ImagesStep = ({ setValue, trigger, errors, setPreviewImages, previewImages }: ImagesStepProps) => {
+const ImagesStep = ({
+  setValue,
+  trigger,
+  errors,
+  setPreviewImages,
+  previewImages,
+}: ImagesStepProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const _setPreviewImages = (previews: string[]) => {
     setPreviewImages(previews);
   };
 
-  const [slidesPerView, setSlidesPerView] = useState<number>(Math.min(previewImages.length, 3));
+  const [slidesPerView, setSlidesPerView] = useState<number>(
+    Math.min(previewImages.length, 3),
+  );
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files ? Array.from(e.target.files) : [];
@@ -41,12 +51,14 @@ const ImagesStep = ({ setValue, trigger, errors, setPreviewImages, previewImages
     const previews = files.map((file) => URL.createObjectURL(file));
     _setPreviewImages(previews);
     setSlidesPerView(Math.min(files.length, 3));
-  }
+  };
 
-
-  const onDrop = useCallback((acceptedFiles: any) => {
-    handleFiles(acceptedFiles);
-  }, [setValue, trigger, _setPreviewImages, setSlidesPerView]);
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      handleFiles(acceptedFiles);
+    },
+    [setValue, trigger, _setPreviewImages, setSlidesPerView],
+  );
 
   const { getRootProps, isDragActive } = useDropzone({ onDrop });
 
@@ -58,11 +70,25 @@ const ImagesStep = ({ setValue, trigger, errors, setPreviewImages, previewImages
 
   return (
     <div className="p-4 m-auto">
-      <h2 className="text-xl font-bold mb-4">Adicionar várias fotos aumenta a qualidade da sua publicação.</h2>
-      <h2 className="text-base mb-10">Boas fotos aumentam as chances de aluguel.</h2>
+      <h2 className="text-xl font-bold mb-4">
+        Adicionar várias fotos aumenta a qualidade da sua publicação.
+      </h2>
+      <h2 className="text-base mb-10">
+        Boas fotos aumentam as chances de aluguel.
+      </h2>
 
-      <div {...getRootProps()} className="border rounded-lg p-4 cursor-pointer flex flex-col items-center justify-center py-10">
-        <Input ref={inputRef} type="file" multiple accept="image/*" onChange={handleFileChange} className="hidden" />
+      <div
+        {...getRootProps()}
+        className="border rounded-lg p-4 cursor-pointer flex flex-col items-center justify-center py-10"
+      >
+        <Input
+          ref={inputRef}
+          type="file"
+          multiple
+          accept="image/*"
+          onChange={handleFileChange}
+          className="hidden"
+        />
         {isDragActive ? (
           <p>Arraste e solte as imagens aqui...</p>
         ) : (
@@ -70,7 +96,11 @@ const ImagesStep = ({ setValue, trigger, errors, setPreviewImages, previewImages
             Arraste e solte as imagens aqui, ou clique para selecionar arquivos.
           </p>
         )}
-        <button type="button" onClick={handleButtonClick} className="mt-2 bg-slate-900 hover:bg-slate-800 rounded-md text-white py-2 px-4">
+        <button
+          type="button"
+          onClick={handleButtonClick}
+          className="mt-2 bg-slate-900 hover:bg-slate-800 rounded-md text-white py-2 px-4"
+        >
           Selecionar Arquivos
         </button>
       </div>
@@ -88,7 +118,11 @@ const ImagesStep = ({ setValue, trigger, errors, setPreviewImages, previewImages
         >
           {previewImages.map((src, index) => (
             <SwiperSlide className="pb-8 pt-2" key={index}>
-              <img src={src} alt={`Preview ${index}`} className="w-full h-full object-contain" />
+              <img
+                src={src}
+                alt={`Preview ${index}`}
+                className="w-full h-full object-contain"
+              />
             </SwiperSlide>
           ))}
         </Swiper>

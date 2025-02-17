@@ -113,16 +113,13 @@ const AccountOrder = () => {
       <h2 className="text-2xl sm:text-3xl font-semibold">Meus Anúncios</h2>
       {rentables.length > 0 ? (
         <>
-          <Link
+          <UTMLink
             href="/rentable/create"
             className="flex justify-center bg-gray-100 max-w-7xl py-6 sm:px-6 lg:px-8 hover:text-gray-100 hover:bg-gray-900 rounded-md text-sm font-semibold"
           >
-            <PlusIcon
-              aria-hidden="true"
-              className="size-6 mr-2 "
-            />
+            <PlusIcon aria-hidden="true" className="size-6 mr-2 " />
             <span className="mt-0.5">CADASTRE UM NOVO ANÚNCIO</span>
-          </Link>
+          </UTMLink>
           {renderOrder({ myRentables: rentables })}
         </>
       ) : (
