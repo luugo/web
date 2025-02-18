@@ -121,7 +121,7 @@ const ImagesStep = ({
             if (src) {
               return (
                 <SwiperSlide className="pb-8 pt-2" key={index}>
-                  <Image
+                  <img
                     src={src}
                     alt={`Preview ${index}`}
                     className="w-full h-full object-contain"

@@ -7,7 +7,6 @@ import {
 } from "@api";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Icon } from "./icons";
 import { FieldErrors, UseFormSetValue, UseFormTrigger } from "react-hook-form";
 import { zodFormData } from "@/app/rentable/create/page";
 
@@ -95,16 +94,18 @@ const SubcategoryStep = ({
             <motion.div
               key={sub.id}
               whileTap={{ scale: 0.9 }}
-              className={`p-4 border-2 rounded-lg text-center cursor-pointer transition-all border-blue-950
+              className={`p-4 border-2 rounded-lg text-center cursor-pointer transition-all border-blue-950 flex flex-col items-center justify-center
             ${selectedSubcategory === sub.id ? "text-white bg-blue-950" : "text-blue-950"}`}
               onClick={() => onSubcategorySelect(sub.id as string)}
             >
-              {<Icon code={sub.icon as number} />}
+              <div
+                className={`h-14 w-full min-w-14 max-w-20 *:h-full bg-center p-2 box-border fill-amber-300 flex items-center justify-center`}
+                dangerouslySetInnerHTML={{ __html: sub.iconSvg ?? "" }}
+              ></div>
               <p className="mt-2 font-semibold">{sub.title}</p>
             </motion.div>
           ))
         )}
-        )
       </div>
 
       {errors.subcategory && (
