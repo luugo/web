@@ -202,7 +202,7 @@ function PageHome() {
         <div className="mx-auto w-full flex justify-center">
           <SearchRentable onSubmit={onSubmit} />
         </div>
-        <div className="grid gap-6 py-10 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
+        <div className="grid gap-6 py-10 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
           {rentableLatLong === undefined ? (
             <>
               {[...Array(12)].map((_, index) => (
@@ -211,11 +211,7 @@ function PageHome() {
             </>
           ) : rentableLatLong.length > 0 ? (
             rentableLatLong.map((rentable, index) => (
-              <RentableCard
-                className={"h-full"}
-                rentable={rentable}
-                key={index}
-              />
+              <RentableCard rentable={rentable} key={index} />
             ))
           ) : (
             <>
