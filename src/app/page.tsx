@@ -4,15 +4,11 @@ import logoImg from "@/images/logo.svg";
 import Image from "next/image";
 import { useUserContext } from "@/context";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import {
-  Place,
-  Rentable,
-  RentableApi,
-  RentableSearchInputGetRequest,
-} from "@api";
+import { Place, Rentable, RentableApi } from "@api";
 import RentableCard from "@/components/RentableCard/RentableCard";
 import RentableCardSkeleton from "@/components/Skeleton/RentableCard";
-import SearchRentable from "@/components/Header/SearchRentable";
+import HomeSearch from "@/components/Search/HomeSearch";
+import useDataSearch from "@/components/Search/dataSearch";
 
 interface MobilePopupProps {
   os?: "android" | "ios";
@@ -108,74 +104,46 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
 };
 
 function PageHome() {
-  const { geolocation, handleGeolocationChange } = useUserContext();
+  const { geolocation } = useUserContext();
   const [isMobile, setIsMobile] = useState(false);
   const [os, setOs] = useState<"android" | "ios" | undefined>(undefined);
   const [showPopup, setShowPopup] = useState(true);
   const [selectedPlace] = useLocalStorage<Place | null>("selectedPlace", null);
-  const [rentableLatLong, setrentableLatLong] = useState<
-    Rentable[] | undefined
-  >(undefined);
-
-  const onSubmit = (searchTerm: string) => {
-    if (searchTerm.length === 0) return;
-    const rentableApi = new RentableApi();
-    const requestParameters: RentableSearchInputGetRequest = {
-      input: searchTerm,
-    };
-
-    rentableApi
-      .rentableSearchInputGet(requestParameters)
-      .then((response) => {
-        const rentablesWithLinks = response.map((item) => ({
-          ...item,
-          link: `/rentable/${item.id}`,
-        }));
-
-        setrentableLatLong(rentablesWithLinks);
-      })
-      .catch(console.error);
-  };
+  const [rentables, setRentables] = useState<Rentable[] | undefined>(undefined);
+  const { searchTerm, categoryId } = useDataSearch();
 
   useEffect(() => {
+    const rentableApi = new RentableApi();
     const userAgent = navigator.userAgent;
-
     const mobile = /android|iphone|ipad|ipod/i.test(userAgent);
     setIsMobile(mobile);
 
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(async ({ coords }) => {
-        const { latitude, longitude } = coords;
-        handleGeolocationChange(latitude, longitude);
-      });
-    }
+    (async () => {
+      let rentables: Rentable[] = [];
+      if (searchTerm) {
+        rentables = await rentableApi.rentableSearchInputGet({
+          input: searchTerm,
+        });
+      } else if (categoryId) {
+        rentables = await rentableApi.rentableGet({
+          categoryId,
+          place: selectedPlace?.id,
+        });
+      } else {
+        rentables = await rentableApi.rentableNewInTownGet({
+          place: selectedPlace?.id || "Natal e Região Metropolitana",
+        });
+      }
+
+      setRentables(rentables);
+    })();
 
     if (/android/i.test(userAgent)) {
       setOs("android");
     } else if (/iPad|iPhone|iPod/.test(userAgent)) {
       setOs("ios");
     }
-  }, [handleGeolocationChange]);
-
-  useEffect(() => {
-    const rentableApi = new RentableApi();
-    (async () => {
-      if (geolocation.lat !== undefined && geolocation.long !== undefined) {
-        const rentables = await rentableApi.rentableNearbyLatitudeLongitudeGet({
-          latitude: geolocation.lat,
-          longitude: geolocation.long,
-        });
-        shuffle(rentables);
-        setrentableLatLong(rentables);
-      } else {
-        const rentables = await rentableApi.rentableNewInTownGet({
-          place: selectedPlace?.id || "Natal e Região Metropolitana",
-        });
-        shuffle(rentables);
-        setrentableLatLong(rentables);
-      }
-    })();
-  }, [geolocation, selectedPlace?.id]);
+  }, [geolocation, selectedPlace?.id, searchTerm, categoryId]);
 
   function shuffle(array: Rentable[]) {
     let currentIndex = array.length;
@@ -199,18 +167,16 @@ function PageHome() {
     <div className="relative overflow-hidden bg-slate-50">
       {isMobile && showPopup && <MobilePopup os={os} onClose={closePopup} />}
       <div className="flex-row justify-center pt-10 px-10 2xl:px-20 xl:px-20 lg:px-10 md:px-10 sm:px-10">
-        <div className="mx-auto w-full flex justify-center">
-          <SearchRentable onSubmit={onSubmit} />
-        </div>
-        <div className="grid gap-6 py-10 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
-          {rentableLatLong === undefined ? (
+        <HomeSearch />
+        <div className="grid gap-6 pb-10 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
+          {rentables === undefined ? (
             <>
               {[...Array(12)].map((_, index) => (
                 <RentableCardSkeleton key={index} />
               ))}
             </>
-          ) : rentableLatLong.length > 0 ? (
-            rentableLatLong.map((rentable, index) => (
+          ) : rentables.length > 0 ? (
+            rentables.map((rentable, index) => (
               <RentableCard rentable={rentable} key={index} />
             ))
           ) : (
