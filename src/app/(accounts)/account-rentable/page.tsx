@@ -6,6 +6,7 @@ import { AuthenticationPostDefaultResponse, Rentable, RentableApi } from "@api";
 import { useRouter } from "next/navigation";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import UTMLink from "@/components/UTMLink";
+import { PlusIcon } from "@heroicons/react/24/outline";
 
 const AccountOrder = () => {
   const router = useRouter();
@@ -45,6 +46,7 @@ const AccountOrder = () => {
       description,
       id,
     } = rentable;
+
     return (
       <UTMLink
         href={`/rentable/${id}`}
@@ -87,7 +89,7 @@ const AccountOrder = () => {
                 type="button"
                 className="font-medium text-indigo-600 dark:text-primary-500 "
               >
-                Visualzar
+                Visualizar
               </button>
             </div>
           </div>
@@ -110,9 +112,41 @@ const AccountOrder = () => {
     <div className="space-y-10 sm:space-y-12">
       <h2 className="text-2xl sm:text-3xl font-semibold">Meus Anúncios</h2>
       {rentables.length > 0 ? (
-        renderOrder({ myRentables: rentables })
+        <>
+          <UTMLink
+            href="/rentable/create"
+            className="flex justify-center bg-gray-100 max-w-7xl py-6 sm:px-6 lg:px-8 hover:text-gray-100 hover:bg-gray-900 rounded-md text-sm font-semibold"
+          >
+            <PlusIcon aria-hidden="true" className="size-6 mr-2 " />
+            <span className="mt-0.5">CADASTRE UM NOVO ANÚNCIO</span>
+          </UTMLink>
+          {renderOrder({ myRentables: rentables })}
+        </>
       ) : (
-        <h1>Nenhum item foi encontrado.</h1>
+        <div className="bg-gray-100">
+          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h1 className="mt-4 text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
+                Você ainda não tem nenhum aluguel.
+              </h1>
+              <p className="mt-6 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
+                Considere listar algo para ter a chance de ganhar algum dinheiro
+                extra.
+              </p>
+              <div className="mt-10 flex items-center justify-center gap-x-6">
+                <UTMLink
+                  href="/rentable/create"
+                  className="rounded-md bg-slate-900 hover:bg-slate-800 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  <PlusIcon
+                    aria-hidden="true"
+                    className="size-6 text-white group-hover:text-white"
+                  />
+                </UTMLink>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -7,4 +7,9 @@ export const NAVIGATION: NavItemType[] = [
     href: "/category",
     name: "Categorias",
   },
+  {
+    id: ncNanoId(),
+    href: "/account-rentable",
+    name: "Meus Anúncios",
+  },
 ];

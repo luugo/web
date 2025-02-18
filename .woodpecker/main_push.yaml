@@ -6,7 +6,7 @@ when:
 
 steps:
   - name: build
-    image: node:18
+    image: node:20
     commands:
       - npm install
       - npm run build

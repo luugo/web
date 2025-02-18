@@ -20,7 +20,7 @@ const pages: {
     link: "/account",
   },
   {
-    name: " Meus itens",
+    name: " Meus anúncios",
     link: "/account-rentable",
   },
   {

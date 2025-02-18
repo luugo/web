@@ -22,6 +22,11 @@ import {
     CategoryToJSON,
 } from '../models/index';
 
+export interface CategoryActiveGetRequest {
+    acceptLanguage?: string;
+    place?: string;
+}
+
 export interface CategoryDeleteRequest {
     acceptLanguage?: string;
     id?: string;
@@ -56,6 +61,42 @@ export interface CategoryPutRequest {
  * 
  */
 export class CategoryApi extends runtime.BaseAPI {
+
+    /**
+     * Read Operation
+     * C[R]UD
+     */
+    async categoryActiveGetRaw(requestParameters: CategoryActiveGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Category>>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.place !== undefined) {
+            queryParameters['place'] = requestParameters.place;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
+        const response = await this.request({
+            path: `/category/active`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(CategoryFromJSON));
+    }
+
+    /**
+     * Read Operation
+     * C[R]UD
+     */
+    async categoryActiveGet(requestParameters: CategoryActiveGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Category>> {
+        const response = await this.categoryActiveGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Delete Operation

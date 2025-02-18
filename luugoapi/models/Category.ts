@@ -61,6 +61,12 @@ export interface Category {
      * @type {string}
      * @memberof Category
      */
+    iconSvg?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Category
+     */
     parentCategoryId?: string | null;
     /**
      * 
@@ -107,6 +113,7 @@ export function CategoryFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'updatedAt': !exists(json, 'updatedAt') ? undefined : (json['updatedAt'] === null ? null : new Date(json['updatedAt'])),
         'title': json['title'],
         'icon': !exists(json, 'icon') ? undefined : json['icon'],
+        'iconSvg': !exists(json, 'iconSvg') ? undefined : json['iconSvg'],
         'parentCategoryId': !exists(json, 'parentCategoryId') ? undefined : json['parentCategoryId'],
         'isActive': !exists(json, 'isActive') ? undefined : json['isActive'],
         'isVisibleInHome': !exists(json, 'isVisibleInHome') ? undefined : json['isVisibleInHome'],
@@ -126,6 +133,7 @@ export function CategoryToJSON(value?: Category | null): any {
         'id': value.id,
         'title': value.title,
         'icon': value.icon,
+        'iconSvg': value.iconSvg,
         'parentCategoryId': value.parentCategoryId,
         'isActive': value.isActive,
         'isVisibleInHome': value.isVisibleInHome,
