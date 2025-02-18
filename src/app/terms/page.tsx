@@ -181,6 +181,27 @@ const Terms = () => {
                 na descrição do seu anúncio.
               </p>
             </div>
+            <div className="my-1">
+              <p>
+                <b>4.4 Proibição de Anúncio de Serviços Ilegais ou Incompatíveis com a Legislação</b>
+              </p>
+              <p>
+                O Usuário se compromete a não anunciar, promover ou oferecer,
+                por meio do LuuGo, produtos ou serviços que sejam ilegais,
+                contrários à moral e aos bons costumes, ou que violem normas
+                específicas aplicáveis à sua atividade. Isso inclui, mas não se
+                limita a, serviços financeiros irregulares, como a oferta de
+                empréstimos sem autorização dos órgãos competentes, atividades
+                que exijam licenciamento prévio e não possuam a devida
+                regularização, bem como qualquer outro serviço cuja divulgação
+                seja proibida por lei. O LuuGo reserva-se o direito de remover
+                qualquer anúncio que, a seu exclusivo critério ou mediante
+                determinação legal ou administrativa, seja considerado
+                incompatível com esta cláusula, podendo ainda suspender ou
+                excluir a conta do Usuário infrator, sem prejuízo de eventuais
+                medidas legais cabíveis.
+              </p>
+            </div>
           </div>
         </div>
         {/* <!-- end Gerenciamento do seu anúncio --> */}
