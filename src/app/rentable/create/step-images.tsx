@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -117,15 +117,19 @@ const ImagesStep = ({
           pagination={{ clickable: false }}
           className="w-full h-64 border rounded-lg overflow-hidden mt-4"
         >
-          {previewImages.map((src, index) => (
-            <SwiperSlide className="pb-8 pt-2" key={index}>
-              <Image
-                src={src}
-                alt={`Preview ${index}`}
-                className="w-full h-full object-contain"
-              />
-            </SwiperSlide>
-          ))}
+          {previewImages.map((src, index) => {
+            if (src) {
+              return (
+                <SwiperSlide className="pb-8 pt-2" key={index}>
+                  <Image
+                    src={src}
+                    alt={`Preview ${index}`}
+                    className="w-full h-full object-contain"
+                  />
+                </SwiperSlide>
+              );
+            }
+          })}
         </Swiper>
       )}
     </div>
