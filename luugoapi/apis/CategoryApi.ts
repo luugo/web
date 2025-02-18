@@ -57,6 +57,11 @@ export interface CategoryPutRequest {
     acceptLanguage?: string;
 }
 
+export interface CategorySearchRentableGetRequest {
+    input: string;
+    acceptLanguage?: string;
+}
+
 /**
  * 
  */
@@ -320,6 +325,42 @@ export class CategoryApi extends runtime.BaseAPI {
      */
     async categoryPut(requestParameters: CategoryPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
         const response = await this.categoryPutRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Read Operation
+     * C[R]UD
+     */
+    async categorySearchRentableGetRaw(requestParameters: CategorySearchRentableGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Category>>> {
+        if (requestParameters.input === null || requestParameters.input === undefined) {
+            throw new runtime.RequiredError('input','Required parameter requestParameters.input was null or undefined when calling categorySearchRentableGet.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
+        const response = await this.request({
+            path: `/category/search-rentable/{input}`.replace(`{${"input"}}`, encodeURIComponent(String(requestParameters.input))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(CategoryFromJSON));
+    }
+
+    /**
+     * Read Operation
+     * C[R]UD
+     */
+    async categorySearchRentableGet(requestParameters: CategorySearchRentableGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Category>> {
+        const response = await this.categorySearchRentableGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

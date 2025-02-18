@@ -59,6 +59,7 @@ export interface RentablePutRequest {
 export interface RentableSearchInputGetRequest {
     input: string;
     acceptLanguage?: string;
+    categoryId?: string;
 }
 
 /**
@@ -345,6 +346,10 @@ export class RentableApi extends runtime.BaseAPI {
         }
 
         const queryParameters: any = {};
+
+        if (requestParameters.categoryId !== undefined) {
+            queryParameters['categoryId'] = requestParameters.categoryId;
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
