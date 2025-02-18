@@ -19,15 +19,15 @@ const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
   return (
     <>
       <div
-        className={`flex flex-col bg-white rounded-xl shadow-md ring-2 ring-slate-100 transition-transform duration-300 hover:shadow-lg hover:ring-slate-200 hover:-translate-y-1 ${className}`}
+        className={`bg-white rounded-xl shadow-md ring-2 ring-slate-100 transition-transform duration-300 hover:shadow-lg hover:ring-slate-200 hover:-translate-y-1 w-full h-full ${className}`}
       >
         <UTMLink
           href={`/rentable/${rentable.id}`}
-          className="flex flex-col h-full justify-between"
+          className="flex flex-col h-full justify-between w-full h-full"
         >
           <div className="flex-shrink-0 bg-slate-50 p-1 rounded-lg overflow-hidden z-1 group">
             <NcImage
-              containerClassName="flex aspect-w-11 aspect-h-11 rounded-lg overflow-hidden w-full h-0"
+              containerClassName="flex aspect-w-1 aspect-h-1 rounded-lg overflow-hidden w-full mx-auto"
               src={rentable.thumbnail || placeholderSmall}
               className="object-cover w-full h-full object-top"
               fill
