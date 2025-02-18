@@ -7,10 +7,10 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Heading from "@/components/Heading/Heading";
 
-import CategoryStep from "./step-category";
+import CategoryStep from "./step-type";
 import DetailsStep from "./step-details";
 import ImagesStep from "./step-images";
-import SubcategoryStep from "./step-subcategory";
+import SubcategoryStep from "./step-category";
 import {
   AuthenticationPostDefaultResponse,
   CategoryGetTypeEnum,

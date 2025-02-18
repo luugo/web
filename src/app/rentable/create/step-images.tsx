@@ -8,7 +8,6 @@ import { useDropzone } from "react-dropzone";
 import Input from "@/shared/Input/Input";
 import { FieldErrors, UseFormSetValue, UseFormTrigger } from "react-hook-form";
 import { zodFormData } from "@/app/rentable/create/page";
-import Image from "next/image";
 
 interface ImagesStepProps {
   setValue: UseFormSetValue<zodFormData>;
