@@ -149,6 +149,7 @@ const RentableCreate = () => {
           {
             headers: {
               Authorization: `Bearer ${auth.token}`,
+              "Content-Type": "application/json",
             },
           },
         );
