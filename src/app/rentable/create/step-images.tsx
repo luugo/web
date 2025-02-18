@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -8,6 +8,7 @@ import { useDropzone } from "react-dropzone";
 import Input from "@/shared/Input/Input";
 import { FieldErrors, UseFormSetValue, UseFormTrigger } from "react-hook-form";
 import { zodFormData } from "@/app/rentable/create/page";
+import Image from "next/image";
 
 interface ImagesStepProps {
   setValue: UseFormSetValue<zodFormData>;
@@ -118,7 +119,7 @@ const ImagesStep = ({
         >
           {previewImages.map((src, index) => (
             <SwiperSlide className="pb-8 pt-2" key={index}>
-              <img
+              <Image
                 src={src}
                 alt={`Preview ${index}`}
                 className="w-full h-full object-contain"

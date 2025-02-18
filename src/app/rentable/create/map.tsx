@@ -65,7 +65,7 @@ const Map = ({
         }
       });
     }
-  }, [autocomplete, map, setValue, trigger]);
+  }, [autocomplete, map, setGeolocation, setLocation, setValue, trigger]);
 
   useEffect(() => {
     if (isLoaded && mapRef.current) {
@@ -103,7 +103,7 @@ const Map = ({
         placeAutoComplereRef.current.value = (location as string) || "";
       }
     }
-  }, [isLoaded, geolocation]);
+  }, [isLoaded, geolocation, location]);
 
   return (
     <div className="flex flex-col space-y-4">
