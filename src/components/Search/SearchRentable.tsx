@@ -4,9 +4,10 @@ import { Select } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState, FC } from "react";
 import useDataSearch from "./dataSearch";
+import { set } from "react-hook-form";
 
 const SearchRentable = () => {
-  const { setSearch } = useDataSearch();
+  const { setSearch, setActiveCategories } = useDataSearch();
   const [inputValue, setInputValue] = useState<string>("");
   const [places, setPlaces] = useState<Place[]>([]);
   const [selectedPlace, setSelectedPlace] = useLocalStorage<Place | null>(
@@ -49,6 +50,7 @@ const SearchRentable = () => {
 
   const handleSearchSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (inputValue === "") setActiveCategories([]);
     setSearch(inputValue);
   };
 

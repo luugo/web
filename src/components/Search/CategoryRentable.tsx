@@ -9,7 +9,7 @@ import useLocalStorage, { InitialValue } from "@/hooks/useLocalStorage";
 import useDataSearch from "./dataSearch";
 
 const CategoryRentable = () => {
-  const { categoryId, setCategoryId } = useDataSearch();
+  const { categoryId, activeCategories, setCategoryId } = useDataSearch();
   const [categories, setCategories] = useState<Array<Category>>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [containerWidth, setContainerWidth] = useState<number>(0);
@@ -57,35 +57,30 @@ const CategoryRentable = () => {
 
     window.addEventListener("resize", updateSizes);
     return () => window.removeEventListener("resize", updateSizes);
-  }, [categories]);
+  }, [categories, activeCategories]);
 
   if (!categories) return <div>Carregando...</div>;
 
-  const getOffset = useCallback(
-    (index: number) =>
-      itemsRef.current
-        .slice(0, index)
-        .reduce((acc, item) => acc + (item?.offsetWidth ?? 0), 0) +
-      index * 32,
-    [],
-  );
+  const getOffset = (index: number) =>
+    itemsRef.current
+      .slice(0, index)
+      .reduce((acc, item) => acc + (item?.offsetWidth ?? 0), 0) +
+    index * 32;
 
-  const canAdvance = useCallback(
-    () => getOffset(currentIndex + 1) + containerWidth <= totalWidth,
-    [currentIndex, containerWidth, totalWidth, getOffset],
-  );
+  const canAdvance = () =>
+    getOffset(currentIndex + 1) + containerWidth <= totalWidth;
 
-  const handleNext = useCallback(() => {
+  const handleNext = () => {
     if (canAdvance()) setCurrentIndex((prev) => prev + 2);
-  }, [canAdvance]);
+  };
 
-  const handlePrev = useCallback(() => {
+  const handlePrev = () => {
     if (currentIndex > 0) setCurrentIndex((prev) => prev - 2);
-  }, [currentIndex]);
+  };
 
   const handleCategoryClick = useCallback(
     (_categoryId: string) => {
-      setCategoryId(_categoryId === categoryId ? null : _categoryId);
+      setCategoryId(_categoryId === categoryId ? undefined : _categoryId);
     },
     [categoryId],
   );
@@ -101,26 +96,45 @@ const CategoryRentable = () => {
         {categories.map((category, index) => {
           const isActive = categoryId === category.id;
           const isHovered = hoveredCategory === index;
+          const isAvailable =
+            activeCategories.includes(category.id!) || !activeCategories.length;
+          const onClick = isAvailable
+            ? () => handleCategoryClick(category.id!)
+            : undefined;
 
+          const colorSVG = isAvailable
+            ? "fill-slate-600"
+            : isHovered
+              ? "fill-slate-900"
+              : "fill-slate-200";
+          const colorText = isAvailable
+            ? "text-slate-600"
+            : isHovered
+              ? "text-slate-900"
+              : "text-slate-200";
           return (
             <label
-              className="px-2 cursor-pointer"
+              className={`px-2 ${
+                isAvailable ? "cursor-pointer" : "cursor-not-allowed"
+              }`}
               key={category.id}
-              onMouseOver={() => setHoveredCategory(index)}
+              onMouseOver={
+                isAvailable ? () => setHoveredCategory(index) : undefined
+              }
               onMouseLeave={() => setHoveredCategory(null)}
-              onClick={() => handleCategoryClick(category.id!)}
+              onClick={onClick}
               ref={(el) => (itemsRef.current[index] = el)}
             >
               <span className="flex flex-col items-center relative">
                 <div
                   className={`h-10 w-full min-w-10 max-w-20 *:h-full bg-center p-2 box-border flex items-center justify-center ${
-                    isActive || isHovered ? "fill-slate-900" : "fill-slate-600"
+                    colorSVG
                   }`}
                   dangerouslySetInnerHTML={{ __html: category.iconSvg ?? "" }}
                 ></div>
                 <span
                   className={`text-xs font-medium text-slate-600 whitespace-nowrap ${
-                    isActive || isHovered ? "text-slate-900" : "text-slate-600"
+                    colorText
                   }`}
                 >
                   {category.title}

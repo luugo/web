@@ -4,7 +4,13 @@ import logoImg from "@/images/logo.svg";
 import Image from "next/image";
 import { useUserContext } from "@/context";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { Place, Rentable, RentableApi } from "@api";
+import {
+  CategoryApi,
+  Place,
+  Rentable,
+  RentableApi,
+  RentableSearchInputGetRequest,
+} from "@api";
 import RentableCard from "@/components/RentableCard/RentableCard";
 import RentableCardSkeleton from "@/components/Skeleton/RentableCard";
 import HomeSearch from "@/components/Search/HomeSearch";
@@ -110,10 +116,13 @@ function PageHome() {
   const [showPopup, setShowPopup] = useState(true);
   const [selectedPlace] = useLocalStorage<Place | null>("selectedPlace", null);
   const [rentables, setRentables] = useState<Rentable[] | undefined>(undefined);
-  const { searchTerm, categoryId } = useDataSearch();
+  const { searchTerm, categoryId, setActiveCategories } = useDataSearch();
+
+  console.log(searchTerm, categoryId);
 
   useEffect(() => {
     const rentableApi = new RentableApi();
+    const categoryApi = new CategoryApi();
     const userAgent = navigator.userAgent;
     const mobile = /android|iphone|ipad|ipod/i.test(userAgent);
     setIsMobile(mobile);
@@ -121,9 +130,18 @@ function PageHome() {
     (async () => {
       let rentables: Rentable[] = [];
       if (searchTerm) {
-        rentables = await rentableApi.rentableSearchInputGet({
+        const input: RentableSearchInputGetRequest = { input: searchTerm };
+        if (categoryId) {
+          input.categoryId = categoryId;
+        }
+        rentables = await rentableApi.rentableSearchInputGet(input);
+        const searchCategories = await categoryApi.categorySearchRentableGet({
           input: searchTerm,
         });
+
+        if (searchCategories.length > 0) {
+          setActiveCategories(searchCategories.map((category) => category.id!));
+        }
       } else if (categoryId) {
         rentables = await rentableApi.rentableGet({
           categoryId,
