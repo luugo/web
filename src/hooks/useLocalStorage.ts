@@ -73,13 +73,13 @@ function useLocalStorage<T>(
 export default useLocalStorage;
 
 export const InitialValue = <T>(key: string): T | null => {
-  if (typeof window === "undefined") {
-    return null;
-  }
+  if (typeof window === "undefined") return null;
+
   const localAuth = window.localStorage.getItem(key);
   let result: T | null = null;
+
   if (localAuth) {
-    result = JSON.parse(window.localStorage.getItem(key)?.toString() || "{}");
+    result = JSON.parse(localAuth);
   }
 
   return result;

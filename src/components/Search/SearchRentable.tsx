@@ -2,19 +2,17 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { Place, PlaceApi, PlaceGetRequest } from "@api";
 import { Select } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState, FC } from "react";
+import { useEffect, useState } from "react";
+import useDataSearch from "./dataSearch";
 
-export interface SearchRentableProps {
-  onSubmit: (searchTerm: string) => void;
-}
-
-const SearchRentable: FC<SearchRentableProps> = ({ onSubmit }) => {
+const SearchRentable = () => {
+  const { setSearch, setActiveCategories } = useDataSearch();
+  const [inputValue, setInputValue] = useState<string>("");
   const [places, setPlaces] = useState<Place[]>([]);
   const [selectedPlace, setSelectedPlace] = useLocalStorage<Place | null>(
     "selectedPlace",
     null,
   );
-  const [searchTerm, setSearchTerm] = useState<string>("");
   const [placeholder, setPlaceholder] = useState<string>("");
   const [isFocused, setIsFocused] = useState(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -51,7 +49,8 @@ const SearchRentable: FC<SearchRentableProps> = ({ onSubmit }) => {
 
   const handleSearchSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(searchTerm);
+    if (inputValue === "") setActiveCategories([]);
+    setSearch(inputValue);
   };
 
   useEffect(() => {
@@ -123,8 +122,8 @@ const SearchRentable: FC<SearchRentableProps> = ({ onSubmit }) => {
       >
         <input
           type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
           placeholder={isFocused ? "" : `Busque por ${placeholder}`}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
