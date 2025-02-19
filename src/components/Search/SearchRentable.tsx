@@ -32,10 +32,11 @@ const SearchRentable = () => {
             "border-none h-full bg-transparent focus:outline-none focus:ring-2 focus:ring-teal-400 hover:ring-2 hover:ring-slate-200 ring-teal-400 text-base rounded-full inline-block"
           }
           onChange={handleSelectPlace}
-          value={
-            selectedPlace ? selectedPlace?.id : "Natal e Região Metropolitana"
-          }
+          value={selectedPlace ? selectedPlace?.id : undefined}
         >
+          <option key={0} value={undefined}>
+            Brasil
+          </option>
           {places.length &&
             places?.map((item) => (
               <option key={item.id} value={item.id}>
