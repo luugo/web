@@ -89,7 +89,9 @@ const SearchRentable = () => {
           className="border-none h-full bg-transparent w-full pt-6 pb-4 px-4 flex items-center cursor-pointer"
           onClick={() => setIsOpen(true)}
         >
-          <FontAwesomeIcon size="1x" icon={faLocationDot} />
+          <div className="w-4 h-4 flex items-center justify-center">
+            <FontAwesomeIcon icon={faLocationDot} />
+          </div>
           <span className="pl-2">
             {selectedPlace
               ? `${selectedPlace.city} - ${selectedPlace.state}`
@@ -97,7 +99,6 @@ const SearchRentable = () => {
           </span>
         </div>
 
-        {/* Overlay e menu lateral */}
         <div
           className={`fixed inset-0 z-50 transition-all duration-300 ${
             isOpen ? "bg-black/50" : "bg-transparent pointer-events-none"
@@ -108,7 +109,7 @@ const SearchRentable = () => {
             className={`fixed top-0 left-0 w-full h-full bg-white shadow-md p-6 transform transition-transform duration-300 ${
               isOpen ? "translate-x-0" : "-translate-x-full"
             }`}
-            onClick={(e) => e.stopPropagation()} // Impede que o clique feche o menu ao clicar dentro dele
+            onClick={(e) => e.stopPropagation()}
           >
             <button
               className="absolute top-4 right-4 text-gray-500"
@@ -170,7 +171,7 @@ const SearchRentable = () => {
       >
         <div className="relative w-full px-5 h-14 inline-flex cntent-center items-center">
           {!isFocused && !inputValue && (
-            <span className="placeholder-slate-400 inline-block h-auto">
+            <span className="text-slate-400 inline-block h-auto">
               <TypingPlaceholder placeholders={placeholders} />
             </span>
           )}
@@ -193,15 +194,13 @@ const SearchRentable = () => {
           <MagnifyingGlassIcon className="w-6 h-6 text-slate-900 fill-current" />
         </button>
       </form>
-      {width < 768 && (
-        <>
-          <RenderPlaceMobile
-            places={places}
-            selectedPlace={selectedPlace}
-            setSelectedPlace={setSelectedPlace}
-          />
-        </>
-      )}
+      <div className="md:hidden w-full">
+        <RenderPlaceMobile
+          places={places}
+          selectedPlace={selectedPlace}
+          setSelectedPlace={setSelectedPlace}
+        />
+      </div>
     </>
   );
 };
