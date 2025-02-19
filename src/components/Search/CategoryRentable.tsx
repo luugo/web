@@ -83,7 +83,10 @@ const CategoryRentable = () => {
   };
 
   return (
-    <div ref={containerRef} className="relative w-full overflow-hidden my-10">
+    <div
+      ref={containerRef}
+      className="relative w-full overflow-hidden my-2 md:my-10"
+    >
       <div
         className="flex gap-8 transition-transform duration-300 justify-center"
         style={{

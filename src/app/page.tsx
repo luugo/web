@@ -189,7 +189,7 @@ function PageHome() {
   return (
     <div className="relative overflow-hidden bg-slate-50">
       {isMobile && showPopup && <MobilePopup os={os} onClose={closePopup} />}
-      <div className="flex-row justify-center pt-10 px-10 2xl:px-20 xl:px-20 lg:px-10 md:px-10 sm:px-10">
+      <div className="flex-row justify-center pt-4 md:pt-10 px-4 2xl:px-20 xl:px-20 lg:px-10 md:px-10 sm:px-10">
         <HomeSearch />
         <div className="grid gap-6 pb-10 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
           {rentables === undefined ? (
