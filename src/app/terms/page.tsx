@@ -183,7 +183,10 @@ const Terms = () => {
             </div>
             <div className="my-1">
               <p>
-                <b>4.4 Proibição de Anúncio de Serviços Ilegais ou Incompatíveis com a Legislação</b>
+                <b>
+                  4.4 Proibição de Anúncio de Serviços Ilegais ou Incompatíveis
+                  com a Legislação
+                </b>
               </p>
               <p>
                 O Usuário se compromete a não anunciar, promover ou oferecer,
