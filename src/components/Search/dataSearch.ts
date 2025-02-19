@@ -1,13 +1,12 @@
-import { Category } from "@api";
 import create from "zustand";
 
 interface DataSearchState {
   searchTerm: string;
   categoryId: string | undefined;
-  activeCategories: String[];
+  activeCategories: string[];
   setSearch: (data: string) => void;
   setCategoryId: (data: string | undefined) => void;
-  setActiveCategories: (data: String[]) => void;
+  setActiveCategories: (data: string[]) => void;
 }
 
 const useDataSearch = create<DataSearchState>((set) => ({

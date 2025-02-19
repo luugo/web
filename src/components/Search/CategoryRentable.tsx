@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Category, CategoryApi, Place } from "@api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -78,12 +78,9 @@ const CategoryRentable = () => {
     if (currentIndex > 0) setCurrentIndex((prev) => prev - 2);
   };
 
-  const handleCategoryClick = useCallback(
-    (_categoryId: string) => {
-      setCategoryId(_categoryId === categoryId ? undefined : _categoryId);
-    },
-    [categoryId],
-  );
+  const handleCategoryClick = (_categoryId: string) => {
+    setCategoryId(_categoryId === categoryId ? undefined : _categoryId);
+  };
 
   return (
     <div ref={containerRef} className="relative w-full overflow-hidden my-10">

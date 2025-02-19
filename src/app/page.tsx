@@ -151,6 +151,7 @@ function PageHome() {
         rentables = await rentableApi.rentableNewInTownGet({
           place: selectedPlace?.id || "Natal e Região Metropolitana",
         });
+        shuffle(rentables);
       }
 
       setRentables(rentables);
@@ -161,7 +162,13 @@ function PageHome() {
     } else if (/iPad|iPhone|iPod/.test(userAgent)) {
       setOs("ios");
     }
-  }, [geolocation, selectedPlace?.id, searchTerm, categoryId]);
+  }, [
+    geolocation,
+    selectedPlace?.id,
+    searchTerm,
+    categoryId,
+    setActiveCategories,
+  ]);
 
   function shuffle(array: Rentable[]) {
     let currentIndex = array.length;

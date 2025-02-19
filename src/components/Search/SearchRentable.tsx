@@ -2,9 +2,8 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { Place, PlaceApi, PlaceGetRequest } from "@api";
 import { Select } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState, FC } from "react";
+import { useEffect, useState } from "react";
 import useDataSearch from "./dataSearch";
-import { set } from "react-hook-form";
 
 const SearchRentable = () => {
   const { setSearch, setActiveCategories } = useDataSearch();
