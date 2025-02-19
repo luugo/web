@@ -118,8 +118,6 @@ function PageHome() {
   const [rentables, setRentables] = useState<Rentable[] | undefined>(undefined);
   const { searchTerm, categoryId, setActiveCategories } = useDataSearch();
 
-  console.log(searchTerm, categoryId);
-
   useEffect(() => {
     const rentableApi = new RentableApi();
     const categoryApi = new CategoryApi();
