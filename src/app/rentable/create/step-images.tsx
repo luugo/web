@@ -39,25 +39,28 @@ const ImagesStep = ({
     handleFiles(files);
   };
 
-  const handleFiles = (files: File[]) => {
-    if (files.length > 0) {
-      setValue("images", files, { shouldValidate: true });
-    } else {
-      setValue("images", [], { shouldValidate: true });
-    }
+  const handleFiles = useCallback(
+    (files: File[]) => {
+      if (files.length > 0) {
+        setValue("images", files, { shouldValidate: true });
+      } else {
+        setValue("images", [], { shouldValidate: true });
+      }
 
-    trigger("images");
+      trigger("images");
 
-    const previews = files.map((file) => URL.createObjectURL(file));
-    _setPreviewImages(previews);
-    setSlidesPerView(Math.min(files.length, 3));
-  };
+      const previews = files.map((file) => URL.createObjectURL(file));
+      _setPreviewImages(previews);
+      setSlidesPerView(Math.min(files.length, 3));
+    },
+    [_setPreviewImages, setValue, trigger],
+  );
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       handleFiles(acceptedFiles);
     },
-    [setValue, trigger, _setPreviewImages, setSlidesPerView],
+    [handleFiles],
   );
 
   const { getRootProps, isDragActive } = useDropzone({ onDrop });
