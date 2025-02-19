@@ -7,7 +7,6 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface ModalGalleryProps {
@@ -63,12 +62,11 @@ const ModalGallery = ({
           <span className="text-base font-medium">Fechar</span>
         </button>
         <div className="flex absolute justify-center items-center">
-          <Image
+          <img
             src={images[currentIndex].url || ""}
             alt="Selected"
             width={800}
             height={600}
-            objectFit="contain"
             className="rounded-lg shadow-lg max-w-full max-h-[85vh] object-contain"
           />
         </div>

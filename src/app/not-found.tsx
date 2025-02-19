@@ -1,6 +1,5 @@
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import React from "react";
-import I404Png from "@/images/luuguinho_pensativo.png";
 import NcImage from "@/shared/NcImage/NcImage";
 
 const Page404 = () => (
@@ -8,7 +7,7 @@ const Page404 = () => (
     <div className="container relative pt-5 pb-16 lg:pb-20 lg:pt-5">
       <header className="text-center max-w-2xl mx-auto space-y-2 flex flex-col items-center justify-center">
         <NcImage
-          src={I404Png}
+          src="https://s3.sa-east-1.amazonaws.com/cdn.luugo.com.br/luuguinho_pensativo.png"
           alt="not-found"
           style={{ width: "300px", height: "auto" }}
         />

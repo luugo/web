@@ -4,6 +4,7 @@ const nextConfig = {
     typedRoutes: true,
   },
   images: {
+    disableStaticImages: true,
     remotePatterns: [
       {
         protocol: "https",

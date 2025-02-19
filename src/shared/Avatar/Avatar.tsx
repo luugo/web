@@ -1,4 +1,3 @@
-import { avatarColors } from "@/contains/contants";
 import React, { FC } from "react";
 import VerifyIcon from "@/components/VerifyIcon";
 import Image from "next/image";
@@ -24,17 +23,11 @@ const Avatar: FC<AvatarProps> = ({
 }) => {
   const url = imgUrl || "";
   const name = userName || "John Doe";
-  const _setBgColor = (name: string) => {
-    const backgroundIndex = Math.floor(
-      name.charCodeAt(0) % avatarColors.length,
-    );
-    return avatarColors[backgroundIndex];
-  };
 
   return (
     <div
       className={`wil-avatar relative flex-shrink-0 inline-flex items-center justify-center text-neutral-100 uppercase font-semibold shadow-inner ${radius} ${sizeClass} ${containerClassName}`}
-      style={{ backgroundColor: url ? undefined : _setBgColor(name) }}
+      style={{ backgroundColor: url ? undefined : "" }}
     >
       {url && (
         <Image

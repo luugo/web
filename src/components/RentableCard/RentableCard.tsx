@@ -2,7 +2,6 @@
 
 import React, { FC } from "react";
 import Prices from "./Prices";
-import placeholderSmall from "@/images/placeholder-small.png";
 import NcImage from "@/shared/NcImage/NcImage";
 import { shortStringText } from "@/utils/shortStringText";
 import { Rentable } from "@api";
@@ -28,7 +27,10 @@ const RentableCard: FC<ProductCardProps> = ({ className = "", rentable }) => {
           <div className="flex-shrink-0 bg-slate-50 p-1 rounded-lg overflow-hidden z-1 group">
             <NcImage
               containerClassName="flex aspect-w-1 aspect-h-1 rounded-lg overflow-hidden w-full mx-auto"
-              src={rentable.thumbnail || placeholderSmall}
+              src={
+                rentable.thumbnail ||
+                "https://s3.sa-east-1.amazonaws.com/cdn.luugo.com.br/placeholder-small.png"
+              }
               className="object-cover w-full h-full object-top"
               fill
               sizes="(max-width: 720px) 100vw, 40vw"

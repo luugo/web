@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
 import NcImage from "@/shared/NcImage/NcImage";
-import I500Png from "@/images/luuguinho_dead.png";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 
 export default function ErrorPage({
@@ -19,7 +18,7 @@ export default function ErrorPage({
       <div className="container relative pt-5 pb-16 lg:pb-20 lg:pt-5">
         <header className="text-center max-w-2xl mx-auto space-y-2 flex flex-col items-center justify-center">
           <NcImage
-            src={I500Png}
+            src="https://s3.sa-east-1.amazonaws.com/cdn.luugo.com.br/luuguinho_dead.png"
             alt="not-found"
             style={{ width: "300px", height: "auto" }}
           />

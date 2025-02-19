@@ -1,7 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import logoImg from "@/images/logo.svg";
-import Image from "next/image";
 import { useUserContext } from "@/context";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import {
@@ -51,7 +49,12 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
           marginBottom: "20px",
         }}
       >
-        <Image src={logoImg} alt="Logo" width={80} height={80} />
+        <img
+          src="https://s3.sa-east-1.amazonaws.com/cdn.luugo.com.br/logo.svg"
+          alt="Logo"
+          width={80}
+          height={80}
+        />
       </div>
 
       {/* Texto do popup */}

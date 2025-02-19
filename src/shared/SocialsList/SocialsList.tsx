@@ -1,7 +1,6 @@
 import React, { FC } from "react";
-import youtube from "@/images/socials/youtube.svg";
-import instagram from "@/images/socials/instagram.svg";
-import Image from "next/image";
+import { faInstagram, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export interface SocialsListProps {
   className?: string;
@@ -11,12 +10,12 @@ export interface SocialsListProps {
 const socialsDemo = [
   {
     name: "Youtube",
-    icon: youtube,
+    icon: faYoutube,
     href: "https://www.youtube.com/channel/UCtAW7HDg8zt41_Haeqwt2qQ",
   },
   {
     name: "Instagram",
-    icon: instagram,
+    icon: faInstagram,
     href: "https://www.instagram.com/luugoapp?utm_source=ig_web_button_share_sheet&igsh=OGQ5ZDc2ODk2ZA==",
   },
 ];
@@ -38,7 +37,7 @@ const SocialsList: FC<SocialsListProps> = ({
           rel="noopener noreferrer"
           title={item.name}
         >
-          <Image sizes="40px" src={item.icon} alt="" />
+          <FontAwesomeIcon icon={item.icon} />
         </a>
       ))}
     </nav>

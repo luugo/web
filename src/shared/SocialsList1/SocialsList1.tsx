@@ -1,9 +1,12 @@
 import React, { FC } from "react";
-import facebook from "@/images/socials/facebook.svg";
-import twitter from "@/images/socials/twitter.svg";
-import instagram from "@/images/socials/instagram.svg";
-import youtube from "@/images/socials/youtube.svg";
-import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import {
+  faFacebook,
+  faInstagram,
+  faTwitter,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
 
 export interface SocialsList1Props {
   className?: string;
@@ -11,27 +14,27 @@ export interface SocialsList1Props {
 
 interface SocialType {
   name: string;
-  icon: string;
+  icon: IconProp;
   href: string;
 }
 
 const socials: SocialType[] = [
   {
     name: "Facebook",
-    icon: facebook,
+    icon: faFacebook,
     href: "https://www.facebook.com/profile.php?id=100083365119878",
   },
   {
     name: "Youtube",
-    icon: youtube,
+    icon: faYoutube,
     href: "https://www.youtube.com/channel/UCtAW7HDg8zt41_Haeqwt2qQ",
   },
   {
     name: "Instagram",
-    icon: instagram,
+    icon: faInstagram,
     href: "https://www.instagram.com/luugoapp/",
   },
-  { name: "Twitter", icon: twitter, href: "https://twitter.com/Luugoapp" },
+  { name: "Twitter", icon: faTwitter, href: "https://twitter.com/Luugoapp" },
 ];
 
 const SocialsList1: FC<SocialsList1Props> = ({ className = "space-y-3" }) => {
@@ -43,7 +46,7 @@ const SocialsList1: FC<SocialsList1Props> = ({ className = "space-y-3" }) => {
         key={index}
       >
         <div className="flex-shrink-0 w-5 ">
-          <Image sizes="40px" src={item.icon} alt="" />
+          <FontAwesomeIcon icon={item.icon}></FontAwesomeIcon>
         </div>
         <span className="hidden lg:block text-sm">{item.name}</span>
       </a>

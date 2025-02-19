@@ -1,4 +1,3 @@
-import { _getTagNameRd } from "@/contains/fakeData";
 import Link from "next/link";
 import React, { FC } from "react";
 
@@ -15,7 +14,7 @@ const Tag: FC<TagProps> = ({ className = "", hideCount = false }) => {
       data-nc-id="Tag"
       href={"#"}
     >
-      {`${_getTagNameRd()}`}
+      {`tag`}
       {!hideCount && <span className="text-xs font-normal"> (22)</span>}
     </Link>
   );
