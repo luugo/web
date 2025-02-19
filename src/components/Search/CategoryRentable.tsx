@@ -85,7 +85,7 @@ const CategoryRentable = () => {
   return (
     <div ref={containerRef} className="relative w-full overflow-hidden my-10">
       <div
-        className="flex gap-8 transition-transform duration-300"
+        className="flex gap-8 transition-transform duration-300 justify-center"
         style={{
           transform: `translateX(-${getOffset(currentIndex)}px)`,
         }}
@@ -130,7 +130,7 @@ const CategoryRentable = () => {
                   dangerouslySetInnerHTML={{ __html: category.iconSvg ?? "" }}
                 ></div>
                 <span
-                  className={`text-xs font-medium text-slate-600 whitespace-nowrap ${
+                  className={`text-xs font-medium whitespace-nowrap ${
                     colorText
                   }`}
                 >
