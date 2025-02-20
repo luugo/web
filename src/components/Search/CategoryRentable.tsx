@@ -7,21 +7,22 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import useLocalStorage, { InitialValue } from "@/hooks/useLocalStorage";
 import useDataSearch from "./dataSearch";
+import CategorySkeleton from "../Skeleton/CategorySkeleton";
 
 const CategoryRentable = () => {
   const { categoryId, activeCategories, setCategoryId } = useDataSearch();
   const [categories, setCategories] = useState<Array<Category>>([]);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [containerWidth, setContainerWidth] = useState<number>(0);
-  const [totalWidth, setTotalWidth] = useState<number>(0);
   const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
   const [place] = useLocalStorage<Place | null>(
     "selectedPlace",
     InitialValue<Place>("selectedPlace"),
   );
-
   const itemsRef = useRef<(HTMLLabelElement | null)[]>([]);
+
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [showPrev, setShowPrev] = useState(false);
+  const [showNext, setShowNext] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -31,6 +32,7 @@ const CategoryRentable = () => {
           place: place?.id,
         });
         setCategories(response);
+        setLoading(false);
       } catch (error) {
         console.error("Erro ao buscar categorias:", error);
       }
@@ -39,59 +41,70 @@ const CategoryRentable = () => {
     fetchCategories();
   }, [place]);
 
+  const updateButtonsVisibility = () => {
+    if (!containerRef.current) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
+
+    setShowPrev(scrollLeft > 0);
+    setShowNext(scrollLeft + clientWidth < scrollWidth);
+  };
+
+  const scrollLeft = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollBy({ left: -150, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollBy({ left: 150, behavior: "smooth" });
+    }
+  };
+
+  const handleCategoryClick = (id: string) => {
+    setCategoryId(categoryId === id ? undefined : id);
+  };
+
   useEffect(() => {
-    const updateSizes = () => {
+    if (containerRef.current) {
+      containerRef.current.addEventListener("scroll", updateButtonsVisibility);
+      updateButtonsVisibility();
+    }
+    return () => {
       if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth);
-      }
-      if (itemsRef.current.length > 0) {
-        setTotalWidth(
-          itemsRef.current.reduce(
-            (acc, item) => acc + (item?.offsetWidth ?? 0),
-            0,
-          ) + Math.max(0, itemsRef.current.length * 32 + 32),
+        containerRef.current.removeEventListener(
+          "scroll",
+          updateButtonsVisibility,
         );
       }
     };
-    setTimeout(updateSizes, 50);
+  }, [containerRef.current]);
 
-    window.addEventListener("resize", updateSizes);
-    return () => window.removeEventListener("resize", updateSizes);
-  }, [categories, activeCategories]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      updateButtonsVisibility();
+    }, 100);
 
-  if (!categories) return <div>Carregando...</div>;
+    return () => clearTimeout(timeout);
+  }, [categories]);
 
-  const getOffset = (index: number) =>
-    itemsRef.current
-      .slice(0, index)
-      .reduce((acc, item) => acc + (item?.offsetWidth ?? 0), 0) +
-    index * 32;
+  if (loading)
+    return (
+      <div className="relative flex gap-4 w-full overflow-hidden my-2 md:my-10 content-center justify-center">
+        {[...Array(17)].map((_, index) => (
+          <CategorySkeleton key={index} />
+        ))}
+      </div>
+    );
 
-  const canAdvance = () =>
-    getOffset(currentIndex + 1) + containerWidth <= totalWidth;
-
-  const handleNext = () => {
-    if (canAdvance()) setCurrentIndex((prev) => prev + 2);
-  };
-
-  const handlePrev = () => {
-    if (currentIndex > 0) setCurrentIndex((prev) => prev - 2);
-  };
-
-  const handleCategoryClick = (_categoryId: string) => {
-    setCategoryId(_categoryId === categoryId ? undefined : _categoryId);
-  };
-
+  console.log(categoryId);
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full overflow-hidden my-2 md:my-10"
-    >
+    <div className="relative w-full my-2 md:my-10">
       <div
-        className="flex gap-8 transition-transform duration-300 justify-center"
-        style={{
-          transform: `translateX(-${getOffset(currentIndex)}px)`,
-        }}
+        ref={containerRef}
+        className="flex gap-4 overflow-x-scroll scroll-smooth justify-center"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {categories.map((category, index) => {
           const isActive = categoryId === category.id;
@@ -112,51 +125,47 @@ const CategoryRentable = () => {
             : isHovered
               ? "text-slate-900"
               : "text-slate-200";
+
           return (
             <label
-              className={`px-2 ${
-                isAvailable ? "cursor-pointer" : "cursor-not-allowed"
-              }`}
               key={category.id}
               onMouseOver={
                 isAvailable ? () => setHoveredCategory(index) : undefined
               }
-              onMouseLeave={() => setHoveredCategory(null)}
+              onMouseOut={() => setHoveredCategory(null)}
+              className={`px-2 whitespace-nowrap cursor-pointer flex flex-col items-center transition-all duration-100 ${
+                isAvailable
+                  ? "opacity-100 cursor-pointer"
+                  : "opacity-50 cursor-not-allowed"
+              }`}
               onClick={onClick}
               ref={(el) => (itemsRef.current[index] = el)}
             >
-              <span className="flex flex-col items-center relative">
-                <div
-                  className={`h-10 w-full min-w-10 max-w-20 *:h-full bg-center p-2 box-border flex items-center justify-center ${
-                    colorSVG
-                  }`}
-                  dangerouslySetInnerHTML={{ __html: category.iconSvg ?? "" }}
-                ></div>
-                <span
-                  className={`text-xs font-medium whitespace-nowrap ${
-                    colorText
-                  }`}
-                >
-                  {category.title}
-                </span>
-                <div
-                  className={`w-full h-[2px] bg-slate-900 transition-opacity duration-300 mt-2 ${
-                    isActive || isHovered ? "opacity-100" : "opacity-0"
-                  }`}
-                ></div>
+              <div
+                className={`h-10 w-full min-w-10 max-w-20 *:h-full bg-center p-2 box-border flex items-center justify-center ${colorSVG}`}
+                dangerouslySetInnerHTML={{ __html: category.iconSvg ?? "" }}
+              ></div>
+              <span
+                className={`text-xs font-medium whitespace-nowrap ${colorText}`}
+              >
+                {category.title}
               </span>
+              <div
+                className={`w-full h-[2px] bg-slate-900 transition-opacity duration-300 mt-2 ${
+                  isActive || isHovered ? "opacity-100" : "opacity-0"
+                }`}
+              ></div>
             </label>
           );
         })}
       </div>
-
-      {currentIndex > 0 && (
+      {showPrev && (
         <div
           className="absolute left-0 top-1/2 transform -translate-y-1/2 h-full flex items-center 
   bg-gradient-to-r from-slate-50 via-slate-50/90 to-transparent w-20"
         >
           <button
-            onClick={handlePrev}
+            onClick={scrollLeft}
             className="w-10 h-10 aspect-square bg-white p-2 rounded-full shadow flex items-center justify-center mr-1"
           >
             <FontAwesomeIcon
@@ -166,14 +175,13 @@ const CategoryRentable = () => {
           </button>
         </div>
       )}
-
-      {canAdvance() && (
+      {showNext && (
         <div
           className="absolute right-0 top-1/2 transform -translate-y-1/2 h-full flex items-center justify-end 
   bg-gradient-to-l from-slate-50 via-slate-50/90 to-transparent w-20"
         >
           <button
-            onClick={handleNext}
+            onClick={scrollRight}
             className="w-10 h-10 aspect-square bg-white p-2 rounded-full shadow flex items-center justify-center ml-1"
           >
             <FontAwesomeIcon
