@@ -22,7 +22,7 @@ const CategoryRentable = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [showPrev, setShowPrev] = useState(false);
   const [showNext, setShowNext] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -32,7 +32,7 @@ const CategoryRentable = () => {
           place: place?.id,
         });
         setCategories(response);
-        setLoading(true);
+        setLoading(false);
       } catch (error) {
         console.error("Erro ao buscar categorias:", error);
       }
@@ -63,7 +63,7 @@ const CategoryRentable = () => {
   };
 
   const handleCategoryClick = (id: string) => {
-    setCategoryId(id === categoryId ? undefined : id);
+    setCategoryId(categoryId === id ? undefined : id);
   };
 
   useEffect(() => {
@@ -89,7 +89,7 @@ const CategoryRentable = () => {
     return () => clearTimeout(timeout);
   }, [categories]);
 
-  if (!loading)
+  if (loading)
     return (
       <div className="relative flex gap-4 w-full overflow-hidden my-2 md:my-10 content-center justify-center">
         {[...Array(17)].map((_, index) => (
@@ -98,6 +98,7 @@ const CategoryRentable = () => {
       </div>
     );
 
+  console.log(categoryId);
   return (
     <div className="relative w-full my-2 md:my-10">
       <div
