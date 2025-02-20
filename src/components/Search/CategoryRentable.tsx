@@ -98,7 +98,6 @@ const CategoryRentable = () => {
       </div>
     );
 
-  console.log(categoryId);
   return (
     <div className="relative w-full my-2 md:my-10">
       <div
