@@ -11,13 +11,13 @@ import { useEffect, useState } from "react";
 const Login = () => {
   const [auth, setAuth] =
     useLocalStorage<AuthenticationPostDefaultResponse | null>("auth", null);
-  const [hydrated, setHydrated] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setHydrated(true);
+    setLoading(true);
   }, []);
 
-  if (!hydrated) return null;
+  if (!loading) return null;
 
   if (!auth) {
     return (
@@ -83,13 +83,13 @@ export default function Account() {
     "auth",
     null,
   );
-  const [hydrated, setHydrated] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setHydrated(true);
+    setLoading(true);
   }, []);
 
-  if (!hydrated) return null;
+  if (!loading) return null;
 
   return (
     <div className="AvatarDropdown ">
