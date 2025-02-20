@@ -96,7 +96,9 @@ export default function Account() {
       <div className="flex gap-4">
         <Login />
         {!auth ? (
-          <ButtonPrimary href="/login">Anunciar Grátis</ButtonPrimary>
+          <ButtonPrimary className="hidden md:block" href="/login">
+            Anunciar Grátis
+          </ButtonPrimary>
         ) : null}
       </div>
     </div>
