@@ -3,16 +3,21 @@
 import Avatar from "@/shared/Avatar/Avatar";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import useLocalStorage, { InitialValue } from "@/hooks/useLocalStorage";
+import useLocalStorage from "@/hooks/useLocalStorage";
 import { AuthenticationPostDefaultResponse } from "@api";
 import { Popover } from "@headlessui/react";
+import { useEffect, useState } from "react";
 
 const Login = () => {
   const [auth, setAuth] =
-    useLocalStorage<AuthenticationPostDefaultResponse | null>(
-      "auth",
-      InitialValue<AuthenticationPostDefaultResponse>("auth"),
-    );
+    useLocalStorage<AuthenticationPostDefaultResponse | null>("auth", null);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  if (!hydrated) return null;
 
   if (!auth) {
     return (
@@ -76,8 +81,15 @@ const Login = () => {
 export default function Account() {
   const [auth] = useLocalStorage<AuthenticationPostDefaultResponse | null>(
     "auth",
-    InitialValue<AuthenticationPostDefaultResponse>("auth"),
+    null,
   );
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  if (!hydrated) return null;
 
   return (
     <div className="AvatarDropdown ">
