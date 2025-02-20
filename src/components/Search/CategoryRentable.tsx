@@ -103,7 +103,7 @@ const CategoryRentable = () => {
     <div className="relative w-full my-2 md:my-10">
       <div
         ref={containerRef}
-        className="flex gap-4 overflow-x-scroll scroll-smooth"
+        className="flex gap-4 overflow-x-scroll scroll-smooth justify-center"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {categories.map((category, index) => {
