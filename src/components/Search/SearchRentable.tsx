@@ -1,3 +1,5 @@
+"use client";
+
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { Place, PlaceApi, PlaceGetRequest } from "@api";
 import { Select } from "@headlessui/react";
@@ -8,17 +10,21 @@ import useViewportSize from "@/utils/useViewportSize";
 import TypingPlaceholder from "./TypingPlaceholder";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import SearchRentableSkeleton from "../Skeleton/SearchRentableSkeleton";
 
 const SearchRentable = () => {
   const { setSearch, setActiveCategories } = useDataSearch();
   const { width } = useViewportSize();
-  const [inputValue, setInputValue] = useState<string>("");
-  const [places, setPlaces] = useState<Place[]>([]);
   const [selectedPlace, setSelectedPlace] = useLocalStorage<Place | null>(
     "selectedPlace",
     null,
   );
   const [isFocused, setIsFocused] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+  }, []);
 
   const placeholders = [
     "carro...",
@@ -38,7 +44,7 @@ const SearchRentable = () => {
     "itens...",
   ];
 
-  const renderPlace = () => {
+  const RenderPlace = () => {
     const handleSelectPlace = (event: React.ChangeEvent<HTMLSelectElement>) => {
       const selected =
         places.find((item) => item.id === event.target.value) || null;
@@ -48,7 +54,7 @@ const SearchRentable = () => {
       <div className="py-1">
         <Select
           className={
-            "border-none h-full bg-transparent focus:outline-none focus:ring-2 focus:ring-teal-400 hover:ring-2 hover:ring-slate-200 ring-teal-400 text-base rounded-full inline-block"
+            "border-none h-full min-w-[273px] bg-transparent focus:outline-none focus:ring-2 focus:ring-teal-400 hover:ring-2 hover:ring-slate-200 ring-teal-400 text-base rounded-full inline-block"
           }
           onChange={handleSelectPlace}
           value={selectedPlace ? selectedPlace?.id : undefined}
@@ -147,6 +153,9 @@ const SearchRentable = () => {
     setSearch(inputValue);
   };
 
+  const [inputValue, setInputValue] = useState<string>("");
+  const [places, setPlaces] = useState<Place[]>([]);
+
   useEffect(() => {
     (async () => {
       const placesApi = new PlaceApi();
@@ -165,42 +174,52 @@ const SearchRentable = () => {
 
   return (
     <>
-      <form
-        className={`bg-white text-slate-900 2xl:w-[45%] xl:w-[55%] lg:w-[60%] md:w-[85%] w-full shadow-md ring-2 rounded-full flex items-center gap-2 hover:ring-2 hover:ring-slate-200 ${isFocused ? "ring-teal-400" : "ring-slate-100"}`}
-        onSubmit={handleSearchSubmit}
-      >
-        <div className="relative w-full px-5 h-14 inline-flex cntent-center items-center">
-          {!isFocused && !inputValue && (
-            <span className="text-slate-400 inline-block h-auto">
-              <TypingPlaceholder placeholders={placeholders} />
-            </span>
-          )}
-          <input
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder={isFocused ? "" : undefined}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-base absolute z-10 left-0 top-0 h-full"
-          />
-        </div>
+      {loading ? (
+        <>
+          <form
+            className={`bg-white text-slate-900 2xl:w-[45%] xl:w-[55%] lg:w-[60%] md:w-[85%] w-full shadow-md ring-2 rounded-full flex items-center gap-2 hover:ring-2 hover:ring-slate-200 ${isFocused ? "ring-teal-400" : "ring-slate-100"}`}
+            onSubmit={handleSearchSubmit}
+          >
+            <div className="relative w-full px-5 h-14 inline-flex cntent-center items-center">
+              {!isFocused && !inputValue && (
+                <span className="text-slate-400 inline-block h-auto">
+                  <TypingPlaceholder placeholders={placeholders} />
+                </span>
+              )}
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder={isFocused ? "" : undefined}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-base absolute z-10 left-0 top-0 h-full"
+              />
+            </div>
 
-        {width >= 768 && <div>{renderPlace()}</div>}
-        <button
-          type="submit"
-          className="px-3 py-3 hover:bg-teal-500 focus:ring-2 bg-teal-400 rounded-full my-1 mr-1"
-        >
-          <MagnifyingGlassIcon className="w-6 h-6 text-slate-900 fill-current" />
-        </button>
-      </form>
-      <div className="md:hidden w-full">
-        <RenderPlaceMobile
-          places={places}
-          selectedPlace={selectedPlace}
-          setSelectedPlace={setSelectedPlace}
-        />
-      </div>
+            {width >= 768 && (
+              <>
+                <RenderPlace />
+              </>
+            )}
+            <button
+              type="submit"
+              className="px-3 py-3 hover:bg-teal-500 focus:ring-2 bg-teal-400 rounded-full my-1 mr-1"
+            >
+              <MagnifyingGlassIcon className="w-6 h-6 text-slate-900 fill-current" />
+            </button>
+          </form>
+          <div className="md:hidden w-full">
+            <RenderPlaceMobile
+              places={places}
+              selectedPlace={selectedPlace}
+              setSelectedPlace={setSelectedPlace}
+            />
+          </div>
+        </>
+      ) : (
+        <SearchRentableSkeleton />
+      )}
     </>
   );
 };

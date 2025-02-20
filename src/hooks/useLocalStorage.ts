@@ -14,6 +14,8 @@ function useLocalStorage<T>(
   initialValue: T,
 ): [T, (value: SetValue<T>) => void] {
   const [storedValue, setStoredValue] = useState<T>(() => {
+    if (typeof window === "undefined") return initialValue;
+
     try {
       let storageData: string | null = "";
       if (typeof window !== "undefined") {
@@ -75,12 +77,11 @@ export default useLocalStorage;
 export const InitialValue = <T>(key: string): T | null => {
   if (typeof window === "undefined") return null;
 
-  const localAuth = window.localStorage.getItem(key);
-  let result: T | null = null;
-
-  if (localAuth) {
-    result = JSON.parse(localAuth);
+  try {
+    const localAuth = window.localStorage.getItem(key);
+    return localAuth ? JSON.parse(localAuth) : null;
+  } catch (error) {
+    console.error(`Error parsing localStorage key "${key}":`, error);
+    return null;
   }
-
-  return result;
 };
