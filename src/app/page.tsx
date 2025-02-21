@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useUserContext } from "@/context";
+
+import React, { useEffect, useMemo, useState } from "react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import {
   CategoryApi,
@@ -115,33 +115,62 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
 
 function PageHome() {
   const pathname = usePathname();
-  const id = pathname.startsWith("/c/") ? pathname.split("/")[2] : null;
-  const { geolocation } = useUserContext();
+  const categoryURL = pathname.startsWith("/c/")
+    ? pathname.split("/")[2]
+    : null;
   const [isMobile, setIsMobile] = useState(false);
   const [os, setOs] = useState<"android" | "ios" | undefined>(undefined);
   const [showPopup, setShowPopup] = useState(true);
   const [selectedPlace] = useLocalStorage<Place | null>("selectedPlace", null);
   const [rentables, setRentables] = useState<Rentable[] | undefined>(undefined);
-  const { searchTerm, categoryId, setActiveCategories, setCategoryId } =
-    useDataSearch();
+  const [urlReady, setUrlReady] = useState(false);
+  const {
+    searchTerm,
+    setSearch,
+    categoryId,
+    setActiveCategories,
+    setCategoryId,
+  } = useDataSearch();
+
   const isUUID =
-    id &&
+    categoryURL &&
     /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
-      id,
+      categoryURL,
     );
+  const searchParams = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    return new URLSearchParams(window.location.search).get("s");
+  }, []);
 
   useEffect(() => {
-    const rentableApi = new RentableApi();
-    const categoryApi = new CategoryApi();
     const userAgent = navigator.userAgent;
     const mobile = /android|iphone|ipad|ipod/i.test(userAgent);
     setIsMobile(mobile);
 
-    if (isUUID) {
-      setCategoryId(id);
+    if (/android/i.test(userAgent)) {
+      setOs("android");
+    } else if (/iPad|iPhone|iPod/.test(userAgent)) {
+      setOs("ios");
     }
+  }, []);
 
-    (async () => {
+  useEffect(() => {
+    if (isUUID) {
+      setCategoryId(categoryURL);
+    }
+    if (searchParams) {
+      setSearch(searchParams);
+    }
+    setUrlReady(true);
+  }, [categoryURL, searchParams, setCategoryId, setSearch, isUUID]);
+
+  useEffect(() => {
+    if (!urlReady) return;
+
+    const rentableApi = new RentableApi();
+    const categoryApi = new CategoryApi();
+
+    const fetchRentables = async () => {
       let rentables: Rentable[] = [];
       if (searchTerm) {
         const input: RentableSearchInputGetRequest = { input: searchTerm };
@@ -157,12 +186,12 @@ function PageHome() {
           setActiveCategories(searchCategories.map((category) => category.id!));
         }
       } else if (categoryId) {
-        console.log(categoryId);
         rentables = await rentableApi.rentableGet({
           categoryId,
           place: selectedPlace?.id,
         });
       } else {
+        console.log("2");
         rentables = await rentableApi.rentableNewInTownGet({
           place: selectedPlace?.id || "Natal e Região Metropolitana",
         });
@@ -170,18 +199,14 @@ function PageHome() {
       }
 
       setRentables(rentables);
-    })();
+    };
 
-    if (/android/i.test(userAgent)) {
-      setOs("android");
-    } else if (/iPad|iPhone|iPod/.test(userAgent)) {
-      setOs("ios");
-    }
+    fetchRentables();
   }, [
-    geolocation,
     selectedPlace?.id,
     searchTerm,
     categoryId,
+    urlReady,
     setActiveCategories,
   ]);
 

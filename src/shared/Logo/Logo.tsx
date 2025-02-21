@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 
@@ -8,9 +10,14 @@ export interface LogoProps {
 }
 
 const Logo: React.FC<LogoProps> = ({ className = "flex-shrink-0" }) => {
+  const handleClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    window.location.href = "/";
+  };
   return (
     <Link
       href="/"
+      onClick={handleClick}
       className={`ttnc-logo inline-block text-slate-600 ${className}`}
     >
       <img
