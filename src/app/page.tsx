@@ -152,7 +152,7 @@ function PageHome() {
     }
   }, []);
 
-  let searchQuery;
+  let searchQuery: string | null = null;
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     searchQuery = urlParams.get("s");

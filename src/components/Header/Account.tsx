@@ -29,10 +29,6 @@ const Login = () => {
     );
   }
 
-  const fullName = [auth.user?.firstName || "Nome", auth.user?.lastName || ""]
-    .filter(Boolean)
-    .join(" ");
-
   const handleLogout = () => {
     setAuth(null);
     localStorage.removeItem("auth");
