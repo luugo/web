@@ -44,6 +44,14 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/c/:slug*",
+        destination: "/",
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
