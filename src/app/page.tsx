@@ -13,6 +13,7 @@ import RentableCard from "@/components/RentableCard/RentableCard";
 import RentableCardSkeleton from "@/components/Skeleton/RentableCard";
 import HomeSearch from "@/components/Search/HomeSearch";
 import useDataSearch from "@/components/Search/dataSearch";
+import { usePathname } from "next/navigation";
 
 interface MobilePopupProps {
   os?: "android" | "ios";
@@ -113,13 +114,21 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
 };
 
 function PageHome() {
+  const pathname = usePathname();
+  const id = pathname.startsWith("/c/") ? pathname.split("/")[2] : null;
   const { geolocation } = useUserContext();
   const [isMobile, setIsMobile] = useState(false);
   const [os, setOs] = useState<"android" | "ios" | undefined>(undefined);
   const [showPopup, setShowPopup] = useState(true);
   const [selectedPlace] = useLocalStorage<Place | null>("selectedPlace", null);
   const [rentables, setRentables] = useState<Rentable[] | undefined>(undefined);
-  const { searchTerm, categoryId, setActiveCategories } = useDataSearch();
+  const { searchTerm, categoryId, setActiveCategories, setCategoryId } =
+    useDataSearch();
+  const isUUID =
+    id &&
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+      id,
+    );
 
   useEffect(() => {
     const rentableApi = new RentableApi();
@@ -127,6 +136,10 @@ function PageHome() {
     const userAgent = navigator.userAgent;
     const mobile = /android|iphone|ipad|ipod/i.test(userAgent);
     setIsMobile(mobile);
+
+    if (isUUID) {
+      setCategoryId(id);
+    }
 
     (async () => {
       let rentables: Rentable[] = [];
@@ -144,6 +157,7 @@ function PageHome() {
           setActiveCategories(searchCategories.map((category) => category.id!));
         }
       } else if (categoryId) {
+        console.log(categoryId);
         rentables = await rentableApi.rentableGet({
           categoryId,
           place: selectedPlace?.id,

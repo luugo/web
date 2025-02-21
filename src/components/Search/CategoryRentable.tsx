@@ -1,4 +1,7 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Category, CategoryApi, Place } from "@api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -23,6 +26,7 @@ const CategoryRentable = () => {
   const [showPrev, setShowPrev] = useState(false);
   const [showNext, setShowNext] = useState(false);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -64,6 +68,7 @@ const CategoryRentable = () => {
 
   const handleCategoryClick = (id: string) => {
     setCategoryId(categoryId === id ? undefined : id);
+    router.push(`/c/${id}`);
   };
 
   useEffect(() => {
