@@ -7,6 +7,8 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { AuthenticationPostDefaultResponse } from "@api";
 import { Popover } from "@headlessui/react";
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
   const [auth, setAuth] =
@@ -40,36 +42,55 @@ const Login = () => {
   return (
     <Popover className="relative">
       <Popover.Button as="div">
-        <ButtonSecondary sizeClass="py-2 px-2 pr-4 sm:py-2 sm:px-2 sm:pr-4">
-          <div className="flex items-center space-x-3">
-            <Avatar
-              imgUrl={auth.user?.thumbnail || "/avatar.jpg"}
-              sizeClass="w-6 h-6"
-            />
-            <div className="flex-grow">
-              <h4 className="font-semibold">{fullName}</h4>
-            </div>
-          </div>
+        <ButtonSecondary
+          href="/account"
+          className="flex gap-4 border border-slate-300 text-slate-900 !pl-3 !pr-2 md:hidden"
+        >
+          <FontAwesomeIcon icon={faBars} />
+          <Avatar
+            imgUrl={auth.user?.thumbnail || "/avatar.jpg"}
+            sizeClass="w-6 h-6"
+          />
+        </ButtonSecondary>
+
+        <ButtonSecondary className="gap-2 border border-slate-300 text-slate-900 pr-2 md:pr-2 md:pl-4 hidden md:flex">
+          <FontAwesomeIcon icon={faBars} />
+          <Avatar
+            imgUrl={auth.user?.thumbnail || "/avatar.jpg"}
+            sizeClass="w-6 h-6"
+          />
         </ButtonSecondary>
       </Popover.Button>
 
-      <Popover.Panel className="absolute z-10 mt-2 w-48 bg-white shadow-lg rounded-md p-2">
+      <Popover.Panel className="hidden md:block absolute z-10 mt-4 right-0 bg-white shadow-lg rounded-2xl p-2">
+        <a
+          href="/account-rentable"
+          className="block px-4 py-2 hover:bg-gray-100 rounded-2xl whitespace-nowrap"
+        >
+          Anuncie seus itens
+        </a>
         <a
           href="/account"
-          className="block px-4 py-2 hover:bg-gray-100 rounded"
+          className="block px-4 py-2 hover:bg-gray-100 rounded-2xl whitespace-nowrap"
         >
           Meu cadastro
         </a>
         <a
           href="/account-rentable"
-          className="block px-4 py-2 hover:bg-gray-100 rounded"
+          className="block px-4 py-2 hover:bg-gray-100 rounded-2xl whitespace-nowrap"
         >
           Meu anúncios
         </a>
         <hr className="my-2" />
         <button
           onClick={handleLogout}
-          className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-100 rounded"
+          className="w-full text-left px-4 py-2 hover:bg-gray-100 rounded-2xl whitespace-nowrap"
+        >
+          Central de Ajuda
+        </button>
+        <button
+          onClick={handleLogout}
+          className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-100 rounded-2xl whitespace-nowrap"
         >
           Sair
         </button>
@@ -94,12 +115,13 @@ export default function Account() {
   return (
     <div className="AvatarDropdown ">
       <div className="flex gap-4">
+        <ButtonPrimary
+          className="hidden md:block"
+          href={`${!auth ? "/login" : "/account-rentable"}`}
+        >
+          {!auth ? "Anunciar Grátis" : "Anunciar"}
+        </ButtonPrimary>
         <Login />
-        {!auth ? (
-          <ButtonPrimary className="hidden md:block" href="/login">
-            Anunciar Grátis
-          </ButtonPrimary>
-        ) : null}
       </div>
     </div>
   );

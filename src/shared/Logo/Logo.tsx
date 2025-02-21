@@ -21,10 +21,9 @@ const Logo: React.FC<LogoProps> = ({ className = "flex-shrink-0" }) => {
       className={`ttnc-logo inline-block text-slate-600 ${className}`}
     >
       <img
-        className={`block h-8 sm:h-10 w-auto`}
+        className={`max-h-8 h-full w-full block`}
         src="https://s3.sa-east-1.amazonaws.com/cdn.luugo.com.br/logo.svg"
         alt="Logo"
-        sizes="200px"
       />
     </Link>
   );
