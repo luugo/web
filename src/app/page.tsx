@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import {
   CategoryApi,
@@ -14,6 +14,7 @@ import RentableCardSkeleton from "@/components/Skeleton/RentableCard";
 import HomeSearch from "@/components/Search/HomeSearch";
 import useDataSearch from "@/components/Search/dataSearch";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface MobilePopupProps {
   os?: "android" | "ios";
@@ -115,6 +116,7 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
 
 function PageHome() {
   const pathname = usePathname();
+  const router = useRouter();
   const categoryURL = pathname.startsWith("/c/")
     ? pathname.split("/")[2]
     : null;
@@ -137,10 +139,6 @@ function PageHome() {
     /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
       categoryURL,
     );
-  const searchParams = useMemo(() => {
-    if (typeof window === "undefined") return null;
-    return new URLSearchParams(window.location.search).get("s");
-  }, []);
 
   useEffect(() => {
     const userAgent = navigator.userAgent;
@@ -154,15 +152,31 @@ function PageHome() {
     }
   }, []);
 
+  let searchQuery;
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    searchQuery = urlParams.get("s");
+
     if (isUUID) {
       setCategoryId(categoryURL);
     }
-    if (searchParams) {
-      setSearch(searchParams);
+    if (searchQuery) {
+      setSearch(searchQuery);
+    }
+    if (searchTerm) {
+      urlParams.set("s", searchTerm);
+      router.replace(`?${urlParams.toString()}`);
     }
     setUrlReady(true);
-  }, [categoryURL, searchParams, setCategoryId, setSearch, isUUID]);
+  }, [
+    categoryURL,
+    searchQuery,
+    setCategoryId,
+    setSearch,
+    isUUID,
+    router,
+    searchTerm,
+  ]);
 
   useEffect(() => {
     if (!urlReady) return;
