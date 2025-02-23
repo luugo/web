@@ -3,7 +3,6 @@
 import React, { FC, useState } from "react";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   AuthenticationApi,
@@ -12,6 +11,7 @@ import {
   ResponseError,
 } from "@api";
 import { useLocalStorage } from "react-use";
+import UTMLink from "@/components/UTMLink";
 
 const SignUpVerifyInputPage: FC = () => {
   const [code, setCode] = useState("");
@@ -102,9 +102,9 @@ const SignUpVerifyInputPage: FC = () => {
 
         <span className="block text-center text-neutral-700 dark:text-neutral-300">
           Não recebeu o código?{` `}
-          <Link href="/signup" className="text-green-600">
+          <UTMLink href="/signup" className="text-green-600">
             Reenviar código
-          </Link>
+          </UTMLink>
         </span>
       </div>
     </div>

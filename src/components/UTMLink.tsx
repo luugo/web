@@ -9,7 +9,7 @@ interface UTMLinkProps<RouteInferType = unknown>
   children: React.ReactNode;
 }
 
-const utmParamsList = ["utm_source", "utm_medium", "utm_campaign"];
+const utmParamsList = ["utm_source", "utm_medium", "utm_campaign", "p", "s"];
 
 const getUTMParams = (): Record<string, string> => {
   const params: Record<string, string> = {};

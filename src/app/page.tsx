@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import {
-  CategoryApi,
   Place,
   Rentable,
   RentableApi,
@@ -11,10 +10,8 @@ import {
 } from "@api";
 import RentableCard from "@/components/RentableCard/RentableCard";
 import RentableCardSkeleton from "@/components/Skeleton/RentableCard";
-import HomeSearch from "@/components/Search/HomeSearch";
 import useDataSearch from "@/components/Search/dataSearch";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 interface MobilePopupProps {
   os?: "android" | "ios";
@@ -115,31 +112,14 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
 };
 
 function PageHome() {
-  const pathname = usePathname();
-  const router = useRouter();
-  const categoryURL = pathname.startsWith("/c/")
-    ? pathname.split("/")[2]
-    : null;
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("s");
   const [isMobile, setIsMobile] = useState(false);
   const [os, setOs] = useState<"android" | "ios" | undefined>(undefined);
   const [showPopup, setShowPopup] = useState(true);
   const [selectedPlace] = useLocalStorage<Place | null>("selectedPlace", null);
   const [rentables, setRentables] = useState<Rentable[] | undefined>(undefined);
-  const [urlReady, setUrlReady] = useState(false);
-  const [searchQuery, setSearchQuery] = useState<string | null>(null);
-  const {
-    searchTerm,
-    setSearch,
-    categoryId,
-    setActiveCategories,
-    setCategoryId,
-  } = useDataSearch();
-
-  const isUUID =
-    categoryURL &&
-    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
-      categoryURL,
-    );
+  const { searchTerm } = useDataSearch();
 
   useEffect(() => {
     const userAgent = navigator.userAgent;
@@ -154,72 +134,24 @@ function PageHome() {
   }, []);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    setSearchQuery(urlParams.get("s"));
-
-    if (isUUID) {
-      setCategoryId(categoryURL);
-    }
-    if (searchQuery) {
-      setSearch(searchQuery);
-    }
-    if (searchTerm) {
-      urlParams.set("s", searchTerm);
-      router.replace(`?${urlParams.toString()}`);
-    }
-    setUrlReady(true);
-  }, [
-    categoryURL,
-    searchQuery,
-    setCategoryId,
-    setSearch,
-    isUUID,
-    router,
-    searchTerm,
-  ]);
-
-  useEffect(() => {
-    if (!urlReady) return;
-
     const rentableApi = new RentableApi();
-    const categoryApi = new CategoryApi();
 
-    (async () => {
+    const fetchRentables = async () => {
       let rentables: Rentable[] = [];
       if (searchTerm) {
         const input: RentableSearchInputGetRequest = { input: searchTerm };
-        if (categoryId) {
-          input.categoryId = categoryId;
-        }
         rentables = await rentableApi.rentableSearchInputGet(input);
-        const searchCategories = await categoryApi.categorySearchRentableGet({
-          input: searchTerm,
-        });
-
-        if (searchCategories.length > 0) {
-          setActiveCategories(searchCategories.map((category) => category.id!));
-        }
-      } else if (categoryId) {
-        rentables = await rentableApi.rentableGet({
-          categoryId,
-          place: selectedPlace?.id,
-        });
       } else {
         rentables = await rentableApi.rentableNewInTownGet({
           place: selectedPlace?.id || "Natal e Região Metropolitana",
         });
         shuffle(rentables);
       }
-
       setRentables(rentables);
-    })();
-  }, [
-    selectedPlace?.id,
-    searchTerm,
-    categoryId,
-    urlReady,
-    setActiveCategories,
-  ]);
+    };
+
+    fetchRentables();
+  }, [selectedPlace?.id, searchTerm, searchQuery]);
 
   function shuffle(array: Rentable[]) {
     let currentIndex = array.length;
@@ -240,10 +172,9 @@ function PageHome() {
   };
 
   return (
-    <div className="relative overflow-hidden bg-slate-50">
+    <>
       {isMobile && showPopup && <MobilePopup os={os} onClose={closePopup} />}
-      <div className="flex-row justify-center pt-4 md:pt-10 px-4 2xl:px-20 xl:px-20 lg:px-10 md:px-10 sm:px-10">
-        <HomeSearch />
+      <div className="flex-row justify-center px-4 2xl:px-20 xl:px-20 lg:px-10 md:px-10 sm:px-4">
         <div className="grid gap-6 pb-10 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
           {rentables === undefined ? (
             <>
@@ -264,7 +195,7 @@ function PageHome() {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 export default PageHome;

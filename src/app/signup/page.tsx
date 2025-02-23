@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AuthenticationApi, ResponseError } from "@api";
 import { Alert } from "@/shared/Alert/Alert";
+import UTMLink from "@/components/UTMLink";
 
 const fromToError = (message: string) => {
   let msg = message;
@@ -125,9 +125,9 @@ const PageSignUp = () => {
           {/* ==== */}
           <span className="block text-center text-neutral-700 dark:text-neutral-300">
             Já tem uma conta? {` `}
-            <Link className="text-green-600" href="/login">
+            <UTMLink className="text-green-600" href="/login">
               Entrar
-            </Link>
+            </UTMLink>
           </span>
         </div>
       </div>
