@@ -32,8 +32,11 @@ export default function MobileRedirect() {
       redirectUrl += (redirectUrl.includes("?") ? "&" : "?") + utmParams;
     }
 
-    if (typeof window.gtag === "function") {
-      window.gtag("event", "qr_code", {
+    if (typeof window.dataLayer === "function") {
+      window.dataLayer("event", "page_view", {
+        utm_source: urlParams.get("utm_source"),
+        utm_medium: urlParams.get("utm_medium"),
+        utm_campaign: urlParams.get("utm_campaign"),
         event_category: "redirect",
         event_label: platform,
         value: 1,
