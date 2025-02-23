@@ -126,6 +126,7 @@ function PageHome() {
   const [selectedPlace] = useLocalStorage<Place | null>("selectedPlace", null);
   const [rentables, setRentables] = useState<Rentable[] | undefined>(undefined);
   const [urlReady, setUrlReady] = useState(false);
+  const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const {
     searchTerm,
     setSearch,
@@ -152,10 +153,9 @@ function PageHome() {
     }
   }, []);
 
-  let searchQuery: string | null = null;
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    searchQuery = urlParams.get("s");
+    setSearchQuery(urlParams.get("s"));
 
     if (isUUID) {
       setCategoryId(categoryURL);
@@ -184,7 +184,7 @@ function PageHome() {
     const rentableApi = new RentableApi();
     const categoryApi = new CategoryApi();
 
-    const fetchRentables = async () => {
+    (async () => {
       let rentables: Rentable[] = [];
       if (searchTerm) {
         const input: RentableSearchInputGetRequest = { input: searchTerm };
@@ -212,9 +212,7 @@ function PageHome() {
       }
 
       setRentables(rentables);
-    };
-
-    fetchRentables();
+    })();
   }, [
     selectedPlace?.id,
     searchTerm,

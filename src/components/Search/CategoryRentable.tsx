@@ -29,7 +29,7 @@ const CategoryRentable = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    (async () => {
       const categoryApi = new CategoryApi();
       try {
         const response = await categoryApi.categoryActiveGet({
@@ -40,9 +40,7 @@ const CategoryRentable = () => {
       } catch (error) {
         console.error("Erro ao buscar categorias:", error);
       }
-    };
-
-    fetchCategories();
+    })();
   }, [place]);
 
   const updateButtonsVisibility = () => {
@@ -72,19 +70,21 @@ const CategoryRentable = () => {
   };
 
   useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.addEventListener("scroll", updateButtonsVisibility);
+    const currentContainerRef = containerRef.current;
+
+    if (currentContainerRef) {
+      currentContainerRef.addEventListener("scroll", updateButtonsVisibility);
       updateButtonsVisibility();
     }
     return () => {
-      if (containerRef.current) {
-        containerRef.current.removeEventListener(
+      if (currentContainerRef) {
+        currentContainerRef.removeEventListener(
           "scroll",
           updateButtonsVisibility,
         );
       }
     };
-  }, [containerRef.current]);
+  }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
