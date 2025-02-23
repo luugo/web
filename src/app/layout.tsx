@@ -68,7 +68,7 @@ export default function RootLayout({
   return (
     <html lang="en" dir="" className={poppins.className}>
       <GoogleTagManager />
-      <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
+      <body className="bg-slate-50 text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-W75H4VVQ"
@@ -79,11 +79,11 @@ export default function RootLayout({
         </noscript>
         <GoogleOAuthProvider clientId="637549763916-sa80ph8s7nsbpdhtnv3bf6a1q29s3fae.apps.googleusercontent.com">
           <Providers>
-            <MainNavigation />
             <Suspense fallback={null}>
+              <MainNavigation />
               <UTMTracker />
+              <main className="relative overflow-hidden">{children}</main>
             </Suspense>
-            {children}
             <CommonClient />
             <Footer />
           </Providers>

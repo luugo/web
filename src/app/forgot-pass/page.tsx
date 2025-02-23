@@ -1,8 +1,8 @@
 "use client";
+
 import React, { useState } from "react";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Link from "next/link";
 import {
   AuthenticationApi,
   AuthenticationResetPasswordPostRequest,
@@ -11,6 +11,7 @@ import {
 import { AlertOptions } from "@/interfaces";
 import { Alert } from "@/shared/Alert/Alert";
 import { useRouter } from "next/navigation";
+import UTMLink from "@/components/UTMLink";
 
 const PageForgotPass = () => {
   const router = useRouter();
@@ -100,13 +101,13 @@ const PageForgotPass = () => {
         {/* ==== */}
         <span className="block text-center text-neutral-700 dark:text-neutral-300">
           Voltar para {` `}
-          <Link href="/login" className="text-green-600">
+          <UTMLink href="/login" className="text-green-600">
             Entrar
-          </Link>
+          </UTMLink>
           {` / `}
-          <Link href="/signup" className="text-green-600">
+          <UTMLink href="/signup" className="text-green-600">
             Cadastrar
-          </Link>
+          </UTMLink>
         </span>
       </div>
     </div>

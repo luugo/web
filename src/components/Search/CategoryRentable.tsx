@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Category, CategoryApi, Place } from "@api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,9 +11,11 @@ import {
 import useLocalStorage, { InitialValue } from "@/hooks/useLocalStorage";
 import useDataSearch from "./dataSearch";
 import CategorySkeleton from "../Skeleton/CategorySkeleton";
+import UTMLink from "../UTMLink";
 
 const CategoryRentable = () => {
-  const { categoryId, activeCategories, setCategoryId } = useDataSearch();
+  const { searchTerm, categoryId, activeCategories, setCategoryId } =
+    useDataSearch();
   const [categories, setCategories] = useState<Array<Category>>([]);
   const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
   const [place] = useLocalStorage<Place | null>(
@@ -21,27 +23,43 @@ const CategoryRentable = () => {
     InitialValue<Place>("selectedPlace"),
   );
   const itemsRef = useRef<(HTMLLabelElement | null)[]>([]);
-
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [showPrev, setShowPrev] = useState(false);
   const [showNext, setShowNext] = useState(false);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
+  const categoryIdURL = pathname.startsWith("/c/")
+    ? pathname.split("/")[2]
+    : null;
+
+  useEffect(() => {
+    if (categoryIdURL) {
+      setCategoryId(categoryIdURL);
+    }
+  }, [setCategoryId, categoryIdURL]);
 
   useEffect(() => {
     (async () => {
       const categoryApi = new CategoryApi();
-      try {
-        const response = await categoryApi.categoryActiveGet({
-          place: place?.id,
+
+      if (searchTerm) {
+        const response = await categoryApi.categorySearchRentableGet({
+          input: searchTerm,
         });
+
         setCategories(response);
         setLoading(false);
-      } catch (error) {
-        console.error("Erro ao buscar categorias:", error);
+        return;
       }
+
+      const response = await categoryApi.categoryActiveGet({
+        place: place?.id,
+      });
+      setCategories(response);
+      setLoading(false);
     })();
-  }, [place]);
+  }, [place, searchTerm]);
 
   const updateButtonsVisibility = () => {
     if (!containerRef.current) return;
@@ -65,26 +83,28 @@ const CategoryRentable = () => {
   };
 
   const handleCategoryClick = (id: string) => {
-    setCategoryId(categoryId === id ? undefined : id);
-    router.push(`/c/${id}`);
+    if (categoryId === id) {
+      setCategoryId(undefined);
+      router.push("/");
+    } else {
+      setCategoryId(id);
+    }
   };
 
   useEffect(() => {
-    const currentContainerRef = containerRef.current;
+    const container = containerRef.current;
 
-    if (currentContainerRef) {
-      currentContainerRef.addEventListener("scroll", updateButtonsVisibility);
+    if (container) {
+      container.addEventListener("scroll", updateButtonsVisibility);
       updateButtonsVisibility();
     }
+
     return () => {
-      if (currentContainerRef) {
-        currentContainerRef.removeEventListener(
-          "scroll",
-          updateButtonsVisibility,
-        );
+      if (container) {
+        container.removeEventListener("scroll", updateButtonsVisibility);
       }
     };
-  }, []);
+  }, [categories]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -96,7 +116,7 @@ const CategoryRentable = () => {
 
   if (loading)
     return (
-      <div className="relative flex gap-4 w-full overflow-hidden my-2 md:my-10 content-center justify-center">
+      <div className="relative flex gap-4 w-full overflow-hidden content-center justify-center">
         {[...Array(17)].map((_, index) => (
           <CategorySkeleton key={index} />
         ))}
@@ -104,14 +124,14 @@ const CategoryRentable = () => {
     );
 
   return (
-    <div className="relative w-full my-2 md:my-10">
+    <div className="relative w-full">
       <div
         ref={containerRef}
         className="flex gap-4 overflow-x-scroll scroll-smooth justify-start"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {categories.map((category, index) => {
-          const isActive = categoryId === category.id;
+          const isActive = categoryIdURL === category.id;
           const isHovered = hoveredCategory === index;
           const isAvailable =
             activeCategories.includes(category.id!) || !activeCategories.length;
@@ -131,35 +151,40 @@ const CategoryRentable = () => {
               : "text-slate-200";
 
           return (
-            <label
+            <UTMLink
+              href={isActive ? `/` : `/c/${category.id}`}
               key={category.id}
-              onMouseOver={
-                isAvailable ? () => setHoveredCategory(index) : undefined
-              }
-              onMouseOut={() => setHoveredCategory(null)}
-              className={`px-2 whitespace-nowrap cursor-pointer flex flex-col items-center transition-all duration-100 ${
-                isAvailable
-                  ? "opacity-100 cursor-pointer"
-                  : "opacity-50 cursor-not-allowed"
-              }`}
-              onClick={onClick}
-              ref={(el) => (itemsRef.current[index] = el)}
             >
-              <div
-                className={`h-10 w-full min-w-10 max-w-20 *:h-full bg-center p-2 box-border flex items-center justify-center ${colorSVG}`}
-                dangerouslySetInnerHTML={{ __html: category.iconSvg ?? "" }}
-              ></div>
-              <span
-                className={`text-xs font-medium whitespace-nowrap ${colorText}`}
-              >
-                {category.title}
-              </span>
-              <div
-                className={`w-full h-[2px] bg-slate-900 transition-opacity duration-300 mt-2 ${
-                  isActive || isHovered ? "opacity-100" : "opacity-0"
+              <label
+                key={category.id}
+                onMouseOver={
+                  isAvailable ? () => setHoveredCategory(index) : undefined
+                }
+                onMouseOut={() => setHoveredCategory(null)}
+                className={`px-2 whitespace-nowrap cursor-pointer flex flex-col items-center transition-all duration-100 ${
+                  isAvailable
+                    ? "opacity-100 cursor-pointer"
+                    : "opacity-50 cursor-not-allowed"
                 }`}
-              ></div>
-            </label>
+                onClick={onClick}
+                ref={(el) => (itemsRef.current[index] = el)}
+              >
+                <div
+                  className={`h-10 w-full min-w-10 max-w-20 *:h-full bg-center p-2 box-border flex items-center justify-center ${colorSVG}`}
+                  dangerouslySetInnerHTML={{ __html: category.iconSvg ?? "" }}
+                ></div>
+                <span
+                  className={`text-xs font-medium whitespace-nowrap ${colorText}`}
+                >
+                  {category.title}
+                </span>
+                <div
+                  className={`w-full h-[2px] bg-slate-900 transition-opacity duration-300 mt-2 ${
+                    isActive || isHovered ? "opacity-100" : "opacity-0"
+                  }`}
+                ></div>
+              </label>
+            </UTMLink>
           );
         })}
       </div>

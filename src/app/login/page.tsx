@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import Input from "@/shared/Input/Input";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   AuthenticationApi,
@@ -13,6 +12,7 @@ import Label from "@/components/Label/Label";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import UTMLink from "@/components/UTMLink";
 
 const PageLogin = () => {
   const [username, setUsername] = useState("");
@@ -113,9 +113,9 @@ const PageLogin = () => {
             <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
                 Senha
-                <Link href="/forgot-pass" className="text-sm text-green-600">
+                <UTMLink href="/forgot-pass" className="text-sm text-green-600">
                   Esqueceu sua senha?
-                </Link>
+                </UTMLink>
               </span>
               <Input
                 type="password"
@@ -135,9 +135,9 @@ const PageLogin = () => {
           {/* ==== */}
           <span className="block text-center text-neutral-700 dark:text-neutral-300">
             Novo usuário: {` `}
-            <Link className="text-green-600" href="/signup">
+            <UTMLink className="text-green-600" href="/signup">
               Crie a sua conta aqui
-            </Link>
+            </UTMLink>
             <div>
               <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
             </div>
