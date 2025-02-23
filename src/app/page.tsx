@@ -205,7 +205,6 @@ function PageHome() {
           place: selectedPlace?.id,
         });
       } else {
-        console.log("2");
         rentables = await rentableApi.rentableNewInTownGet({
           place: selectedPlace?.id || "Natal e Região Metropolitana",
         });

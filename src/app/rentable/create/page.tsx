@@ -175,7 +175,7 @@ const RentableCreate = () => {
             if (error instanceof ResponseError) {
               const errorData = await error.response.json();
               const message = errorData[0]?.message;
-              console.log(
+              console.error(
                 message ?? "Erro inesperado. Por favor, tente novamente.",
               );
             }
