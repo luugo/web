@@ -45,7 +45,7 @@ export default function MobileRedirect() {
 
     setTimeout(() => {
       window.location.href = redirectUrl;
-    }, 500);
+    }, 800);
   }, []);
 
   return (
