@@ -11,6 +11,7 @@ export type MainNav2LoggedProps = object;
 const MainNavigation: FC<MainNav2LoggedProps> = () => {
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const isCategory = pathname.startsWith("/c/");
 
   return (
     <>
@@ -22,9 +23,7 @@ const MainNavigation: FC<MainNav2LoggedProps> = () => {
           <Account />
         </div>
       </div>
-      {!isHome ? (
-        ""
-      ) : (
+      {(isHome || isCategory) && (
         <div className="relative mx-auto 2xl:px-20 xl:px-20 lg:px-10 md:px-10 sm:px-4 px-4 py-8">
           <HomeSearch />
         </div>

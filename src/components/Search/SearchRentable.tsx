@@ -47,9 +47,6 @@ const SearchRentable = () => {
   useEffect(() => {
     const searchQuery = searchParams.get("s");
 
-    console.log(searchQuery, " searchQuery");
-    console.log(searchTerm, " searchTerm");
-
     if (searchQuery && !searchTerm) {
       return;
     }
