@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { RentableGeolocation } from './RentableGeolocation';
+import {
+    RentableGeolocationFromJSON,
+    RentableGeolocationFromJSONTyped,
+    RentableGeolocationToJSON,
+} from './RentableGeolocation';
+
 /**
  * 
  * @export
@@ -49,6 +56,12 @@ export interface Place {
      * @memberof Place
      */
     state: string;
+    /**
+     * 
+     * @type {RentableGeolocation}
+     * @memberof Place
+     */
+    geolocation?: RentableGeolocation;
 }
 
 /**
@@ -78,6 +91,7 @@ export function PlaceFromJSONTyped(json: any, ignoreDiscriminator: boolean): Pla
         'updatedAt': !exists(json, 'updatedAt') ? undefined : (json['updatedAt'] === null ? null : new Date(json['updatedAt'])),
         'city': json['city'],
         'state': json['state'],
+        'geolocation': !exists(json, 'geolocation') ? undefined : RentableGeolocationFromJSON(json['geolocation']),
     };
 }
 
@@ -93,6 +107,7 @@ export function PlaceToJSON(value?: Place | null): any {
         'id': value.id,
         'city': value.city,
         'state': value.state,
+        'geolocation': RentableGeolocationToJSON(value.geolocation),
     };
 }
 

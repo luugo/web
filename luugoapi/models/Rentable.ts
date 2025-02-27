@@ -116,6 +116,12 @@ export interface Rentable {
      * @memberof Rentable
      */
     geolocation: RentableGeolocation;
+    /**
+     * 
+     * @type {number}
+     * @memberof Rentable
+     */
+    readonly distance?: number;
 }
 
 
@@ -175,6 +181,7 @@ export function RentableFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'userId': json['userId'],
         'categoryId': json['categoryId'],
         'geolocation': RentableGeolocationFromJSON(json['geolocation']),
+        'distance': !exists(json, 'distance') ? undefined : json['distance'],
     };
 }
 

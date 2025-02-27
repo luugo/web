@@ -53,8 +53,8 @@ const CategoryRentable = () => {
         return;
       }
 
-      const response = await categoryApi.categoryActiveGet({
-        place: place?.id,
+      const response = await categoryApi.categoryHotGet({
+        place: place != null ? place?.id : "Natal e Região Metropolitana",
       });
       setCategories(response);
       setLoading(false);

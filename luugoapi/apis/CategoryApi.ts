@@ -59,6 +59,9 @@ export interface CategoryPutRequest {
 
 export interface CategorySearchRentableGetRequest {
     input: string;
+    xUserLat?: number;
+    xUserLon?: number;
+    xMinDistance?: number;
     acceptLanguage?: string;
 }
 
@@ -340,6 +343,18 @@ export class CategoryApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xUserLat !== undefined && requestParameters.xUserLat !== null) {
+            headerParameters['X-User-Lat'] = String(requestParameters.xUserLat);
+        }
+
+        if (requestParameters.xUserLon !== undefined && requestParameters.xUserLon !== null) {
+            headerParameters['X-User-Lon'] = String(requestParameters.xUserLon);
+        }
+
+        if (requestParameters.xMinDistance !== undefined && requestParameters.xMinDistance !== null) {
+            headerParameters['X-Min-Distance'] = String(requestParameters.xMinDistance);
+        }
 
         if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
             headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);

@@ -56,8 +56,20 @@ export interface RentablePutRequest {
     acceptLanguage?: string;
 }
 
+export interface RentableSearchGetRequest {
+    xUserLat?: number;
+    xUserLon?: number;
+    xMinDistance?: number;
+    acceptLanguage?: string;
+    searchTerm?: string;
+    categoryId?: string;
+}
+
 export interface RentableSearchInputGetRequest {
     input: string;
+    xUserLat?: number;
+    xUserLon?: number;
+    xMinDistance?: number;
     acceptLanguage?: string;
     categoryId?: string;
 }
@@ -340,6 +352,58 @@ export class RentableApi extends runtime.BaseAPI {
      * Search Operation
      * C[R]UD
      */
+    async rentableSearchGetRaw(requestParameters: RentableSearchGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Rentable>>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.searchTerm !== undefined) {
+            queryParameters['searchTerm'] = requestParameters.searchTerm;
+        }
+
+        if (requestParameters.categoryId !== undefined) {
+            queryParameters['categoryId'] = requestParameters.categoryId;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xUserLat !== undefined && requestParameters.xUserLat !== null) {
+            headerParameters['X-User-Lat'] = String(requestParameters.xUserLat);
+        }
+
+        if (requestParameters.xUserLon !== undefined && requestParameters.xUserLon !== null) {
+            headerParameters['X-User-Lon'] = String(requestParameters.xUserLon);
+        }
+
+        if (requestParameters.xMinDistance !== undefined && requestParameters.xMinDistance !== null) {
+            headerParameters['X-Min-Distance'] = String(requestParameters.xMinDistance);
+        }
+
+        if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
+            headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
+        }
+
+        const response = await this.request({
+            path: `/rentable/search`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(RentableFromJSON));
+    }
+
+    /**
+     * Search Operation
+     * C[R]UD
+     */
+    async rentableSearchGet(requestParameters: RentableSearchGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Rentable>> {
+        const response = await this.rentableSearchGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search Operation
+     * C[R]UD
+     */
     async rentableSearchInputGetRaw(requestParameters: RentableSearchInputGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Rentable>>> {
         if (requestParameters.input === null || requestParameters.input === undefined) {
             throw new runtime.RequiredError('input','Required parameter requestParameters.input was null or undefined when calling rentableSearchInputGet.');
@@ -352,6 +416,18 @@ export class RentableApi extends runtime.BaseAPI {
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xUserLat !== undefined && requestParameters.xUserLat !== null) {
+            headerParameters['X-User-Lat'] = String(requestParameters.xUserLat);
+        }
+
+        if (requestParameters.xUserLon !== undefined && requestParameters.xUserLon !== null) {
+            headerParameters['X-User-Lon'] = String(requestParameters.xUserLon);
+        }
+
+        if (requestParameters.xMinDistance !== undefined && requestParameters.xMinDistance !== null) {
+            headerParameters['X-Min-Distance'] = String(requestParameters.xMinDistance);
+        }
 
         if (requestParameters.acceptLanguage !== undefined && requestParameters.acceptLanguage !== null) {
             headerParameters['Accept-Language'] = String(requestParameters.acceptLanguage);
