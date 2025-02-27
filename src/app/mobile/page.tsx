@@ -28,7 +28,10 @@ export default function MobileRedirect() {
       .filter((param) => param)
       .join("&");
 
-    if (utmParams) {
+    if (platform === "android" && utmParams) {
+      const referrerValue = encodeURIComponent(utmParams);
+      redirectUrl += `&referrer=${referrerValue}`;
+    } else if (utmParams) {
       redirectUrl += (redirectUrl.includes("?") ? "&" : "?") + utmParams;
     }
 
