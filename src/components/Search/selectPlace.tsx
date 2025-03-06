@@ -20,13 +20,12 @@ const SelectPlace = () => {
     null,
   );
 
-  // Corrigindo a tipagem do estado
   const [options, setOptions] = useState<Option[]>([]);
 
   useEffect(() => {
     setOptions(
       places.map((place) => ({
-        value: place.id.toString(), // Certifique-se de que value seja string
+        value: place.id.toString(),
         label: `${place.city} - ${place.state}`,
       })),
     );
@@ -95,13 +94,24 @@ const SelectPlace = () => {
         }
         isSearchable
         placeholder="Buscar local..."
+        noOptionsMessage={() => "Nenhum local encontrado"}
         styles={{
-          control: (base) => ({
+          control: (base, state) => ({
             ...base,
             borderRadius: "9999px",
-            border: "none",
+            border: `2px solid ${state.isFocused ? "#4FD1C5" : "transparent"}`,
             boxShadow: "none",
-            ":hover": { borderColor: "teal" },
+            ":hover": {
+              borderColor: "#CBD5E0",
+            },
+          }),
+          indicatorSeparator: (base) => ({
+            ...base,
+            display: "none",
+          }),
+          dropdownIndicator: (base) => ({
+            ...base,
+            color: "#6b7280",
           }),
         }}
       />

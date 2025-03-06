@@ -111,7 +111,7 @@ const SearchRentable = () => {
             className={`bg-white text-slate-900 2xl:w-[45%] xl:w-[55%] lg:w-[60%] md:w-[85%] w-full shadow-md ring-2 rounded-full flex items-center gap-2 hover:ring-2 hover:ring-slate-200 ${isFocused ? "ring-teal-400" : "ring-slate-100"}`}
             onSubmit={handleSearchSubmit}
           >
-            <div className="relative w-full px-5 h-14 inline-flex cntent-center items-center">
+            <div className="relative w-full px-5 h-14 inline-flex content-center items-center">
               {!isFocused && !inputValue && (
                 <span className="text-slate-400 inline-block h-auto">
                   <TypingPlaceholder placeholders={placeholders} />
@@ -124,7 +124,7 @@ const SearchRentable = () => {
                 placeholder={isFocused ? "" : undefined}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-base absolute z-10 left-0 top-0 h-full"
+                className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-base absolute z-10 left-0 top-0 h-full px-3"
               />
             </div>
             {width >= 768 && <SelectPlace />}

@@ -29,7 +29,6 @@ const config: Config = {
         "2xl": "128px",
       },
     },
-
     extend: {
       colors: {
         primary: customColors("--c-primary"),
@@ -41,8 +40,7 @@ const config: Config = {
   variants: {
     extend: {},
   },
-  plugins: [typography, forms, aspectRatio],
+  plugins: [typography, aspectRatio, forms({ strategy: "class" })],
 };
-
 
 export default config;
