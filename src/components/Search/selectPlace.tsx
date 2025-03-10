@@ -2,10 +2,15 @@
 
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { Place, PlaceApi, PlaceGetRequest } from "@api";
-import { Select } from "@headlessui/react";
-import { useEffect } from "react";
+import Select from "react-select";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import useDataSearch from "./dataSearch";
+
+interface Option {
+  value: string;
+  label: string;
+}
 
 const SelectPlace = () => {
   const router = useRouter();
@@ -15,13 +20,27 @@ const SelectPlace = () => {
     null,
   );
 
-  const handleSelectPlace = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const [options, setOptions] = useState<Option[]>([]);
+
+  useEffect(() => {
+    setOptions(
+      places.map((place) => ({
+        value: place.id.toString(),
+        label: `${place.city} - ${place.state}`,
+      })),
+    );
+  }, [places]);
+
+  const handleSelectPlace = (selectedOption: Option | null) => {
+    if (!selectedOption) return;
+
     const selected =
-      places.find((item) => item.id === event.target.value) || null;
+      places.find((item) => item.id.toString() === selectedOption.value) ||
+      null;
 
     if (selected) {
       const urlParams = new URLSearchParams(window.location.search);
-      urlParams.set("p", selected.id);
+      urlParams.set("p", selected.id.toString());
       router.replace(`?${urlParams.toString()}`);
 
       setPlaces([
@@ -53,37 +72,50 @@ const SelectPlace = () => {
     if (selectedPlace) {
       const urlParams = new URLSearchParams(window.location.search);
 
-      if (urlParams.get("p") !== selectedPlace.id) {
-        urlParams.set("p", selectedPlace.id);
+      if (urlParams.get("p") !== selectedPlace.id.toString()) {
+        urlParams.set("p", selectedPlace.id.toString());
         router.replace(`?${urlParams.toString()}`);
       }
     }
   }, [selectedPlace, router]);
 
   return (
-    <>
-      <div className="py-1">
-        <Select
-          className={
-            "border-none h-full min-w-[273px] bg-transparent focus:outline-none focus:ring-2 focus:ring-teal-400 hover:ring-2 hover:ring-slate-200 ring-teal-400 text-base rounded-full inline-block"
-          }
-          onChange={handleSelectPlace}
-          value={selectedPlace ? selectedPlace?.id : undefined}
-        >
-          <option key={0} value={undefined}>
-            {selectedPlace
-              ? `${selectedPlace.city} - ${selectedPlace.state}`
-              : "Brasil"}
-          </option>
-          {places.length &&
-            places?.map((item: Place) => (
-              <option key={item.id} value={item.id}>
-                {item.city} - {item.state}
-              </option>
-            ))}
-        </Select>
-      </div>
-    </>
+    <div className="py-1 min-w-[273px]">
+      <Select
+        options={options}
+        onChange={handleSelectPlace}
+        value={
+          selectedPlace
+            ? {
+                value: selectedPlace.id.toString(),
+                label: `${selectedPlace.city} - ${selectedPlace.state}`,
+              }
+            : null
+        }
+        isSearchable
+        placeholder="Buscar local..."
+        noOptionsMessage={() => "Nenhum local encontrado"}
+        styles={{
+          control: (base, state) => ({
+            ...base,
+            borderRadius: "9999px",
+            border: `2px solid ${state.isFocused ? "#4FD1C5" : "transparent"}`,
+            boxShadow: "none",
+            ":hover": {
+              borderColor: "#CBD5E0",
+            },
+          }),
+          indicatorSeparator: (base) => ({
+            ...base,
+            display: "none",
+          }),
+          dropdownIndicator: (base) => ({
+            ...base,
+            color: "#6b7280",
+          }),
+        }}
+      />
+    </div>
   );
 };
 

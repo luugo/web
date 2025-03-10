@@ -4,6 +4,7 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 const SelectedPlaceMobile = () => {
   const router = useRouter();
@@ -13,6 +14,7 @@ const SelectedPlaceMobile = () => {
     null,
   );
   const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleSelectPlace = (place: Place) => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -57,6 +59,12 @@ const SelectedPlaceMobile = () => {
     }
   }, [selectedPlace, router]);
 
+  const filteredPlaces = places.filter(
+    (place) =>
+      place.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      place.state.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
+
   return (
     <div className="relative w-full">
       <div
@@ -91,10 +99,19 @@ const SelectedPlaceMobile = () => {
           >
             ✕
           </button>
-
+          <div className="mb-4 relative pt-6">
+            <input
+              type="text"
+              placeholder="Pesquisar cidade ou estado"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md"
+            />
+            <MagnifyingGlassIcon className="absolute left-3 top-8 w-6 h-6 text-slate-900 fill-current" />
+          </div>
           <div className="mt-8">
-            {places.length > 0 ? (
-              places.map((item) => (
+            {filteredPlaces.length > 0 ? (
+              filteredPlaces.map((item) => (
                 <div
                   key={item.id}
                   className="px-4 py-3 text-lg hover:bg-gray-100 cursor-pointer"
