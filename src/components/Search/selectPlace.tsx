@@ -40,7 +40,6 @@ const SelectPlace = () => {
 
     if (selected) {
       const urlParams = new URLSearchParams(window.location.search);
-      urlParams.set("p", selected.id.toString());
       router.replace(`?${urlParams.toString()}`);
 
       setPlaces([

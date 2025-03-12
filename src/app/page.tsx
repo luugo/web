@@ -6,6 +6,7 @@ import {
   Place,
   Rentable,
   RentableApi,
+  RentableSearchGetRequest,
   RentableSearchInputGetRequest,
 } from "@api";
 import RentableCard from "@/components/RentableCard/RentableCard";
@@ -39,7 +40,6 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
         zIndex: 1000,
       }}
     >
-      {/* Logo centralizado no topo */}
       <div
         style={{
           display: "flex",
@@ -56,7 +56,6 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
         />
       </div>
 
-      {/* Texto do popup */}
       <h2
         style={{
           fontSize: "16px",
@@ -65,10 +64,9 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
           lineHeight: "1.4",
         }}
       >
-        Abra o app para alugar com mais facilidade e rapidez
+        Abra o app para usar o LuuGo com mais facilidade e rapidez
       </h2>
 
-      {/* Botão principal */}
       {os && (
         <a
           href={appLinks[os]}
@@ -88,7 +86,6 @@ const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
         </a>
       )}
 
-      {/* Botão de "Agora não" */}
       <button
         onClick={onClose}
         style={{
@@ -136,36 +133,22 @@ function PageHome() {
   useEffect(() => {
     const rentableApi = new RentableApi();
 
-    const fetchRentables = async () => {
+    (async () => {
       let rentables: Rentable[] = [];
       if (searchTerm) {
         const input: RentableSearchInputGetRequest = { input: searchTerm };
         rentables = await rentableApi.rentableSearchInputGet(input);
       } else {
-        rentables = await rentableApi.rentableNewInTownGet({
-          place: selectedPlace?.id || "Natal e Região Metropolitana",
-        });
-        shuffle(rentables);
+        const input: RentableSearchGetRequest = {
+          xUserLon: selectedPlace?.geolocation?.x || -35.21939757423468,
+          xUserLat: selectedPlace?.geolocation?.y || -5.8735889811810615,
+        };
+
+        rentables = await rentableApi.rentableSearchGet(input);
       }
       setRentables(rentables);
-    };
-
-    fetchRentables();
-  }, [selectedPlace?.id, searchTerm, searchQuery]);
-
-  function shuffle(array: Rentable[]) {
-    let currentIndex = array.length;
-
-    while (currentIndex != 0) {
-      const randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
-      ];
-    }
-  }
+    })();
+  }, [selectedPlace, searchTerm, searchQuery]);
 
   const closePopup = () => {
     setShowPopup(false);

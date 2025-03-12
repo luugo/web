@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link, { LinkProps } from "next/link";
 import { UrlObject } from "url";
 
@@ -9,13 +9,12 @@ interface UTMLinkProps<RouteInferType = unknown>
   children: React.ReactNode;
 }
 
-const utmParamsList = ["utm_source", "utm_medium", "utm_campaign", "p", "s"];
+const utmParamsList = ["utm_source", "utm_medium", "utm_campaign"];
 
 const getUTMParams = (): Record<string, string> => {
   const params: Record<string, string> = {};
 
   if (typeof window !== "undefined") {
-    // Ensure this runs on client
     utmParamsList.forEach((param) => {
       const value = localStorage.getItem(param);
       if (value) {
@@ -31,7 +30,7 @@ const appendUTMParams = (
   href: UrlObject,
   utmParams: Record<string, string>,
 ): UrlObject => {
-  if (typeof window === "undefined") return href; // Prevent running on server
+  if (typeof window === "undefined") return href;
 
   const url = new URL(href.pathname || "", window.location.origin);
 

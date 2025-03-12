@@ -3,7 +3,7 @@
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { Place } from "@api";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useDataSearch from "./dataSearch";
 import TypingPlaceholder from "./TypingPlaceholder";
 import SearchRentableSkeleton from "../Skeleton/SearchRentableSkeleton";
@@ -21,12 +21,12 @@ const SearchRentable = () => {
     null,
   );
   const [isFocused, setIsFocused] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [inputValue, setInputValue] = useState<string>("");
   const { width } = useViewportSize();
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
   }, []);
 
   const updateURL = useCallback(
@@ -106,6 +106,8 @@ const SearchRentable = () => {
   return (
     <>
       {loading ? (
+        <SearchRentableSkeleton />
+      ) : (
         <>
           <form
             className={`bg-white text-slate-900 2xl:w-[45%] xl:w-[55%] lg:w-[60%] md:w-[85%] w-full shadow-md ring-2 rounded-full flex items-center gap-2 hover:ring-2 hover:ring-slate-200 ${isFocused ? "ring-teal-400" : "ring-slate-100"}`}
@@ -137,8 +139,6 @@ const SearchRentable = () => {
           </form>
           {width < 768 && <SelectedPlaceMobile />}
         </>
-      ) : (
-        <SearchRentableSkeleton />
       )}
     </>
   );
