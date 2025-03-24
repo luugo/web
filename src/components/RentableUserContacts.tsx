@@ -43,47 +43,10 @@ const RentableUserContacts = (data: { [key: string]: UserContact }) => {
     <div className="w-full rounded-2xl space-y-2.5">
       <ul>
         {dataArray.map((item) => {
+          const message = encodeURI(
+            "Olá! Estou interessado(a) no seu anuncio que encontrei no aplicativo LuuGo. Podemos conversar sobre disponibilidade e detalhes?",
+          );
           switch (item.type) {
-            case "INSTAGRAM":
-              return (
-                <li key={item.id} className={"mb-1"}>
-                  {isClient &&
-                    renderSocialIcon(
-                      faInstagram,
-                      `@${item.value}`,
-                      `https://instagram.com/${item.value}`,
-                    )}
-                </li>
-              );
-            case "FACEBOOK":
-              return (
-                <li key={item.id} className={"mb-1"}>
-                  {isClient &&
-                    renderSocialIcon(
-                      faFacebook,
-                      item.value,
-                      `https://fb.me/${item.value}`,
-                    )}
-                </li>
-              );
-            case "EMAIL":
-              return (
-                <li key={item.id} className={"mb-1"}>
-                  {isClient &&
-                    renderSocialIcon(
-                      faEnvelope,
-                      item.value,
-                      `mailto:${item.value}`,
-                    )}
-                </li>
-              );
-            case "PHONE":
-              return (
-                <li key={item.id} className={"mb-1"}>
-                  {isClient &&
-                    renderSocialIcon(faPhone, item.value, `tel:${item.value}`)}
-                </li>
-              );
             case "WHATSAPP":
               return (
                 <li key={item.id} className={"mb-1"}>
@@ -91,16 +54,12 @@ const RentableUserContacts = (data: { [key: string]: UserContact }) => {
                     renderSocialIcon(
                       faWhatsapp,
                       item.value,
-                      `https://wa.me/${item.value.replace(/\D/g, "")}`,
+                      `https://wa.me/${item.value.replace(/\D/g, "")}?text=${message}`,
                     )}
                 </li>
               );
             default:
-              return (
-                <li key={item.id} className={"mb-1"}>
-                  <p>{item.value}</p>
-                </li>
-              );
+              return;
           }
         })}
       </ul>
