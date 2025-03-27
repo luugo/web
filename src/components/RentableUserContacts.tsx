@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  faFacebook,
-  faInstagram,
-  faWhatsapp,
-  IconDefinition,
-} from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faWhatsapp, IconDefinition } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserContact } from "@api";
 
