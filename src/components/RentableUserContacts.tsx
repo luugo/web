@@ -43,11 +43,16 @@ const RentableUserContacts = (data: { [key: string]: UserContact }) => {
           switch (item.type) {
             case "WHATSAPP":
               return (
-                <li key={item.id} className={"mb-1"}>
+                <li
+                  key={item.id}
+                  className={
+                    "mb-1 bg-blue-950 hover:cursor-pointer hover:bg-blue-900 text-white text-center font-bold py-2 px-4 rounded"
+                  }
+                >
                   {isClient &&
                     renderSocialIcon(
                       faWhatsapp,
-                      item.value,
+                      "Entrar em contato",
                       `https://wa.me/${item.value.replace(/\D/g, "")}?text=${message}`,
                     )}
                 </li>
