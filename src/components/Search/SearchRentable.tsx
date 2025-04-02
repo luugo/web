@@ -57,23 +57,6 @@ const SearchRentable = () => {
     }
   }, [searchTerm, setSearchTerm, selectedPlace?.id, updateURL, searchParams]);
 
-  useEffect(() => {
-    const placeQuery = searchParams.get("p");
-
-    if (placeQuery) {
-      if (!selectedPlace || selectedPlace.id !== placeQuery) {
-        const [city, state] = placeQuery.split("/");
-        const newSelectedPlace = {
-          id: placeQuery,
-          city: city || "",
-          state: state || "",
-        };
-
-        setSelectedPlace(newSelectedPlace);
-      }
-    }
-  }, [selectedPlace, setSelectedPlace, searchParams]);
-
   const placeholders = [
     "carro...",
     "furadeira...",
