@@ -16,10 +16,7 @@ const SearchRentable = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { searchTerm, setSearchTerm, setActiveCategories } = useDataSearch();
-  const [selectedPlace, setSelectedPlace] = useLocalStorage<Place | null>(
-    "selectedPlace",
-    null,
-  );
+  const [selectedPlace] = useLocalStorage<Place | null>("selectedPlace", null);
   const [isFocused, setIsFocused] = useState(false);
   const [loading, setLoading] = useState(true);
   const [inputValue, setInputValue] = useState<string>("");
