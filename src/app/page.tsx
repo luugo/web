@@ -13,17 +13,17 @@ import RentableCard from "@/components/RentableCard/RentableCard";
 import RentableCardSkeleton from "@/components/Skeleton/RentableCard";
 import useDataSearch from "@/components/Search/dataSearch";
 import { useSearchParams } from "next/navigation";
-import PageNoResults from './no-results';
+import PageNoResults from "./no-results";
 
 interface MobilePopupProps {
   os?: "android" | "ios";
   onClose: () => void;
 }
 
-const DEFAULT_PLACE: Pick<RentableSearchGetRequest, 'xUserLat' | 'xUserLon'> = {
+const DEFAULT_PLACE: Pick<RentableSearchGetRequest, "xUserLat" | "xUserLon"> = {
   xUserLon: -35.21939757423468,
   xUserLat: -5.8735889811810615,
-}
+};
 
 const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
   const appLinks = {
@@ -144,7 +144,7 @@ function PageHome() {
 
     (async () => {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
         let rentables: Rentable[] = [];
 
         if (searchTerm) {
@@ -181,17 +181,19 @@ function PageHome() {
             <RentableCardSkeleton key={index} />
           ))}
         </div>
-      )
+      );
     }
 
-    if (!rentables?.length) return <PageNoResults />
+    if (!rentables?.length) return <PageNoResults />;
 
     return (
       <div className="grid gap-6 pb-10 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
-        {rentables?.map((rentable, index) => (<RentableCard rentable={rentable} key={index} />))}
+        {rentables?.map((rentable, index) => (
+          <RentableCard rentable={rentable} key={index} />
+        ))}
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <>

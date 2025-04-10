@@ -3,7 +3,7 @@
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { Place } from "@api";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import TypingPlaceholder from "./TypingPlaceholder";
 import SearchRentableSkeleton from "../Skeleton/SearchRentableSkeleton";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -18,7 +18,7 @@ const SearchRentable = () => {
   const [selectedPlace] = useLocalStorage<Place | null>("selectedPlace", null);
   const [isFocused, setIsFocused] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [inputValue, setInputValue] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>("");
   const { width } = useViewportSize();
 
   useEffect(() => {
@@ -54,8 +54,8 @@ const SearchRentable = () => {
         s: inputValue || undefined,
         p: selectedPlace?.id,
       })
-        .filter(([_, value]) => value !== undefined)
-        .map(([key, value]) => [key, value!.toString()])
+        .filter(([, value]) => value !== undefined)
+        .map(([key, value]) => [key, value!.toString()]),
     );
 
     router.replace(`/?${params.toString()}`);

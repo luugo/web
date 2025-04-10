@@ -13,7 +13,7 @@ const PageNoResults = () => (
           alt="not-found"
         />
         <span className="block text-sm text-neutral-800 pt-8 sm:text-base dark:text-neutral-200 tracking-wider font-medium">
-          {'Nenhum resultado encontrado para a sua pesquisa.'}{" "}
+          {"Nenhum resultado encontrado para a sua pesquisa."}{" "}
         </span>
         <div className="pt-8">
           <ButtonPrimary href="/">Retornar à página inicial</ButtonPrimary>
