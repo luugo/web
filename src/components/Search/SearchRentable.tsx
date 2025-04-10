@@ -4,7 +4,6 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { Place } from "@api";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import React, { useCallback, useEffect, useState } from "react";
-import useDataSearch from "./dataSearch";
 import TypingPlaceholder from "./TypingPlaceholder";
 import SearchRentableSkeleton from "../Skeleton/SearchRentableSkeleton";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -15,44 +14,20 @@ import useViewportSize from "@/utils/useViewportSize";
 const SearchRentable = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { searchTerm, setSearchTerm, setActiveCategories } = useDataSearch();
+  const searchQuery = searchParams.get("s");
   const [selectedPlace] = useLocalStorage<Place | null>("selectedPlace", null);
   const [isFocused, setIsFocused] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>('');
   const { width } = useViewportSize();
 
   useEffect(() => {
     setLoading(false);
   }, []);
 
-  const updateURL = useCallback(
-    (newSearchTerm?: string, newPlaceId?: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-
-      if (newSearchTerm) params.set("s", newSearchTerm);
-      else params.delete("s");
-
-      if (newPlaceId) params.set("p", newPlaceId);
-      else params.delete("p");
-
-      router.replace(params.toString() ? `?${params.toString()}` : "/");
-    },
-    [router, searchParams],
-  );
-
   useEffect(() => {
-    const searchQuery = searchParams.get("s");
-
-    if (searchQuery && !searchTerm) {
-      return;
-    }
-
-    if (searchTerm && searchTerm !== searchQuery) {
-      setInputValue(searchTerm);
-      updateURL(searchTerm, selectedPlace?.id);
-    }
-  }, [searchTerm, setSearchTerm, selectedPlace?.id, updateURL, searchParams]);
+    setInputValue(searchQuery || "");
+  }, [searchQuery]);
 
   const placeholders = [
     "carro...",
@@ -74,13 +49,16 @@ const SearchRentable = () => {
 
   const handleSearchSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const params = new URLSearchParams(
+      Object.entries({
+        s: inputValue || undefined,
+        p: selectedPlace?.id,
+      })
+        .filter(([_, value]) => value !== undefined)
+        .map(([key, value]) => [key, value!.toString()])
+    );
 
-    if (inputValue === "") {
-      setActiveCategories([]);
-      setSearchTerm(undefined);
-      router.replace(`/`);
-    }
-    setSearchTerm(inputValue);
+    router.replace(`/?${params.toString()}`);
   };
 
   return (
