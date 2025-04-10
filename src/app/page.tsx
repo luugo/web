@@ -13,11 +13,17 @@ import RentableCard from "@/components/RentableCard/RentableCard";
 import RentableCardSkeleton from "@/components/Skeleton/RentableCard";
 import useDataSearch from "@/components/Search/dataSearch";
 import { useSearchParams } from "next/navigation";
+import PageNoResults from "./no-results";
 
 interface MobilePopupProps {
   os?: "android" | "ios";
   onClose: () => void;
 }
+
+const DEFAULT_PLACE: Pick<RentableSearchGetRequest, "xUserLat" | "xUserLon"> = {
+  xUserLon: -35.21939757423468,
+  xUserLat: -5.8735889811810615,
+};
 
 const MobilePopup: React.FC<MobilePopupProps> = ({ os, onClose }) => {
   const appLinks = {
@@ -116,7 +122,10 @@ function PageHome() {
   const [showPopup, setShowPopup] = useState(true);
   const [selectedPlace] = useLocalStorage<Place | null>("selectedPlace", null);
   const [rentables, setRentables] = useState<Rentable[] | undefined>(undefined);
-  const { searchTerm } = useDataSearch();
+  const { searchTerm } = useDataSearch(() => ({
+    searchTerm: searchQuery,
+  }));
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const userAgent = navigator.userAgent;
@@ -134,19 +143,29 @@ function PageHome() {
     const rentableApi = new RentableApi();
 
     (async () => {
-      let rentables: Rentable[] = [];
-      if (searchTerm) {
-        const input: RentableSearchInputGetRequest = { input: searchTerm };
-        rentables = await rentableApi.rentableSearchInputGet(input);
-      } else {
-        const input: RentableSearchGetRequest = {
-          xUserLon: selectedPlace?.geolocation?.x || -35.21939757423468,
-          xUserLat: selectedPlace?.geolocation?.y || -5.8735889811810615,
-        };
+      try {
+        setIsLoading(true);
+        let rentables: Rentable[] = [];
 
-        rentables = await rentableApi.rentableSearchGet(input);
+        if (searchTerm) {
+          const input: RentableSearchInputGetRequest = { input: searchTerm };
+          rentables = await rentableApi.rentableSearchInputGet(input);
+        } else {
+          const input: RentableSearchGetRequest = {
+            xUserLon: selectedPlace?.geolocation?.x ?? DEFAULT_PLACE.xUserLon,
+            xUserLat: selectedPlace?.geolocation?.y ?? DEFAULT_PLACE.xUserLat,
+          };
+
+          rentables = await rentableApi.rentableSearchGet(input);
+        }
+        setRentables(rentables);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error("Error fetching rentables:", error.message);
+        }
+      } finally {
+        setIsLoading(false);
       }
-      setRentables(rentables);
     })();
   }, [selectedPlace, searchTerm, searchQuery]);
 
@@ -154,29 +173,33 @@ function PageHome() {
     setShowPopup(false);
   };
 
+  const renderRentables = () => {
+    if (isLoading) {
+      return (
+        <div className="grid gap-6 pb-10 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
+          {[...Array(12)].map((_, index) => (
+            <RentableCardSkeleton key={index} />
+          ))}
+        </div>
+      );
+    }
+
+    if (!rentables?.length) return <PageNoResults />;
+
+    return (
+      <div className="grid gap-6 pb-10 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
+        {rentables?.map((rentable, index) => (
+          <RentableCard rentable={rentable} key={index} />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <>
       {isMobile && showPopup && <MobilePopup os={os} onClose={closePopup} />}
       <div className="flex-row justify-center px-4 2xl:px-20 xl:px-20 lg:px-10 md:px-10 sm:px-4">
-        <div className="grid gap-6 pb-10 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
-          {rentables === undefined ? (
-            <>
-              {[...Array(12)].map((_, index) => (
-                <RentableCardSkeleton key={index} />
-              ))}
-            </>
-          ) : rentables.length > 0 ? (
-            rentables.map((rentable, index) => (
-              <RentableCard rentable={rentable} key={index} />
-            ))
-          ) : (
-            <>
-              {[...Array(12)].map((_, index) => (
-                <RentableCardSkeleton key={index} />
-              ))}
-            </>
-          )}
-        </div>
+        {renderRentables()}
       </div>
     </>
   );

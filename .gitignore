@@ -2,3 +2,4 @@ node_modules
 .next
 openapi.yaml
 .idea/
+*.DS_Store
